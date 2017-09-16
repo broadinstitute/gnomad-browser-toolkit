@@ -20,8 +20,12 @@ serve:
 	@echo "  $(P) serve $(SERVER_FLAGS)" ; \
 	lsof -ti:8008| xargs kill ; \
 	cd ../dev-server ; \
-	pwd; \
-	ls; \
 	$(BINDIR)/webpack-dev-server $(SERVER_FLAGS)
 
-.PHONY: install lib clean build serve
+COMPONENT_NAME=$(shell basename `pwd`)
+
+prototype:
+	@echo "import Example from '@broad/$(COMPONENT_NAME)/src/example'; export default Example" > ../dev-server/src/current.js
+	@$(MAKE) serve
+
+.PHONY: install lib clean build serve prototype
