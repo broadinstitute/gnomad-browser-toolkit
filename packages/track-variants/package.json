@@ -10,7 +10,7 @@
     "example": "gnomad-browser-toolkit-scripts example"
   },
   "dependencies": {
-    "@gnomad/region-viewer": "*",
+    "@gnomad/region-viewer": "^1.0.0",
     "d3-scale": "^2.2.2",
     "prop-types": "^15.7.2"
   },
