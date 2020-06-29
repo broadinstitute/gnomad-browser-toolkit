@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 
-import { RegionViewerContext } from '@gnomad/region-viewer'
+import { RegionViewerContext } from './RegionViewer'
 
 const CursorWrapper = styled.div`
   position: relative;
