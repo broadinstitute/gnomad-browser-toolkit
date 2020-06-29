@@ -4,7 +4,7 @@
   "license": "MIT",
   "main": "src/index.js",
   "scripts": {
-    "example": "gnomadjs-scripts example"
+    "example": "gnomad-browser-toolkit-scripts example"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.8.1",
