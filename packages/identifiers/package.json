@@ -1,7 +1,7 @@
 {
   "name": "@gnomad/identifiers",
   "main": "src/identifiers.js",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "license": "MIT",
   "files": [
     "lib"
