@@ -2,11 +2,10 @@
   "name": "@gnomad/ui",
   "version": "1.0.0",
   "license": "MIT",
-  "main": "src/index.js",
-  "files": [
-    "lib"
-  ],
+  "main": "lib/cjs/index.js",
+  "files": ["lib"],
   "scripts": {
+    "build": "gnomad-browser-toolkit-scripts build",
     "example": "gnomad-browser-toolkit-scripts example"
   },
   "dependencies": {

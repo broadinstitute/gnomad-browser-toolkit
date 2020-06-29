@@ -1,4 +1,5 @@
+# Dependencies
 node_modules
 
-packages/**/lib
-packages/**/dist
+# Build output
+packages/*/lib

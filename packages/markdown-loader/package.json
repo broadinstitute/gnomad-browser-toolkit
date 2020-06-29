@@ -2,11 +2,10 @@
   "name": "@gnomad/markdown-loader",
   "version": "1.0.0",
   "license": "MIT",
-  "main": "src/markdownLoader.js",
-  "files": [
-    "src"
-  ],
+  "main": "lib/cjs/markdownLoader.js",
+  "files": ["lib"],
   "scripts": {
+    "build": "rm -r lib && mkdir lib && cp -R src lib/cjs",
     "example": "webpack-dev-server --config=./example/webpack.config.js --port=8000"
   },
   "dependencies": {

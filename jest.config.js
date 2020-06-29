@@ -12,7 +12,7 @@ module.exports = {
   projects: [
     ...packages.map(pkg => ({
       displayName: pkg,
-      testMatch: [`<rootDir>/packages/${pkg}/**/*.spec.js`],
+      testMatch: [`<rootDir>/packages/${pkg}/src/**/*.spec.js`],
       setupFilesAfterEnv: ['@testing-library/jest-dom'],
     })),
   ],

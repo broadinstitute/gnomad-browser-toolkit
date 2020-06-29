@@ -1,41 +1,24 @@
 const path = require('path')
 
-module.exports = {
-  presets: [
-    [
-      '@babel/preset-env',
-      {
-        targets: ['last 2 versions', 'ie >= 10'],
-        useBuiltIns: 'entry',
-        corejs: 3,
-        exclude: ['transform-typeof-symbol'],
-        modules: process.env.NODE_ENV === 'test' ? 'auto' : false,
-      },
-    ],
-    [
-      '@babel/preset-react',
-      {
-        useBuiltIns: false,
-      },
-    ],
-  ],
-  plugins: [
-    '@babel/plugin-proposal-class-properties',
-    'inline-react-svg',
-    'react-hot-loader/babel',
-    'styled-components',
-    [
-      'module-resolver',
-      {
-        alias: {
-          '@resources': path.resolve(__dirname, './resources'),
-        },
-      },
-    ],
-  ],
+const config = {
+  presets: ['@babel/preset-env', '@babel/preset-react'],
+  plugins: ['@babel/plugin-proposal-class-properties', 'styled-components', 'inline-react-svg'],
   env: {
     test: {
       plugins: ['@babel/plugin-transform-runtime'],
     },
   },
 }
+
+if (process.env.NODE_ENV === 'development') {
+  config.plugins.push([
+    'module-resolver',
+    {
+      alias: {
+        '@resources': path.resolve(__dirname, './resources'),
+      },
+    },
+  ])
+}
+
+module.exports = config

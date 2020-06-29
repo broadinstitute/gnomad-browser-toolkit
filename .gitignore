@@ -5,3 +5,8 @@ yarn-error.log*
 
 # Dependencies
 node_modules
+
+# Build output
+packages/*/lib
+
+resources

@@ -43,9 +43,4 @@ module.exports = {
       template: path.resolve(__dirname, './index.html'),
     }),
   ],
-  resolve: {
-    alias: {
-      'react-dom': '@hot-loader/react-dom',
-    },
-  },
 }
