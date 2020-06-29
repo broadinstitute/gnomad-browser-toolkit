@@ -39,16 +39,6 @@ const Wrapper = styled.div`
 
 const allTissues = Object.keys(GTEX_TISSUE_NAMES)
 
-const TissueExpressionsPropType = PropTypes.shape(
-  allTissues.reduce(
-    (acc, tissueName) => ({
-      ...acc,
-      [tissueName]: PropTypes.number,
-    }),
-    {}
-  )
-)
-
 const padding = 10
 
 export function TissueIsoformExpressionPlotHeader({
@@ -102,7 +92,7 @@ export function TissueIsoformExpressionPlotHeader({
 
 TissueIsoformExpressionPlotHeader.propTypes = {
   children: PropTypes.node,
-  maxTissueExpressions: TissueExpressionsPropType.isRequired,
+  maxTissueExpressions: PropTypes.objectOf(PropTypes.number).isRequired,
   onChangeTissue: PropTypes.func.isRequired,
   selectedTissue: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
@@ -162,11 +152,11 @@ export function TissueIsoformExpressionPlot({
 
 TissueIsoformExpressionPlot.propTypes = {
   height: PropTypes.number.isRequired,
-  maxTissueExpressions: TissueExpressionsPropType.isRequired,
+  maxTissueExpressions: PropTypes.objectOf(PropTypes.number).isRequired,
   selectedTissue: PropTypes.string.isRequired,
   transcript: PropTypes.shape({
     transcript_id: PropTypes.string.isRequired,
-    gtex_tissue_expression: TissueExpressionsPropType.isRequired,
+    gtex_tissue_expression: PropTypes.objectOf(PropTypes.number).isRequired,
   }).isRequired,
   width: PropTypes.number.isRequired,
 }
@@ -243,7 +233,7 @@ TranscriptsTrackWithTissueExpression.propTypes = {
           stop: PropTypes.number.isRequired,
         })
       ).isRequired,
-      gtex_tissue_expression: TissueExpressionsPropType.isRequired,
+      gtex_tissue_expression: PropTypes.objectOf(PropTypes.number).isRequired,
     })
   ).isRequired,
 }
