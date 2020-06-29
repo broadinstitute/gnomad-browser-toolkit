@@ -6,6 +6,9 @@ yarn-error.log*
 # Dependencies
 node_modules
 
+# Output of 'npm pack'
+*.tgz
+
 # Build output
 packages/*/lib
 
