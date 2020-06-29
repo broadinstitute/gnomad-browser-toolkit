@@ -22,9 +22,6 @@
     "react-sizeme": "^2.5.2",
     "react-window": "^1.7.1"
   },
-  "devDependencies": {
-    "@gnomad/scripts": "*"
-  },
   "peerDependencies": {
     "react": "^16.9.0",
     "react-dom": "^16.9.0",

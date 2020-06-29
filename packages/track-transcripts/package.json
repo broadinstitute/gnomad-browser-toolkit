@@ -15,9 +15,6 @@
     "d3-scale": "^2.2.2",
     "prop-types": "^15.7.2"
   },
-  "devDependencies": {
-    "@gnomad/scripts": "*"
-  },
   "peerDependencies": {
     "react": "^16.9.0",
     "styled-components": "^4.2.0"
