@@ -15,15 +15,6 @@ module.exports = {
       testMatch: [`<rootDir>/packages/${pkg}/**/*.spec.js`],
       setupFilesAfterEnv: ['@testing-library/jest-dom'],
     })),
-    {
-      displayName: 'gnomad',
-      testMatch: ['<rootDir>/projects/gnomad/**/*.spec.js'],
-      setupFilesAfterEnv: ['@testing-library/jest-dom'],
-    },
-    {
-      displayName: 'gnomad-api',
-      testMatch: ['<rootDir>/projects/gnomad-api/**/*.spec.js'],
-    },
   ],
   roots: ['<rootDir>', '<rootDir>/tests'],
 }

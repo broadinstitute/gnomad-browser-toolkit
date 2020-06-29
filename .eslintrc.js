@@ -37,28 +37,12 @@ module.exports = {
       },
     },
     {
-      // Set environment for server-side code
-      files: ['projects/gnomad-api/**/*.js', 'projects/*/src/server/**/*.js'],
-      env: {
-        browser: false,
-        node: true,
-      },
-    },
-    {
       // Allow importing from resources only in package examples
       files: ['packages/**/example/*.js'],
       rules: {
         'import/no-unresolved': ['error', { ignore: ['^@resources\/'] }],
       },
     },
-    {
-      files: ['projects/gnomad-api/**/*.js'],
-      rules: {
-        'no-underscore-dangle': ['error', {
-          allow: ['_source'], // allow _source for getting Elasticsearch source
-        }],
-      }
-    }
   ],
   parserOptions: {
     ecmaVersion: '2018',

@@ -3,7 +3,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/broadinstitute/gnomad-browser.git"
+    "url": "https://github.com/broadinstitute/gnomad-browser-toolkit.git"
   },
   "scripts": {
     "lint:css": "stylelint './**/*.js'",
@@ -12,7 +12,6 @@
   },
   "workspaces": [
     "packages/*",
-    "projects/*",
     "scripts"
   ],
   "devDependencies": {
@@ -32,7 +31,6 @@
     "babel-plugin-inline-react-svg": "^1.1.1",
     "babel-plugin-module-resolver": "^4.0.0",
     "babel-plugin-styled-components": "^1.10.7",
-    "copy-webpack-plugin": "^5.1.1",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.10.1",
@@ -44,10 +42,11 @@
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.0.1",
     "jest": "^25.1.0",
-    "nodemon": "^2.0.2",
     "prettier": "2.0.2",
-    "raw-loader": "^4.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.18",
+    "styled-components": "^4.2.0",
     "stylelint": "^13.2.1",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-config-styled-components": "^0.1.1",
