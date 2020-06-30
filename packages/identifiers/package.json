@@ -4,6 +4,9 @@
   "license": "MIT",
   "main": "lib/cjs/identifiers.js",
   "files": ["lib"],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "gnomad-browser-toolkit-scripts build",
     "prepack": "yarn run build"

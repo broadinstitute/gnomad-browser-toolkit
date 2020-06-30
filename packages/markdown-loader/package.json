@@ -4,6 +4,9 @@
   "license": "MIT",
   "main": "lib/cjs/markdownLoader.js",
   "files": ["lib"],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "rm -r lib && mkdir lib && cp -R src lib/cjs",
     "prepack": "yarn run build",
