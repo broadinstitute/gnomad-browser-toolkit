@@ -6,6 +6,7 @@
   "files": ["lib"],
   "scripts": {
     "build": "rm -r lib && mkdir lib && cp -R src lib/cjs",
+    "prepack": "yarn run build",
     "example": "webpack-dev-server --config=./example/webpack.config.js --port=8000"
   },
   "dependencies": {

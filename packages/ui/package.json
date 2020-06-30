@@ -6,6 +6,7 @@
   "files": ["lib"],
   "scripts": {
     "build": "gnomad-browser-toolkit-scripts build",
+    "prepack": "yarn run build",
     "example": "gnomad-browser-toolkit-scripts example"
   },
   "dependencies": {

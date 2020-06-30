@@ -5,6 +5,7 @@
   "main": "lib/cjs/identifiers.js",
   "files": ["lib"],
   "scripts": {
-    "build": "gnomad-browser-toolkit-scripts build"
+    "build": "gnomad-browser-toolkit-scripts build",
+    "prepack": "yarn run build"
   }
 }
