@@ -23,8 +23,7 @@ export const ModalContent = styled.div`
   border: 1px solid #c8c8c8;
   border-radius: 5px;
   background: #fafafa;
-  font-family: Roboto, sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
 
   @media (min-width: 576px) {
     max-width: ${props => mediumScreenMaxWidth[props.size]}px;

@@ -20,7 +20,6 @@ export const Container = styled.div`
   background-color: ${BACKGROUND_COLOR};
   border-radius: 3px;
   color: #fff;
-  font-family: Roboto, sans-serif;
   font-size: 13px;
 
   @media (max-width: 500px) {
