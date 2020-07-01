@@ -27,6 +27,8 @@ jobs:
             yarn-
       - name: Install dependencies
         run: yarn install --frozen-lockfile --non-interactive --no-progress
+      - name: Build packages
+        run: yarn workspaces run build
       - name: Run ESLint
         run: yarn run lint:js
       - name: Run stylelint
