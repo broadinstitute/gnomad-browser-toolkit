@@ -2,6 +2,13 @@
   "name": "@gnomad/track-regions",
   "version": "1.0.0",
   "license": "MIT",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/broadinstitute/gnomad-browser-toolkit.git",
+    "directory": "packages/track-regions"
+  },
+  "homepage": "https://github.com/broadinstitute/gnomad-browser-toolkit#readme",
+  "bugs": "https://github.com/broadinstitute/gnomad-browser-toolkit/issues",
   "main": "lib/cjs/index.js",
   "files": ["lib"],
   "publishConfig": {
