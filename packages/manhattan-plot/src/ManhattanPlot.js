@@ -9,6 +9,7 @@ import { rotateColorByChromosome } from './colorScales'
 export const ManhattanPlot = ({
   chromosomes,
   dataPoints,
+  gridLines,
   height,
   onClickPoint,
   pointColor,
@@ -102,11 +103,13 @@ export const ManhattanPlot = ({
       const { width: tickLabelWidth } = ctx.measureText(`${t}`)
       ctx.fillText(`${t}`, -(9 + tickLabelWidth), y + 3)
 
-      ctx.beginPath()
-      ctx.moveTo(0, y)
-      ctx.lineTo(w, y)
-      ctx.strokeStyle = '#e4e4e4'
-      ctx.stroke()
+      if (gridLines) {
+        ctx.beginPath()
+        ctx.moveTo(0, y)
+        ctx.lineTo(w, y)
+        ctx.strokeStyle = '#e4e4e4'
+        ctx.stroke()
+      }
     }
 
     ctx.beginPath()
@@ -313,6 +316,7 @@ ManhattanPlot.propTypes = {
       pval: PropTypes.number.isRequired,
     })
   ).isRequired,
+  gridLines: PropTypes.bool,
   height: PropTypes.number.isRequired,
   onClickPoint: PropTypes.func,
   pointColor: PropTypes.func,
@@ -333,6 +337,7 @@ const CHROMOSOMES = Array.from(new Array(22), (_, i) => `${i + 1}`).concat(['X',
 
 ManhattanPlot.defaultProps = {
   chromosomes: CHROMOSOMES,
+  gridLines: true,
   onClickPoint: () => {},
   pointColor: rotateColorByChromosome(['rgb(139,53,40)', 'rgb(60,100,166)'], CHROMOSOMES),
   pointLabel: d => d.label,

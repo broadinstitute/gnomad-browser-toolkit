@@ -6,6 +6,7 @@ import React, { useEffect, useMemo, useRef } from 'react'
 
 export const QQPlot = ({
   dataPoints,
+  gridLines,
   height,
   onClickPoint,
   pointLabel,
@@ -87,11 +88,13 @@ export const QQPlot = ({
       const { width: tickLabelWidth } = ctx.measureText(`${t}`)
       ctx.fillText(`${t}`, -(9 + tickLabelWidth), y + 3)
 
-      ctx.beginPath()
-      ctx.moveTo(0, y)
-      ctx.lineTo(w, y)
-      ctx.strokeStyle = '#e4e4e4'
-      ctx.stroke()
+      if (gridLines) {
+        ctx.beginPath()
+        ctx.moveTo(0, y)
+        ctx.lineTo(w, y)
+        ctx.strokeStyle = '#e4e4e4'
+        ctx.stroke()
+      }
     }
 
     ctx.beginPath()
@@ -313,6 +316,7 @@ QQPlot.propTypes = {
       pval: PropTypes.number.isRequired,
     })
   ).isRequired,
+  gridLines: PropTypes.bool,
   height: PropTypes.number.isRequired,
   onClickPoint: PropTypes.func,
   pointLabel: PropTypes.func,
@@ -331,6 +335,7 @@ QQPlot.propTypes = {
 }
 
 QQPlot.defaultProps = {
+  gridLines: true,
   onClickPoint: () => {},
   pointLabel: d => d.label,
   thresholds: [],
