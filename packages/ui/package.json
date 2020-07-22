@@ -1,6 +1,7 @@
 {
   "name": "@gnomad/ui",
   "version": "1.0.0",
+  "types": "lib/index.d.ts",
   "license": "MIT",
   "repository": {
     "type" : "git",
@@ -15,7 +16,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gnomad-browser-toolkit-scripts build",
+    "build": "gnomad-browser-toolkit-scripts build && yarn run copy-type-def",
+    "copy-type-def": "cp src/index.d.ts lib/",
     "prepack": "yarn run build",
     "example": "gnomad-browser-toolkit-scripts example"
   },
