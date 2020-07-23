@@ -23,10 +23,10 @@ export interface GridProps<RowDatum, CellData> {
   onHoverRow?: (rowIndex: number) => void
   onRequestSort?: (columnKey: string) => void
   onScroll?: FixedSizeListProps['onScroll']
-  onVisibleRowsChange?: () => void
+  onVisibleRowsChange?: (range: {startIndex: number, stopIndex: number}) => void
   rowHeight?: number
   rowKey?: (rowDatum: RowDatum) => string
-  shouldHighlightRow?: () => boolean
+  shouldHighlightRow?: (rowDatum: RowDatum) => boolean
   sortKey?: string
   sortOrder?: 'ascending' | 'descending'
 }
@@ -71,9 +71,9 @@ interface SearchBoxItem<Value> {
 }
 
 export interface SearchBoxProps<Value, Item extends SearchBoxItem<Value>> {
-  fetchSearchResult: (query: string) => Promise<Item[]>
+  fetchSearchResults: (query: string) => Promise<Item[]>
   id?: string
-  onSelect: (itemValue: Value) => void
+  onSelect: (itemValue: Value, item: Item) => void
   placeholder?: string
   width?: number
 }
