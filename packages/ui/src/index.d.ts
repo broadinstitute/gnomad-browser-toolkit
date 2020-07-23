@@ -66,7 +66,7 @@ export const CategoryFilterControl: React.ComponentType<CategoryFilterControlPro
 export interface BadgeProps {
   children: React.ReactNode;
   level?: "error" | "info" | "success" | "warning";
-  tooltip: string;
+  tooltip?: string;
 }
 export const Badge: React.ComponentType<BadgeProps>;
 /* End of components exported by Badge.js */
@@ -87,17 +87,19 @@ export const Checkbox: React.ComponentType<CheckboxProps>;
 export interface ComboboxOption {
   label: string;
 }
-export interface ComboboxProps {
+export interface ComboboxProps<Option extends ComboboxOption> {
   id?: string;
   onChange: (value: string) => void;
-  onSelect: (option: ComboboxOption) => void;
-  options: ComboboxOption[];
+  onSelect: (option: Option) => void;
+  options: Option[];
   placeholder?: string;
-  renderOption: (option: ComboboxOption) => React.ReactNode;
+  renderOption: (option: Option) => React.ReactNode;
   value: string;
   width?: string;
 }
-export const Combobox: React.ComponentType<ComboboxProps>;
+export class Combobox<Option extends ComboboxOption = ComboboxOption> extends React.Component<
+  ComboboxProps<Option>
+> {}
 /* End of components exported by Combobox.js */
 
 /* Start of components exported by Grid.js */
@@ -217,7 +219,7 @@ export class Searchbox<Value> extends React.Component<
 /* Start of components exported by SearchInput.js */
 export interface SearchInputProps {
   placeholder?: string;
-  onChange: React.ChangeEventHandler;
+  onChange: (value: string) => void;
   value?: string;
 }
 export const SearchInput: React.ComponentType<SearchInputProps>;
