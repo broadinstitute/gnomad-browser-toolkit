@@ -2,32 +2,32 @@ let presets = []
 if (process.env.CYPRESS_INTERNAL_ENV !== undefined) {
   presets = []
 } else {
-  presets = [...presets, "@babel/preset-typescript", "@babel/preset-react"]
-  if (process.env.IS_ROLLUP === "true") {
+  presets = [...presets, '@babel/preset-typescript', '@babel/preset-react']
+  if (process.env.IS_ROLLUP === 'true') {
     presets = [
       ...presets,
       [
-        "@babel/preset-env",
+        '@babel/preset-env',
         {
           targets: {
-            node: "current",
+            node: 'current',
           },
           modules: false,
         },
       ],
-    ];
-  } else if (process.env.NODE_ENV === "test") {
+    ]
+  } else if (process.env.NODE_ENV === 'test') {
     presets = [
       ...presets,
       [
-        "@babel/preset-env",
+        '@babel/preset-env',
         {
           targets: {
-            node: "current",
+            node: 'current',
           },
         },
       ],
-    ];
+    ]
   }
 }
 

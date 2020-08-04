@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Predicate } from "./types";
+import { useState } from 'react'
+import { Predicate } from './types'
 
 export default <Item>(items: Item[]) => {
   const [predicates, setPredicates] = useState<Predicate<Item>[]>([])
@@ -9,7 +9,7 @@ export default <Item>(items: Item[]) => {
         return true
       }
     }
-    return false;
+    return false
   })
 
   return [filtered, setPredicates] as const
