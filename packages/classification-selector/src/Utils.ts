@@ -17,22 +17,21 @@ export const generateNodeId = (
   if (input.classificationType === ClassificationType.Simple) {
     const categoryPhrase = input.type === 'classification' ? '' : input.category
     return `simple$${input.classification}$${categoryPhrase}`
-  } else {
-    const categoryPhrase = input.type === 'classification' ? '' : input.category
-    const levelPhrase = input.type === 'classification' ? '' : input.level
-    return `hierarchical$${input.classification}$level$${levelPhrase}$${categoryPhrase}`
   }
+  const categoryPhrase = input.type === 'classification' ? '' : input.category
+  const levelPhrase = input.type === 'classification' ? '' : input.level
+  return `hierarchical$${input.classification}$level$${levelPhrase}$${categoryPhrase}`
 }
 
-const simpleNodeIdPattern = /^simple\$([^\$]+)\$([^\$]*)$/
-const hierarchicalNodeIdPattern = /^hierarchical\$([^\$]+)\$level\$([^\$]*)\$([^\$]*)$/
+const simpleNodeIdPattern = /^simple\$([^$]+)\$([^$]*)$/
+const hierarchicalNodeIdPattern = /^hierarchical\$([^$]+)\$level\$([^$]*)\$([^$]*)$/
 export const parseNodeId = (
   input: string
 ): SimpleNodeIdGeneratorInputs | HierarchicalIdGeneratorInputs => {
   if (input.startsWith('simple') === true) {
     const matched = input.match(simpleNodeIdPattern)
     if (matched === null) {
-      throw new Error('Cannot parse simple node id ' + input)
+      throw new Error(`Cannot parse simple node id ${input}`)
     } else {
       const classification = matched[1]
       const rawCategory = matched[2]
@@ -42,19 +41,18 @@ export const parseNodeId = (
           classificationType: ClassificationType.Simple,
           type: 'classification',
         }
-      } else {
-        return {
-          classification,
-          classificationType: ClassificationType.Simple,
-          type: 'category',
-          category: rawCategory,
-        }
+      }
+      return {
+        classification,
+        classificationType: ClassificationType.Simple,
+        type: 'category',
+        category: rawCategory,
       }
     }
   } else if (input.startsWith('hierarchical') === true) {
     const matched = input.match(hierarchicalNodeIdPattern)
     if (matched === null) {
-      throw new Error('Cannot parse hierarchical node id ' + input)
+      throw new Error(`Cannot parse hierarchical node id ${input}`)
     } else {
       const classification = matched[1]
       const rawLevel = matched[2]
@@ -67,7 +65,8 @@ export const parseNodeId = (
           classificationType: ClassificationType.Hierarchical,
           type: 'classification',
         }
-      } else if (Number.isNaN(parsedLevel) === false && rawCategory !== '') {
+      }
+      if (Number.isNaN(parsedLevel) === false && rawCategory !== '') {
         return {
           classification,
           classificationType: ClassificationType.Hierarchical,
@@ -75,12 +74,11 @@ export const parseNodeId = (
           category: rawCategory,
           level: parsedLevel,
         }
-      } else {
-        throw new Error('Cannot parse hierarchical node id ' + input)
       }
+      throw new Error(`Cannot parse hierarchical node id ${input}`)
     }
   } else {
-    throw new Error('Invalid node id ' + input)
+    throw new Error(`Invalid node id ${input}`)
   }
 }
 

@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import {
-  Classification,
-  Predicate,
-  ClassificationType,
-  HierarchicalClassification,
-  SimpleClassification,
-} from './types'
 import TreeView from '@material-ui/lab/TreeView'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import TreeItem from '@material-ui/lab/TreeItem'
-import { generateNodeId, parseNodeId } from './Utils'
 import _partition from 'lodash/partition'
 import _last from 'lodash/last'
 import _groupBy from 'lodash/groupBy'
@@ -24,8 +16,16 @@ import Select from '@material-ui/core/Select'
 import _maxBy from 'lodash/maxBy'
 import _range from 'lodash/range'
 import _uniq from 'lodash/uniq'
-import usePrevious from './usePrevious'
 import { StandardLonghandProperties } from 'csstype'
+import usePrevious from './usePrevious'
+import {
+  Classification,
+  Predicate,
+  ClassificationType,
+  HierarchicalClassification,
+  SimpleClassification,
+} from './types'
+import { generateNodeId, parseNodeId } from './Utils'
 import 'fontsource-roboto'
 
 const {
@@ -149,7 +149,7 @@ function getHierarchicalCategoryElems<Item>(args: {
     ({ path }) => path.length < hierarchicalLevel
   )
   const categoryNodeIds: string[] = []
-  const categoryReactElems: React.ReactElement<any>[] = []
+  const categoryReactElems: React.ReactElement<unknown>[] = []
   lessDetailedThanCurrentLevel.forEach(({ path, itemCount }, categoryIndex) => {
     const categoryName = _last(path)!
     const nodeId = generateNodeId({
@@ -174,26 +174,28 @@ function getHierarchicalCategoryElems<Item>(args: {
     atLeastAsDetailedAsCurrentLevel,
     ({ path }) => path[hierarchicalLevel - 1]
   )
-  Object.entries(groupedByCurrentLevel).forEach(([categoryName, categories], categoryIndex) => {
-    const nodeId = generateNodeId({
-      type: 'category',
-      classificationType: ClassificationType.Hierarchical,
-      classification: classificationName,
-      category: categoryName,
-      level: hierarchicalLevel,
-    })
-    const itemCount = _sumBy(categories, ({ itemCount }) => itemCount)
-    const reactElem = (
-      <TreeItem
-        key={`more-detailed-${categoryIndex}`}
-        nodeId={nodeId}
-        data-cy={categoryTreeItemCypressDataAttr}
-        label={`${categoryName} (${itemCount})`}
-      />
-    )
-    categoryNodeIds.push(nodeId)
-    categoryReactElems.push(reactElem)
-  })
+  Object.entries(groupedByCurrentLevel).forEach(
+    ([categoryName, categoriesInLevel], categoryIndex) => {
+      const nodeId = generateNodeId({
+        type: 'category',
+        classificationType: ClassificationType.Hierarchical,
+        classification: classificationName,
+        category: categoryName,
+        level: hierarchicalLevel,
+      })
+      const itemCountInLevel = _sumBy(categoriesInLevel, ({ itemCount }) => itemCount)
+      const reactElem = (
+        <TreeItem
+          key={`more-detailed-${categoryIndex}`}
+          nodeId={nodeId}
+          data-cy={categoryTreeItemCypressDataAttr}
+          label={`${categoryName} (${itemCountInLevel})`}
+        />
+      )
+      categoryNodeIds.push(nodeId)
+      categoryReactElems.push(reactElem)
+    }
+  )
 
   const dropdownLabelId = `label-classification-${classificationName}`
   const dropdownItems = _range(maxHierarchicalLevel).map(level => (
@@ -260,8 +262,9 @@ function ClassificationViewer<Item>({
     )
     if (newClassifications.length > 1) {
       throw new Error(
-        'There should not be more than 2 classifications being selected during a transition. Got ' +
-          newClassifications.join(', ')
+        `There should not be more than 2 classifications being selected during a transition. Got ${newClassifications.join(
+          ', '
+        )}`
       )
     }
     const [newClassification] = newClassifications
@@ -295,25 +298,25 @@ function ClassificationViewer<Item>({
     setSelected(newSelected)
   }
 
-  const handleToggle = (_e: React.ChangeEvent<any>, nodeIds: string[]) => setExpanded(nodeIds)
-  const handleSelect = (_e: React.ChangeEvent<any>, nodeIds: string[]) => setSelected(nodeIds)
+  const handleToggle = (_e: React.ChangeEvent<unknown>, nodeIds: string[]) => setExpanded(nodeIds)
+  const handleSelect = (_e: React.ChangeEvent<unknown>, nodeIds: string[]) => setSelected(nodeIds)
 
   useEffect(() => {
     const [
       uniqClassifications,
-      currentHierarchicalCategories,
+      currHierarchicalCategories,
       currentSimpleCategories,
     ] = parseSelectedNodeIds(selected)
 
     if (uniqClassifications.length > 1) {
       throw new Error(
-        'There should be at most one classification selected. Received ' +
-          uniqClassifications.join(', ') +
-          ' instead'
+        `There should be at most one classification selected. Received ${uniqClassifications.join(
+          ', '
+        )} instead`
       )
     } else if (
       uniqClassifications.length === 1 &&
-      (currentHierarchicalCategories.length > 0 || currentSimpleCategories.length > 0)
+      (currHierarchicalCategories.length > 0 || currentSimpleCategories.length > 0)
     ) {
       const [classificationName] = uniqClassifications
       const classification = classifications.find(({ name }) => name === classificationName)!
@@ -325,13 +328,13 @@ function ClassificationViewer<Item>({
         }
       } else if (classification.type === ClassificationType.Hierarchical) {
         const { getFilterPredicate } = classification
-        for (const { name, level } of currentHierarchicalCategories) {
+        for (const { name, level } of currHierarchicalCategories) {
           predicates.push(getFilterPredicate(name, level))
         }
       }
       setFilterPredicates(predicates)
     }
-  }, [selected])
+  }, [selected, classifications, currentSimpleCategoryNames, setFilterPredicates])
 
   const hierarchicalClassifications = classifications.filter(
     elem => elem.type === ClassificationType.Hierarchical
@@ -352,25 +355,24 @@ function ClassificationViewer<Item>({
         materialClasses.categoryList
       )
       return reactElem
-    } else {
-      const [reactElem] = getHierarchicalCategoryElems<Item>({
-        classification,
-        hierarchicalLevel: hierarchicalLevels[classification.name],
-        levelSelectorContainerClassName: materialClasses.levelSelector,
-        setHierarchicalLevel: (value: number) =>
-          setHierarchicalLevels({
-            ...hierarchicalLevels,
-            [classification.name]: value,
-          }),
-        categoryListClassName: materialClasses.categoryList,
-      })
-      return reactElem
     }
+    const [reactElem] = getHierarchicalCategoryElems<Item>({
+      classification,
+      hierarchicalLevel: hierarchicalLevels[classification.name],
+      levelSelectorContainerClassName: materialClasses.levelSelector,
+      setHierarchicalLevel: (value: number) =>
+        setHierarchicalLevels({
+          ...hierarchicalLevels,
+          [classification.name]: value,
+        }),
+      categoryListClassName: materialClasses.categoryList,
+    })
+    return reactElem
   })
   return (
     <>
       <TreeView
-        multiSelect={true}
+        multiSelect
         defaultCollapseIcon={<ExpandMoreIcon />}
         defaultExpandIcon={<ChevronRightIcon />}
         expanded={expanded}

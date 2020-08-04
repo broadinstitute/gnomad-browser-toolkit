@@ -1,3 +1,6 @@
+/* eslint-disable max-classes-per-file */
+/* eslint-disable react/prefer-stateless-function */
+
 import React from 'react'
 import { FixedSizeListProps } from 'react-window'
 import { StyledComponent, ThemedStyledFunction } from 'styled-components'
@@ -5,7 +8,7 @@ import { StyledComponent, ThemedStyledFunction } from 'styled-components'
 /* Start of components exported by Button.js */
 export const BaseButton: StyledComponent<
   'button',
-  any,
+  unknown,
   {
     type: 'button'
   },
@@ -13,7 +16,7 @@ export const BaseButton: StyledComponent<
 >
 export const Button: StyledComponent<
   'button',
-  any,
+  unknown,
   {
     type: 'button'
   } & {
@@ -24,7 +27,7 @@ export const Button: StyledComponent<
 >
 export const PrimaryButton: StyledComponent<
   'button',
-  any,
+  unknown,
   {
     type: 'button'
   } & {
@@ -36,7 +39,7 @@ export const PrimaryButton: StyledComponent<
 >
 export const TextButton: StyledComponent<
   'button',
-  any,
+  unknown,
   {
     type: 'button'
   },
@@ -132,11 +135,13 @@ export interface GridProps<RowDatum, CellDatum> {
   sortOrder?: 'ascending' | 'descending'
 }
 
-export class Grid<RowDatum, CellData = {}> extends React.Component<GridProps<RowDatum, CellData>> {}
+export class Grid<RowDatum, CellData = unknown> extends React.Component<
+  GridProps<RowDatum, CellData>
+> {}
 /* End of components exported by Grid.js */
 
 /* Start of components exported by Input.js */
-export const Input: StyledComponent<'input', any, {}, never>
+export const Input: StyledComponent<'input', unknown, unknown, never>
 /* End of components exported by Input.js */
 
 /* Start of components exported by KeyboardShortcut.js */
@@ -148,10 +153,10 @@ export const KeyboardShortcut: React.ComponentType<KeyboardShortcutProps>
 /* End of components exported by KeyboardShortcut.js */
 
 /* Start of components exported by Link.js */
-export const Link: StyledComponent<'a', any, {}, never>
+export const Link: StyledComponent<'a', unknown, unknown, never>
 export const ExternalLink: ThemedStyledFunction<
   'a',
-  any,
+  unknown,
   {
     rel: 'noopener noreferrer'
     target: '_blank'
@@ -161,9 +166,9 @@ export const ExternalLink: ThemedStyledFunction<
 /* End of components exported by Link.js */
 
 /* Start of components exported by List.js */
-export const List: StyledComponent<'ul', any, {}, never>
-export const ListItem: StyledComponent<'li', any, {}, never>
-export const OrderedList: StyledComponent<'ol', any, {}, never>
+export const List: StyledComponent<'ul', unknown, unknown, never>
+export const ListItem: StyledComponent<'li', unknown, unknown, never>
+export const OrderedList: StyledComponent<'ol', unknown, unknown, never>
 /* End of components exported by List.js */
 
 /* Start of components exported by Modal.js */
@@ -179,7 +184,7 @@ export const Modal: React.ComponentType<ModalProps>
 /* End of components exported by Modal.js */
 
 /* Start of components exported by Page.js */
-export const Page: StyledComponent<'div', any, {}, never>
+export const Page: StyledComponent<'div', unknown, unknown, never>
 export interface PageHeadingProps {
   className?: string
   renderPageControl?: () => React.ReactNode
@@ -237,11 +242,11 @@ export class SegmentedControl<
 /* End of components exported by SegmentedControl.js */
 
 /* Start of components exported by Select.js */
-export const Select: StyledComponent<'select', any, {}, never>
+export const Select: StyledComponent<'select', unknown, unknown, never>
 /* End of components exported by Select.js */
 
 /* Start of components exported by Table.js */
-export const BaseTable: StyledComponent<'table', any, {}, never>
+export const BaseTable: StyledComponent<'table', unknown, unknown, never>
 /* End of components exported by Table.js */
 
 /* Start of components exported by Tabs.js */
@@ -274,5 +279,5 @@ export const TooltipAnchor: React.ComponentType<TooltipAnchorProps>
 /* End of components exported by TooltipAnchor.js */
 
 /* Start of components exported by TooltipHint.js */
-export const TooltipHint: StyledComponent<'span', any, {}, never>
+export const TooltipHint: StyledComponent<'span', unknown, unknown, never>
 /* End of components exported by TooltipHint.js */
