@@ -29,8 +29,10 @@ jobs:
         run: yarn install --frozen-lockfile --non-interactive --no-progress
       - name: Build packages
         run: yarn workspaces run build
-      - name: Run ESLint
+      - name: Run ESLint on JavaScript files
         run: yarn run lint:js
+      - name: Run ESLint on TypeScript files
+        run: yarn run lint:ts
       - name: Run stylelint
         run: yarn run lint:css
       - name: Run tests
