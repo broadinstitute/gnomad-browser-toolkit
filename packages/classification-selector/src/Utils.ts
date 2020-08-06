@@ -81,15 +81,3 @@ export const parseNodeId = (
     throw new Error(`Invalid node id ${input}`)
   }
 }
-
-// export const generateSimpleNodeId = (input: SimpleNodeIdGeneratorInputs) => {
-// }
-
-// export const parseSimpleNodeId = (input: string): SimpleNodeIdGeneratorInputs => {
-// }
-
-// export const generateHierarchicalNodeId = (input: HierarchicalIdGeneratorInputs) => {
-// }
-
-// export const parseHierarchicalNodeId = (input: string): HierarchicalIdGeneratorInputs => {
-// }
