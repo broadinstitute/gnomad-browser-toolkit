@@ -14,6 +14,10 @@
     "build": "yarn clean && yarn typecheck && yarn tsc:declaration && yarn rollup && cp src/cypressTestDataAttrs.json lib/",
     "rollup": "IS_ROLLUP=true rollup -c"
   },
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
   "devDependencies": {
     "@rollup/plugin-babel": "5.0.4",
     "@rollup/plugin-commonjs": "13.0.0",
@@ -33,8 +37,6 @@
     "@material-ui/icons": "4.9.1",
     "@material-ui/lab": "4.0.0-alpha.56",
     "fontsource-roboto": "2.2.6",
-    "lodash": "4.17.15",
-    "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "lodash": "4.17.15"
   }
 }
