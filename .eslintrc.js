@@ -3,8 +3,8 @@ module.exports = {
   env: {
     browser: true,
   },
-  parser: 'babel-eslint',
-  plugins: ['prettier', 'cypress'],
+  parser: '@typescript-eslint/parser',
+  plugins: ['prettier', '@typescript-eslint', 'cypress'],
   rules: {
     'prettier/prettier': 'error',
     'func-names': ['warn', 'as-needed'],
@@ -22,6 +22,23 @@ module.exports = {
     'import/no-unresolved': 'off',
   },
   overrides: [
+    {
+      files: ['**/*.ts', '**/*.tsx'],
+      extends: [
+        'plugin:@typescript-eslint/eslint-recommended',
+        'plugin:@typescript-eslint/recommended',
+        'prettier/@typescript-eslint',
+      ],
+      rules: {
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
+        'react/no-array-index-key': 'off',
+        '@typescript-eslint/no-var-requires': 'off',
+        'no-restricted-syntax': 'off',
+        'react/jsx-filename-extension': 'off',
+        'react/prop-types': 'off',
+      },
+    },
     {
       // Set environment for tests
       files: ['**/*spec.js', '**/*test.js', 'tests/**/*.js'],

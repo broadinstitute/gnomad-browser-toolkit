@@ -8,9 +8,7 @@
   },
   "scripts": {
     "lint:css": "stylelint './**/*.js'",
-    "lint:js": "eslint . --ext .js,.jsx",
-    "lint:ts": "eslint -c typescript.eslintrc.js --ext .ts,.tsx .",
-    "lint:ts:fix": "eslint -c typescript.eslintrc.js --ext .ts,.tsx . --fix",
+    "lint:js": "eslint .",
     "test": "jest",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx}\""
   },
