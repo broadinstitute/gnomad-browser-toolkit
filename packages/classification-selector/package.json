@@ -15,10 +15,6 @@
     "rollup": "IS_ROLLUP=true rollup -c"
   },
   "devDependencies": {
-    "@babel/core": "7.10.2",
-    "@babel/preset-env": "7.10.2",
-    "@babel/preset-react": "7.10.1",
-    "@babel/preset-typescript": "7.10.1",
     "@rollup/plugin-babel": "5.0.4",
     "@rollup/plugin-commonjs": "13.0.0",
     "@rollup/plugin-node-resolve": "8.1.0",
@@ -26,11 +22,9 @@
     "@types/lodash": "4.14.155",
     "@types/react": "16.9.38",
     "@types/react-dom": "16.9.8",
-    "babel-loader": "8.1.0",
     "core-js": "3.6.5",
     "csstype": "2.6.11",
     "cypress": "4.9.0",
-    "jest": "26.0.1",
     "rollup": "2.18.0",
     "typescript": "3.9.5"
   },
