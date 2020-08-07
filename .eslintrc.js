@@ -1,5 +1,14 @@
 module.exports = {
-  extends: ['airbnb', 'airbnb/hooks', 'prettier', 'prettier/react', 'plugin:cypress/recommended'],
+  extends: [
+    'airbnb',
+    'airbnb/hooks',
+    'prettier',
+    'prettier/react',
+    'plugin:cypress/recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
+  ],
   env: {
     browser: true,
   },
@@ -18,8 +27,18 @@ module.exports = {
     // TODO: Use shorthand
     'react/jsx-fragments': 'off',
     'react/jsx-props-no-spreading': 'off',
-    'import/extensions': 'off',
-    'import/no-unresolved': 'off',
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        // Allow absence of file extensions on these imports:
+        js: 'never',
+        mjs: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
   },
   overrides: [
     {
