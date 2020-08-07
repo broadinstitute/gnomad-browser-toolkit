@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import TreeView from '@material-ui/lab/TreeView'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
@@ -254,7 +254,8 @@ function ClassificationViewer<Item>({
     currentClassificationNames,
     currentHierarchicalCategories,
     currentSimpleCategoryNames,
-  ] = parseSelectedNodeIds(selected)
+  ] = useMemo(() => parseSelectedNodeIds(selected), [selected])
+
   if (previousSelected !== undefined && currentClassificationNames.length > 1) {
     const [prevClassificationNames] = parseSelectedNodeIds(previousSelected)
     const newClassifications = currentClassificationNames.filter(
