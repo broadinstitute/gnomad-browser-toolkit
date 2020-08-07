@@ -1,0 +1,10 @@
+{
+  "categoryTreeItemCypressDataAttr": "category-tree-item",
+  "classificationTreeItemCypressDataAttr": "classification-tree-item",
+  "selectedItemsContainerCypressDataAttr": "selected-items",
+  "levelSelectorCypressDataAttr": "level-selector",
+  "levelSelectorItemCypressDataAttr": "level-selector-item",
+  "numFilteredItemsCypressDataAttr": "num-filtered-items",
+  "selectAllCypressDataAttr": "select-all",
+  "selectNoneCypressDataAttr": "select-none"
+}

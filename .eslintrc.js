@@ -1,10 +1,19 @@
 module.exports = {
-  extends: ['airbnb', 'airbnb/hooks', 'prettier', 'prettier/react'],
+  extends: [
+    'airbnb',
+    'airbnb/hooks',
+    'prettier',
+    'prettier/react',
+    'plugin:cypress/recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
+  ],
   env: {
     browser: true,
   },
-  parser: 'babel-eslint',
-  plugins: ['prettier'],
+  parser: '@typescript-eslint/parser',
+  plugins: ['prettier', '@typescript-eslint', 'cypress'],
   rules: {
     'prettier/prettier': 'error',
     'func-names': ['warn', 'as-needed'],
@@ -18,8 +27,37 @@ module.exports = {
     // TODO: Use shorthand
     'react/jsx-fragments': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        // Allow absence of file extensions on these imports:
+        js: 'never',
+        mjs: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
   },
   overrides: [
+    {
+      files: ['**/*.ts', '**/*.tsx'],
+      extends: [
+        'plugin:@typescript-eslint/eslint-recommended',
+        'plugin:@typescript-eslint/recommended',
+        'prettier/@typescript-eslint',
+      ],
+      rules: {
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
+        'react/no-array-index-key': 'off',
+        '@typescript-eslint/no-var-requires': 'off',
+        'no-restricted-syntax': 'off',
+        'react/jsx-filename-extension': 'off',
+        'react/prop-types': 'off',
+      },
+    },
     {
       // Set environment for tests
       files: ['**/*spec.js', '**/*test.js', 'tests/**/*.js'],
