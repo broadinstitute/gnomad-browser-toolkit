@@ -5,7 +5,7 @@ import pkg from './package.json'
 
 const extensions = ['.tsx', '.ts', '.js', '.jsx', '.es6', '.es', '.mjs']
 
-const external = Object.keys(pkg.dependencies)
+const external = [...Object.keys(pkg.dependencies), ...Object.keys(pkg.peerDependencies)]
 
 export default {
   input: 'src/index.ts',
