@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "types": "lib/index.d.ts",
   "main": "lib/index.js",
+  "files": ["lib"],
   "scripts": {
     "jest": "jest --coverage",
     "jest:watch": "jest --watch",
