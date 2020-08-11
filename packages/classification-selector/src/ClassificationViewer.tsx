@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState } from 'react'
 import TreeView from '@material-ui/lab/TreeView'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
@@ -15,10 +15,8 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import _maxBy from 'lodash/maxBy'
 import _range from 'lodash/range'
-import _uniq from 'lodash/uniq'
 import { StandardLonghandProperties } from 'csstype'
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
-import usePrevious from './usePrevious'
 import {
   Classification,
   Predicate,
@@ -26,7 +24,8 @@ import {
   HierarchicalClassification,
   SimpleClassification,
 } from './types'
-import { generateNodeId, parseNodeId } from './Utils'
+import { generateNodeId } from './Utils'
+import useInternalState from './useClassificationSelectorState'
 import 'fontsource-roboto'
 
 const {
@@ -52,32 +51,6 @@ const useMaterialStyles = makeStyles<Theme, MakeStyleProps>(theme =>
     },
   })
 )
-
-const parseSelectedNodeIds = (selected: string[]) => {
-  const classificationNames: string[] = []
-  const hierarchicalCategories: { name: string; level: number; classification: string }[] = []
-  const simpleCategories: { name: string; classification: string }[] = []
-  for (const selectedString of selected) {
-    const parsed = parseNodeId(selectedString)
-    if (parsed.type === 'category') {
-      classificationNames.push(parsed.classification)
-      if (parsed.classificationType === ClassificationType.Simple) {
-        simpleCategories.push({
-          classification: parsed.classification,
-          name: parsed.category,
-        })
-      } else if (parsed.classificationType === ClassificationType.Hierarchical) {
-        hierarchicalCategories.push({
-          name: parsed.category,
-          level: parsed.level,
-          classification: parsed.classification,
-        })
-      }
-    }
-  }
-  const uniqClassifications = _uniq(classificationNames)
-  return [uniqClassifications, hierarchicalCategories, simpleCategories] as const
-}
 
 function getSimpleClassificationCategoryElems<Item>(
   { name: classificationName, categories }: SimpleClassification<Item>,
@@ -240,117 +213,43 @@ function getHierarchicalCategoryElems<Item>(args: {
   return [reactElem, categoryNodeIds] as const
 }
 
-export interface Props<Item> {
+type ExternallyControlledState = ReturnType<typeof useInternalState>
+
+export type Props<Item> = {
   classifications: Classification<Item>[]
   setFilterPredicates: (predicates: Predicate<Item>[]) => void
   // How tall the category list is allowed to get (because the list can be very long):
   categoryListMaxHeight?: MakeStyleProps['categoryListMaxHeight']
-}
-function ClassificationViewer<Item>({
-  classifications,
-  setFilterPredicates,
-  categoryListMaxHeight,
-}: Props<Item>) {
-  const [selected, setSelected] = useState<string[]>([])
-  const [expanded, setExpanded] = useState<string[]>([])
-  const previousSelected = usePrevious(selected)
-
-  const [
-    currentClassificationNames,
-    currentHierarchicalCategories,
-    currentSimpleCategoryNames,
-  ] = useMemo(() => parseSelectedNodeIds(selected), [selected])
-
-  if (previousSelected !== undefined && currentClassificationNames.length > 1) {
-    const [prevClassificationNames] = parseSelectedNodeIds(previousSelected)
-    const newClassifications = currentClassificationNames.filter(
-      name => prevClassificationNames.includes(name) === false
-    )
-    if (newClassifications.length > 1) {
-      throw new Error(
-        `There should not be more than 2 classifications being selected during a transition. Got ${newClassifications.join(
-          ', '
-        )}`
-      )
+} & (
+  | ({
+      isStateExternallyControlled: true
+    } & ExternallyControlledState)
+  | {
+      isStateExternallyControlled: false
     }
-    const [newClassification] = newClassifications
-    const newSelected: string[] = []
-    for (const { classification, level, name } of currentHierarchicalCategories) {
-      if (classification === newClassification) {
-        newSelected.push(
-          generateNodeId({
-            category: name,
-            classification,
-            classificationType: ClassificationType.Hierarchical,
-            level,
-            type: 'category',
-          })
-        )
-      }
-    }
-    for (const { classification, name } of currentSimpleCategoryNames) {
-      if (classification === newClassification) {
-        newSelected.push(
-          generateNodeId({
-            category: name,
-            classification,
-            classificationType: ClassificationType.Simple,
-            type: 'category',
-          })
-        )
-      }
-    }
-
-    setSelected(newSelected)
+)
+function ClassificationViewer<Item>(props: Props<Item>) {
+  const { classifications, setFilterPredicates, categoryListMaxHeight } = props
+  let selected: ExternallyControlledState['selected']
+  let setSelected: ExternallyControlledState['setSelected']
+  let hierarchicalLevels: ExternallyControlledState['hierarchicalLevels']
+  let setHierarchicalLevels: ExternallyControlledState['setHierarchicalLevels']
+  const fromHook = useInternalState({ classifications, setFilterPredicates })
+  // eslint-disable-next-line react/destructuring-assignment
+  if (props.isStateExternallyControlled === true) {
+    selected = props.selected
+    setSelected = props.setSelected
+    hierarchicalLevels = props.hierarchicalLevels
+    setHierarchicalLevels = props.setHierarchicalLevels
+    selected = props.selected
+  } else {
+    ;({ selected, setSelected, hierarchicalLevels, setHierarchicalLevels } = fromHook)
   }
+
+  const [expanded, setExpanded] = useState<string[]>([])
 
   const handleToggle = (_e: React.ChangeEvent<unknown>, nodeIds: string[]) => setExpanded(nodeIds)
   const handleSelect = (_e: React.ChangeEvent<unknown>, nodeIds: string[]) => setSelected(nodeIds)
-
-  useEffect(() => {
-    const [
-      uniqClassifications,
-      currHierarchicalCategories,
-      currentSimpleCategories,
-    ] = parseSelectedNodeIds(selected)
-
-    if (uniqClassifications.length > 1) {
-      throw new Error(
-        `There should be at most one classification selected. Received ${uniqClassifications.join(
-          ', '
-        )} instead`
-      )
-    } else if (
-      uniqClassifications.length === 1 &&
-      (currHierarchicalCategories.length > 0 || currentSimpleCategories.length > 0)
-    ) {
-      const [classificationName] = uniqClassifications
-      const classification = classifications.find(({ name }) => name === classificationName)!
-      const predicates: Predicate<Item>[] = []
-      if (classification.type === ClassificationType.Simple) {
-        const { getFilterPredicate } = classification
-        for (const { name: categoryName } of currentSimpleCategoryNames) {
-          predicates.push(getFilterPredicate(categoryName))
-        }
-      } else if (classification.type === ClassificationType.Hierarchical) {
-        const { getFilterPredicate } = classification
-        for (const { name, level } of currHierarchicalCategories) {
-          predicates.push(getFilterPredicate(name, level))
-        }
-      }
-      setFilterPredicates(predicates)
-    }
-  }, [selected, classifications, currentSimpleCategoryNames, setFilterPredicates])
-
-  const hierarchicalClassifications = classifications.filter(
-    elem => elem.type === ClassificationType.Hierarchical
-  ) as HierarchicalClassification<Item>[]
-  const initialHierarchicalLevels = Object.fromEntries(
-    hierarchicalClassifications.map(elem => [elem.name, 1] as const)
-  )
-  const [hierarchicalLevels, setHierarchicalLevels] = useState<{
-    [classification: string]: number
-  }>(initialHierarchicalLevels)
 
   const materialClasses = useMaterialStyles({ categoryListMaxHeight })
 

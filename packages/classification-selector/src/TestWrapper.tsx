@@ -42,6 +42,7 @@ function TestWrapper<Item extends TestItem>({ items, classifications }: Props<It
             <ClassificationViewer
               setFilterPredicates={setPredicates}
               classifications={classifications}
+              isStateExternallyControlled={false}
             />
           </Grid>
           <Grid item xs={6}>
