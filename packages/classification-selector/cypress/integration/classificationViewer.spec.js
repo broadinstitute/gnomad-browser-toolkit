@@ -16,6 +16,8 @@ describe('Simple classification', () => {
   })
   it('Select a single category', () => {
     cy.getIframeBody().within(() => {
+      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('10')
+
       cy.get(attr(classificationTreeItemCypressDataAttr))
         .as('classification')
         .contains('simple classification')
