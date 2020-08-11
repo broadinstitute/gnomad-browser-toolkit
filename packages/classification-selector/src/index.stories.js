@@ -9,9 +9,9 @@ const simpleClassifications = [
     name: 'simple classification',
     type: ClassificationType.Simple,
     categories: [
-      { name: 'simple category 1', itemCount: 5 },
-      { name: 'simple category 2', itemCount: 3 },
-      { name: 'simple category 3', itemCount: 2 },
+      { name: 'simple category 1', itemCount: 5, color: '#7fc97f' },
+      { name: 'simple category 2', itemCount: 3, color: '#beaed4' },
+      { name: 'simple category 3', itemCount: 2, color: '#fdc086' },
     ],
     getFilterPredicate: name => ({ simpleCategory }) => name === simpleCategory,
   },
@@ -21,14 +21,23 @@ const hierarchicalClassifications = [
     name: 'hierarchical classification',
     type: ClassificationType.Hierarchical,
     categories: [
-      { path: ['category 1-1--1'], itemCount: 2 },
-      { path: ['category 1-1--2', 'category 1-2--1'], itemCount: 2 },
-      { path: ['category 1-1--2', 'category 1-2--2'], itemCount: 2 },
-      { path: ['category 1-1--2', 'category 1-2--3', 'category 1-3--1'], itemCount: 2 },
-      { path: ['category 1-1--2', 'category 1-2--3', 'category 1-3--2'], itemCount: 1 },
+      { path: ['category 1-1--1'], itemCount: 2, color: '#7fc97f' },
+      { path: ['category 1-1--2', 'category 1-2--1'], itemCount: 2, color: '#beaed4' },
+      { path: ['category 1-1--2', 'category 1-2--2'], itemCount: 2, color: '#fdc086' },
+      {
+        path: ['category 1-1--2', 'category 1-2--3', 'category 1-3--1'],
+        itemCount: 2,
+        color: '#ffff99',
+      },
+      {
+        path: ['category 1-1--2', 'category 1-2--3', 'category 1-3--2'],
+        itemCount: 1,
+        color: '#386cb0',
+      },
       {
         path: ['category 2-1--1', 'category 2-2--1', 'category 2-3--2', 'category 2-4--1'],
         itemCount: 1,
+        color: '#f0027f',
       },
     ],
     getFilterPredicate: (name, level) => ({ hierarchicalClassification }) => {
