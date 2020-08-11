@@ -17,6 +17,7 @@ import _maxBy from 'lodash/maxBy'
 import _range from 'lodash/range'
 import _uniq from 'lodash/uniq'
 import { StandardLonghandProperties } from 'csstype'
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
 import usePrevious from './usePrevious'
 import {
   Classification,
@@ -27,7 +28,6 @@ import {
 } from './types'
 import { generateNodeId, parseNodeId } from './Utils'
 import 'fontsource-roboto'
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
 
 const {
   categoryTreeItemCypressDataAttr,
