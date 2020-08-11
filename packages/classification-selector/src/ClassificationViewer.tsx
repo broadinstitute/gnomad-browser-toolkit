@@ -27,6 +27,7 @@ import {
 } from './types'
 import { generateNodeId, parseNodeId } from './Utils'
 import 'fontsource-roboto'
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
 
 const {
   categoryTreeItemCypressDataAttr,
@@ -87,7 +88,7 @@ function getSimpleClassificationCategoryElems<Item>(
     classificationType: ClassificationType.Simple,
     classification: classificationName,
   })
-  const categoryElems = categories.map(({ name: categoryName, itemCount }) => {
+  const categoryElems = categories.map(({ name: categoryName, itemCount, color }) => {
     const nodeId = generateNodeId({
       type: 'category',
       classificationType: ClassificationType.Simple,
@@ -100,6 +101,7 @@ function getSimpleClassificationCategoryElems<Item>(
         nodeId={nodeId}
         data-cy={categoryTreeItemCypressDataAttr}
         label={`${categoryName} (${itemCount})`}
+        icon={<FiberManualRecordIcon style={{ color }} />}
       />
     )
     return {
@@ -150,7 +152,7 @@ function getHierarchicalCategoryElems<Item>(args: {
   )
   const categoryNodeIds: string[] = []
   const categoryReactElems: React.ReactElement<unknown>[] = []
-  lessDetailedThanCurrentLevel.forEach(({ path, itemCount }, categoryIndex) => {
+  lessDetailedThanCurrentLevel.forEach(({ path, itemCount, color }, categoryIndex) => {
     const categoryName = _last(path)!
     const nodeId = generateNodeId({
       type: 'category',
@@ -165,6 +167,7 @@ function getHierarchicalCategoryElems<Item>(args: {
         nodeId={nodeId}
         data-cy={categoryTreeItemCypressDataAttr}
         label={`${categoryName} (${itemCount})`}
+        icon={<FiberManualRecordIcon style={{ color }} />}
       />
     )
     categoryNodeIds.push(nodeId)
@@ -184,12 +187,14 @@ function getHierarchicalCategoryElems<Item>(args: {
         level: hierarchicalLevel,
       })
       const itemCountInLevel = _sumBy(categoriesInLevel, ({ itemCount }) => itemCount)
+      const [firstCategoryInLevel] = categoriesInLevel
       const reactElem = (
         <TreeItem
           key={`more-detailed-${categoryIndex}`}
           nodeId={nodeId}
           data-cy={categoryTreeItemCypressDataAttr}
           label={`${categoryName} (${itemCountInLevel})`}
+          icon={<FiberManualRecordIcon style={{ color: firstCategoryInLevel.color }} />}
         />
       )
       categoryNodeIds.push(nodeId)

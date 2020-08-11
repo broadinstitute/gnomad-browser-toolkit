@@ -10,6 +10,7 @@ export interface Predicate<Item> {
 export interface SimpleCategory {
   name: string
   itemCount: number
+  color: string
 }
 export interface SimpleClassification<Item> {
   name: string
@@ -21,6 +22,7 @@ export interface SimpleClassification<Item> {
 export interface HierarchicalCategory {
   path: string[]
   itemCount: number
+  color: string
 }
 export interface HierarchicalClassification<Item> {
   name: string
