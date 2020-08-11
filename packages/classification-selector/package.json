@@ -1,8 +1,9 @@
 {
   "name": "@gnomad/classification-selector",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "types": "lib/index.d.ts",
   "main": "lib/index.js",
+  "files": ["lib"],
   "scripts": {
     "jest": "jest --coverage",
     "jest:watch": "jest --watch",
@@ -37,6 +38,6 @@
     "@material-ui/icons": "4.9.1",
     "@material-ui/lab": "4.0.0-alpha.56",
     "fontsource-roboto": "2.2.6",
-    "lodash": "4.17.15"
+    "lodash": "4.17.19"
   }
 }
