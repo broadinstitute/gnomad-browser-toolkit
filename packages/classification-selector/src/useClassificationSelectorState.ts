@@ -143,25 +143,33 @@ export default <Item>({ classifications, items }: Inputs<Item>) => {
     [classification: string]: number
   }>(initialHierarchicalLevels)
 
-  let currentGrouping: CurrentGrouping
-  if (currentClassificationNames.length === 0) {
-    currentGrouping = undefined
-  } else if (currentHierarchicalCategories.length > 0) {
-    const [soleCategory] = currentHierarchicalCategories
-    currentGrouping = {
-      type: ClassificationType.Hierarchical,
-      name: soleCategory.classification,
-      level: hierarchicalLevels[soleCategory.classification],
+  const currentGrouping = useMemo(() => {
+    let result: CurrentGrouping
+    if (currentClassificationNames.length === 0) {
+      result = undefined
+    } else if (currentHierarchicalCategories.length > 0) {
+      const [soleCategory] = currentHierarchicalCategories
+      result = {
+        type: ClassificationType.Hierarchical,
+        name: soleCategory.classification,
+        level: hierarchicalLevels[soleCategory.classification],
+      }
+    } else if (currentSimpleCategoryNames.length > 0) {
+      const [soleName] = currentSimpleCategoryNames
+      result = {
+        type: ClassificationType.Simple,
+        name: soleName.classification,
+      }
+    } else {
+      throw new Error('This code path should not be possible.')
     }
-  } else if (currentSimpleCategoryNames.length > 0) {
-    const [soleName] = currentSimpleCategoryNames
-    currentGrouping = {
-      type: ClassificationType.Simple,
-      name: soleName.classification,
-    }
-  } else {
-    throw new Error('This code path should not be possible.')
-  }
+    return result
+  }, [
+    currentClassificationNames,
+    currentHierarchicalCategories,
+    currentSimpleCategoryNames,
+    hierarchicalLevels,
+  ])
 
   return {
     filteredItems,

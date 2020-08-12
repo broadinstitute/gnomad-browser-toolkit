@@ -1,6 +1,5 @@
 import ClassificationViewer from './ClassificationViewer'
-import useClassificationSelectorState from "./useClassificationSelectorState"
-
+import useClassificationSelectorState from './useClassificationSelectorState'
 
 export type {
   Classification,
@@ -10,7 +9,7 @@ export type {
   SimpleCategory,
   HierarchicalCategory,
 } from './types'
-export { useClassificationSelectorState}
+export { useClassificationSelectorState }
 export { ClassificationType } from './types'
 
 export default ClassificationViewer
