@@ -27,6 +27,7 @@ import {
 import { generateNodeId } from './Utils'
 import useInternalState from './useClassificationSelectorState'
 import 'fontsource-roboto'
+import ScopedCssBaseline from '@material-ui/core/ScopedCssBaseline';
 
 const {
   categoryTreeItemCypressDataAttr,
@@ -276,25 +277,27 @@ function ClassificationViewer<Item>(props: Props<Item>) {
   })
   return (
     <>
-      <TreeView
-        multiSelect
-        defaultCollapseIcon={<ExpandMoreIcon />}
-        defaultExpandIcon={<ChevronRightIcon />}
-        expanded={expanded}
-        selected={selected}
-        onNodeToggle={handleToggle}
-        onNodeSelect={handleSelect}
-      >
-        {classificationElems}
-      </TreeView>
-      <Box>
-        <Button variant="outlined" size="small" data-cy={selectAllCypressDataAttr}>
-          Select All
-        </Button>
-        <Button variant="outlined" size="small" data-cy={selectNoneCypressDataAttr}>
-          Select None
-        </Button>
-      </Box>
+      <ScopedCssBaseline>
+        <TreeView
+          multiSelect
+          defaultCollapseIcon={<ExpandMoreIcon />}
+          defaultExpandIcon={<ChevronRightIcon />}
+          expanded={expanded}
+          selected={selected}
+          onNodeToggle={handleToggle}
+          onNodeSelect={handleSelect}
+        >
+          {classificationElems}
+        </TreeView>
+        <Box>
+          <Button variant="outlined" size="small" data-cy={selectAllCypressDataAttr}>
+            Select All
+          </Button>
+          <Button variant="outlined" size="small" data-cy={selectNoneCypressDataAttr}>
+            Select None
+          </Button>
+        </Box>
+      </ScopedCssBaseline>
     </>
   )
 }

@@ -4,7 +4,6 @@ import {
   Typography,
   ThemeProvider,
   createMuiTheme,
-  CssBaseline,
   Container,
 } from '@material-ui/core'
 import ClassificationViewer, { Props as ClassificationViewerProps } from './ClassificationViewer'
@@ -35,7 +34,6 @@ function TestWrapper<Item extends TestItem>({ items, classifications }: Props<It
   ))
   return (
     <>
-      <CssBaseline />
       <ThemeProvider theme={theme}>
         <Grid container spacing={1}>
           <Grid item xs={6}>
