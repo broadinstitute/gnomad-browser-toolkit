@@ -149,10 +149,12 @@ function getHierarchicalCategoryElems<Item>(args: {
   })
   const groupedByCurrentLevel = _groupBy(
     atLeastAsDetailedAsCurrentLevel,
-    ({ path }) => path[hierarchicalLevel - 1]
+    ({ path }) => path.slice(0, hierarchicalLevel).join("$-$")
   )
-  Object.entries(groupedByCurrentLevel).forEach(
-    ([categoryName, categoriesInLevel], categoryIndex) => {
+  Object.values(groupedByCurrentLevel).forEach(
+    (categoriesInLevel, categoryIndex) => {
+      const [firstCategoryInLevel] = categoriesInLevel
+      const categoryName = firstCategoryInLevel.path[hierarchicalLevel - 1]
       const nodeId = generateNodeId({
         type: 'category',
         classificationType: ClassificationType.Hierarchical,
@@ -161,14 +163,14 @@ function getHierarchicalCategoryElems<Item>(args: {
         level: hierarchicalLevel,
       })
       const itemCountInLevel = _sumBy(categoriesInLevel, ({ itemCount }) => itemCount)
-      const [firstCategoryInLevel] = categoriesInLevel
+      const color = firstCategoryInLevel.color
       const reactElem = (
         <TreeItem
           key={`more-detailed-${categoryIndex}`}
           nodeId={nodeId}
           data-cy={categoryTreeItemCypressDataAttr}
           label={`${categoryName} (${itemCountInLevel})`}
-          icon={<FiberManualRecordIcon style={{ color: firstCategoryInLevel.color }} />}
+          icon={<FiberManualRecordIcon style={{ color}} />}
         />
       )
       categoryNodeIds.push(nodeId)
@@ -216,36 +218,19 @@ function getHierarchicalCategoryElems<Item>(args: {
 
 type ExternallyControlledState = ReturnType<typeof useInternalState>
 
-export type Props<Item> = {
+export interface Props<Item> {
   classifications: Classification<Item>[]
-  setFilterPredicates: (predicates: Predicate<Item>[]) => void
   // How tall the category list is allowed to get (because the list can be very long):
   categoryListMaxHeight?: MakeStyleProps['categoryListMaxHeight']
-} & (
-  | ({
-      isStateExternallyControlled: true
-    } & ExternallyControlledState)
-  | {
-      isStateExternallyControlled: false
-    }
-)
-function ClassificationViewer<Item>(props: Props<Item>) {
-  const { classifications, setFilterPredicates, categoryListMaxHeight } = props
-  let selected: ExternallyControlledState['selected']
-  let setSelected: ExternallyControlledState['setSelected']
-  let hierarchicalLevels: ExternallyControlledState['hierarchicalLevels']
-  let setHierarchicalLevels: ExternallyControlledState['setHierarchicalLevels']
-  const fromHook = useInternalState({ classifications, setFilterPredicates })
-  // eslint-disable-next-line react/destructuring-assignment
-  if (props.isStateExternallyControlled === true) {
-    selected = props.selected
-    setSelected = props.setSelected
-    hierarchicalLevels = props.hierarchicalLevels
-    setHierarchicalLevels = props.setHierarchicalLevels
-    selected = props.selected
-  } else {
-    ;({ selected, setSelected, hierarchicalLevels, setHierarchicalLevels } = fromHook)
-  }
+  selected: ExternallyControlledState["selected"]
+  setSelected: ExternallyControlledState["setSelected"]
+  hierarchicalLevels: ExternallyControlledState["hierarchicalLevels"]
+  setHierarchicalLevels: ExternallyControlledState["setHierarchicalLevels"]
+}
+
+function ClassificationViewer<Item>({
+  selected, setSelected, hierarchicalLevels, setHierarchicalLevels, classifications, categoryListMaxHeight
+}: Props<Item>) {
 
   const [expanded, setExpanded] = useState<string[]>([])
 

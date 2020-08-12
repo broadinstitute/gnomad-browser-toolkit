@@ -7,7 +7,8 @@ import {
   Container,
 } from '@material-ui/core'
 import ClassificationViewer, { Props as ClassificationViewerProps } from './ClassificationViewer'
-import useAdditivePredicates from './useAdditivePredicates'
+import useInternalState from "./useClassificationSelectorState"
+
 
 const cypressTestDataAttrs = require('./cypressTestDataAttrs.json')
 
@@ -26,8 +27,14 @@ interface Props<Item extends TestItem>
   items: Item[]
 }
 function TestWrapper<Item extends TestItem>({ items, classifications }: Props<Item>) {
-  const [filtered, setPredicates] = useAdditivePredicates(items)
-  const filteredElems = filtered.map(elem => (
+  const {
+    filteredItems,
+    selected,
+    setSelected,
+    hierarchicalLevels,
+    setHierarchicalLevels,
+  } = useInternalState({ items, classifications })
+  const filteredElems = filteredItems.map(elem => (
     <Typography align="center" key={elem.name}>
       {elem.name}
     </Typography>
@@ -38,15 +45,17 @@ function TestWrapper<Item extends TestItem>({ items, classifications }: Props<It
         <Grid container spacing={1}>
           <Grid item xs={6}>
             <ClassificationViewer
-              setFilterPredicates={setPredicates}
               classifications={classifications}
-              isStateExternallyControlled={false}
+              selected={selected}
+              setSelected={setSelected}
+              hierarchicalLevels={hierarchicalLevels}
+              setHierarchicalLevels={setHierarchicalLevels}
             />
           </Grid>
           <Grid item xs={6}>
             <Typography variant="h5" align="center">
               Selected items:
-              <span data-cy={numFilteredItemsCypressDataAttr}>{filtered.length}</span>
+              <span data-cy={numFilteredItemsCypressDataAttr}>{filteredItems.length}</span>
             </Typography>
             <Container data-cy={selectedItemsContainerCypressDataAttr}>{filteredElems}</Container>
           </Grid>

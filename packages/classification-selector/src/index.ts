@@ -1,5 +1,6 @@
 import ClassificationViewer from './ClassificationViewer'
-import useAdditivePredicates from './useAdditivePredicates'
+import useClassificationSelectorState from "./useClassificationSelectorState"
+
 
 export type {
   Classification,
@@ -9,7 +10,7 @@ export type {
   SimpleCategory,
   HierarchicalCategory,
 } from './types'
-export { useAdditivePredicates }
+export { useClassificationSelectorState}
 export { ClassificationType } from './types'
 
 export default ClassificationViewer

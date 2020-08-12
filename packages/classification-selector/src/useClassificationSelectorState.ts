@@ -3,6 +3,7 @@ import _uniq from 'lodash/uniq'
 import { ClassificationType, Classification, Predicate, HierarchicalClassification } from './types'
 import { parseNodeId, generateNodeId } from './Utils'
 import usePrevious from './usePrevious'
+import useAdditivePredicates from './useAdditivePredicates'
 
 type CurrentGrouping =
   | undefined
@@ -44,10 +45,11 @@ const parseSelectedNodeIds = (selected: string[]) => {
 
 interface Inputs<Item> {
   classifications: Classification<Item>[]
-  setFilterPredicates: (predicates: Predicate<Item>[]) => void
+  items: Item[]
 }
-export default <Item>({ classifications, setFilterPredicates }: Inputs<Item>) => {
+export default <Item>({ classifications, items }: Inputs<Item>) => {
   const [selected, setSelected] = useState<string[]>([])
+  const [filteredItems, setPredicates] = useAdditivePredicates(items)
 
   const [
     currentClassificationNames,
@@ -128,9 +130,9 @@ export default <Item>({ classifications, setFilterPredicates }: Inputs<Item>) =>
           predicates.push(getFilterPredicate(name, level))
         }
       }
-      setFilterPredicates(predicates)
+      setPredicates(predicates)
     }
-  }, [selected, classifications, currentSimpleCategoryNames, setFilterPredicates])
+  }, [selected, classifications, currentSimpleCategoryNames, setPredicates])
   const hierarchicalClassifications = classifications.filter(
     elem => elem.type === ClassificationType.Hierarchical
   ) as HierarchicalClassification<Item>[]
@@ -162,6 +164,7 @@ export default <Item>({ classifications, setFilterPredicates }: Inputs<Item>) =>
   }
 
   return {
+    filteredItems,
     selected,
     setSelected,
     hierarchicalLevels,
