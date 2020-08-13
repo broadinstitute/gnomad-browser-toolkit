@@ -51,14 +51,14 @@ export interface Props<Item> {
   selected: ExternallyControlledState['selected']
   setSelected: ExternallyControlledState['setSelected']
   hierarchicalLevels: ExternallyControlledState['hierarchicalLevels']
-  setHierarchicalLevels: ExternallyControlledState['setHierarchicalLevels']
+  setHierarchicalLevel: ExternallyControlledState['setHierarchicalLevel']
 }
 
 function ClassificationViewer<Item>({
   selected,
   setSelected,
   hierarchicalLevels,
-  setHierarchicalLevels,
+  setHierarchicalLevel,
   classifications,
   categoryListMaxHeight,
 }: Props<Item>) {
@@ -78,12 +78,12 @@ function ClassificationViewer<Item>({
         nodeId: classificationNodeId,
         categories,
       } = getDisplayedSimpleClassification(classification)
-      const categoryElems = categories.map(({ nodeId, color, label }) => (
+      const categoryElems = categories.map(({ nodeId, color, displayedLabel }) => (
         <TreeItem
           key={nodeId}
           nodeId={nodeId}
           data-cy={categoryTreeItemCypressDataAttr}
-          label={label}
+          label={displayedLabel}
           icon={<FiberManualRecordIcon style={{ color }} />}
         />
       ))
@@ -109,21 +109,16 @@ function ClassificationViewer<Item>({
         classification,
         hierarchicalLevel,
       })
-      const categoryElems = categories.map(({ nodeId, label, color }) => (
+      const categoryElems = categories.map(({ nodeId, displayedLabel, color }) => (
         <TreeItem
           nodeId={nodeId}
           key={nodeId}
           data-cy={categoryTreeItemCypressDataAttr}
-          label={label}
+          label={displayedLabel}
           icon={<FiberManualRecordIcon style={{ color }} />}
         />
       ))
       const dropdownLabelId = `label-classification-${classificationName}`
-      const setHierarchicalLevel = (value: number) =>
-        setHierarchicalLevels({
-          ...hierarchicalLevels,
-          [classification.name]: value,
-        })
       const dropdownItems = _range(maxHierarchicalLevel).map(level => (
         <MenuItem value={level + 1} key={level} data-cy={levelSelectorItemCypressDataAttr}>
           {level + 1}
@@ -147,7 +142,9 @@ function ClassificationViewer<Item>({
                   labelId={dropdownLabelId}
                   value={hierarchicalLevel}
                   data-cy={levelSelectorCypressDataAttr}
-                  onChange={event => setHierarchicalLevel(event.target.value as number)}
+                  onChange={event =>
+                    setHierarchicalLevel(classification.name, event.target.value as number)
+                  }
                 >
                   {dropdownItems}
                 </Select>

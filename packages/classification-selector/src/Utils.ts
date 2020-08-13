@@ -91,9 +91,11 @@ interface DisplayedSimpleClassification {
   nodeId: string
   name: string
   categories: {
-    label: string
+    name: string
     nodeId: string
     color: string
+    // The label shown to the user in the TreeView
+    displayedLabel: string
   }[]
 }
 
@@ -115,7 +117,8 @@ export const getDisplayedSimpleClassification = <Item>({
       category: categoryName,
     })
     return {
-      label: `${categoryName} (${itemCount})`,
+      name: categoryName,
+      displayedLabel: `${categoryName} (${itemCount})`,
       nodeId,
       color,
     }
@@ -127,16 +130,27 @@ export const getDisplayedSimpleClassification = <Item>({
     categories: processedCategories,
   }
 }
+type DisplayedHierarchicalCategory = {
+  nodeId: string
+  color: string
+  // The label shown to the user in the TreeView
+  displayedLabel: string
+} & (
+  | // Categories that are more detailed than the selected detail level will
+  // need to be aggregated up. If such aggregation needs to be done, the
+  // `path`s of categories that are aggregated up will be listed as `constituentPaths`.
+  // Otherwise, only the `path` is included.
+  { isAggregated: false; path: string[] }
+  | { isAggregated: true; constituentPaths: string[][] }
+)
 interface DisplayedHierarchicalClassification {
   nodeId: string
   name: string
   maxHierarchicalLevel: number
-  categories: {
-    nodeId: string
-    label: string
-    color: string
-  }[]
+  categories: DisplayedHierarchicalCategory[]
 }
+
+export const serializeHierarchicalPath = (path: string[]) => path.join('$-$')
 
 export const getDisplayedHierarchicalClassification = <Item>(args: {
   classification: HierarchicalClassification<Item>
@@ -157,7 +171,7 @@ export const getDisplayedHierarchicalClassification = <Item>(args: {
     ({ path }) => path.length < hierarchicalLevel
   )
 
-  const lessDetailedThanCurrentLevelElems = lessDetailedThanCurrentLevel.map(
+  const lessDetailedThanCurrentLevelElems: DisplayedHierarchicalCategory[] = lessDetailedThanCurrentLevel.map(
     ({ path, itemCount, color }) => {
       const categoryName = _last(path)!
       const nodeId = generateNodeId({
@@ -167,33 +181,42 @@ export const getDisplayedHierarchicalClassification = <Item>(args: {
         category: categoryName,
         level: path.length,
       })
-      const label = `${categoryName} (${itemCount})`
-      return { nodeId, label, color }
-    }
-  )
-  const groupedByCurrentLevel = _groupBy(atLeastAsDetailedAsCurrentLevel, ({ path }) =>
-    path.slice(0, hierarchicalLevel).join('$-$')
-  )
-  const atLeastAsDetailedAsCurrentLevelElems = Object.values(groupedByCurrentLevel).map(
-    categoriesInLevel => {
-      const [firstCategoryInLevel] = categoriesInLevel
-      const categoryName = firstCategoryInLevel.path[hierarchicalLevel - 1]
-      const nodeId = generateNodeId({
-        type: 'category',
-        classificationType: ClassificationType.Hierarchical,
-        classification: classificationName,
-        category: categoryName,
-        level: hierarchicalLevel,
-      })
-      const itemCountInLevel = _sumBy(categoriesInLevel, ({ itemCount }) => itemCount)
-      const { color } = firstCategoryInLevel
+      const displayedLabel = `${categoryName} (${itemCount})`
       return {
         nodeId,
+        displayedLabel,
         color,
-        label: `${categoryName} (${itemCountInLevel})`,
+        isAggregated: false,
+        path,
+        constituentCategories: undefined,
       }
     }
   )
+  const groupedByCurrentLevel = _groupBy(atLeastAsDetailedAsCurrentLevel, ({ path }) =>
+    serializeHierarchicalPath(path.slice(0, hierarchicalLevel))
+  )
+  const atLeastAsDetailedAsCurrentLevelElems: DisplayedHierarchicalCategory[] = Object.values(
+    groupedByCurrentLevel
+  ).map(categoriesInLevel => {
+    const [firstCategoryInLevel] = categoriesInLevel
+    const categoryName = firstCategoryInLevel.path[hierarchicalLevel - 1]
+    const nodeId = generateNodeId({
+      type: 'category',
+      classificationType: ClassificationType.Hierarchical,
+      classification: classificationName,
+      category: categoryName,
+      level: hierarchicalLevel,
+    })
+    const itemCountInLevel = _sumBy(categoriesInLevel, ({ itemCount }) => itemCount)
+    const { color } = firstCategoryInLevel
+    return {
+      nodeId,
+      color,
+      displayedLabel: `${categoryName} (${itemCountInLevel})`,
+      isAggregated: true,
+      constituentPaths: categoriesInLevel.map(({ path }) => path),
+    }
+  })
   return {
     nodeId: classificationNodeId,
     name: classificationName,

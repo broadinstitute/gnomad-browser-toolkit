@@ -13,7 +13,7 @@ const simpleClassifications = [
       { name: 'simple category 2', itemCount: 3, color: '#beaed4' },
       { name: 'simple category 3', itemCount: 2, color: '#fdc086' },
     ],
-    getFilterPredicate: name => ({ simpleCategory }) => name === simpleCategory,
+    getCategoryValueOfItem: ({ simpleCategory }) => simpleCategory,
   },
 ]
 const hierarchicalClassifications = [
@@ -40,9 +40,7 @@ const hierarchicalClassifications = [
         color: '#f0027f',
       },
     ],
-    getFilterPredicate: (name, level) => ({ hierarchicalClassification }) => {
-      return hierarchicalClassification[level - 1] === name
-    },
+    getPathValueOfItem: ({ hierarchicalClassification }) => hierarchicalClassification,
   },
 ]
 const items = [

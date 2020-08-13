@@ -25,8 +25,9 @@ function TestWrapper<Item extends TestItem>({ items, classifications }: Props<It
     selected,
     setSelected,
     hierarchicalLevels,
-    setHierarchicalLevels,
+    setHierarchicalLevel,
   } = useInternalState({ items, classifications })
+
   const filteredElems = filteredItems.map(elem => (
     <Typography align="center" key={elem.name}>
       {elem.name}
@@ -42,7 +43,7 @@ function TestWrapper<Item extends TestItem>({ items, classifications }: Props<It
               selected={selected}
               setSelected={setSelected}
               hierarchicalLevels={hierarchicalLevels}
-              setHierarchicalLevels={setHierarchicalLevels}
+              setHierarchicalLevel={setHierarchicalLevel}
             />
           </Grid>
           <Grid item xs={6}>
