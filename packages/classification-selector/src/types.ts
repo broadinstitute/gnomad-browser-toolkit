@@ -15,7 +15,7 @@ export interface SimpleCategory {
 export interface SimpleClassification<Item> {
   name: string
   type: ClassificationType.Simple
-  getFilterPredicate: (category: string) => Predicate<Item>
+  getCategoryValueOfItem: (item: Item) => string
   categories: SimpleCategory[]
 }
 
@@ -27,7 +27,7 @@ export interface HierarchicalCategory {
 export interface HierarchicalClassification<Item> {
   name: string
   type: ClassificationType.Hierarchical
-  getFilterPredicate: (category: string, level: number) => Predicate<Item>
+  getPathValueOfItem: (item: Item) => string[]
   categories: HierarchicalCategory[]
 }
 
