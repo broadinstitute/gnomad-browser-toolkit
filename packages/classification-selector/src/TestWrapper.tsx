@@ -26,6 +26,8 @@ function TestWrapper<Item extends TestItem>({ items, classifications }: Props<It
     setSelected,
     hierarchicalLevels,
     setHierarchicalLevel,
+    clearSelectedCategories,
+    selectAllVisibleCategories,
   } = useInternalState({ items, classifications })
 
   const filteredElems = filteredItems.map(elem => (
@@ -39,6 +41,8 @@ function TestWrapper<Item extends TestItem>({ items, classifications }: Props<It
         <Grid container spacing={1}>
           <Grid item xs={6}>
             <ClassificationViewer
+              clearSelectedCategories={clearSelectedCategories}
+              selectAllVisibleCategories={selectAllVisibleCategories}
               classifications={classifications}
               selected={selected}
               setSelected={setSelected}

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import _uniq from 'lodash/uniq'
 import { ClassificationType, Classification, Predicate, HierarchicalClassification } from './types'
 import {
@@ -22,11 +22,12 @@ const parseSelectedNodeIds = (selected: string[]) => {
   const hierarchicalCategories: { name: string; level: number; classification: string }[] = []
   const simpleCategories: { name: string; classification: string }[] = []
   // The list of all classification being selected:
-  const classificationNames: string[] = []
+  const classificationNamesWithSelectedCategories: string[] = []
+  const classificationNamesWithoutSelectedCategories: string[] = []
   for (const selectedString of selected) {
     const parsed = parseNodeId(selectedString)
     if (parsed.type === 'category') {
-      classificationNames.push(parsed.classification)
+      classificationNamesWithSelectedCategories.push(parsed.classification)
       if (parsed.classificationType === ClassificationType.Simple) {
         simpleCategories.push({
           classification: parsed.classification,
@@ -39,13 +40,16 @@ const parseSelectedNodeIds = (selected: string[]) => {
           classification: parsed.classification,
         })
       }
+    } else {
+      classificationNamesWithoutSelectedCategories.push(parsed.classification)
     }
   }
-  const uniqClassifications = _uniq(classificationNames)
+  const uniqClassifications = _uniq(classificationNamesWithSelectedCategories)
   return {
     uniqClassifications,
     hierarchicalCategories,
     simpleCategories,
+    classificationNamesWithoutSelectedCategories,
   }
 }
 
@@ -72,6 +76,7 @@ export default <Item>({ classifications, items }: Inputs<Item>) => {
     uniqClassifications: currentClassificationNames,
     hierarchicalCategories: currentHierarchicalCategories,
     simpleCategories: currentSimpleCategoryNames,
+    classificationNamesWithoutSelectedCategories,
   } = useMemo(() => parseSelectedNodeIds(selected), [selected])
   const previousSelected = usePrevious(selected)
 
@@ -176,7 +181,7 @@ export default <Item>({ classifications, items }: Inputs<Item>) => {
       [classificationName]: value,
     })
 
-  const filteredItemsWithColorAndGrouping = useMemo(() => {
+  const [filteredItemsWithColorAndGrouping, displayedCategoryNodeIds] = useMemo(() => {
     let classificationForGrouping: Classification<Item>
     if (currentClassificationNames.length === 0) {
       ;[classificationForGrouping] = classifications
@@ -187,6 +192,7 @@ export default <Item>({ classifications, items }: Inputs<Item>) => {
     }
 
     const result: WithColorAndGrouping<Item>[] = []
+    let displayedNodeIds: string[] = []
     if (classificationForGrouping.type === ClassificationType.Simple) {
       const { categories } = getDisplayedSimpleClassification(classificationForGrouping)
       for (const item of filteredItems) {
@@ -203,12 +209,14 @@ export default <Item>({ classifications, items }: Inputs<Item>) => {
           }
         }
       }
+      displayedNodeIds = categories.map(({ nodeId }) => nodeId)
     } else {
       const hierarchicalLevel = hierarchicalLevels[classificationForGrouping.name]
       const { categories } = getDisplayedHierarchicalClassification({
         classification: classificationForGrouping,
         hierarchicalLevel,
       })
+      displayedNodeIds = categories.map(({ nodeId }) => nodeId)
       for (const item of filteredItems) {
         const pathValue = classificationForGrouping.getPathValueOfItem(item)
         for (const thisCategory of categories) {
@@ -235,10 +243,71 @@ export default <Item>({ classifications, items }: Inputs<Item>) => {
         }
       }
     }
-    return result
+    return [result, displayedNodeIds] as const
   }, [classifications, currentClassificationNames, filteredItems, hierarchicalLevels])
 
+  const clearSelectedCategories = useCallback(() => {
+    if (currentClassificationNames.length > 0) {
+      if (currentHierarchicalCategories.length > 0) {
+        const [soleClassification] = currentHierarchicalCategories
+        const classificationNodeId = generateNodeId({
+          classification: soleClassification.classification,
+          classificationType: ClassificationType.Hierarchical,
+          type: 'classification',
+        })
+        setSelected([classificationNodeId])
+      } else if (currentSimpleCategoryNames.length > 0) {
+        const [soleClassification] = currentSimpleCategoryNames
+        const classificationNodeId = generateNodeId({
+          classification: soleClassification.classification,
+          classificationType: ClassificationType.Simple,
+          type: 'classification',
+        })
+        setSelected([classificationNodeId])
+      }
+    }
+  }, [
+    setSelected,
+    currentClassificationNames,
+    currentHierarchicalCategories,
+    currentSimpleCategoryNames,
+  ])
+  const selectAllVisibleCategories = useCallback(() => {
+    if (currentClassificationNames.length > 0) {
+      // This means at least one category within the current expanded
+      // classification is selected so we can just "select" the node ids of all
+      // categories within the expanded classification:
+      setSelected(displayedCategoryNodeIds)
+    } else if (classificationNamesWithoutSelectedCategories.length > 0) {
+      // This means no category within the currently expanded classification is
+      // selected so we'll have to figure out the node ids of all categories
+      // within the expanded classification:
+      const [classificationName] = classificationNamesWithoutSelectedCategories
+      const foundClassification = classifications.find(({ name }) => name === classificationName)!
+      if (foundClassification.type === ClassificationType.Simple) {
+        const { categories } = getDisplayedSimpleClassification(foundClassification)
+        setSelected(categories.map(({ nodeId }) => nodeId))
+      } else {
+        const hierarchicalLevel = hierarchicalLevels[foundClassification.name]
+        const { categories } = getDisplayedHierarchicalClassification({
+          classification: foundClassification,
+          hierarchicalLevel,
+        })
+        setSelected(categories.map(({ nodeId }) => nodeId))
+      }
+    }
+  }, [
+    setSelected,
+    currentClassificationNames,
+    classificationNamesWithoutSelectedCategories,
+    classifications,
+    displayedCategoryNodeIds,
+    hierarchicalLevels,
+  ])
+
   return {
+    clearSelectedCategories,
+    selectAllVisibleCategories,
     filteredItems,
     selected,
     setSelected,

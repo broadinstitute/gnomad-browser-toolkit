@@ -6,6 +6,7 @@ const {
   numFilteredItemsCypressDataAttr,
   categoryTreeItemCypressDataAttr,
   selectAllCypressDataAttr,
+  selectNoneCypressDataAttr,
 } = require('../../src/cypressTestDataAttrs.json')
 
 const attr = attrString => `[data-cy=${attrString}]`
@@ -244,24 +245,19 @@ describe('multiple classifications', () => {
 
 describe('select all/none', () => {
   beforeEach(() => {
-    cy.visit('?path=/story/select-all-or-none-simple-clasifications')
+    cy.visit('?path=/story/classification-viewer--select-all-or-none-simple-classification')
   })
-  it('select all without any classification expanded should not show any selected items', () => {
+  it.only('expanding a classification, then selecting a category, then "select all" then "select none" should show the same result', () => {
     cy.getIframeBody().within(() => {
+      cy.get(attr(classificationTreeItemCypressDataAttr))
+        .as('classification')
+        .contains('simple classification')
+        .click()
+      cy.get('@classification').contains('simple category 2 (3)').click()
       cy.get(attr(selectAllCypressDataAttr)).click()
-    })
-  })
-  it.skip('select all with a simple classification expanded should show all available items', () => {
-    cy.getIframeBody().within(() => {
-      cy.get(attr(classificationTreeItemCypressDataAttr)).contains('simple classification').click()
-      cy.get(attr(selectAllCypressDataAttr)).click()
-
       cy.get(attr(numFilteredItemsCypressDataAttr)).contains('3')
-      cy.get(attr(selectedItemsContainerCypressDataAttr)).within(() => {
-        cy.contains('item a')
-        cy.contains('item b')
-        cy.contains('item c')
-      })
+      cy.get(attr(selectNoneCypressDataAttr)).click()
+      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('3')
     })
   })
 })
