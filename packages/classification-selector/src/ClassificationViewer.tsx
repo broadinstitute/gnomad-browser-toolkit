@@ -53,6 +53,8 @@ export interface Props<Item> {
   setSelected: ExternallyControlledState['setSelected']
   hierarchicalLevels: ExternallyControlledState['hierarchicalLevels']
   setHierarchicalLevel: ExternallyControlledState['setHierarchicalLevel']
+  clearSelectedCategories: () => void
+  selectAllVisibleCategories: () => void
 }
 
 function ClassificationViewer<Item>({
@@ -62,6 +64,8 @@ function ClassificationViewer<Item>({
   setHierarchicalLevel,
   classifications,
   categoryListMaxHeight,
+  clearSelectedCategories,
+  selectAllVisibleCategories,
 }: Props<Item>) {
   const [expanded, setExpanded] = useState<string[]>([])
 
@@ -174,10 +178,20 @@ function ClassificationViewer<Item>({
           {classificationElems}
         </TreeView>
         <Box>
-          <Button variant="outlined" size="small" data-cy={selectAllCypressDataAttr}>
+          <Button
+            variant="outlined"
+            size="small"
+            data-cy={selectAllCypressDataAttr}
+            onClick={selectAllVisibleCategories}
+          >
             Select All
           </Button>
-          <Button variant="outlined" size="small" data-cy={selectNoneCypressDataAttr}>
+          <Button
+            variant="outlined"
+            size="small"
+            data-cy={selectNoneCypressDataAttr}
+            onClick={clearSelectedCategories}
+          >
             Select None
           </Button>
         </Box>
