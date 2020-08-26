@@ -1,7 +1,5 @@
 const {
   classificationTreeItemCypressDataAttr,
-  levelSelectorCypressDataAttr,
-  levelSelectorItemCypressDataAttr,
   selectedItemsContainerCypressDataAttr,
   numFilteredItemsCypressDataAttr,
   categoryTreeItemCypressDataAttr,
@@ -73,105 +71,50 @@ describe('Hierarchical classification', () => {
   beforeEach(() => {
     cy.visit('?path=/story/classification-viewer--hierarchical-classification')
   })
-  it('Select a single category at level 1', () => {
+  it('Progressively expand and select single categories', () => {
     cy.getIframeBody().within(() => {
       cy.get(attr(classificationTreeItemCypressDataAttr))
         .as('classification')
         .contains('hierarchical classification')
         .click()
-      cy.get('@classification').contains('category 1-1--1 (2)').as('target-category')
+      cy.get('@classification').contains('category 1-1--1 (2)')
       cy.get('@classification').contains('category 1-1--2 (7)')
       cy.get('@classification').contains('category 2-1--1 (1)')
+      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('10')
 
-      cy.get('@target-category').click()
-
-      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('2')
-      cy.get(attr(selectedItemsContainerCypressDataAttr)).within(() => {
-        cy.contains('item a')
-        cy.contains('item g')
-      })
-    })
-  })
-
-  it('Select a single category at level 2', () => {
-    cy.getIframeBody().within(() => {
-      cy.get(attr(classificationTreeItemCypressDataAttr))
-        .as('classification')
-        .contains('hierarchical classification')
-        .click()
-      cy.get(attr(levelSelectorCypressDataAttr)).click()
-      cy.get(attr(levelSelectorItemCypressDataAttr)).contains('2').click()
-      cy.get('@classification').contains('category 1-1--1 (2)')
-      cy.get('@classification').contains('category 1-2--1 (2)').as('target-category-1')
-      cy.get('@classification').contains('category 1-2--2 (2)')
-      cy.get('@classification').contains('category 1-2--3 (3)').as('target-category-2')
-      cy.get('@classification').contains('category 2-2--1 (1)')
-
-      cy.get('@target-category-1').click()
-
-      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('2')
+      cy.get('@classification').contains('category 1-1--2 (7)').click()
+      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('7')
       cy.get(attr(selectedItemsContainerCypressDataAttr)).within(() => {
         cy.contains('item b')
+        cy.contains('item c')
+        cy.contains('item d')
+        cy.contains('item e')
         cy.contains('item h')
+        cy.contains('item i')
+        cy.contains('item j')
       })
 
-      cy.get('@target-category-2').click()
-
+      cy.get('@classification').contains('category 1-2--3 (3)').click()
       cy.get(attr(numFilteredItemsCypressDataAttr)).contains('3')
       cy.get(attr(selectedItemsContainerCypressDataAttr)).within(() => {
         cy.contains('item d')
         cy.contains('item e')
         cy.contains('item j')
       })
-    })
-  })
 
-  it('Select a single category at level 3', () => {
-    cy.getIframeBody().within(() => {
-      cy.get(attr(classificationTreeItemCypressDataAttr))
-        .as('classification')
-        .contains('hierarchical classification')
-        .click()
-      cy.get(attr(levelSelectorCypressDataAttr)).click()
-      cy.get(attr(levelSelectorItemCypressDataAttr)).contains('3').click()
-      cy.get('@classification').contains('category 1-1--1 (2)')
-      cy.get('@classification').contains('category 1-2--1 (2)')
-      cy.get('@classification').contains('category 1-2--2 (2)')
-      cy.get('@classification').contains('category 1-3--1 (2)')
-      cy.get('@classification').contains('category 1-3--2 (1)')
-      cy.get('@classification').contains('category 2-3--2 (1)').as('target-category')
-
-      cy.get('@target-category').click()
-
-      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('1')
-      cy.get(attr(selectedItemsContainerCypressDataAttr)).within(() => {
-        cy.contains('item f')
-      })
-    })
-  })
-
-  it('Select a single category at level 4', () => {
-    cy.getIframeBody().within(() => {
-      cy.get(attr(classificationTreeItemCypressDataAttr))
-        .as('classification')
-        .contains('hierarchical classification')
-        .click()
-      cy.get(attr(levelSelectorCypressDataAttr)).click()
-      cy.get(attr(levelSelectorItemCypressDataAttr)).contains('4').click()
-      cy.get('@classification').contains('category 1-1--1 (2)').as('target-category')
-      cy.get('@classification').contains('category 1-2--1 (2)')
-      cy.get('@classification').contains('category 1-2--2 (2)')
-      cy.get('@classification').contains('category 1-3--1 (2)')
-      cy.get('@classification').contains('category 1-3--2 (1)')
-      cy.get('@classification').contains('category 2-4--1 (1)')
-
-      cy.get('@target-category').click()
-
+      cy.get('@classification').contains('category 1-3--1 (2)').click()
       cy.get(attr(numFilteredItemsCypressDataAttr)).contains('2')
+
       cy.get(attr(selectedItemsContainerCypressDataAttr)).within(() => {
-        cy.contains('item a')
-        cy.contains('item g')
+        cy.contains('item d')
+        cy.contains('item j')
       })
+
+      cy.get('@classification').contains('category 1-2--3 (3)').click()
+      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('3')
+
+      cy.get('@classification').contains('category 1-1--2 (7)').click()
+      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('7')
     })
   })
 
@@ -182,17 +125,11 @@ describe('Hierarchical classification', () => {
         .as('classification')
         .contains('hierarchical classification')
         .click()
-      cy.get(attr(levelSelectorCypressDataAttr)).click()
-      cy.get(attr(levelSelectorItemCypressDataAttr)).contains('2').click()
-      cy.get('@classification').contains('category 1-1--1 (2)')
-      cy.get('@classification').contains('category 1-2--1 (2)').as('target-category-1')
-      cy.get('@classification').contains('category 1-2--2 (2)')
-      cy.get('@classification').contains('category 1-2--3 (3)').as('target-category-2')
-      cy.get('@classification').contains('category 2-2--1 (1)')
 
-      cy.get('@target-category-1').click()
+      cy.get('@classification').contains('category 1-1--2 (7)').click()
+      cy.get('@classification').contains('category 1-2--1 (2)').click()
       cy.get('@body').type('{meta}', { release: false })
-      cy.get('@target-category-2').click()
+      cy.get('@classification').contains('category 1-2--3 (3)').click()
 
       cy.get(attr(numFilteredItemsCypressDataAttr)).contains('5')
       cy.get(attr(selectedItemsContainerCypressDataAttr)).within(() => {
@@ -244,10 +181,8 @@ describe('multiple classifications', () => {
 })
 
 describe('select all/none', () => {
-  beforeEach(() => {
+  it('expanding a simple classification, then selecting a category, then "select all" then "select none" should show the same result', () => {
     cy.visit('?path=/story/classification-viewer--select-all-or-none-simple-classification')
-  })
-  it.only('expanding a classification, then selecting a category, then "select all" then "select none" should show the same result', () => {
     cy.getIframeBody().within(() => {
       cy.get(attr(classificationTreeItemCypressDataAttr))
         .as('classification')
@@ -258,6 +193,30 @@ describe('select all/none', () => {
       cy.get(attr(numFilteredItemsCypressDataAttr)).contains('3')
       cy.get(attr(selectNoneCypressDataAttr)).click()
       cy.get(attr(numFilteredItemsCypressDataAttr)).contains('3')
+    })
+  })
+
+  it('clicking "select all" while a hierarchical classification is selected should expand all categories in that classification', () => {
+    cy.visit(
+      '?path=/story/classification-viewer--select-all-or-select-none-hierarchical-classification'
+    )
+    cy.getIframeBody().within(() => {
+      cy.get(attr(classificationTreeItemCypressDataAttr))
+        .as('classification')
+        .contains('hierarchical classification')
+        .click()
+      cy.get(attr(selectAllCypressDataAttr)).click()
+      cy.get(attr(categoryTreeItemCypressDataAttr)).contains('category 1-1--1').should('be.visible')
+      cy.get(attr(categoryTreeItemCypressDataAttr)).contains('category 1-1--2').should('be.visible')
+      cy.get(attr(categoryTreeItemCypressDataAttr)).contains('category 1-2--1').should('be.visible')
+      cy.get(attr(categoryTreeItemCypressDataAttr)).contains('category 1-2--2').should('be.visible')
+      cy.get(attr(categoryTreeItemCypressDataAttr)).contains('category 1-2--3').should('be.visible')
+      cy.get(attr(categoryTreeItemCypressDataAttr)).contains('category 1-3--1').should('be.visible')
+      cy.get(attr(categoryTreeItemCypressDataAttr)).contains('category 1-3--2').should('be.visible')
+      cy.get(attr(categoryTreeItemCypressDataAttr)).contains('category 2-1--1').should('be.visible')
+      cy.get(attr(categoryTreeItemCypressDataAttr)).contains('category 2-2--1').should('be.visible')
+      cy.get(attr(categoryTreeItemCypressDataAttr)).contains('category 2-3--2').should('be.visible')
+      cy.get(attr(categoryTreeItemCypressDataAttr)).contains('category 2-4--1').should('be.visible')
     })
   })
 })

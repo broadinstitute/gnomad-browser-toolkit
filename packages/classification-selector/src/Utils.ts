@@ -1,8 +1,3 @@
-import _maxBy from 'lodash/maxBy'
-import _partition from 'lodash/partition'
-import _last from 'lodash/last'
-import _groupBy from 'lodash/groupBy'
-import _sumBy from 'lodash/sumBy'
 import { ClassificationType, HierarchicalClassification, SimpleClassification } from './types'
 
 export type SimpleNodeIdGeneratorInputs = {
@@ -13,9 +8,12 @@ export type SimpleNodeIdGeneratorInputs = {
 export type HierarchicalIdGeneratorInputs = {
   classification: string
   classificationType: ClassificationType.Hierarchical
-} & ({ type: 'category'; category: string; level: number } | { type: 'classification' })
+} & ({ type: 'category'; path: string[] } | { type: 'classification' })
 
 // This assumes that the $ character doesn't appear in any word:
+const hierarchicalNodeIdMajorSeparator = '$$$'
+const hierarchicalNodeIdMinorSeparator = '$$'
+
 export const generateNodeId = (
   input: SimpleNodeIdGeneratorInputs | HierarchicalIdGeneratorInputs
 ): string => {
@@ -23,13 +21,17 @@ export const generateNodeId = (
     const categoryPhrase = input.type === 'classification' ? '' : input.category
     return `simple$${input.classification}$${categoryPhrase}`
   }
-  const categoryPhrase = input.type === 'classification' ? '' : input.category
-  const levelPhrase = input.type === 'classification' ? '' : input.level
-  return `hierarchical$${input.classification}$level$${levelPhrase}$${categoryPhrase}`
+  let categoryPhrase: string
+  if (input.type === 'classification') {
+    categoryPhrase = ''
+  } else {
+    categoryPhrase = input.path.map(elem => elem + hierarchicalNodeIdMinorSeparator).join('')
+  }
+  return `hierarchical${hierarchicalNodeIdMajorSeparator}${input.classification}${hierarchicalNodeIdMajorSeparator}${categoryPhrase}`
 }
 
 const simpleNodeIdPattern = /^simple\$([^$]+)\$([^$]*)$/
-const hierarchicalNodeIdPattern = /^hierarchical\$([^$]+)\$level\$([^$]*)\$([^$]*)$/
+const hierarchicalNodeIdPattern = /^hierarchical\${3}([^$]+)\${3}(([^$]*\${2})*)$/
 export const parseNodeId = (
   input: string
 ): SimpleNodeIdGeneratorInputs | HierarchicalIdGeneratorInputs => {
@@ -60,24 +62,22 @@ export const parseNodeId = (
       throw new Error(`Cannot parse hierarchical node id ${input}`)
     } else {
       const classification = matched[1]
-      const rawLevel = matched[2]
-      const parsedLevel = Number.parseInt(rawLevel, 10)
-      const rawCategory = matched[3]
+      const rawCategory = matched[2]
 
-      if (Number.isNaN(parsedLevel) === true && rawCategory === '') {
+      if (rawCategory === '') {
         return {
           classification,
           classificationType: ClassificationType.Hierarchical,
           type: 'classification',
         }
       }
-      if (Number.isNaN(parsedLevel) === false && rawCategory !== '') {
+      if (rawCategory !== '') {
+        const path = rawCategory.split(hierarchicalNodeIdMinorSeparator).filter(elem => elem !== '')
         return {
           classification,
           classificationType: ClassificationType.Hierarchical,
           type: 'category',
-          category: rawCategory,
-          level: parsedLevel,
+          path,
         }
       }
       throw new Error(`Cannot parse hierarchical node id ${input}`)
@@ -130,97 +130,138 @@ export const getDisplayedSimpleClassification = <Item>({
     categories: processedCategories,
   }
 }
-type DisplayedHierarchicalCategory = {
+
+export type DisplayedHierarchicalCategory = {
   nodeId: string
-  color: string
-  // The label shown to the user in the TreeView
-  displayedLabel: string
+  name: string
+  itemCount: number
 } & (
-  | // Categories that are more detailed than the selected detail level will
-  // need to be aggregated up. If such aggregation needs to be done, the
-  // `path`s of categories that are aggregated up will be listed as `constituentPaths`.
-  // Otherwise, only the `path` is included.
-  { isAggregated: false; path: string[] }
-  | { isAggregated: true; constituentPaths: string[][] }
+  | { hasChildren: true; children: DisplayedHierarchicalCategory[] }
+  | { hasChildren: false; color: string }
 )
 interface DisplayedHierarchicalClassification {
   nodeId: string
   name: string
-  maxHierarchicalLevel: number
   categories: DisplayedHierarchicalCategory[]
+  leafCategories: DisplayedHierarchicalCategory[]
+  branchCategories: DisplayedHierarchicalCategory[]
 }
 
-export const serializeHierarchicalPath = (path: string[]) => path.join('$-$')
-
-export const getDisplayedHierarchicalClassification = <Item>(args: {
-  classification: HierarchicalClassification<Item>
-  hierarchicalLevel: number
-}): DisplayedHierarchicalClassification => {
-  const {
-    classification: { name: classificationName, categories },
-    hierarchicalLevel,
-  } = args
-  const classificationNodeId = generateNodeId({
-    type: 'classification',
-    classificationType: ClassificationType.Hierarchical,
-    classification: classificationName,
-  })
-  const maxHierarchicalLevel = _maxBy(categories, ({ path }) => path.length)!.path.length
-  const [lessDetailedThanCurrentLevel, atLeastAsDetailedAsCurrentLevel] = _partition(
-    categories,
-    ({ path }) => path.length < hierarchicalLevel
-  )
-
-  const lessDetailedThanCurrentLevelElems: DisplayedHierarchicalCategory[] = lessDetailedThanCurrentLevel.map(
-    ({ path, itemCount, color }) => {
-      const categoryName = _last(path)!
+export const getDisplayedHierarchicalCategories = <Item>({
+  name: classificationName,
+  categories,
+}: HierarchicalClassification<Item>) => {
+  const result: DisplayedHierarchicalCategory[] = []
+  const leafCategories: DisplayedHierarchicalCategory[] = []
+  const branchCategories: DisplayedHierarchicalCategory[] = []
+  const categoryLookup = new Map<string, DisplayedHierarchicalCategory>()
+  for (const category of categories) {
+    if (category.path.length === 1) {
       const nodeId = generateNodeId({
         type: 'category',
         classificationType: ClassificationType.Hierarchical,
         classification: classificationName,
-        category: categoryName,
-        level: path.length,
+        path: category.path,
       })
-      const displayedLabel = `${categoryName} (${itemCount})`
-      return {
+      const item: DisplayedHierarchicalCategory = {
         nodeId,
-        displayedLabel,
-        color,
-        isAggregated: false,
-        path,
-        constituentCategories: undefined,
+        name: category.path[0],
+        itemCount: category.itemCount,
+        hasChildren: false,
+        color: category.color,
+      }
+      categoryLookup.set(nodeId, item)
+      result.push(item)
+      leafCategories.push(item)
+    } else {
+      for (let i = category.path.length - 1; i > 0; i -= 1) {
+        const childIndex = i
+        const childNodeId = generateNodeId({
+          type: 'category',
+          classificationType: ClassificationType.Hierarchical,
+          classification: classificationName,
+          path: category.path.slice(0, childIndex + 1),
+        })
+        const foundChild = categoryLookup.get(childNodeId)
+        let child: DisplayedHierarchicalCategory
+        if (foundChild === undefined) {
+          if (childIndex === category.path.length - 1) {
+            child = {
+              nodeId: childNodeId,
+              name: category.path[childIndex],
+              itemCount: category.itemCount,
+              hasChildren: false,
+              color: category.color,
+            }
+            categoryLookup.set(childNodeId, child)
+            leafCategories.push(child)
+          } else {
+            throw new Error('This should not happen')
+          }
+        } else {
+          child = foundChild
+        }
+
+        const parentIndex = i - 1
+        const parentNodeId = generateNodeId({
+          type: 'category',
+          classificationType: ClassificationType.Hierarchical,
+          classification: classificationName,
+          path: category.path.slice(0, parentIndex + 1),
+        })
+        const foundParent = categoryLookup.get(parentNodeId)
+        let parent: DisplayedHierarchicalCategory
+        if (foundParent === undefined) {
+          parent = {
+            nodeId: parentNodeId,
+            name: category.path[parentIndex],
+            itemCount: 0,
+            hasChildren: true,
+            children: [],
+          }
+          if (parentIndex === 0) {
+            result.push(parent)
+          }
+          categoryLookup.set(parentNodeId, parent)
+          branchCategories.push(parent)
+        } else {
+          parent = foundParent
+        }
+        if (parent.hasChildren === true) {
+          const found = parent.children.find(({ nodeId }) => nodeId === childNodeId)
+          if (found === undefined) {
+            parent.children.push(child)
+          }
+          parent.itemCount += category.itemCount
+        } else {
+          throw new Error('This should not happen')
+        }
       }
     }
-  )
-  const groupedByCurrentLevel = _groupBy(atLeastAsDetailedAsCurrentLevel, ({ path }) =>
-    serializeHierarchicalPath(path.slice(0, hierarchicalLevel))
-  )
-  const atLeastAsDetailedAsCurrentLevelElems: DisplayedHierarchicalCategory[] = Object.values(
-    groupedByCurrentLevel
-  ).map(categoriesInLevel => {
-    const [firstCategoryInLevel] = categoriesInLevel
-    const categoryName = firstCategoryInLevel.path[hierarchicalLevel - 1]
-    const nodeId = generateNodeId({
-      type: 'category',
-      classificationType: ClassificationType.Hierarchical,
-      classification: classificationName,
-      category: categoryName,
-      level: hierarchicalLevel,
-    })
-    const itemCountInLevel = _sumBy(categoriesInLevel, ({ itemCount }) => itemCount)
-    const { color } = firstCategoryInLevel
-    return {
-      nodeId,
-      color,
-      displayedLabel: `${categoryName} (${itemCountInLevel})`,
-      isAggregated: true,
-      constituentPaths: categoriesInLevel.map(({ path }) => path),
-    }
-  })
+  }
   return {
-    nodeId: classificationNodeId,
-    name: classificationName,
-    maxHierarchicalLevel,
-    categories: [...lessDetailedThanCurrentLevelElems, ...atLeastAsDetailedAsCurrentLevelElems],
+    categoriesAsList: result,
+    categoriesLookup: categoryLookup,
+    leafCategories,
+    branchCategories,
+  }
+}
+
+export const serializeHierarchicalPath = (path: string[]) => path.join('$-$')
+
+export const getDisplayedHierarchicalClassification = <Item>(
+  classification: HierarchicalClassification<Item>
+): DisplayedHierarchicalClassification => {
+  const result = getDisplayedHierarchicalCategories(classification)
+  return {
+    name: classification.name,
+    nodeId: generateNodeId({
+      type: 'classification',
+      classification: classification.name,
+      classificationType: ClassificationType.Hierarchical,
+    }),
+    categories: result.categoriesAsList,
+    leafCategories: result.leafCategories,
+    branchCategories: result.branchCategories,
   }
 }
