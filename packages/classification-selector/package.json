@@ -4,6 +4,9 @@
   "types": "lib/index.d.ts",
   "main": "lib/index.js",
   "files": ["lib"],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "jest": "jest --coverage",
     "jest:watch": "jest --watch",
