@@ -51,6 +51,63 @@ describe('simple classification node id generator/parser', () => {
 })
 
 describe('getDisplayedHierarchicalCategories', () => {
+  test('Non-terminal category', () => {
+    const classification = {
+      name: 'hierarchical classification',
+      type: ClassificationType.Hierarchical,
+      categories: [
+        { path: ['category 1-1--1'], itemCount: 2, color: '#7fc97f' },
+        { path: ['category 1-1--1', 'category 1-1--2'], itemCount: 2, color: '#00ff00' },
+        {
+          path: ['category 1-1--1', 'category 1-1--2', 'category 1-1--3'],
+          itemCount: 1,
+          color: '#beaed4',
+        },
+      ],
+    }
+    const expected = [
+      {
+        nodeId: generateNodeId({
+          type: 'category',
+          classificationType: ClassificationType.Hierarchical,
+          classification: 'hierarchical classification',
+          path: ['category 1-1--1'],
+        }),
+        name: 'category 1-1--1',
+        itemCount: 5,
+        hasChildren: true,
+        children: [
+          {
+            nodeId: generateNodeId({
+              type: 'category',
+              classificationType: ClassificationType.Hierarchical,
+              classification: 'hierarchical classification',
+              path: ['category 1-1--1', 'category 1-1--2'],
+            }),
+            name: 'category 1-1--2',
+            itemCount: 3,
+            hasChildren: true,
+            children: [
+              {
+                nodeId: generateNodeId({
+                  type: 'category',
+                  classificationType: ClassificationType.Hierarchical,
+                  classification: 'hierarchical classification',
+                  path: ['category 1-1--1', 'category 1-1--2', 'category 1-1--3'],
+                }),
+                name: 'category 1-1--3',
+                itemCount: 1,
+                hasChildren: false,
+                color: '#beaed4',
+              },
+            ],
+          },
+        ],
+      },
+    ]
+    const { categoriesAsList: actual } = getDisplayedHierarchicalCategories(classification)
+    expect(actual).toEqual(expected)
+  })
   test('One category of depth one', () => {
     const classification = {
       name: 'hierarchical classification',
@@ -74,7 +131,7 @@ describe('getDisplayedHierarchicalCategories', () => {
     const { categoriesAsList: actual } = getDisplayedHierarchicalCategories(classification)
     expect(actual).toEqual(expected)
   })
-  test('Only one deep path', () => {
+  test('One single deep path', () => {
     const classification = {
       name: 'hierarchical classification',
       type: ClassificationType.Hierarchical,
@@ -218,8 +275,13 @@ describe('getDisplayedHierarchicalCategories', () => {
           color: '#386cb0',
         },
         {
-          path: ['category 2-1--1', 'category 2-2--1', 'category 2-3--2', 'category 2-4--1'],
+          path: ['category 2-1--1', 'category 2-2--1', 'category 2-3--2'],
           itemCount: 1,
+          color: '#f0027f',
+        },
+        {
+          path: ['category 2-1--1', 'category 2-2--1', 'category 2-3--2', 'category 2-4--1'],
+          itemCount: 2,
           color: '#f0027f',
         },
       ],
@@ -320,7 +382,7 @@ describe('getDisplayedHierarchicalCategories', () => {
           path: ['category 2-1--1'],
         }),
         name: 'category 2-1--1',
-        itemCount: 1,
+        itemCount: 3,
         hasChildren: true,
         children: [
           {
@@ -331,7 +393,7 @@ describe('getDisplayedHierarchicalCategories', () => {
               path: ['category 2-1--1', 'category 2-2--1'],
             }),
             name: 'category 2-2--1',
-            itemCount: 1,
+            itemCount: 3,
             hasChildren: true,
             children: [
               {
@@ -342,7 +404,7 @@ describe('getDisplayedHierarchicalCategories', () => {
                   path: ['category 2-1--1', 'category 2-2--1', 'category 2-3--2'],
                 }),
                 name: 'category 2-3--2',
-                itemCount: 1,
+                itemCount: 3,
                 hasChildren: true,
                 children: [
                   {
@@ -358,7 +420,7 @@ describe('getDisplayedHierarchicalCategories', () => {
                       ],
                     }),
                     name: 'category 2-4--1',
-                    itemCount: 1,
+                    itemCount: 2,
                     hasChildren: false,
                     color: '#f0027f',
                   },

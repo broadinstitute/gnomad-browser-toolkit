@@ -131,14 +131,23 @@ export const getDisplayedSimpleClassification = <Item>({
   }
 }
 
-export type DisplayedHierarchicalCategory = {
+interface DisplayedHierarchicalCategoryShared {
   nodeId: string
   name: string
   itemCount: number
-} & (
-  | { hasChildren: true; children: DisplayedHierarchicalCategory[] }
-  | { hasChildren: false; color: string }
-)
+}
+interface DisplayedHierarchicalCategoryBranch extends DisplayedHierarchicalCategoryShared {
+  hasChildren: true
+  children: DisplayedHierarchicalCategory[]
+}
+interface DisplayedHierarchicalCategoryLeaf extends DisplayedHierarchicalCategoryShared {
+  hasChildren: false
+  color: string
+}
+
+export type DisplayedHierarchicalCategory =
+  | DisplayedHierarchicalCategoryBranch
+  | DisplayedHierarchicalCategoryLeaf
 interface DisplayedHierarchicalClassification {
   nodeId: string
   name: string
@@ -152,7 +161,7 @@ export const getDisplayedHierarchicalCategories = <Item>({
   categories,
 }: HierarchicalClassification<Item>) => {
   const result: DisplayedHierarchicalCategory[] = []
-  const leafCategories: DisplayedHierarchicalCategory[] = []
+  let leafCategories: DisplayedHierarchicalCategory[] = []
   const branchCategories: DisplayedHierarchicalCategory[] = []
   const categoryLookup = new Map<string, DisplayedHierarchicalCategory>()
   for (const category of categories) {
@@ -196,7 +205,9 @@ export const getDisplayedHierarchicalCategories = <Item>({
             categoryLookup.set(childNodeId, child)
             leafCategories.push(child)
           } else {
-            throw new Error('This should not happen')
+            throw new Error(
+              `This child with nodeId ${childNodeId} should have been previously created as a parent in a previous loop iteration`
+            )
           }
         } else {
           child = foundChild
@@ -232,10 +243,16 @@ export const getDisplayedHierarchicalCategories = <Item>({
           if (found === undefined) {
             parent.children.push(child)
           }
-          parent.itemCount += category.itemCount
         } else {
-          throw new Error('This should not happen')
+          // Convert the leaf to a branch:
+          ;((parent as unknown) as DisplayedHierarchicalCategoryBranch).hasChildren = true
+          ;((parent as unknown) as DisplayedHierarchicalCategoryBranch).children = [child]
+          delete parent.color
+          // Also remove from list of leaves and add to list of branches:
+          leafCategories = leafCategories.filter(({ nodeId }) => nodeId !== parentNodeId)
+          branchCategories.push(parent)
         }
+        parent.itemCount += category.itemCount
       }
     }
   }
