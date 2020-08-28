@@ -137,3 +137,7 @@ export const selectAllOrNoneSimpleClassification = () => (
     classifications={[...simpleClassifications]}
   />
 )
+
+export const selectAllOrSelectNoneHierarchicalClassification = () => (
+  <TestWrapper items={items} classifications={hierarchicalClassifications} />
+)

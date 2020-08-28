@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import TreeView from '@material-ui/lab/TreeView'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
@@ -6,24 +6,21 @@ import TreeItem from '@material-ui/lab/TreeItem'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import InputLabel from '@material-ui/core/InputLabel'
-import MenuItem from '@material-ui/core/MenuItem'
-import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select'
-import _range from 'lodash/range'
 import { StandardLonghandProperties } from 'csstype'
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
 import ScopedCssBaseline from '@material-ui/core/ScopedCssBaseline'
 import { Classification, ClassificationType } from './types'
-import { getDisplayedHierarchicalClassification, getDisplayedSimpleClassification } from './Utils'
+import {
+  getDisplayedHierarchicalClassification,
+  getDisplayedSimpleClassification,
+  DisplayedHierarchicalCategory,
+} from './Utils'
 import useInternalState from './useClassificationSelectorState'
 import 'fontsource-roboto'
 
 const {
   categoryTreeItemCypressDataAttr,
   classificationTreeItemCypressDataAttr,
-  levelSelectorCypressDataAttr,
-  levelSelectorItemCypressDataAttr,
   selectAllCypressDataAttr,
   selectNoneCypressDataAttr,
 } = require('./cypressTestDataAttrs.json')
@@ -43,6 +40,33 @@ const useMaterialStyles = makeStyles<Theme, MakeStyleProps>(theme =>
   })
 )
 
+const displayedHierarchicalCategoryToReactElem = (category: DisplayedHierarchicalCategory) => {
+  const { nodeId } = category
+  const displayedLabel = `${category.name} (${category.itemCount})`
+  if (category.hasChildren === true) {
+    const children = category.children.map(elem => displayedHierarchicalCategoryToReactElem(elem))
+    return (
+      <TreeItem
+        nodeId={nodeId}
+        key={nodeId}
+        data-cy={categoryTreeItemCypressDataAttr}
+        label={displayedLabel}
+      >
+        {children}
+      </TreeItem>
+    )
+  }
+  return (
+    <TreeItem
+      nodeId={nodeId}
+      key={nodeId}
+      data-cy={categoryTreeItemCypressDataAttr}
+      label={displayedLabel}
+      icon={<FiberManualRecordIcon style={{ color: category.color }} />}
+    />
+  )
+}
+
 type ExternallyControlledState = ReturnType<typeof useInternalState>
 
 export interface Props<Item> {
@@ -51,24 +75,22 @@ export interface Props<Item> {
   categoryListMaxHeight?: MakeStyleProps['categoryListMaxHeight']
   selected: ExternallyControlledState['selected']
   setSelected: ExternallyControlledState['setSelected']
-  hierarchicalLevels: ExternallyControlledState['hierarchicalLevels']
-  setHierarchicalLevel: ExternallyControlledState['setHierarchicalLevel']
+  expanded: ExternallyControlledState['expanded']
+  setExpanded: ExternallyControlledState['setExpanded']
   clearSelectedCategories: () => void
   selectAllVisibleCategories: () => void
 }
 
 function ClassificationViewer<Item>({
+  expanded,
+  setExpanded,
   selected,
   setSelected,
-  hierarchicalLevels,
-  setHierarchicalLevel,
   classifications,
   categoryListMaxHeight,
   clearSelectedCategories,
   selectAllVisibleCategories,
 }: Props<Item>) {
-  const [expanded, setExpanded] = useState<string[]>([])
-
   const handleToggle = (_e: React.ChangeEvent<unknown>, nodeIds: string[]) => setExpanded(nodeIds)
   const handleSelect = (_e: React.ChangeEvent<unknown>, nodeIds: string[]) => setSelected(nodeIds)
 
@@ -104,58 +126,22 @@ function ClassificationViewer<Item>({
         </TreeItem>
       )
     } else {
-      const hierarchicalLevel = hierarchicalLevels[classification.name]
       const {
         name: classificationName,
         nodeId: classificationNodeId,
-        maxHierarchicalLevel,
         categories,
-      } = getDisplayedHierarchicalClassification({
-        classification,
-        hierarchicalLevel,
-      })
-      const categoryElems = categories.map(({ nodeId, displayedLabel, color }) => (
-        <TreeItem
-          nodeId={nodeId}
-          key={nodeId}
-          data-cy={categoryTreeItemCypressDataAttr}
-          label={displayedLabel}
-          icon={<FiberManualRecordIcon style={{ color }} />}
-        />
-      ))
-      const dropdownLabelId = `label-classification-${classificationName}`
-      const dropdownItems = _range(maxHierarchicalLevel).map(level => (
-        <MenuItem value={level + 1} key={level} data-cy={levelSelectorItemCypressDataAttr}>
-          {level + 1}
-        </MenuItem>
-      ))
+      } = getDisplayedHierarchicalClassification(classification)
+      const categoryElems = categories.map(category =>
+        displayedHierarchicalCategoryToReactElem(category)
+      )
+
       result = (
         <TreeItem
           key={classificationNodeId}
           data-cy={classificationTreeItemCypressDataAttr}
           nodeId={classificationNodeId}
           classes={{ group: categoryListClassName }}
-          label={
-            <Box display="flex" justifyContent="space-between" alignItems="center">
-              <Box>{classificationName}</Box>
-              <FormControl
-                className={materialClasses.levelSelector}
-                onClick={e => e.stopPropagation()}
-              >
-                <InputLabel id={dropdownLabelId}>Level</InputLabel>
-                <Select
-                  labelId={dropdownLabelId}
-                  value={hierarchicalLevel}
-                  data-cy={levelSelectorCypressDataAttr}
-                  onChange={event =>
-                    setHierarchicalLevel(classification.name, event.target.value as number)
-                  }
-                >
-                  {dropdownItems}
-                </Select>
-              </FormControl>
-            </Box>
-          }
+          label={classificationName}
         >
           {categoryElems}
         </TreeItem>
