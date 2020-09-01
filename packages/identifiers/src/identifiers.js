@@ -38,30 +38,49 @@ export const normalizeRegionId = regionId => {
   return `${chrom}-${start}-${end}`
 }
 
-const VARIANT_ID_REGEX = /^(chr)?(\d+|x|y|m|mt)[-:.]([0-9,]+)[-:]([acgt]+)[-:]([acgt]+)$/i
+const VARIANT_ID_REGEX = /^(chr)?(\d+|x|y|m|mt)[-:.]?((([\d,]+)[-:.]?([acgt]+)[-:.>]([acgt]+))|(([acgt]+)[-:.]?([\d,]+)[-:.]?([acgt]+)))$/i
 
-export const isVariantId = str => {
-  const match = VARIANT_ID_REGEX.exec(str)
+export const normalizeVariantId = variantId => {
+  const match = VARIANT_ID_REGEX.exec(variantId)
   if (!match) {
-    return false
+    throw new Error('Invalid variant ID')
   }
 
-  const chrom = match[2].toLowerCase()
+  const chrom = match[2]
   const chromNumber = Number(chrom)
   if (!Number.isNaN(chromNumber) && (chromNumber < 1 || chromNumber > 22)) {
-    return false
+    throw new Error('Invalid variant ID')
   }
 
-  return true
+  let pos
+  let ref
+  let alt
+
+  /* eslint-disable prefer-destructuring */
+  if (match[4]) {
+    // chrom-pos-ref-alt
+    pos = match[5]
+    ref = match[6]
+    alt = match[7]
+  } else {
+    // chrom-ref-pos-alt
+    ref = match[9]
+    pos = match[10]
+    alt = match[11]
+  }
+  /* eslint-enable prefer-destructuring */
+
+  return `${chrom}-${Number(pos.replace(/,/g, ''))}-${ref}-${alt}`.toUpperCase()
 }
 
-export const normalizeVariantId = variantId =>
-  variantId
-    .toUpperCase()
-    .replace(/,/g, '')
-    .replace(/[:.]/g, '-')
-    .replace(/^CHR/, '')
-    .replace(/-0+([1-9][0-9]*)/, '-$1')
+export const isVariantId = str => {
+  try {
+    normalizeVariantId(str)
+    return true
+  } catch (err) {
+    return false
+  }
+}
 
 const RSID_REGEX = /^rs\d+$/
 
