@@ -72,6 +72,9 @@ describe('isVariantId', () => {
     'CHR3-12433-A-GATC',
     '1-55,516,888-G-GA',
     'm.300-G-A',
+    'm.A3243G',
+    '3-7643T>C',
+    'chr11C308G',
   ]
 
   const negativeTestCases = [
@@ -82,6 +85,11 @@ describe('isVariantId', () => {
     'R-1242-A-T',
     'chrX-23532-cG',
     'y-712321-a-',
+    'm.B3243C',
+    '4-123A->G',
+    '2A100T100G',
+    '2.100T200A',
+    '1T-100-A-G',
   ]
 
   test(isVariantId, positiveTestCases, negativeTestCases)
@@ -96,6 +104,10 @@ describe('normalizeVariantId', () => {
     { input: 'CHR3-12433-A-GATC', normalized: '3-12433-A-GATC' },
     { input: '1-55,516,888-G-GA', normalized: '1-55516888-G-GA' },
     { input: 'm.300-G-A', normalized: 'M-300-G-A' },
+    { input: 'm.A3243G', normalized: 'M-3243-A-G' },
+    { input: '3-7643T>C', normalized: '3-7643-T-C' },
+    { input: 'chr11C308G', normalized: '11-308-C-G' },
+    { input: '1G55,516,888GA', normalized: '1-55516888-G-GA' },
   ]
 
   testCases.forEach(({ input, normalized }) => {
