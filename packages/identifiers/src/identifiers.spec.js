@@ -42,16 +42,16 @@ describe('isRegionId', () => {
 
 describe('normalizeRegionId', () => {
   const testCases = [
-    { input: 'chr1-13414', normalized: '1-13394-13434' },
+    { input: 'chr1-13414', normalized: '1-13414-13414' },
     { input: '1-15342343-15342563', normalized: '1-15342343-15342563' },
     { input: '1:15342343-15342563', normalized: '1-15342343-15342563' },
     { input: '1:00042343-00042563', normalized: '1-42343-42563' },
     { input: 'CHR3-12433-19000', normalized: '3-12433-19000' },
-    { input: '3:2592432', normalized: '3-2592412-2592452' },
-    { input: 'chrX-23532-', normalized: 'X-23512-23552' },
-    { input: '2-35324:', normalized: '2-35304-35344' },
+    { input: '3:2592432', normalized: '3-2592432-2592432' },
+    { input: 'chrX-23532-', normalized: 'X-23532-23532' },
+    { input: '2-35324:', normalized: '2-35324-35324' },
     { input: 'y-712321-811232', normalized: 'Y-712321-811232' },
-    { input: '3-10', normalized: '3-0-30' },
+    { input: '3-10', normalized: '3-10-10' },
     { input: '1:55,505,222-55,530,526', normalized: '1-55505222-55530526' },
     { input: 'm.300-320', normalized: 'M-300-320' },
   ]
