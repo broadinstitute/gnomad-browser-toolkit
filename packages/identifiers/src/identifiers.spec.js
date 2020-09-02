@@ -1,4 +1,4 @@
-const {
+import {
   isRegionId,
   parseRegionId,
   normalizeRegionId,
@@ -6,7 +6,7 @@ const {
   parseVariantId,
   normalizeVariantId,
   isRsId,
-} = require('..')
+} from './identifiers'
 
 const test = (fn, positiveTestCases, negativeTestCases) => {
   positiveTestCases.forEach(query => {
