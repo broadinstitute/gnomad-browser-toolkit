@@ -10,6 +10,7 @@
   "scripts": {
     "jest": "jest --coverage",
     "jest:watch": "jest --watch",
+    "test": "jest",
     "storybook": "start-storybook --port 3200",
     "cypress:open": "cypress open",
     "clean": "rm -rf lib",

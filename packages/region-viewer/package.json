@@ -17,6 +17,7 @@
   "scripts": {
     "build": "gnomad-browser-toolkit-scripts build",
     "prepack": "yarn run build",
+    "test": "jest",
     "example": "gnomad-browser-toolkit-scripts example"
   },
   "dependencies": {

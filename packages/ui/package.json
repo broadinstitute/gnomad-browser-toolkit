@@ -19,6 +19,7 @@
     "build": "gnomad-browser-toolkit-scripts build && yarn run copy-type-def",
     "copy-type-def": "cp src/index.d.ts lib/",
     "prepack": "yarn run build",
+    "test": "jest",
     "example": "gnomad-browser-toolkit-scripts example"
   },
   "dependencies": {
