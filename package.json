@@ -10,7 +10,6 @@
     "lint:css": "stylelint './**/*.js'",
     "lint:js": "eslint .",
     "lint:js:fix": "eslint . --fix",
-    "test": "jest",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx}\""
   },
   "workspaces": [

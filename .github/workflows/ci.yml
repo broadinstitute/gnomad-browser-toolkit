@@ -34,4 +34,20 @@ jobs:
       - name: Run stylelint
         run: yarn run lint:css
       - name: Run tests
-        run: yarn test
+        run: |
+          set -eu
+          status=0
+          for pkg in packages/*; do
+            pushd "$pkg" >/dev/null
+            if jq -e '.scripts.test != null' package.json >/dev/null; then
+              echo "Running tests for $pkg"
+              if ! yarn test; then
+                status=1
+              fi
+            else
+              echo "No tests found for $pkg"
+            fi
+            popd >/dev/null
+          done
+          exit $status
+        shell: bash
