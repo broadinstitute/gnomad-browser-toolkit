@@ -1,30 +1,35 @@
 const REGION_ID_REGEX = /^(chr)?(\d+|x|y|m|mt)[-:.]([\d,]+)([-:]([\d,]+)?)?$/i
 
-export const normalizeRegionId = regionId => {
+export const parseRegionId = regionId => {
   const match = REGION_ID_REGEX.exec(regionId)
   if (!match) {
     throw new Error('Invalid region ID')
   }
 
-  const chrom = match[2]
+  const chrom = match[2].toUpperCase()
   const chromNumber = Number(chrom)
   if (!Number.isNaN(chromNumber) && (chromNumber < 1 || chromNumber > 22)) {
     throw new Error('Invalid region ID')
   }
 
   const start = Number(match[3].replace(/,/g, ''))
-  const end = match[5] ? Number(match[5].replace(/,/g, '')) : start
+  const stop = match[5] ? Number(match[5].replace(/,/g, '')) : start
 
-  if (end < start) {
+  if (stop < start) {
     throw new Error('Invalid region ID')
   }
 
-  return `${chrom.toUpperCase()}-${start}-${end}`
+  return { chrom, start, stop }
+}
+
+export const normalizeRegionId = regionId => {
+  const { chrom, start, stop } = parseRegionId(regionId)
+  return `${chrom}-${start}-${stop}`
 }
 
 export const isRegionId = str => {
   try {
-    normalizeRegionId(str)
+    parseRegionId(str)
     return true
   } catch (err) {
     return false
@@ -33,13 +38,13 @@ export const isRegionId = str => {
 
 const VARIANT_ID_REGEX = /^(chr)?(\d+|x|y|m|mt)[-:.]?((([\d,]+)[-:.]?([acgt]+)[-:.>]([acgt]+))|(([acgt]+)[-:.]?([\d,]+)[-:.]?([acgt]+)))$/i
 
-export const normalizeVariantId = variantId => {
+export const parseVariantId = variantId => {
   const match = VARIANT_ID_REGEX.exec(variantId)
   if (!match) {
     throw new Error('Invalid variant ID')
   }
 
-  const chrom = match[2]
+  const chrom = match[2].toUpperCase()
   const chromNumber = Number(chrom)
   if (!Number.isNaN(chromNumber) && (chromNumber < 1 || chromNumber > 22)) {
     throw new Error('Invalid variant ID')
@@ -63,12 +68,21 @@ export const normalizeVariantId = variantId => {
   }
   /* eslint-enable prefer-destructuring */
 
-  return `${chrom}-${Number(pos.replace(/,/g, ''))}-${ref}-${alt}`.toUpperCase()
+  pos = Number(pos.replace(/,/g, ''))
+  ref = ref.toUpperCase()
+  alt = alt.toUpperCase()
+
+  return { chrom, pos, ref, alt }
+}
+
+export const normalizeVariantId = variantId => {
+  const { chrom, pos, ref, alt } = parseVariantId(variantId)
+  return `${chrom}-${pos}-${ref}-${alt}`
 }
 
 export const isVariantId = str => {
   try {
-    normalizeVariantId(str)
+    parseVariantId(str)
     return true
   } catch (err) {
     return false
