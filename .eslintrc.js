@@ -60,7 +60,12 @@ module.exports = {
     },
     {
       // Set environment for tests
-      files: ['**/*spec.js', '**/*test.js', 'tests/**/*.js'],
+      files: [
+        '**/*spec.[jt]s',
+        '**/*test.[jt]s',
+        '**/__tests__/**/*.[jt]s',
+        '**/__mocks__/**/*.[jt]s',
+      ],
       env: {
         jest: true,
       },
