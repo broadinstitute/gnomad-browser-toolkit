@@ -15,8 +15,12 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gnomad-browser-toolkit-scripts build",
+    "build": "rm -rf lib && tsc",
     "prepack": "yarn run build",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "pretest": "yarn run build"
+  },
+  "devDependencies": {
+    "typescript": "3.9.5"
   }
 }
