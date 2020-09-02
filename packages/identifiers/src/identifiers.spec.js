@@ -42,7 +42,7 @@ describe('isRegionId', () => {
 
 describe('normalizeRegionId', () => {
   const testCases = [
-    { input: 'chr1-13414', normalized: '1-13414-13414' },
+    { input: 'chr1-13414', normalized: '1-13414-1341' },
     { input: '1-15342343-15342563', normalized: '1-15342343-15342563' },
     { input: '1:15342343-15342563', normalized: '1-15342343-15342563' },
     { input: '1:00042343-00042563', normalized: '1-42343-42563' },
