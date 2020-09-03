@@ -1,6 +1,6 @@
 const REGION_ID_REGEX = /^(chr)?(\d+|x|y|m|mt)[-:.]([\d,]+)([-:]([\d,]+)?)?$/i
 
-export const parseRegionId = regionId => {
+export const parseRegionId = (regionId: string) => {
   const match = REGION_ID_REGEX.exec(regionId)
   if (!match) {
     throw new Error('Invalid region ID')
@@ -22,12 +22,12 @@ export const parseRegionId = regionId => {
   return { chrom, start, stop }
 }
 
-export const normalizeRegionId = regionId => {
+export const normalizeRegionId = (regionId: string) => {
   const { chrom, start, stop } = parseRegionId(regionId)
   return `${chrom}-${start}-${stop}`
 }
 
-export const isRegionId = str => {
+export const isRegionId = (str: string) => {
   try {
     parseRegionId(str)
     return true
@@ -38,7 +38,7 @@ export const isRegionId = str => {
 
 const VARIANT_ID_REGEX = /^(chr)?(\d+|x|y|m|mt)[-:.]?((([\d,]+)[-:.]?([acgt]+)[-:.>]([acgt]+))|(([acgt]+)[-:.]?([\d,]+)[-:.]?([acgt]+)))$/i
 
-export const parseVariantId = variantId => {
+export const parseVariantId = (variantId: string) => {
   const match = VARIANT_ID_REGEX.exec(variantId)
   if (!match) {
     throw new Error('Invalid variant ID')
@@ -75,12 +75,12 @@ export const parseVariantId = variantId => {
   return { chrom, pos, ref, alt }
 }
 
-export const normalizeVariantId = variantId => {
+export const normalizeVariantId = (variantId: string) => {
   const { chrom, pos, ref, alt } = parseVariantId(variantId)
   return `${chrom}-${pos}-${ref}-${alt}`
 }
 
-export const isVariantId = str => {
+export const isVariantId = (str: string) => {
   try {
     parseVariantId(str)
     return true
@@ -91,4 +91,4 @@ export const isVariantId = str => {
 
 const RSID_REGEX = /^rs\d+$/
 
-export const isRsId = rsid => Boolean(rsid.match(RSID_REGEX))
+export const isRsId = (rsid: string) => Boolean(rsid.match(RSID_REGEX))

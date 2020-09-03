@@ -15,8 +15,14 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gnomad-browser-toolkit-scripts build",
+    "build": "yarn clean && yarn typecheck && yarn tsc:declaration && babel src --extensions=.ts --ignore=src/**/*.spec.js --out-dir=lib/cjs",
+    "typecheck": "tsc --noEmit",
+    "tsc:declaration": "tsc --declaration --emitDeclarationOnly --outDir lib/cjs",
+    "clean": "rm -rf lib",
     "prepack": "yarn run build",
     "test": "jest --coverage"
+  },
+  "devDependencies": {
+    "typescript": "3.9.5"
   }
 }
