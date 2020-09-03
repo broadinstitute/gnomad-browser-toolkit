@@ -122,6 +122,7 @@ describe('isVariantId', () => {
     '2A100T100G',
     '2.100T200A',
     '1T-100-A-G',
+    '32-100-C-T',
   ]
 
   test(isVariantId, positiveTestCases, negativeTestCases)
@@ -162,6 +163,7 @@ describe('parseVariantId', () => {
       '2A100T100G',
       '2.100T200A',
       '1T-100-A-G',
+      '32-100-C-T',
     ]
 
     negativeTestCases.forEach(str => {
