@@ -29,6 +29,7 @@ const SegmentedControlContainer = styled.span`
     cursor: pointer;
     font-size: 1em;
     line-height: 1.25;
+    white-space: nowrap;
 
     &:first-of-type {
       border-bottom-left-radius: 0.5em;
