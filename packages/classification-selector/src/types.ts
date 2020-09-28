@@ -27,7 +27,7 @@ export interface HierarchicalCategory {
 export interface HierarchicalClassification<Item> {
   name: string
   type: ClassificationType.Hierarchical
-  getPathValueOfItem: (item: Item) => string[]
+  getPathValueOfItem: (item: Item) => string[][]
   categories: HierarchicalCategory[]
 }
 

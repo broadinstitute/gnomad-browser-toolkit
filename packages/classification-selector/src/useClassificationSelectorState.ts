@@ -141,14 +141,24 @@ export default <Item>({ classifications, items }: Inputs<Item>) => {
       const { getPathValueOfItem } = classification
       for (const { path } of currentHierarchicalCategories) {
         const predicate = (item: Item) => {
-          const itemPathValue = getPathValueOfItem(item)
-          for (let i = 0; i < path.length; i += 1) {
-            if (itemPathValue[i] !== path[i]) {
-              return false
+          const itemPathValues = getPathValueOfItem(item)
+          for (const itemPathValue of itemPathValues) {
+            // For every `path` value that the item belongs to, check to see if
+            // there's a match:
+            let hasFoundDisrepancy = false
+            for (let i = 0; i < path.length; i += 1) {
+              if (itemPathValue[i] !== path[i]) {
+                hasFoundDisrepancy = true
+                break
+              }
+            }
+            if (hasFoundDisrepancy === false) {
+              return true
             }
           }
-          return true
+          return false
         }
+
         predicates.push(predicate)
       }
     }
@@ -199,14 +209,16 @@ export default <Item>({ classifications, items }: Inputs<Item>) => {
     } else {
       const { categories } = classificationForGrouping
       for (const item of filteredItems) {
-        const pathValue = classificationForGrouping.getPathValueOfItem(item)
-        for (const { path, color } of categories) {
-          if (areHierarchicalPathsEqual(pathValue, path) === true) {
-            result.push({
-              ...item,
-              group: serializeHierarchicalPath(pathValue),
-              color,
-            })
+        const pathValues = classificationForGrouping.getPathValueOfItem(item)
+        for (const pathValue of pathValues) {
+          for (const { path, color } of categories) {
+            if (areHierarchicalPathsEqual(pathValue, path) === true) {
+              result.push({
+                ...item,
+                group: serializeHierarchicalPath(pathValue),
+                color,
+              })
+            }
           }
         }
       }
