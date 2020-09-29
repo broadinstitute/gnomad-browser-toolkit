@@ -78,13 +78,14 @@ describe('Hierarchical classification', () => {
         .contains('hierarchical classification')
         .click()
       cy.get('@classification').contains('category 1-1--1 (2)')
-      cy.get('@classification').contains('category 1-1--2 (7)')
+      cy.get('@classification').contains('category 1-1--2 (8)')
       cy.get('@classification').contains('category 2-1--1 (1)')
       cy.get(attr(numFilteredItemsCypressDataAttr)).contains('10')
 
-      cy.get('@classification').contains('category 1-1--2 (7)').click()
-      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('7')
+      cy.get('@classification').contains('category 1-1--2 (8)').click()
+      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('8')
       cy.get(attr(selectedItemsContainerCypressDataAttr)).within(() => {
+        cy.contains('item a')
         cy.contains('item b')
         cy.contains('item c')
         cy.contains('item d')
@@ -113,8 +114,8 @@ describe('Hierarchical classification', () => {
       cy.get('@classification').contains('category 1-2--3 (3)').click()
       cy.get(attr(numFilteredItemsCypressDataAttr)).contains('3')
 
-      cy.get('@classification').contains('category 1-1--2 (7)').click()
-      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('7')
+      cy.get('@classification').contains('category 1-1--2 (8)').click()
+      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('8')
     })
   })
 
@@ -126,13 +127,14 @@ describe('Hierarchical classification', () => {
         .contains('hierarchical classification')
         .click()
 
-      cy.get('@classification').contains('category 1-1--2 (7)').click()
-      cy.get('@classification').contains('category 1-2--1 (2)').click()
+      cy.get('@classification').contains('category 1-1--2 (8)').click()
+      cy.get('@classification').contains('category 1-2--1 (3)').click()
       cy.get('@body').type('{meta}', { release: false })
       cy.get('@classification').contains('category 1-2--3 (3)').click()
 
-      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('5')
+      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('6')
       cy.get(attr(selectedItemsContainerCypressDataAttr)).within(() => {
+        cy.contains('item a')
         cy.contains('item b')
         cy.contains('item d')
         cy.contains('item e')
