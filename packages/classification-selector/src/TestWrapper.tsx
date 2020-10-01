@@ -18,8 +18,13 @@ interface TestItem {
 interface Props<Item extends TestItem>
   extends Omit<ClassificationViewerProps<Item>, 'setFilterPredicates'> {
   items: Item[]
+  shouldAutoExpandFirstClassification: boolean
 }
-function TestWrapper<Item extends TestItem>({ items, classifications }: Props<Item>) {
+function TestWrapper<Item extends TestItem>({
+  items,
+  classifications,
+  shouldAutoExpandFirstClassification,
+}: Props<Item>) {
   const {
     filteredItems,
     selected,
@@ -28,7 +33,7 @@ function TestWrapper<Item extends TestItem>({ items, classifications }: Props<It
     setExpanded,
     clearSelectedCategories,
     selectAllVisibleCategories,
-  } = useInternalState({ items, classifications })
+  } = useInternalState({ items, classifications, shouldAutoExpandFirstClassification })
 
   const filteredElems = filteredItems.map(elem => (
     <Typography align="center" key={elem.name}>

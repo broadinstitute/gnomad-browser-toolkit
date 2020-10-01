@@ -222,3 +222,15 @@ describe('select all/none', () => {
     })
   })
 })
+
+describe('Auto expand first classification', () => {
+  beforeEach(() => {
+    cy.visit('?path=/story/classification-viewer--auto-expand')
+  })
+  it('Auto expand the first classification', () => {
+    cy.getIframeBody().within(() => {
+      cy.get(attr(classificationTreeItemCypressDataAttr)).contains('simple category 1')
+      cy.get(attr(classificationTreeItemCypressDataAttr)).contains('simple category 2')
+    })
+  })
+})

@@ -99,7 +99,11 @@ const items = [
 ]
 
 export const simpleClassification = () => (
-  <TestWrapper items={items} classifications={simpleClassifications} />
+  <TestWrapper
+    items={items}
+    classifications={simpleClassifications}
+    shouldAutoExpandFirstClassification={false}
+  />
 )
 
 export const hierarchicalClassification = () => (
@@ -110,6 +114,7 @@ export const multipleClassifications = () => (
   <TestWrapper
     items={items}
     classifications={[...hierarchicalClassifications, ...simpleClassifications]}
+    shouldAutoExpandFirstClassification={false}
   />
 )
 
@@ -132,9 +137,22 @@ export const selectAllOrNoneSimpleClassification = () => (
   <TestWrapper
     items={selectAllSelectNoneSimpleClassificationItems}
     classifications={[...simpleClassifications]}
+    shouldAutoExpandFirstClassification={false}
   />
 )
 
 export const selectAllOrSelectNoneHierarchicalClassification = () => (
-  <TestWrapper items={items} classifications={hierarchicalClassifications} />
+  <TestWrapper
+    items={items}
+    classifications={hierarchicalClassifications}
+    shouldAutoExpandFirstClassification={false}
+  />
+)
+
+export const autoExpand = () => (
+  <TestWrapper
+    items={items}
+    classifications={simpleClassifications}
+    shouldAutoExpandFirstClassification
+  />
 )
