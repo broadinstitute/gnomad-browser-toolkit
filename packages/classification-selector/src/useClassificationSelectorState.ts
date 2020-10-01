@@ -158,7 +158,13 @@ export default <Item>({
     if (classification.type === ClassificationType.Simple) {
       const { getCategoryValueOfItem } = classification
       for (const { name: categoryName } of currentSimpleCategories) {
-        const predicate = (item: Item) => getCategoryValueOfItem(item) === categoryName
+        const predicate = (item: Item) => {
+          const itemCategory = getCategoryValueOfItem(item)
+          if (itemCategory === undefined) {
+            return false
+          }
+          return itemCategory === categoryName
+        }
         predicates.push(predicate)
       }
     } else if (classification.type === ClassificationType.Hierarchical) {

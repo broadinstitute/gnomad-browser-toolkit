@@ -96,6 +96,11 @@ const items = [
     simpleCategory: 'simple category 2',
     hierarchicalClassifications: [['category 1-1--2', 'category 1-2--3', 'category 1-3--1']],
   },
+  {
+    name: 'item z',
+    simpleCategory: undefined,
+    hierarchicalClassifications: [],
+  },
 ]
 
 export const simpleClassification = () => (
@@ -118,7 +123,19 @@ export const multipleClassifications = () => (
   />
 )
 
-const selectAllSelectNoneSimpleClassificationItems = [
+const selectAllSelectNoneClassifications = [
+  {
+    name: 'simple classification',
+    type: ClassificationType.Simple,
+    categories: [
+      { name: 'simple category 1', itemCount: 1, color: '#7fc97f' },
+      { name: 'simple category 2', itemCount: 1, color: '#beaed4' },
+      { name: 'simple category 3', itemCount: 1, color: '#fdc086' },
+    ],
+    getCategoryValueOfItem: ({ simpleCategory }) => simpleCategory,
+  },
+]
+const selectAllSelectNoneItems = [
   {
     name: 'item a',
     simpleCategory: 'simple category 1',
@@ -131,12 +148,16 @@ const selectAllSelectNoneSimpleClassificationItems = [
     name: 'item c',
     simpleCategory: 'simple category 3',
   },
+  {
+    name: 'item z',
+    simpleCategory: undefined,
+  },
 ]
 
 export const selectAllOrNoneSimpleClassification = () => (
   <TestWrapper
-    items={selectAllSelectNoneSimpleClassificationItems}
-    classifications={[...simpleClassifications]}
+    items={selectAllSelectNoneItems}
+    classifications={[...selectAllSelectNoneClassifications]}
     shouldAutoExpandFirstClassification={false}
   />
 )

@@ -15,7 +15,10 @@ describe('Simple classification', () => {
   })
   it('Select a single category', () => {
     cy.getIframeBody().within(() => {
-      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('10')
+      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('11')
+      cy.get(attr(selectedItemsContainerCypressDataAttr)).within(() => {
+        cy.contains('item z')
+      })
 
       cy.get(attr(classificationTreeItemCypressDataAttr))
         .as('classification')
@@ -80,7 +83,11 @@ describe('Hierarchical classification', () => {
       cy.get('@classification').contains('category 1-1--1 (2)')
       cy.get('@classification').contains('category 1-1--2 (8)')
       cy.get('@classification').contains('category 2-1--1 (1)')
-      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('10')
+
+      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('11')
+      cy.get(attr(selectedItemsContainerCypressDataAttr)).within(() => {
+        cy.contains('item z')
+      })
 
       cy.get('@classification').contains('category 1-1--2 (8)').click()
       cy.get(attr(numFilteredItemsCypressDataAttr)).contains('8')
@@ -183,18 +190,20 @@ describe('multiple classifications', () => {
 })
 
 describe('select all/none', () => {
-  it('expanding a simple classification, then selecting a category, then "select all" then "select none" should show the same result', () => {
+  it('"select all" should not show items without any category whereas "select none" should show items without any category', () => {
     cy.visit('?path=/story/classification-viewer--select-all-or-none-simple-classification')
     cy.getIframeBody().within(() => {
       cy.get(attr(classificationTreeItemCypressDataAttr))
         .as('classification')
         .contains('simple classification')
         .click()
-      cy.get('@classification').contains('simple category 2 (3)').click()
+
+      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('4')
+      cy.get('@classification').contains('simple category 2 (1)').click()
       cy.get(attr(selectAllCypressDataAttr)).click()
       cy.get(attr(numFilteredItemsCypressDataAttr)).contains('3')
       cy.get(attr(selectNoneCypressDataAttr)).click()
-      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('3')
+      cy.get(attr(numFilteredItemsCypressDataAttr)).contains('4')
     })
   })
 
