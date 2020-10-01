@@ -15,7 +15,7 @@ export interface SimpleCategory {
 export interface SimpleClassification<Item> {
   name: string
   type: ClassificationType.Simple
-  getCategoryValueOfItem: (item: Item) => string
+  getCategoryValueOfItem: (item: Item) => string | undefined
   categories: SimpleCategory[]
 }
 

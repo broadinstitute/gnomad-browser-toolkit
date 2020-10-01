@@ -62,10 +62,34 @@ const parseSelectedNodeIds = (selectedNodeIds: string[]) => {
 interface Inputs<Item> {
   classifications: Classification<Item>[]
   items: Item[]
+  // Automatically expands the first classification if set to `true`:
+  shouldAutoExpandFirstClassification: boolean
 }
-export default <Item>({ classifications, items }: Inputs<Item>) => {
+export default <Item>({
+  classifications,
+  items,
+  shouldAutoExpandFirstClassification,
+}: Inputs<Item>) => {
   const [selected, setSelected] = useState<string[]>([])
-  const [expanded, setExpanded] = useState<string[]>([])
+  const [expanded, setExpanded] = useState<string[]>(() => {
+    if (shouldAutoExpandFirstClassification === true) {
+      const firstClassification = classifications[0]
+      const classificationNodeId =
+        firstClassification.type === ClassificationType.Simple
+          ? generateNodeId({
+              classificationType: ClassificationType.Simple,
+              type: 'classification',
+              classification: firstClassification.name,
+            })
+          : generateNodeId({
+              classification: firstClassification.name,
+              classificationType: ClassificationType.Hierarchical,
+              type: 'classification',
+            })
+      return [classificationNodeId]
+    }
+    return []
+  })
 
   const {
     selectedNonHollowClassifications: currentClassificationNames,
@@ -134,7 +158,13 @@ export default <Item>({ classifications, items }: Inputs<Item>) => {
     if (classification.type === ClassificationType.Simple) {
       const { getCategoryValueOfItem } = classification
       for (const { name: categoryName } of currentSimpleCategories) {
-        const predicate = (item: Item) => getCategoryValueOfItem(item) === categoryName
+        const predicate = (item: Item) => {
+          const itemCategory = getCategoryValueOfItem(item)
+          if (itemCategory === undefined) {
+            return false
+          }
+          return itemCategory === categoryName
+        }
         predicates.push(predicate)
       }
     } else if (classification.type === ClassificationType.Hierarchical) {
