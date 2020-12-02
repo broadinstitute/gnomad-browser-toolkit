@@ -1,0 +1,1762 @@
+[
+  {
+    "gene_id": "ENSG00000179997",
+    "symbol": "RPA3P1",
+    "start": 175366680,
+    "stop": 175367043,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 175366680,
+        "stop": 175367043
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000154518",
+    "symbol": "ATP5MC3",
+    "start": 176040986,
+    "stop": 176049335,
+    "exons": [
+      {
+        "feature_type": "CDS",
+        "start": 176043019,
+        "stop": 176043130
+      },
+      {
+        "feature_type": "CDS",
+        "start": 176043785,
+        "stop": 176043978
+      },
+      {
+        "feature_type": "CDS",
+        "start": 176044826,
+        "stop": 176044906
+      },
+      {
+        "feature_type": "CDS",
+        "start": 176046083,
+        "stop": 176046121
+      },
+      {
+        "feature_type": "UTR",
+        "start": 176040986,
+        "stop": 176043018
+      },
+      {
+        "feature_type": "UTR",
+        "start": 176046122,
+        "stop": 176049335
+      },
+      {
+        "feature_type": "exon",
+        "start": 176042914,
+        "stop": 176043978
+      },
+      {
+        "feature_type": "exon",
+        "start": 176044373,
+        "stop": 176044906
+      },
+      {
+        "feature_type": "exon",
+        "start": 176046083,
+        "stop": 176046194
+      },
+      {
+        "feature_type": "exon",
+        "start": 176046384,
+        "stop": 176046438
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000163328",
+    "symbol": "GPR155",
+    "start": 175296966,
+    "stop": 175351822,
+    "exons": [
+      {
+        "feature_type": "CDS",
+        "start": 175300847,
+        "stop": 175301144
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175304626,
+        "stop": 175304763
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175306847,
+        "stop": 175306911
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175309809,
+        "stop": 175309904
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175311339,
+        "stop": 175311475
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175318465,
+        "stop": 175318569
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175324606,
+        "stop": 175324816
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175326130,
+        "stop": 175326220
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175326316,
+        "stop": 175326400
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175330513,
+        "stop": 175330630
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175331272,
+        "stop": 175331355
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175333640,
+        "stop": 175333795
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175335118,
+        "stop": 175335283
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175337693,
+        "stop": 175338092
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175346225,
+        "stop": 175346684
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175296966,
+        "stop": 175300846
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175346685,
+        "stop": 175346715
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175347601,
+        "stop": 175347646
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175347738,
+        "stop": 175347886
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175351601,
+        "stop": 175351822
+      },
+      {
+        "feature_type": "exon",
+        "start": 175301034,
+        "stop": 175301144
+      },
+      {
+        "feature_type": "exon",
+        "start": 175304626,
+        "stop": 175304763
+      },
+      {
+        "feature_type": "exon",
+        "start": 175306847,
+        "stop": 175306911
+      },
+      {
+        "feature_type": "exon",
+        "start": 175309809,
+        "stop": 175309904
+      },
+      {
+        "feature_type": "exon",
+        "start": 175309988,
+        "stop": 175310150
+      },
+      {
+        "feature_type": "exon",
+        "start": 175347601,
+        "stop": 175347646
+      },
+      {
+        "feature_type": "exon",
+        "start": 175347738,
+        "stop": 175347886
+      },
+      {
+        "feature_type": "exon",
+        "start": 175351601,
+        "stop": 175351728
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000200121",
+    "symbol": "Y_RNA",
+    "start": 176041227,
+    "stop": 176041318,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 176041227,
+        "stop": 176041318
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000199827",
+    "symbol": "RNU6-1290P",
+    "start": 175894497,
+    "stop": 175894605,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 175894497,
+        "stop": 175894605
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000201088",
+    "symbol": "Y_RNA",
+    "start": 175129606,
+    "stop": 175129709,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 175129606,
+        "stop": 175129709
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000201425",
+    "symbol": "Y_RNA",
+    "start": 175842531,
+    "stop": 175842625,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 175842531,
+        "stop": 175842625
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000206965",
+    "symbol": "RNU6-5P",
+    "start": 175422694,
+    "stop": 175422800,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 175422694,
+        "stop": 175422800
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000212167",
+    "symbol": "RNU6-763P",
+    "start": 175886942,
+    "stop": 175887047,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 175886942,
+        "stop": 175887047
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000215973",
+    "symbol": "MIR933",
+    "start": 176032361,
+    "stop": 176032437,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 176032361,
+        "stop": 176032437
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000217236",
+    "symbol": "SP9",
+    "start": 175199674,
+    "stop": 175203220,
+    "exons": [
+      {
+        "feature_type": "CDS",
+        "start": 175199821,
+        "stop": 175199841
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175200835,
+        "stop": 175202265
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175199674,
+        "stop": 175199820
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175202266,
+        "stop": 175203220
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000221347",
+    "symbol": "AC096649.4",
+    "start": 176195101,
+    "stop": 176195200,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 176195101,
+        "stop": 176195200
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000128656",
+    "symbol": "CHN1",
+    "start": 175664091,
+    "stop": 175870097,
+    "exons": [
+      {
+        "feature_type": "CDS",
+        "start": 175664847,
+        "stop": 175665015
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175666435,
+        "stop": 175666540
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175673633,
+        "stop": 175673770
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175676239,
+        "stop": 175676316
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175677037,
+        "stop": 175677210
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175686457,
+        "stop": 175686507
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175689162,
+        "stop": 175689246
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175711037,
+        "stop": 175711117
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175711608,
+        "stop": 175711859
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175712447,
+        "stop": 175712473
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175742568,
+        "stop": 175742856
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175779786,
+        "stop": 175779899
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175783262,
+        "stop": 175783293
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175809616,
+        "stop": 175809671
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175809982,
+        "stop": 175809989
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175816892,
+        "stop": 175816930
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175869622,
+        "stop": 175869640
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175664091,
+        "stop": 175664846
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175676261,
+        "stop": 175676316
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175677037,
+        "stop": 175677210
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175689162,
+        "stop": 175689246
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175711118,
+        "stop": 175711143
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175711608,
+        "stop": 175711685
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175711860,
+        "stop": 175712293
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175712474,
+        "stop": 175712479
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175779786,
+        "stop": 175779899
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175783262,
+        "stop": 175783293
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175809616,
+        "stop": 175809671
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175809898,
+        "stop": 175809981
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175869641,
+        "stop": 175870097
+      },
+      {
+        "feature_type": "exon",
+        "start": 175664223,
+        "stop": 175665015
+      },
+      {
+        "feature_type": "exon",
+        "start": 175666435,
+        "stop": 175666785
+      },
+      {
+        "feature_type": "exon",
+        "start": 175673633,
+        "stop": 175673770
+      },
+      {
+        "feature_type": "exon",
+        "start": 175675628,
+        "stop": 175676316
+      },
+      {
+        "feature_type": "exon",
+        "start": 175676826,
+        "stop": 175677210
+      },
+      {
+        "feature_type": "exon",
+        "start": 175689162,
+        "stop": 175689246
+      },
+      {
+        "feature_type": "exon",
+        "start": 175701841,
+        "stop": 175702064
+      },
+      {
+        "feature_type": "exon",
+        "start": 175711608,
+        "stop": 175711693
+      },
+      {
+        "feature_type": "exon",
+        "start": 175740516,
+        "stop": 175740593
+      },
+      {
+        "feature_type": "exon",
+        "start": 175742568,
+        "stop": 175742856
+      },
+      {
+        "feature_type": "exon",
+        "start": 175779786,
+        "stop": 175780020
+      },
+      {
+        "feature_type": "exon",
+        "start": 175783262,
+        "stop": 175783293
+      },
+      {
+        "feature_type": "exon",
+        "start": 175809616,
+        "stop": 175809671
+      },
+      {
+        "feature_type": "exon",
+        "start": 175816892,
+        "stop": 175816930
+      },
+      {
+        "feature_type": "exon",
+        "start": 175869622,
+        "stop": 175870092
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000138430",
+    "symbol": "OLA1",
+    "start": 174937175,
+    "stop": 175113426,
+    "exons": [
+      {
+        "feature_type": "CDS",
+        "start": 174940150,
+        "stop": 174940255
+      },
+      {
+        "feature_type": "CDS",
+        "start": 174943696,
+        "stop": 174943818
+      },
+      {
+        "feature_type": "CDS",
+        "start": 174945880,
+        "stop": 174945976
+      },
+      {
+        "feature_type": "CDS",
+        "start": 174946652,
+        "stop": 174946792
+      },
+      {
+        "feature_type": "CDS",
+        "start": 174987908,
+        "stop": 174988005
+      },
+      {
+        "feature_type": "CDS",
+        "start": 174988323,
+        "stop": 174988403
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175006553,
+        "stop": 175006728
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175087761,
+        "stop": 175087888
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175094036,
+        "stop": 175094179
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175111443,
+        "stop": 175111543
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175112398,
+        "stop": 175112457
+      },
+      {
+        "feature_type": "UTR",
+        "start": 174937175,
+        "stop": 174940156
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175006628,
+        "stop": 175006728
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175082600,
+        "stop": 175082674
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175087761,
+        "stop": 175087888
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175094036,
+        "stop": 175094179
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175111656,
+        "stop": 175112015
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175112458,
+        "stop": 175113088
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175113180,
+        "stop": 175113426
+      },
+      {
+        "feature_type": "exon",
+        "start": 174939918,
+        "stop": 174940255
+      },
+      {
+        "feature_type": "exon",
+        "start": 174943696,
+        "stop": 174944079
+      },
+      {
+        "feature_type": "exon",
+        "start": 174945636,
+        "stop": 174945976
+      },
+      {
+        "feature_type": "exon",
+        "start": 174946652,
+        "stop": 174946792
+      },
+      {
+        "feature_type": "exon",
+        "start": 174987908,
+        "stop": 174988005
+      },
+      {
+        "feature_type": "exon",
+        "start": 174988323,
+        "stop": 174988403
+      },
+      {
+        "feature_type": "exon",
+        "start": 174988992,
+        "stop": 174989043
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000138433",
+    "symbol": "CIR1",
+    "start": 175212750,
+    "stop": 175260443,
+    "exons": [
+      {
+        "feature_type": "CDS",
+        "start": 175213228,
+        "stop": 175213900
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175215388,
+        "stop": 175215473
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175216347,
+        "stop": 175216453
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175223176,
+        "stop": 175223264
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175234715,
+        "stop": 175234742
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175243651,
+        "stop": 175243768
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175244930,
+        "stop": 175244978
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175245379,
+        "stop": 175245443
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175245532,
+        "stop": 175245542
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175246432,
+        "stop": 175246505
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175252413,
+        "stop": 175252507
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175260279,
+        "stop": 175260350
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175212750,
+        "stop": 175213900
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175215388,
+        "stop": 175215473
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175216347,
+        "stop": 175216359
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175222901,
+        "stop": 175223175
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175260351,
+        "stop": 175260443
+      },
+      {
+        "feature_type": "exon",
+        "start": 175213863,
+        "stop": 175213900
+      },
+      {
+        "feature_type": "exon",
+        "start": 175215388,
+        "stop": 175215473
+      },
+      {
+        "feature_type": "exon",
+        "start": 175216347,
+        "stop": 175216691
+      },
+      {
+        "feature_type": "exon",
+        "start": 175243415,
+        "stop": 175243768
+      },
+      {
+        "feature_type": "exon",
+        "start": 175244930,
+        "stop": 175244978
+      },
+      {
+        "feature_type": "exon",
+        "start": 175245379,
+        "stop": 175245443
+      },
+      {
+        "feature_type": "exon",
+        "start": 175245532,
+        "stop": 175245542
+      },
+      {
+        "feature_type": "exon",
+        "start": 175246432,
+        "stop": 175246505
+      },
+      {
+        "feature_type": "exon",
+        "start": 175251991,
+        "stop": 175252507
+      },
+      {
+        "feature_type": "exon",
+        "start": 175260279,
+        "stop": 175260437
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000138435",
+    "symbol": "CHRNA1",
+    "start": 175612320,
+    "stop": 175629200,
+    "exons": [
+      {
+        "feature_type": "CDS",
+        "start": 175612855,
+        "stop": 175612983
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175613308,
+        "stop": 175613547
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175614674,
+        "stop": 175614897
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175618202,
+        "stop": 175618468
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175618947,
+        "stop": 175619142
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175622294,
+        "stop": 175622403
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175622674,
+        "stop": 175622748
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175624059,
+        "stop": 175624103
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175624216,
+        "stop": 175624361
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175629080,
+        "stop": 175629122
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175612320,
+        "stop": 175612983
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175613308,
+        "stop": 175613547
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175614674,
+        "stop": 175614897
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175617483,
+        "stop": 175618201
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175618231,
+        "stop": 175618468
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175618947,
+        "stop": 175619133
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175629123,
+        "stop": 175629200
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000115966",
+    "symbol": "ATF2",
+    "start": 175936978,
+    "stop": 176033110,
+    "exons": [
+      {
+        "feature_type": "CDS",
+        "start": 175939340,
+        "stop": 175939563
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175945388,
+        "stop": 175945493
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175957789,
+        "stop": 175957995
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175962172,
+        "stop": 175962321
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175976296,
+        "stop": 175976382
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175978722,
+        "stop": 175978836
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175979417,
+        "stop": 175979596
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175982718,
+        "stop": 175982846
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175982979,
+        "stop": 175983097
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175986172,
+        "stop": 175986268
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175994866,
+        "stop": 175994935
+      },
+      {
+        "feature_type": "CDS",
+        "start": 176001140,
+        "stop": 176001171
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175936978,
+        "stop": 175939595
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175939728,
+        "stop": 175939815
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175945388,
+        "stop": 175945493
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175957271,
+        "stop": 175957344
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175957789,
+        "stop": 175957995
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175962172,
+        "stop": 175962321
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175976296,
+        "stop": 175976382
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175978722,
+        "stop": 175978836
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175978971,
+        "stop": 175979416
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175979418,
+        "stop": 175979596
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175982718,
+        "stop": 175982846
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175982979,
+        "stop": 175983070
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175994891,
+        "stop": 175994935
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175997423,
+        "stop": 175997485
+      },
+      {
+        "feature_type": "UTR",
+        "start": 176001140,
+        "stop": 176001214
+      },
+      {
+        "feature_type": "UTR",
+        "start": 176012674,
+        "stop": 176012708
+      },
+      {
+        "feature_type": "UTR",
+        "start": 176015788,
+        "stop": 176015886
+      },
+      {
+        "feature_type": "UTR",
+        "start": 176032778,
+        "stop": 176032934
+      },
+      {
+        "feature_type": "UTR",
+        "start": 176033014,
+        "stop": 176033110
+      },
+      {
+        "feature_type": "exon",
+        "start": 175944991,
+        "stop": 175945493
+      },
+      {
+        "feature_type": "exon",
+        "start": 175957789,
+        "stop": 175957982
+      },
+      {
+        "feature_type": "exon",
+        "start": 175991521,
+        "stop": 175991786
+      },
+      {
+        "feature_type": "exon",
+        "start": 175991884,
+        "stop": 175991959
+      },
+      {
+        "feature_type": "exon",
+        "start": 175994866,
+        "stop": 175994935
+      },
+      {
+        "feature_type": "exon",
+        "start": 176001140,
+        "stop": 176001214
+      },
+      {
+        "feature_type": "exon",
+        "start": 176015788,
+        "stop": 176015886
+      },
+      {
+        "feature_type": "exon",
+        "start": 176032778,
+        "stop": 176032872
+      },
+      {
+        "feature_type": "exon",
+        "start": 176033014,
+        "stop": 176033110
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000115935",
+    "symbol": "WIPF1",
+    "start": 175424300,
+    "stop": 175547644,
+    "exons": [
+      {
+        "feature_type": "CDS",
+        "start": 175426832,
+        "stop": 175426853
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175427278,
+        "stop": 175427330
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175431775,
+        "stop": 175431911
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175432589,
+        "stop": 175432801
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175436324,
+        "stop": 175437174
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175439635,
+        "stop": 175439669
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175439932,
+        "stop": 175440108
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175446038,
+        "stop": 175446167
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175450251,
+        "stop": 175450301
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175424300,
+        "stop": 175427277
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175430889,
+        "stop": 175431774
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175435897,
+        "stop": 175436323
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175439458,
+        "stop": 175439634
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175450302,
+        "stop": 175450339
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175462329,
+        "stop": 175462586
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175462899,
+        "stop": 175462939
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175499246,
+        "stop": 175499307
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175547502,
+        "stop": 175547627
+      },
+      {
+        "feature_type": "exon",
+        "start": 175431805,
+        "stop": 175431911
+      },
+      {
+        "feature_type": "exon",
+        "start": 175432589,
+        "stop": 175432801
+      },
+      {
+        "feature_type": "exon",
+        "start": 175433335,
+        "stop": 175433551
+      },
+      {
+        "feature_type": "exon",
+        "start": 175435167,
+        "stop": 175435374
+      },
+      {
+        "feature_type": "exon",
+        "start": 175445868,
+        "stop": 175446167
+      },
+      {
+        "feature_type": "exon",
+        "start": 175450251,
+        "stop": 175450339
+      },
+      {
+        "feature_type": "exon",
+        "start": 175462329,
+        "stop": 175462532
+      },
+      {
+        "feature_type": "exon",
+        "start": 175488209,
+        "stop": 175488236
+      },
+      {
+        "feature_type": "exon",
+        "start": 175490352,
+        "stop": 175490688
+      },
+      {
+        "feature_type": "exon",
+        "start": 175494394,
+        "stop": 175494596
+      },
+      {
+        "feature_type": "exon",
+        "start": 175495110,
+        "stop": 175495424
+      },
+      {
+        "feature_type": "exon",
+        "start": 175499246,
+        "stop": 175499333
+      },
+      {
+        "feature_type": "exon",
+        "start": 175537995,
+        "stop": 175538544
+      },
+      {
+        "feature_type": "exon",
+        "start": 175541065,
+        "stop": 175541394
+      },
+      {
+        "feature_type": "exon",
+        "start": 175541773,
+        "stop": 175541852
+      },
+      {
+        "feature_type": "exon",
+        "start": 175547502,
+        "stop": 175547644
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000144306",
+    "symbol": "SCRN3",
+    "start": 175260458,
+    "stop": 175294303,
+    "exons": [
+      {
+        "feature_type": "CDS",
+        "start": 175260485,
+        "stop": 175260545
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175263012,
+        "stop": 175263170
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175264650,
+        "stop": 175264831
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175265718,
+        "stop": 175265917
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175268831,
+        "stop": 175269043
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175287613,
+        "stop": 175287775
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175289203,
+        "stop": 175289377
+      },
+      {
+        "feature_type": "CDS",
+        "start": 175292441,
+        "stop": 175292620
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175260458,
+        "stop": 175261021
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175262064,
+        "stop": 175262132
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175262923,
+        "stop": 175263011
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175268841,
+        "stop": 175269043
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175287613,
+        "stop": 175287775
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175289203,
+        "stop": 175289377
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175292441,
+        "stop": 175294303
+      },
+      {
+        "feature_type": "exon",
+        "start": 175260471,
+        "stop": 175261021
+      },
+      {
+        "feature_type": "exon",
+        "start": 175262064,
+        "stop": 175262132
+      },
+      {
+        "feature_type": "exon",
+        "start": 175264650,
+        "stop": 175264831
+      },
+      {
+        "feature_type": "exon",
+        "start": 175265718,
+        "stop": 175265917
+      },
+      {
+        "feature_type": "exon",
+        "start": 175268831,
+        "stop": 175269043
+      },
+      {
+        "feature_type": "exon",
+        "start": 175274765,
+        "stop": 175275231
+      },
+      {
+        "feature_type": "exon",
+        "start": 175287613,
+        "stop": 175287775
+      },
+      {
+        "feature_type": "exon",
+        "start": 175289203,
+        "stop": 175289377
+      },
+      {
+        "feature_type": "exon",
+        "start": 175292441,
+        "stop": 175293587
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000237798",
+    "symbol": "AC010894.5",
+    "start": 175439955,
+    "stop": 175452454,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 175439955,
+        "stop": 175440157
+      },
+      {
+        "feature_type": "exon",
+        "start": 175452201,
+        "stop": 175452454
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000237804",
+    "symbol": "HNRNPA1P39",
+    "start": 175174743,
+    "stop": 175175702,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 175174743,
+        "stop": 175175702
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000243770",
+    "symbol": "RN7SL65P",
+    "start": 175104870,
+    "stop": 175105146,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 175104870,
+        "stop": 175105146
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000227187",
+    "symbol": "RPL21P31",
+    "start": 175898506,
+    "stop": 175898920,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 175898506,
+        "stop": 175898920
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000227180",
+    "symbol": "LRRC2P1",
+    "start": 175164052,
+    "stop": 175165684,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 175164052,
+        "stop": 175164135
+      },
+      {
+        "feature_type": "exon",
+        "start": 175164728,
+        "stop": 175165684
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000229066",
+    "symbol": "AC096649.3",
+    "start": 176121978,
+    "stop": 176319368,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 176121978,
+        "stop": 176122316
+      },
+      {
+        "feature_type": "exon",
+        "start": 176156121,
+        "stop": 176156229
+      },
+      {
+        "feature_type": "exon",
+        "start": 176307176,
+        "stop": 176307696
+      },
+      {
+        "feature_type": "exon",
+        "start": 176319336,
+        "stop": 176319368
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000229750",
+    "symbol": "AC096649.2",
+    "start": 176032632,
+    "stop": 176033250,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 176032632,
+        "stop": 176032663
+      },
+      {
+        "feature_type": "exon",
+        "start": 176032786,
+        "stop": 176033250
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000235655",
+    "symbol": "H3P6",
+    "start": 175584505,
+    "stop": 175585526,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 175584505,
+        "stop": 175585526
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000231453",
+    "symbol": "LINC01305",
+    "start": 175190755,
+    "stop": 175195371,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 175190755,
+        "stop": 175192138
+      },
+      {
+        "feature_type": "exon",
+        "start": 175193185,
+        "stop": 175193564
+      },
+      {
+        "feature_type": "exon",
+        "start": 175193701,
+        "stop": 175195371
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000233131",
+    "symbol": "RPS15AP14",
+    "start": 176048943,
+    "stop": 176049335,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 176048943,
+        "stop": 176049335
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000226853",
+    "symbol": "AC010894.3",
+    "start": 175352117,
+    "stop": 175353114,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 175352117,
+        "stop": 175352555
+      },
+      {
+        "feature_type": "exon",
+        "start": 175352763,
+        "stop": 175353114
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000236449",
+    "symbol": "AC018890.6",
+    "start": 175411869,
+    "stop": 175639555,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 175411869,
+        "stop": 175411976
+      },
+      {
+        "feature_type": "exon",
+        "start": 175412097,
+        "stop": 175412205
+      },
+      {
+        "feature_type": "exon",
+        "start": 175520226,
+        "stop": 175521013
+      },
+      {
+        "feature_type": "exon",
+        "start": 175529905,
+        "stop": 175530417
+      },
+      {
+        "feature_type": "exon",
+        "start": 175594449,
+        "stop": 175594552
+      },
+      {
+        "feature_type": "exon",
+        "start": 175637477,
+        "stop": 175639555
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000237104",
+    "symbol": "AC018890.4",
+    "start": 175647774,
+    "stop": 175652656,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 175647774,
+        "stop": 175649597
+      },
+      {
+        "feature_type": "exon",
+        "start": 175652602,
+        "stop": 175652656
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000268241",
+    "symbol": "AC018470.1",
+    "start": 175200601,
+    "stop": 175202151,
+    "exons": [
+      {
+        "feature_type": "CDS",
+        "start": 175200604,
+        "stop": 175202151
+      },
+      {
+        "feature_type": "UTR",
+        "start": 175200601,
+        "stop": 175200603
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000266510",
+    "symbol": "AC007435.1",
+    "start": 175899245,
+    "stop": 175899318,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 175899245,
+        "stop": 175899318
+      }
+    ]
+  },
+  {
+    "gene_id": "ENSG00000270799",
+    "symbol": "RP11-451F14.1",
+    "start": 175036619,
+    "stop": 175037453,
+    "exons": [
+      {
+        "feature_type": "exon",
+        "start": 175036619,
+        "stop": 175037453
+      }
+    ]
+  }
+]
