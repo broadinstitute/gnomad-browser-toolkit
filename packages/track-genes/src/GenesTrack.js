@@ -49,11 +49,37 @@ const layoutRows = (genes, scalePosition) => {
   return rows
 }
 
-export const GenesTrack = ({ genes, onGeneClick, title }) => (
+const isCodingGene = gene => gene.exons.some(exon => exon.feature_type === 'CDS')
+
+const featureAttributes = {
+  exon: {
+    fill: '#bdbdbd',
+    height: 6,
+  },
+  CDS: {
+    fill: '#424242',
+    height: 16,
+  },
+  UTR: {
+    fill: '#424242',
+    height: 6,
+  },
+}
+
+const featureTypeOrder = {
+  exon: 0,
+  UTR: 1,
+  CDS: 2,
+}
+
+const featureTypeCompareFn = (r1, r2) =>
+  featureTypeOrder[r1.feature_type] - featureTypeOrder[r2.feature_type]
+
+export const GenesTrack = ({ genes, includeNonCodingGenes, onGeneClick, title }) => (
   <Track renderLeftPanel={() => <TitlePanel>{title}</TitlePanel>}>
     {({ scalePosition, width }) => {
       const rows = layoutRows(
-        genes.filter(gene => gene.exons.some(exon => exon.feature_type === 'CDS')),
+        includeNonCodingGenes ? genes : genes.filter(isCodingGene),
         scalePosition
       )
       const rowHeight = 50
@@ -61,8 +87,8 @@ export const GenesTrack = ({ genes, onGeneClick, title }) => (
         <svg height={rowHeight * rows.length} width={width}>
           {rows.map((track, trackNumber) =>
             track.map(gene => {
-              const textYPosition = rowHeight * 0.66 + rowHeight * trackNumber
-              const exonsYPosition = rowHeight * 0.16 + rowHeight * trackNumber
+              const textYPosition = rowHeight * trackNumber + 33
+              const exonsYPosition = rowHeight * trackNumber + 8
               const geneStart = scalePosition(gene.start)
               const geneStop = scalePosition(gene.stop)
               return (
@@ -82,23 +108,23 @@ export const GenesTrack = ({ genes, onGeneClick, title }) => (
                     stroke="#424242"
                     strokeWidth={1}
                   />
-                  {gene.exons
-                    .filter(exon => exon.feature_type === 'CDS')
-                    .map(exon => {
-                      const exonStart = scalePosition(exon.start)
-                      const exonStop = scalePosition(exon.stop)
-                      return (
-                        <rect
-                          key={`${gene.gene_id}-${exon.start}-${exon.stop}`}
-                          x={exonStart}
-                          y={rowHeight * trackNumber}
-                          width={exonStop - exonStart}
-                          height={rowHeight * 0.33}
-                          fill="#424242"
-                          stroke="#424242"
-                        />
-                      )
-                    })}
+                  {[...gene.exons].sort(featureTypeCompareFn).map(exon => {
+                    const exonStart = scalePosition(exon.start)
+                    const exonStop = scalePosition(exon.stop)
+                    const { fill, height: exonHeight } = featureAttributes[exon.feature_type]
+
+                    return (
+                      <rect
+                        key={`${gene.gene_id}-${exon.feature_type}-${exon.start}-${exon.stop}`}
+                        x={exonStart}
+                        y={rowHeight * trackNumber + (16 - exonHeight) / 2}
+                        width={exonStop - exonStart}
+                        height={exonHeight}
+                        fill={fill}
+                        stroke={fill}
+                      />
+                    )
+                  })}
                 </g>
               )
             })
@@ -118,18 +144,20 @@ GenesTrack.propTypes = {
       stop: PropTypes.number.isRequired,
       exons: PropTypes.arrayOf(
         PropTypes.shape({
-          feature_type: PropTypes.string.isRequired,
+          feature_type: PropTypes.oneOf(['CDS', 'exon', 'UTR']).isRequired,
           start: PropTypes.number.isRequired,
           stop: PropTypes.number.isRequired,
         })
       ).isRequired,
     })
   ).isRequired,
+  includeNonCodingGenes: PropTypes.bool,
   onGeneClick: PropTypes.func,
   title: PropTypes.string,
 }
 
 GenesTrack.defaultProps = {
+  includeNonCodingGenes: false,
   onGeneClick: () => {},
   title: 'Genes',
 }
