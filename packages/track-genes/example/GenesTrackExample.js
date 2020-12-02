@@ -2,23 +2,22 @@ import React from 'react'
 
 import { RegionViewer } from '@gnomad/region-viewer'
 
-import regionData from '@resources/2-175000717-180995530.json'
+import genes from './genes.json'
 
 import { GenesTrack } from '../src'
 
 const regions = [
   {
-    chrom: regionData.chrom,
-    start: regionData.start,
-    stop: regionData.stop,
-    feature_type: 'default',
-    strand: '+',
+    chrom: '2',
+    start: 175000000,
+    stop: 176500000,
+    feature_type: 'region',
   },
 ]
 
 const GenesTrackExample = () => (
   <RegionViewer padding={0} regions={regions} width={1000}>
-    <GenesTrack genes={regionData.genes} />
+    <GenesTrack genes={genes} />
   </RegionViewer>
 )
 
