@@ -1,26 +1,22 @@
 import React from 'react'
 
-import GeneViewer from '@gnomad/region-viewer/example/GeneViewer'
+import { RegionViewer } from '@gnomad/region-viewer'
 
 import { RegionsTrack } from '../src'
 
+import gene from './PCSK9.json'
+
 const RegionsTrackExample = () => (
-  <GeneViewer geneSymbol="PCSK9" width={1000}>
-    {gene => {
-      return (
-        <React.Fragment>
-          {gene.transcripts.map(transcript => (
-            <div key={transcript.transcript_id} style={{ marginBottom: '5px' }}>
-              <RegionsTrack
-                height={10}
-                regions={transcript.exons.filter(e => e.feature_type === 'UTR')}
-              />
-            </div>
-          ))}
-        </React.Fragment>
-      )
-    }}
-  </GeneViewer>
+  <RegionViewer padding={75} regions={gene.exons} width={1000}>
+    {gene.transcripts.map(transcript => (
+      <div key={transcript.transcript_id} style={{ marginBottom: '5px' }}>
+        <RegionsTrack
+          height={10}
+          regions={transcript.exons.filter(e => e.feature_type === 'UTR')}
+        />
+      </div>
+    ))}
+  </RegionViewer>
 )
 
 export default RegionsTrackExample

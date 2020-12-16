@@ -1,0 +1,403 @@
+{
+  "reference_genome": "GRCh37",
+  "symbol": "PCSK9",
+  "name": "proprotein convertase subtilisin/kexin type 9",
+  "canonical_transcript_id": "ENST00000302118",
+  "chrom": "1",
+  "start": 55505221,
+  "stop": 55530525,
+  "strand": "+",
+  "exons": [
+    {
+      "feature_type": "CDS",
+      "start": 55505511,
+      "stop": 55505717
+    },
+    {
+      "feature_type": "CDS",
+      "start": 55509516,
+      "stop": 55509707
+    },
+    {
+      "feature_type": "CDS",
+      "start": 55512196,
+      "stop": 55512319
+    },
+    {
+      "feature_type": "CDS",
+      "start": 55516865,
+      "stop": 55516956
+    },
+    {
+      "feature_type": "CDS",
+      "start": 55517951,
+      "stop": 55518084
+    },
+    {
+      "feature_type": "CDS",
+      "start": 55518323,
+      "stop": 55518464
+    },
+    {
+      "feature_type": "CDS",
+      "start": 55521666,
+      "stop": 55521862
+    },
+    {
+      "feature_type": "CDS",
+      "start": 55523004,
+      "stop": 55523187
+    },
+    {
+      "feature_type": "CDS",
+      "start": 55523709,
+      "stop": 55523882
+    },
+    {
+      "feature_type": "CDS",
+      "start": 55524172,
+      "stop": 55524320
+    },
+    {
+      "feature_type": "CDS",
+      "start": 55525159,
+      "stop": 55525336
+    },
+    {
+      "feature_type": "CDS",
+      "start": 55527048,
+      "stop": 55527229
+    },
+    {
+      "feature_type": "CDS",
+      "start": 55529042,
+      "stop": 55529254
+    },
+    {
+      "feature_type": "UTR",
+      "start": 55505221,
+      "stop": 55505510
+    },
+    {
+      "feature_type": "UTR",
+      "start": 55505895,
+      "stop": 55506076
+    },
+    {
+      "feature_type": "UTR",
+      "start": 55516957,
+      "stop": 55517126
+    },
+    {
+      "feature_type": "UTR",
+      "start": 55517951,
+      "stop": 55518084
+    },
+    {
+      "feature_type": "UTR",
+      "start": 55518323,
+      "stop": 55518424
+    },
+    {
+      "feature_type": "UTR",
+      "start": 55524268,
+      "stop": 55524320
+    },
+    {
+      "feature_type": "UTR",
+      "start": 55525159,
+      "stop": 55525336
+    },
+    {
+      "feature_type": "UTR",
+      "start": 55527048,
+      "stop": 55527229
+    },
+    {
+      "feature_type": "UTR",
+      "start": 55529042,
+      "stop": 55529112
+    },
+    {
+      "feature_type": "UTR",
+      "start": 55529255,
+      "stop": 55530525
+    },
+    {
+      "feature_type": "exon",
+      "start": 55516607,
+      "stop": 55518084
+    },
+    {
+      "feature_type": "exon",
+      "start": 55518323,
+      "stop": 55518464
+    },
+    {
+      "feature_type": "exon",
+      "start": 55521666,
+      "stop": 55521862
+    },
+    {
+      "feature_type": "exon",
+      "start": 55523101,
+      "stop": 55523187
+    },
+    {
+      "feature_type": "exon",
+      "start": 55523709,
+      "stop": 55523882
+    },
+    {
+      "feature_type": "exon",
+      "start": 55524172,
+      "stop": 55524320
+    },
+    {
+      "feature_type": "exon",
+      "start": 55527048,
+      "stop": 55527229
+    },
+    {
+      "feature_type": "exon",
+      "start": 55529042,
+      "stop": 55530523
+    }
+  ],
+  "transcripts": [
+    {
+      "transcript_id": "ENST00000302118",
+      "strand": "+",
+      "exons": [
+        {
+          "feature_type": "UTR",
+          "start": 55505221,
+          "stop": 55505510
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55505511,
+          "stop": 55505717
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55509516,
+          "stop": 55509707
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55512196,
+          "stop": 55512319
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55517951,
+          "stop": 55518084
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55518323,
+          "stop": 55518464
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55521666,
+          "stop": 55521862
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55523004,
+          "stop": 55523187
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55523709,
+          "stop": 55523882
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55524172,
+          "stop": 55524320
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55525159,
+          "stop": 55525336
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55527048,
+          "stop": 55527229
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55529042,
+          "stop": 55529254
+        },
+        {
+          "feature_type": "UTR",
+          "start": 55529255,
+          "stop": 55530525
+        }
+      ]
+    },
+    {
+      "transcript_id": "ENST00000490692",
+      "strand": "+",
+      "exons": [
+        {
+          "feature_type": "exon",
+          "start": 55516607,
+          "stop": 55518084
+        },
+        {
+          "feature_type": "exon",
+          "start": 55518323,
+          "stop": 55518464
+        },
+        {
+          "feature_type": "exon",
+          "start": 55521666,
+          "stop": 55521862
+        },
+        {
+          "feature_type": "exon",
+          "start": 55523101,
+          "stop": 55523187
+        },
+        {
+          "feature_type": "exon",
+          "start": 55523709,
+          "stop": 55523882
+        },
+        {
+          "feature_type": "exon",
+          "start": 55524172,
+          "stop": 55524320
+        },
+        {
+          "feature_type": "exon",
+          "start": 55527048,
+          "stop": 55527229
+        },
+        {
+          "feature_type": "exon",
+          "start": 55529042,
+          "stop": 55530523
+        }
+      ]
+    },
+    {
+      "transcript_id": "ENST00000543384",
+      "strand": "+",
+      "exons": [
+        {
+          "feature_type": "UTR",
+          "start": 55505895,
+          "stop": 55506076
+        },
+        {
+          "feature_type": "UTR",
+          "start": 55517951,
+          "stop": 55518027
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55518028,
+          "stop": 55518084
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55518323,
+          "stop": 55518464
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55521666,
+          "stop": 55521862
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55523004,
+          "stop": 55523187
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55523709,
+          "stop": 55523830
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55524172,
+          "stop": 55524267
+        },
+        {
+          "feature_type": "UTR",
+          "start": 55524268,
+          "stop": 55524320
+        },
+        {
+          "feature_type": "UTR",
+          "start": 55525159,
+          "stop": 55525336
+        },
+        {
+          "feature_type": "UTR",
+          "start": 55527048,
+          "stop": 55527229
+        },
+        {
+          "feature_type": "UTR",
+          "start": 55529042,
+          "stop": 55529112
+        }
+      ]
+    },
+    {
+      "transcript_id": "ENST00000452118",
+      "strand": "+",
+      "exons": [
+        {
+          "feature_type": "UTR",
+          "start": 55505431,
+          "stop": 55505510
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55505511,
+          "stop": 55505717
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55509516,
+          "stop": 55509707
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55512196,
+          "stop": 55512319
+        },
+        {
+          "feature_type": "CDS",
+          "start": 55516865,
+          "stop": 55516956
+        },
+        {
+          "feature_type": "UTR",
+          "start": 55516957,
+          "stop": 55517126
+        },
+        {
+          "feature_type": "UTR",
+          "start": 55517951,
+          "stop": 55518084
+        },
+        {
+          "feature_type": "UTR",
+          "start": 55518323,
+          "stop": 55518424
+        }
+      ]
+    }
+  ]
+}

@@ -1,26 +1,23 @@
 import React from 'react'
 
-import GeneViewer from '@gnomad/region-viewer/example/GeneViewer'
+import { RegionViewer } from '@gnomad/region-viewer'
 
 import TranscriptsTrack from '../src'
 
+import gene from './PCSK9.json'
+
 const TranscriptsTrackExample = () => (
-  <GeneViewer geneSymbol="PCSK9" width={1000}>
-    {gene => {
-      return (
-        <TranscriptsTrack
-          activeTranscript={{
-            exons: gene.exons,
-            strand: gene.strand,
-          }}
-          canonicalTranscript={gene.canonical_transcript_id}
-          transcripts={gene.transcripts}
-          showNonCodingTranscripts={false}
-          showUTRs={false}
-        />
-      )
-    }}
-  </GeneViewer>
+  <RegionViewer padding={75} regions={gene.exons} width={1000}>
+    <TranscriptsTrack
+      activeTranscript={{
+        exons: gene.exons,
+        strand: gene.strand,
+      }}
+      transcripts={gene.transcripts}
+      showNonCodingTranscripts={false}
+      showUTRs={false}
+    />
+  </RegionViewer>
 )
 
 export default TranscriptsTrackExample
