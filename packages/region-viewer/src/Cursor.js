@@ -15,7 +15,7 @@ const CursorOverlay = styled.svg`
   pointer-events: none;
 `
 
-export const Cursor = ({ children, onClick }) => {
+export const Cursor = ({ children, onClick, renderCursor }) => {
   const container = useRef()
   const [cursorPosition, setCursorPosition] = useState(null)
 
@@ -59,19 +59,7 @@ export const Cursor = ({ children, onClick }) => {
                 width: `${centerPanelWidth}px`,
               }}
             >
-              {cursorPosition && (
-                <rect
-                  x={cursorPosition - 15}
-                  y={0}
-                  width={30}
-                  height="100%"
-                  fill="none"
-                  stroke="black"
-                  strokeDasharray="5, 5"
-                  strokeWidth={1}
-                  style={{ cursor: 'pointer' }}
-                />
-              )}
+              {cursorPosition && renderCursor(cursorPosition)}
             </CursorOverlay>
             {children}
           </CursorWrapper>
@@ -84,8 +72,21 @@ export const Cursor = ({ children, onClick }) => {
 Cursor.propTypes = {
   children: PropTypes.node,
   onClick: PropTypes.func.isRequired,
+  renderCursor: PropTypes.func,
 }
 
 Cursor.defaultProps = {
   children: undefined,
+  renderCursor: x => (
+    <rect
+      x={x - 15}
+      y={0}
+      width={30}
+      height="100%"
+      fill="none"
+      stroke="black"
+      strokeDasharray="5, 5"
+      strokeWidth={1}
+    />
+  ),
 }
