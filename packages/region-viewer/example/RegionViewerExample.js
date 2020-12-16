@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 
-import { RegionViewer, Track, PositionAxisTrack } from '../src'
+import { RegionViewer, Track, PositionAxisTrack, Cursor } from '../src'
 
 const RegionViewerExample = () => {
   const [position, setPosition] = useState(250)
+  const [lastClickedPosition, setLastClickedPosition] = useState(null)
 
   return (
-    <div>
+    <div style={{ marginTop: '40px' }}>
       <RegionViewer
         width={1000}
         padding={0}
@@ -15,15 +16,17 @@ const RegionViewerExample = () => {
           { feature_type: 'region', start: 200, stop: 300 },
         ]}
       >
-        <Track>
-          {({ scalePosition, width }) => {
-            return (
-              <svg height={50} width={width}>
-                <circle cx={scalePosition(position)} cy={25} r={10} fill="blue" />
-              </svg>
-            )
-          }}
-        </Track>
+        <Cursor onClick={setLastClickedPosition}>
+          <Track>
+            {({ scalePosition, width }) => {
+              return (
+                <svg height={50} width={width}>
+                  <circle cx={scalePosition(position)} cy={25} r={10} fill="blue" />
+                </svg>
+              )
+            }}
+          </Track>
+        </Cursor>
         <PositionAxisTrack />
       </RegionViewer>
 
@@ -41,6 +44,7 @@ const RegionViewerExample = () => {
             }}
           />
         </label>
+        {lastClickedPosition && <p>Clicked position: {lastClickedPosition}</p>}
       </div>
     </div>
   )
