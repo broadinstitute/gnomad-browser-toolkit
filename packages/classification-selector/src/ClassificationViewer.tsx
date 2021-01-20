@@ -3,7 +3,6 @@ import TreeView from '@material-ui/lab/TreeView'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import TreeItem from '@material-ui/lab/TreeItem'
-import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { StandardLonghandProperties } from 'csstype'
@@ -163,7 +162,7 @@ function ClassificationViewer<Item>({
         >
           {classificationElems}
         </TreeView>
-        <Box>
+        <div>
           <Button
             variant="outlined"
             size="small"
@@ -180,7 +179,7 @@ function ClassificationViewer<Item>({
           >
             Select None
           </Button>
-        </Box>
+        </div>
       </ScopedCssBaseline>
     </>
   )
