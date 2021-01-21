@@ -1,5 +1,9 @@
 # Changes
 
+## Version 1.2.0 - January 21, 2021
+
+- Export GenesPlot component ([#38](https://github.com/broadinstitute/gnomad-browser-toolkit/pull/38))
+
 ## Version 1.1.0 - December 7, 2020
 
 - Show UTR and non-coding exons ([#30](https://github.com/broadinstitute/gnomad-browser-toolkit/pull/30))
