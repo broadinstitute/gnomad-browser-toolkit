@@ -265,7 +265,7 @@ export const Tabs: React.ComponentType<TabsProps>
 
 /* Start of components exported by DefaultTooltip.js */
 export interface DefaultTooltipProps {
-  tooltip: string
+  tooltip: string | React.ReactNode
 }
 export const DefaultTooltip: React.ComponentType<DefaultTooltipProps>
 /* End of components exported by DefaultTooltip.js */
