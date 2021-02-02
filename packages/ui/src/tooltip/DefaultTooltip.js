@@ -11,5 +11,5 @@ const Wrapper = styled.span`
 export const DefaultTooltip = ({ tooltip }) => <Wrapper>{tooltip}</Wrapper>
 
 DefaultTooltip.propTypes = {
-  tooltip: PropTypes.string.isRequired,
+  tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
 }
