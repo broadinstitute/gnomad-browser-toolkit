@@ -5,4 +5,8 @@ export const TooltipHint = styled.span`
   background-position: 0 1.15em;
   background-size: 4px 2px;
   background-repeat: repeat-x;
+
+  @media print {
+    background-image: none;
+  }
 `
