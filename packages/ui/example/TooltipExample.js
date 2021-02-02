@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import { TooltipAnchor } from '../src'
+import { TooltipAnchor, TooltipHint } from '../src'
 
 const BasicTooltip = ({ tooltip }) => <span>{tooltip}</span>
 
@@ -11,7 +11,7 @@ BasicTooltip.propTypes = {
 
 const TooltipExample = () => (
   <TooltipAnchor tooltip="A tooltip" tooltipComponent={BasicTooltip}>
-    <span>Hover here</span>
+    <TooltipHint>Hover here</TooltipHint>
   </TooltipAnchor>
 )
 
