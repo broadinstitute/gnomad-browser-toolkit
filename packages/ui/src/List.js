@@ -10,4 +10,8 @@ export const ListItem = styled.li`
   margin-bottom: 0.5em;
 `
 
-export const OrderedList = List.withComponent('ol')
+export const OrderedList = styled.ol`
+  padding-left: 20px;
+  list-style-type: decimal;
+  margin-bottom: 1em;
+`
