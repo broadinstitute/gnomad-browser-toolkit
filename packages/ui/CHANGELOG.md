@@ -1,6 +1,6 @@
 # Changes
 
-## Version 1.1.1 - February 4, 2021
+## Version 1.1.1 - February 8, 2021
 
 * Use decimal list style for ordered list [(#42)](https://github.com/broadinstitute/gnomad-browser-toolkit/pull/42)
 * Accept a string or node for default tooltip content [(#41)](https://github.com/broadinstitute/gnomad-browser-toolkit/pull/41)
