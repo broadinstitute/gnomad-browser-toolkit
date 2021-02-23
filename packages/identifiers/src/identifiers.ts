@@ -1,4 +1,11 @@
-const REGION_ID_REGEX = /^(chr)?(\d+|x|y|m|mt)[-:.]([\d,]+)([-:]([\d,]+)?)?$/i
+const CHROMOSOME = '(?:chr)?(?:\\d+|x|y|m|mt)'
+const POSITION = '[\\d,]+'
+const SEPARATOR = '[-:.]'
+
+const REGION_ID_REGEX = new RegExp(
+  `(${CHROMOSOME})${SEPARATOR}(${POSITION})(?:${SEPARATOR}(${POSITION})?)?$`,
+  'i'
+)
 
 export const parseRegionId = (regionId: string) => {
   const match = REGION_ID_REGEX.exec(regionId)
@@ -6,14 +13,14 @@ export const parseRegionId = (regionId: string) => {
     throw new Error('Invalid region ID')
   }
 
-  const chrom = match[2].toUpperCase()
+  const chrom = match[1].toUpperCase().replace(/^chr/i, '')
   const chromNumber = Number(chrom)
   if (!Number.isNaN(chromNumber) && (chromNumber < 1 || chromNumber > 22)) {
     throw new Error('Invalid region ID')
   }
 
-  const start = Number(match[3].replace(/,/g, ''))
-  const stop = match[5] ? Number(match[5].replace(/,/g, '')) : start
+  const start = Number(match[2].replace(/,/g, ''))
+  const stop = match[3] ? Number(match[3].replace(/,/g, '')) : start
 
   if (stop < start) {
     throw new Error('Invalid region ID')
@@ -36,7 +43,12 @@ export const isRegionId = (str: string) => {
   }
 }
 
-const VARIANT_ID_REGEX = /^(chr)?(\d+|x|y|m|mt)[-:.]?((([\d,]+)[-:.]?([acgt]+)[-:.>]([acgt]+))|(([acgt]+)[-:.]?([\d,]+)[-:.]?([acgt]+)))$/i
+const ALLELE = '[acgt]+'
+
+const VARIANT_ID_REGEX = new RegExp(
+  `^(${CHROMOSOME})${SEPARATOR}?(?:((${POSITION})${SEPARATOR}?(${ALLELE})(?:${SEPARATOR}|>)(${ALLELE}))|((${ALLELE})${SEPARATOR}?(${POSITION})${SEPARATOR}?(${ALLELE})))$`,
+  'i'
+)
 
 export const parseVariantId = (variantId: string) => {
   const match = VARIANT_ID_REGEX.exec(variantId)
@@ -44,7 +56,7 @@ export const parseVariantId = (variantId: string) => {
     throw new Error('Invalid variant ID')
   }
 
-  const chrom = match[2].toUpperCase()
+  const chrom = match[1].toUpperCase().replace(/^chr/i, '')
   const chromNumber = Number(chrom)
   if (!Number.isNaN(chromNumber) && (chromNumber < 1 || chromNumber > 22)) {
     throw new Error('Invalid variant ID')
@@ -55,16 +67,16 @@ export const parseVariantId = (variantId: string) => {
   let alt
 
   /* eslint-disable prefer-destructuring */
-  if (match[4]) {
+  if (match[2]) {
     // chrom-pos-ref-alt
-    pos = match[5]
-    ref = match[6]
-    alt = match[7]
+    pos = match[3]
+    ref = match[4]
+    alt = match[5]
   } else {
     // chrom-ref-pos-alt
-    ref = match[9]
-    pos = match[10]
-    alt = match[11]
+    ref = match[7]
+    pos = match[8]
+    alt = match[9]
   }
   /* eslint-enable prefer-destructuring */
 
