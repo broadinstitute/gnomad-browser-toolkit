@@ -1,6 +1,6 @@
 const CHROMOSOME = '(?:chr)?(?:\\d+|x|y|m|mt)'
 const POSITION = '[\\d,]+'
-const SEPARATOR = '[-:.]'
+const SEPARATOR = '(?:[-:.]|\\s+)'
 
 const REGION_ID_REGEX = new RegExp(
   `(${CHROMOSOME})${SEPARATOR}(${POSITION})(?:${SEPARATOR}(${POSITION})?)?$`,

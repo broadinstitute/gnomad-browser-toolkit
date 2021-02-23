@@ -35,6 +35,7 @@ describe('isRegionId', () => {
     '6:391518-3851275',
     '1:55,505,222-55,530,526',
     'm.300',
+    'chr2 500 600',
   ]
 
   const negativeTestCases = ['chr1-', '5-1243421-a', '3-356788-123245', '54-12432-15440']
@@ -56,6 +57,7 @@ describe('parseRegionId', () => {
     { input: '3-10', parsed: { chrom: '3', start: 10, stop: 10 } },
     { input: '1:55,505,222-55,530,526', parsed: { chrom: '1', start: 55505222, stop: 55530526 } },
     { input: 'm.300-320', parsed: { chrom: 'M', start: 300, stop: 320 } },
+    { input: 'chr2 500 600', parsed: { chrom: '2', start: 500, stop: 600 } },
   ]
 
   testCases.forEach(({ input, parsed }) => {
@@ -86,6 +88,7 @@ describe('normalizeRegionId', () => {
     { input: '3-10', normalized: '3-10-10' },
     { input: '1:55,505,222-55,530,526', normalized: '1-55505222-55530526' },
     { input: 'm.300-320', normalized: 'M-300-320' },
+    { input: 'chr2 500 600', normalized: '2-500-600' },
   ]
 
   testCases.forEach(({ input, normalized }) => {
@@ -107,6 +110,7 @@ describe('isVariantId', () => {
     'm.A3243G',
     '3-7643T>C',
     'chr11C308G',
+    '21:47406495 CT>C',
   ]
 
   const negativeTestCases = [
@@ -141,6 +145,7 @@ describe('parseVariantId', () => {
     { input: '3-7643T>C', parsed: { chrom: '3', pos: 7643, ref: 'T', alt: 'C' } },
     { input: 'chr11C308G', parsed: { chrom: '11', pos: 308, ref: 'C', alt: 'G' } },
     { input: '1G55,516,888GA', parsed: { chrom: '1', pos: 55516888, ref: 'G', alt: 'GA' } },
+    { input: '21:47406495 CT>C', parsed: { chrom: '21', pos: 47406495, ref: 'CT', alt: 'C' } },
   ]
 
   testCases.forEach(({ input, parsed }) => {
@@ -185,6 +190,7 @@ describe('normalizeVariantId', () => {
     { input: '3-7643T>C', normalized: '3-7643-T-C' },
     { input: 'chr11C308G', normalized: '11-308-C-G' },
     { input: '1G55,516,888GA', normalized: '1-55516888-G-GA' },
+    { input: '21:47406495 CT>C', normalized: '21-47406495-CT-C' },
   ]
 
   testCases.forEach(({ input, normalized }) => {
