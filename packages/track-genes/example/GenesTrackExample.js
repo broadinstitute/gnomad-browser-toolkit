@@ -17,7 +17,14 @@ const regions = [
 
 const GenesTrackExample = () => (
   <RegionViewer padding={0} regions={regions} width={1000}>
-    <GenesTrack genes={genes} />
+    <GenesTrack
+      genes={genes}
+      renderGeneLabel={gene => (
+        <a href={`https://gnomad.broadinstitute.org/gene/${gene.gene_id}`}>
+          <text textAnchor="middle">{gene.symbol}</text>
+        </a>
+      )}
+    />
   </RegionViewer>
 )
 

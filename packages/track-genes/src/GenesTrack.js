@@ -12,14 +12,14 @@ const TitlePanel = styled.div`
   justify-content: flex-start;
 `
 
-export const GenesTrack = ({ genes, includeNonCodingGenes, onGeneClick, title }) => (
+export const GenesTrack = ({ genes, includeNonCodingGenes, renderGeneLabel, title }) => (
   <Track renderLeftPanel={() => <TitlePanel>{title}</TitlePanel>}>
     {({ scalePosition, width }) => {
       return (
         <GenesPlot
           genes={genes}
           includeNonCodingGenes={includeNonCodingGenes}
-          onGeneClick={onGeneClick}
+          renderGeneLabel={renderGeneLabel}
           scalePosition={scalePosition}
           width={width}
         />
@@ -32,7 +32,6 @@ GenesTrack.propTypes = {
   genes: PropTypes.arrayOf(
     PropTypes.shape({
       gene_id: PropTypes.string.isRequired,
-      symbol: PropTypes.string.isRequired,
       start: PropTypes.number.isRequired,
       stop: PropTypes.number.isRequired,
       exons: PropTypes.arrayOf(
@@ -45,12 +44,12 @@ GenesTrack.propTypes = {
     })
   ).isRequired,
   includeNonCodingGenes: PropTypes.bool,
-  onGeneClick: PropTypes.func,
+  renderGeneLabel: PropTypes.func,
   title: PropTypes.string,
 }
 
 GenesTrack.defaultProps = {
   includeNonCodingGenes: false,
-  onGeneClick: () => {},
+  renderGeneLabel: undefined,
   title: 'Genes',
 }
