@@ -1,5 +1,10 @@
 # Changes
 
+## Version 2.1.0 - March 3, 2021
+
+- Accept white space as a separator in variant/region IDs ([#46](https://github.com/broadinstitute/gnomad-browser-toolkit/pull/46))
+- Accept `/` as a separator in variant/region IDs ([#46](https://github.com/broadinstitute/gnomad-browser-toolkit/pull/46))
+
 ## Version 2.0.0 - September 3, 2020
 
 - Recognize additional forms of variant IDs (m.3243A>G and m.A3243G) ([#20](https://github.com/broadinstitute/gnomad-browser-toolkit/pull/20))
