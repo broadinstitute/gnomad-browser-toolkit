@@ -1,5 +1,10 @@
 # Changes
 
+## Version 2.0.0 - March 3, 2021
+
+- Remove `onGeneClick` prop ([#47](https://github.com/broadinstitute/gnomad-browser-toolkit/pull/47))
+- Add `renderGeneLabel` prop to customize how gene labels are rendered ([#47](https://github.com/broadinstitute/gnomad-browser-toolkit/pull/47))
+
 ## Version 1.2.0 - January 21, 2021
 
 - Export GenesPlot component ([#38](https://github.com/broadinstitute/gnomad-browser-toolkit/pull/38))
