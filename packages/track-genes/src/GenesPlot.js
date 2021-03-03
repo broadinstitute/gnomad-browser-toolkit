@@ -1,15 +1,5 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
-
-const GeneName = styled.text`
-  fill: #428bca;
-
-  &:hover {
-    fill: #be4248;
-    cursor: pointer;
-  }
-`
 
 const layoutRows = (genes, scalePosition) => {
   if (genes.length === 0) {
@@ -67,26 +57,28 @@ const featureTypeCompareFn = (r1, r2) =>
 
 const isCodingGene = gene => gene.exons.some(exon => exon.feature_type === 'CDS')
 
-export const GenesPlot = ({ genes, includeNonCodingGenes, onGeneClick, scalePosition, width }) => {
+export const GenesPlot = ({
+  genes,
+  includeNonCodingGenes,
+  renderGeneLabel,
+  scalePosition,
+  width,
+}) => {
   const rows = layoutRows(includeNonCodingGenes ? genes : genes.filter(isCodingGene), scalePosition)
   const rowHeight = 50
   return (
     <svg height={rowHeight * rows.length} width={width}>
       {rows.map((track, trackNumber) =>
         track.map(gene => {
-          const textYPosition = rowHeight * trackNumber + 33
+          const labelY = rowHeight * trackNumber + 33
           const exonsYPosition = rowHeight * trackNumber + 8
           const geneStart = scalePosition(gene.start)
           const geneStop = scalePosition(gene.stop)
           return (
             <g key={gene.gene_id}>
-              <GeneName
-                x={(geneStop + geneStart) / 2}
-                y={textYPosition}
-                onClick={() => onGeneClick(gene)}
-              >
-                {gene.symbol}
-              </GeneName>
+              <g transform={`translate(${(geneStart + geneStop) / 2},${labelY})`}>
+                {renderGeneLabel(gene)}
+              </g>
               <line
                 x1={geneStart}
                 x2={geneStop}
@@ -124,7 +116,6 @@ GenesPlot.propTypes = {
   genes: PropTypes.arrayOf(
     PropTypes.shape({
       gene_id: PropTypes.string.isRequired,
-      symbol: PropTypes.string.isRequired,
       start: PropTypes.number.isRequired,
       stop: PropTypes.number.isRequired,
       exons: PropTypes.arrayOf(
@@ -137,12 +128,12 @@ GenesPlot.propTypes = {
     })
   ).isRequired,
   includeNonCodingGenes: PropTypes.bool,
-  onGeneClick: PropTypes.func,
+  renderGeneLabel: PropTypes.func,
   scalePosition: PropTypes.func.isRequired,
   width: PropTypes.number.isRequired,
 }
 
 GenesPlot.defaultProps = {
   includeNonCodingGenes: false,
-  onGeneClick: () => {},
+  renderGeneLabel: gene => <text textAnchor="middle">{gene.symbol}</text>,
 }
