@@ -58,7 +58,7 @@ export const Track = ({ children, renderLeftPanel, renderRightPanel, renderTopPa
       centerPanelWidth,
       isPositionDefined,
       leftPanelWidth,
-      offsetRegions,
+      regions,
       rightPanelWidth,
       scalePosition,
     }) => (
@@ -81,7 +81,7 @@ export const Track = ({ children, renderLeftPanel, renderRightPanel, renderTopPa
               ...rest,
               isPositionDefined,
               leftPanelWidth,
-              offsetRegions,
+              regions,
               rightPanelWidth,
               scalePosition,
               width: centerPanelWidth,
