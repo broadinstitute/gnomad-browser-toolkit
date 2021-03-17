@@ -2,12 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
-import {
-  calculateOffsetRegions,
-  calculatePositionOffset,
-  invertPositionOffset,
-  calculateXScale,
-} from './coordinates'
+import { mergeOverlappingRegions, regionViewerScale } from './coordinates'
 
 export const RegionViewerContext = React.createContext()
 
@@ -27,25 +22,35 @@ export const RegionViewer = ({
   rightPanelWidth,
   width,
 }) => {
-  const centerPanelWidth = width - (leftPanelWidth + rightPanelWidth)
-  const offsetRegions = calculateOffsetRegions(padding, regions)
-
-  const positionOffset = calculatePositionOffset(offsetRegions)
-  const xScale = calculateXScale(centerPanelWidth, offsetRegions)
-  const invertOffset = invertPositionOffset(offsetRegions, xScale)
-
-  const scalePosition = pos => xScale(positionOffset(pos).offsetPosition)
-  scalePosition.invert = invertOffset
+  const regionsWithPadding = mergeOverlappingRegions(
+    [...regions]
+      .sort((r1, r2) => r1.start - r2.start)
+      .flatMap(region => [
+        {
+          feature_type: 'padding',
+          start: region.start - padding,
+          stop: region.start - 1,
+        },
+        region,
+        {
+          feature_type: 'padding',
+          start: region.stop + 1,
+          stop: region.stop + padding,
+        },
+      ])
+  )
 
   const isPositionDefined = pos =>
-    offsetRegions.some(region => region.start <= pos && pos <= region.stop)
+    regionsWithPadding.some(region => region.start <= pos && pos <= region.stop)
+
+  const centerPanelWidth = width - (leftPanelWidth + rightPanelWidth)
+  const scalePosition = regionViewerScale(regionsWithPadding, [0, centerPanelWidth])
 
   const childProps = {
     centerPanelWidth,
     isPositionDefined,
     leftPanelWidth,
-    offsetRegions, // used only by track-coverage
-    positionOffset,
+    regions: regionsWithPadding,
     rightPanelWidth,
     scalePosition,
   }
