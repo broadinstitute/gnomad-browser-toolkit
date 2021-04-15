@@ -1,10 +1,10 @@
 const CHROMOSOME = '(?:chr)?(?:\\d+|x|y|m|mt)'
 const POSITION = '[\\d,]+'
-const SEPARATOR = '(?:[-:./]|\\s+)'
+const SEPARATOR = '(?:\\p{Pd}|[:./]|\\s+)'
 
 const REGION_ID_REGEX = new RegExp(
   `(${CHROMOSOME})${SEPARATOR}(${POSITION})(?:${SEPARATOR}(${POSITION})?)?$`,
-  'i'
+  'iu'
 )
 
 export const parseRegionId = (regionId: string) => {
@@ -47,7 +47,7 @@ const ALLELE = '[acgt]+'
 
 const VARIANT_ID_REGEX = new RegExp(
   `^(${CHROMOSOME})${SEPARATOR}?(?:((${POSITION})${SEPARATOR}?(${ALLELE})(?:${SEPARATOR}|>)(${ALLELE}))|((${ALLELE})${SEPARATOR}?(${POSITION})${SEPARATOR}?(${ALLELE})))$`,
-  'i'
+  'iu'
 )
 
 export const parseVariantId = (variantId: string) => {

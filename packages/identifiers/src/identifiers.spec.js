@@ -37,6 +37,7 @@ describe('isRegionId', () => {
     'm.300',
     'chr2 500 600',
     '5/247,300/248,175',
+    '1\u201315342343\u201415342563',
   ]
 
   const negativeTestCases = ['chr1-', '5-1243421-a', '3-356788-123245', '54-12432-15440']
@@ -60,6 +61,10 @@ describe('parseRegionId', () => {
     { input: 'm.300-320', parsed: { chrom: 'M', start: 300, stop: 320 } },
     { input: 'chr2 500 600', parsed: { chrom: '2', start: 500, stop: 600 } },
     { input: '5/247,300/248,175', parsed: { chrom: '5', start: 247300, stop: 248175 } },
+    {
+      input: '1\u201315342343\u201415342563',
+      parsed: { chrom: '1', start: 15342343, stop: 15342563 },
+    },
   ]
 
   testCases.forEach(({ input, parsed }) => {
@@ -92,6 +97,7 @@ describe('normalizeRegionId', () => {
     { input: 'm.300-320', normalized: 'M-300-320' },
     { input: 'chr2 500 600', normalized: '2-500-600' },
     { input: '5/247,300/248,175', normalized: '5-247300-248175' },
+    { input: '1\u201315342343\u201415342563', normalized: '1-15342343-15342563' },
   ]
 
   testCases.forEach(({ input, normalized }) => {
@@ -151,6 +157,10 @@ describe('parseVariantId', () => {
     { input: '1G55,516,888GA', parsed: { chrom: '1', pos: 55516888, ref: 'G', alt: 'GA' } },
     { input: '21:47406495 CT>C', parsed: { chrom: '21', pos: 47406495, ref: 'CT', alt: 'C' } },
     { input: '1:55516888  G/GA', parsed: { chrom: '1', pos: 55516888, ref: 'G', alt: 'GA' } },
+    {
+      input: '1\u201355516888\u2014G\u2014GA',
+      parsed: { chrom: '1', pos: 55516888, ref: 'G', alt: 'GA' },
+    },
   ]
 
   testCases.forEach(({ input, parsed }) => {
@@ -197,6 +207,10 @@ describe('normalizeVariantId', () => {
     { input: '1G55,516,888GA', normalized: '1-55516888-G-GA' },
     { input: '21:47406495 CT>C', normalized: '21-47406495-CT-C' },
     { input: '1:55516888  G/GA', normalized: '1-55516888-G-GA' },
+    {
+      input: '1\u201355516888\u2014G\u2014GA',
+      normalized: '1-55516888-G-GA',
+    },
   ]
 
   testCases.forEach(({ input, normalized }) => {
