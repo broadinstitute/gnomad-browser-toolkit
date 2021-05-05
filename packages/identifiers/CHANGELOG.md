@@ -1,5 +1,9 @@
 # Changes
 
+## Version 2.2.0 - May 5, 2021
+
+- Accept Unicode dashes as separators in variant/region IDs ([#51](https://github.com/broadinstitute/gnomad-browser-toolkit/pull/51))
+
 ## Version 2.1.0 - March 3, 2021
 
 - Accept white space as a separator in variant/region IDs ([#46](https://github.com/broadinstitute/gnomad-browser-toolkit/pull/46))
