@@ -1,5 +1,9 @@
 # Changes
 
+## Version 2.2.1 - May 26, 2021
+
+- Fix for compatibility with IE 11 ([#58](https://github.com/broadinstitute/gnomad-browser-toolkit/pull/58))
+
 ## Version 2.2.0 - May 5, 2021
 
 - Accept Unicode dashes as separators in variant/region IDs ([#51](https://github.com/broadinstitute/gnomad-browser-toolkit/pull/51))
