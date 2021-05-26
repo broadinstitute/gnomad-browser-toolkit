@@ -1,10 +1,23 @@
+// The Unicode flag is not supported in IE 11.
+const isRegExpUnicodeFlagSupported = (() => {
+  try {
+    new RegExp('test', 'u') // eslint-disable-line no-new
+    return true
+  } catch (err) {
+    return false
+  }
+})()
+
 const CHROMOSOME = '(?:chr)?(?:\\d+|x|y|m|mt)'
 const POSITION = '[\\d,]+'
-const SEPARATOR = '(?:\\p{Pd}|[:./]|\\s+)'
+const DASH = isRegExpUnicodeFlagSupported ? '\\p{Pd}' : '-'
+const SEPARATOR = `(?:${DASH}|[:./]|\\s+)`
+
+const REGEXP_FLAGS = `i${isRegExpUnicodeFlagSupported ? 'u' : ''}`
 
 const REGION_ID_REGEX = new RegExp(
   `(${CHROMOSOME})${SEPARATOR}(${POSITION})(?:${SEPARATOR}(${POSITION})?)?$`,
-  'iu'
+  REGEXP_FLAGS
 )
 
 export const parseRegionId = (regionId: string) => {
@@ -47,7 +60,7 @@ const ALLELE = '[acgt]+'
 
 const VARIANT_ID_REGEX = new RegExp(
   `^(${CHROMOSOME})${SEPARATOR}?(?:((${POSITION})${SEPARATOR}?(${ALLELE})(?:${SEPARATOR}|>)(${ALLELE}))|((${ALLELE})${SEPARATOR}?(${POSITION})${SEPARATOR}?(${ALLELE})))$`,
-  'iu'
+  REGEXP_FLAGS
 )
 
 export const parseVariantId = (variantId: string) => {
