@@ -38,6 +38,8 @@ describe('isRegionId', () => {
     'chr2 500 600',
     '5/247,300/248,175',
     '1\u201315342343\u201415342563',
+    '1_15342343_15342563',
+    '1|15342343|15342563',
   ]
 
   const negativeTestCases = ['chr1-', '5-1243421-a', '3-356788-123245', '54-12432-15440']
@@ -65,6 +67,8 @@ describe('parseRegionId', () => {
       input: '1\u201315342343\u201415342563',
       parsed: { chrom: '1', start: 15342343, stop: 15342563 },
     },
+    { input: '1_15342343_15342563', parsed: { chrom: '1', start: 15342343, stop: 15342563 } },
+    { input: '1|15342343|15342563', parsed: { chrom: '1', start: 15342343, stop: 15342563 } },
   ]
 
   testCases.forEach(({ input, parsed }) => {
@@ -98,6 +102,8 @@ describe('normalizeRegionId', () => {
     { input: 'chr2 500 600', normalized: '2-500-600' },
     { input: '5/247,300/248,175', normalized: '5-247300-248175' },
     { input: '1\u201315342343\u201415342563', normalized: '1-15342343-15342563' },
+    { input: '1_15342343_15342563', normalized: '1-15342343-15342563' },
+    { input: '1|15342343|15342563', normalized: '1-15342343-15342563' },
   ]
 
   testCases.forEach(({ input, normalized }) => {
@@ -121,6 +127,8 @@ describe('isVariantId', () => {
     'chr11C308G',
     '21:47406495 CT>C',
     '1:55516888  G/GA',
+    '1_55516888_G_GA',
+    '1|55516888|G|GA',
   ]
 
   const negativeTestCases = [
@@ -161,6 +169,8 @@ describe('parseVariantId', () => {
       input: '1\u201355516888\u2014G\u2014GA',
       parsed: { chrom: '1', pos: 55516888, ref: 'G', alt: 'GA' },
     },
+    { input: '1_55516888_G_GA', parsed: { chrom: '1', pos: 55516888, ref: 'G', alt: 'GA' } },
+    { input: '1|55516888|G|GA', parsed: { chrom: '1', pos: 55516888, ref: 'G', alt: 'GA' } },
   ]
 
   testCases.forEach(({ input, parsed }) => {
@@ -211,6 +221,8 @@ describe('normalizeVariantId', () => {
       input: '1\u201355516888\u2014G\u2014GA',
       normalized: '1-55516888-G-GA',
     },
+    { input: '1_55516888_G_GA', normalized: '1-55516888-G-GA' },
+    { input: '1|55516888|G|GA', normalized: '1-55516888-G-GA' },
   ]
 
   testCases.forEach(({ input, normalized }) => {
