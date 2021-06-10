@@ -11,7 +11,7 @@ const isRegExpUnicodeFlagSupported = (() => {
 const CHROMOSOME = '(?:chr)?(?:\\d+|x|y|m|mt)'
 const POSITION = '[\\d,]+'
 const DASH = isRegExpUnicodeFlagSupported ? '\\p{Pd}' : '-'
-const SEPARATOR = `(?:${DASH}|[:./]|\\s+)`
+const SEPARATOR = `(?:${DASH}|[:./_|]|\\s+)`
 
 const REGEXP_FLAGS = `i${isRegExpUnicodeFlagSupported ? 'u' : ''}`
 
