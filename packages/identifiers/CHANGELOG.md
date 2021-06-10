@@ -1,5 +1,9 @@
 # Changes
 
+## Version 2.3.0 - June 10, 2021
+
+- Accept underscores and pipes as separators in variant/region IDs ([#62](https://github.com/broadinstitute/gnomad-browser-toolkit/pull/62))
+
 ## Version 2.2.1 - May 26, 2021
 
 - Fix for compatibility with IE 11 ([#58](https://github.com/broadinstitute/gnomad-browser-toolkit/pull/58))
