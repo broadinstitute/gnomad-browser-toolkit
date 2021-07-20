@@ -1,6 +1,6 @@
 {
   "name": "@gnomad/track-transcripts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "repository": {
     "type" : "git",
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.8.1",
-    "@gnomad/region-viewer": "^1.0.0",
+    "@gnomad/region-viewer": "^1.0.0||^2.0.0",
     "@gnomad/track-regions": "^1.0.0",
     "@gnomad/ui": "^1.0.0",
     "d3-array": "^1.2.4",

@@ -1,5 +1,9 @@
 # Changes
 
+## Version 2.0.1 - July 20, 2021
+
+- Update required version of `@gnomad/region-viewer`
+
 ## Version 2.0.0 - March 3, 2021
 
 - Remove `onGeneClick` prop ([#47](https://github.com/broadinstitute/gnomad-browser-toolkit/pull/47))
