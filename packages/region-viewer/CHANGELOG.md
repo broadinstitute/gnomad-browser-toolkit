@@ -2,7 +2,9 @@
 
 ## Version 2.0.0 - July 20, 2021
 
-- Removed `positionOffset` and `offsetPositions` from `RegionViewerContext` ([#48](https://github.com/broadinstitute/gnomad-browser-toolkit/pull/48))
+- Changed objects passed to tracks through `RegionViewerContext` ([#48](https://github.com/broadinstitute/gnomad-browser-toolkit/pull/48))
+  - Replaced `offsetRegions` with `regions`. Regions no longer include an `offset` field.
+  - Removed `positionOffset`.
 
 ## Version 1.1.0 - December 16, 2020
 
