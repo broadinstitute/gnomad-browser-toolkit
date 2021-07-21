@@ -9,10 +9,6 @@ import gene from './PCSK9.json'
 const TranscriptsTrackExample = () => (
   <RegionViewer padding={75} regions={gene.exons} width={1000}>
     <TranscriptsTrack
-      activeTranscript={{
-        exons: gene.exons,
-        strand: gene.strand,
-      }}
       transcripts={gene.transcripts}
       showNonCodingTranscripts={false}
       showUTRs={false}

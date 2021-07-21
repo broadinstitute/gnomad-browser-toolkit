@@ -20,7 +20,6 @@
     "example": "gnomad-browser-toolkit-scripts example"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.8.1",
     "@gnomad/region-viewer": "^1.0.0||^2.0.0",
     "@gnomad/track-regions": "^1.0.0",
     "@gnomad/ui": "^1.0.0",

@@ -1,6 +1,4 @@
-import LeftArrow from '@fortawesome/fontawesome-free/svgs/solid/arrow-circle-left.svg'
-import RightArrow from '@fortawesome/fontawesome-free/svgs/solid/arrow-circle-right.svg'
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -8,33 +6,6 @@ import { Track } from '@gnomad/region-viewer'
 import { Button } from '@gnomad/ui'
 
 import TranscriptPlot from './TranscriptPlot'
-
-const ToggleTranscriptsPanel = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-sizing: border-box;
-  width: 100%;
-  height: 50px;
-  padding-right: 5px;
-
-  button {
-    width: 70px;
-    height: auto;
-    padding-right: 0.25em;
-    padding-left: 0.25em;
-  }
-
-  svg {
-    fill: #424242;
-  }
-`
-
-const ActiveTranscriptPlotWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  height: 50px;
-`
 
 const ControlPanelWrapper = styled.div`
   display: flex;
@@ -106,10 +77,8 @@ const exportTranscriptsPlot = (containerElement, filename) => {
 }
 
 export const TranscriptsTrack = ({
-  activeTranscript,
   children,
   exportFilename,
-  renderActiveTranscriptRightPanel,
   renderTranscriptLeftPanel,
   renderTranscriptRightPanel,
   transcripts,
@@ -117,114 +86,65 @@ export const TranscriptsTrack = ({
   showNonCodingTranscripts,
 }) => {
   const transcriptsContainer = useRef(null)
-  const [isExpanded, setIsExpanded] = useState(false)
-
-  const StrandIcon = activeTranscript.strand === '-' ? LeftArrow : RightArrow
 
   return (
     <div>
       <TranscriptsWrapper>
-        <Track
-          renderLeftPanel={({ width }) => (
-            <ToggleTranscriptsPanel width={width}>
+        <Track>
+          {({ width }) => (
+            <ControlPanelWrapper>
+              <ControlPanel>{children}</ControlPanel>
               <Button
-                onClick={() => {
-                  setIsExpanded(expanded => !expanded)
-                }}
+                onClick={() =>
+                  exportTranscriptsPlot(transcriptsContainer.current, exportFilename, { width })
+                }
               >
-                {isExpanded ? 'Hide' : 'Show'} transcripts
+                Save plot
               </Button>
-              <StrandIcon height={20} width={20} />
-            </ToggleTranscriptsPanel>
-          )}
-          renderRightPanel={
-            isExpanded && renderActiveTranscriptRightPanel
-              ? ({ width }) => renderActiveTranscriptRightPanel({ activeTranscript, width })
-              : null
-          }
-        >
-          {({ scalePosition, width }) => (
-            <React.Fragment>
-              <ActiveTranscriptPlotWrapper>
-                <TranscriptPlot
-                  height={20}
-                  scalePosition={scalePosition}
-                  showNonCodingExons={showNonCodingTranscripts}
-                  showUTRs={showUTRs}
-                  transcript={activeTranscript}
-                  width={width}
-                />
-              </ActiveTranscriptPlotWrapper>
-
-              {isExpanded && (
-                <ControlPanelWrapper>
-                  <ControlPanel>{children}</ControlPanel>
-                  <Button
-                    onClick={() =>
-                      exportTranscriptsPlot(transcriptsContainer.current, exportFilename, { width })
-                    }
-                  >
-                    Save plot
-                  </Button>
-                </ControlPanelWrapper>
-              )}
-            </React.Fragment>
+            </ControlPanelWrapper>
           )}
         </Track>
       </TranscriptsWrapper>
-      {isExpanded && (
-        <TranscriptsWrapper ref={transcriptsContainer}>
-          {(showNonCodingTranscripts ? transcripts : transcripts.filter(isTranscriptCoding)).map(
-            transcript => (
-              <TranscriptWrapper key={transcript.transcript_id}>
-                <Track
-                  renderLeftPanel={
-                    renderTranscriptLeftPanel
-                      ? ({ width }) => renderTranscriptLeftPanel({ transcript, width })
-                      : undefined
-                  }
-                  renderRightPanel={
-                    renderTranscriptRightPanel
-                      ? ({ width }) => renderTranscriptRightPanel({ transcript, width })
-                      : undefined
-                  }
-                >
-                  {({ scalePosition, width }) => (
-                    <TranscriptPlot
-                      className="transcript-plot"
-                      data-transcript-id={transcript.transcript_id}
-                      height={10}
-                      scalePosition={scalePosition}
-                      showNonCodingExons={showNonCodingTranscripts}
-                      showUTRs={showUTRs}
-                      transcript={transcript}
-                      width={width}
-                    />
-                  )}
-                </Track>
-              </TranscriptWrapper>
-            )
-          )}
-        </TranscriptsWrapper>
-      )}
+      <TranscriptsWrapper ref={transcriptsContainer}>
+        {(showNonCodingTranscripts ? transcripts : transcripts.filter(isTranscriptCoding)).map(
+          transcript => (
+            <TranscriptWrapper key={transcript.transcript_id}>
+              <Track
+                renderLeftPanel={
+                  renderTranscriptLeftPanel
+                    ? ({ width }) => renderTranscriptLeftPanel({ transcript, width })
+                    : undefined
+                }
+                renderRightPanel={
+                  renderTranscriptRightPanel
+                    ? ({ width }) => renderTranscriptRightPanel({ transcript, width })
+                    : undefined
+                }
+              >
+                {({ scalePosition, width }) => (
+                  <TranscriptPlot
+                    className="transcript-plot"
+                    data-transcript-id={transcript.transcript_id}
+                    height={10}
+                    scalePosition={scalePosition}
+                    showNonCodingExons={showNonCodingTranscripts}
+                    showUTRs={showUTRs}
+                    transcript={transcript}
+                    width={width}
+                  />
+                )}
+              </Track>
+            </TranscriptWrapper>
+          )
+        )}
+      </TranscriptsWrapper>
     </div>
   )
 }
 
 TranscriptsTrack.propTypes = {
-  activeTranscript: PropTypes.shape({
-    exons: PropTypes.arrayOf(
-      PropTypes.shape({
-        feature_type: PropTypes.string.isRequired,
-        start: PropTypes.number.isRequired,
-        stop: PropTypes.number.isRequired,
-      })
-    ).isRequired,
-    strand: PropTypes.oneOf(['+', '-']).isRequired,
-  }).isRequired,
   children: PropTypes.node,
   exportFilename: PropTypes.string,
-  renderActiveTranscriptRightPanel: PropTypes.func,
   renderTranscriptLeftPanel: PropTypes.func,
   renderTranscriptRightPanel: PropTypes.func,
   showNonCodingTranscripts: PropTypes.bool,
@@ -246,7 +166,6 @@ TranscriptsTrack.propTypes = {
 TranscriptsTrack.defaultProps = {
   children: undefined,
   exportFilename: 'transcripts',
-  renderActiveTranscriptRightPanel: undefined,
   // eslint-disable-next-line react/prop-types
   renderTranscriptLeftPanel: ({ transcript }) => <span>{transcript.transcript_id}</span>,
   renderTranscriptRightPanel: undefined,
