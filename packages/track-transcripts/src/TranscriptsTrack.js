@@ -73,6 +73,7 @@ export const TranscriptsTrack = forwardRef(
       transcripts,
       showUTRs,
       showNonCodingTranscripts,
+      transcriptHeight,
     },
     ref
   ) => {
@@ -105,7 +106,7 @@ export const TranscriptsTrack = forwardRef(
                   <TranscriptPlot
                     className="transcript-plot"
                     data-transcript-id={transcript.transcript_id}
-                    height={10}
+                    height={transcriptHeight}
                     scalePosition={scalePosition}
                     showNonCodingExons={showNonCodingTranscripts}
                     showUTRs={showUTRs}
@@ -127,6 +128,7 @@ TranscriptsTrack.propTypes = {
   renderTranscriptRightPanel: PropTypes.func,
   showNonCodingTranscripts: PropTypes.bool,
   showUTRs: PropTypes.bool,
+  transcriptHeight: PropTypes.number,
   transcripts: PropTypes.arrayOf(
     PropTypes.shape({
       transcript_id: PropTypes.string.isRequired,
@@ -147,4 +149,5 @@ TranscriptsTrack.defaultProps = {
   renderTranscriptRightPanel: undefined,
   showNonCodingTranscripts: false,
   showUTRs: false,
+  transcriptHeight: 10,
 }
