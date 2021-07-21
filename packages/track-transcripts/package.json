@@ -24,8 +24,6 @@
     "@gnomad/region-viewer": "^1.0.0||^2.0.0",
     "@gnomad/track-regions": "^1.0.0",
     "@gnomad/ui": "^1.0.0",
-    "d3-array": "^1.2.4",
-    "d3-scale": "^2.2.2",
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {
