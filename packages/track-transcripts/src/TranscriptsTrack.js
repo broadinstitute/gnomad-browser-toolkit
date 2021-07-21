@@ -5,8 +5,9 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { Track } from '@gnomad/region-viewer'
-import { RegionsPlot } from '@gnomad/track-regions'
 import { Button } from '@gnomad/ui'
+
+import TranscriptPlot from './TranscriptPlot'
 
 const ToggleTranscriptsPanel = styled.div`
   display: flex;
@@ -55,71 +56,7 @@ const TranscriptWrapper = styled.div`
   font-size: 11px;
 `
 
-const transcriptFeatureAttributes = {
-  exon: {
-    fill: '#bdbdbd',
-    height: 4,
-  },
-  CDS: {
-    fill: '#424242',
-    height: 10,
-  },
-  UTR: {
-    fill: '#424242',
-    height: 4,
-  },
-  start_pad: {
-    fill: '#5A5E5C',
-    height: 2,
-  },
-  end_pad: {
-    fill: '#5A5E5C',
-    height: 2,
-  },
-  intron: {
-    fill: '#5A5E5C',
-    height: 2,
-  },
-  default: {
-    fill: 'grey',
-    height: 2,
-  },
-}
-
-const transcriptRegionAttributes = region =>
-  transcriptFeatureAttributes[region.feature_type] || transcriptFeatureAttributes.default
-
-const activeTranscriptFeatureAttributes = {
-  ...transcriptFeatureAttributes,
-  exon: {
-    fill: '#bdbdbd',
-    height: 8,
-  },
-  CDS: {
-    fill: '#424242',
-    height: 20,
-  },
-  UTR: {
-    fill: '#424242',
-    height: 8,
-  },
-}
-
-const featureTypeOrder = {
-  exon: 0,
-  UTR: 1,
-  CDS: 2,
-}
-const featureTypeCompareFn = (r1, r2) =>
-  featureTypeOrder[r1.feature_type] - featureTypeOrder[r2.feature_type]
-
-const activeTranscriptRegionAttributes = region =>
-  activeTranscriptFeatureAttributes[region.feature_type] ||
-  activeTranscriptFeatureAttributes.default
-
 const isTranscriptCoding = transcript => transcript.exons.some(exon => exon.feature_type === 'CDS')
-
-const transcriptRegionKey = region => `${region.feature_type}-${region.start}-${region.stop}`
 
 const exportTranscriptsPlot = (containerElement, filename) => {
   const transcriptPlots = containerElement.querySelectorAll('.transcript-plot')
@@ -209,21 +146,12 @@ export const TranscriptsTrack = ({
           {({ scalePosition, width }) => (
             <React.Fragment>
               <ActiveTranscriptPlotWrapper>
-                <RegionsPlot
+                <TranscriptPlot
                   height={20}
-                  // Sort by feature type to ensure that when regions overlap, the most important
-                  // region is at the front.
-                  regions={activeTranscript.exons
-                    .filter(
-                      exon =>
-                        exon.feature_type === 'CDS' ||
-                        (exon.feature_type === 'UTR' && showUTRs) ||
-                        (exon.feature_type === 'exon' && showNonCodingTranscripts)
-                    )
-                    .sort(featureTypeCompareFn)}
-                  regionAttributes={activeTranscriptRegionAttributes}
-                  regionKey={transcriptRegionKey}
                   scalePosition={scalePosition}
+                  showNonCodingExons={showNonCodingTranscripts}
+                  showUTRs={showUTRs}
+                  transcript={activeTranscript}
                   width={width}
                 />
               </ActiveTranscriptPlotWrapper>
@@ -262,23 +190,14 @@ export const TranscriptsTrack = ({
                   }
                 >
                   {({ scalePosition, width }) => (
-                    <RegionsPlot
+                    <TranscriptPlot
                       className="transcript-plot"
                       data-transcript-id={transcript.transcript_id}
                       height={10}
-                      // Sort by feature type to ensure that when regions overlap, the most important
-                      // region is at the front.
-                      regions={transcript.exons
-                        .filter(
-                          exon =>
-                            exon.feature_type === 'CDS' ||
-                            (exon.feature_type === 'UTR' && showUTRs) ||
-                            (exon.feature_type === 'exon' && showNonCodingTranscripts)
-                        )
-                        .sort(featureTypeCompareFn)}
-                      regionKey={transcriptRegionKey}
-                      regionAttributes={transcriptRegionAttributes}
                       scalePosition={scalePosition}
+                      showNonCodingExons={showNonCodingTranscripts}
+                      showUTRs={showUTRs}
+                      transcript={transcript}
                       width={width}
                     />
                   )}
