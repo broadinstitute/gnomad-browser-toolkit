@@ -22,7 +22,6 @@
   "dependencies": {
     "@gnomad/region-viewer": "^1.0.0||^2.0.0",
     "@gnomad/track-regions": "^1.0.0",
-    "@gnomad/ui": "^1.0.0",
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {

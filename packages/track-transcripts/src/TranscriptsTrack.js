@@ -1,21 +1,10 @@
-import React, { useRef } from 'react'
+import React, { forwardRef, useImperativeHandle, useRef } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { Track } from '@gnomad/region-viewer'
-import { Button } from '@gnomad/ui'
 
 import TranscriptPlot from './TranscriptPlot'
-
-const ControlPanelWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`
-
-const ControlPanel = styled.div`
-  display: flex;
-`
 
 const TranscriptsWrapper = styled.div`
   margin-bottom: 1em;
@@ -76,35 +65,26 @@ const exportTranscriptsPlot = (containerElement, filename) => {
   URL.revokeObjectURL(url)
 }
 
-export const TranscriptsTrack = ({
-  children,
-  exportFilename,
-  renderTranscriptLeftPanel,
-  renderTranscriptRightPanel,
-  transcripts,
-  showUTRs,
-  showNonCodingTranscripts,
-}) => {
-  const transcriptsContainer = useRef(null)
+export const TranscriptsTrack = forwardRef(
+  (
+    {
+      renderTranscriptLeftPanel,
+      renderTranscriptRightPanel,
+      transcripts,
+      showUTRs,
+      showNonCodingTranscripts,
+    },
+    ref
+  ) => {
+    const transcriptsContainer = useRef(null)
 
-  return (
-    <div>
-      <TranscriptsWrapper>
-        <Track>
-          {({ width }) => (
-            <ControlPanelWrapper>
-              <ControlPanel>{children}</ControlPanel>
-              <Button
-                onClick={() =>
-                  exportTranscriptsPlot(transcriptsContainer.current, exportFilename, { width })
-                }
-              >
-                Save plot
-              </Button>
-            </ControlPanelWrapper>
-          )}
-        </Track>
-      </TranscriptsWrapper>
+    useImperativeHandle(ref, () => ({
+      downloadPlot: (filename = 'transcripts') => {
+        exportTranscriptsPlot(transcriptsContainer.current, filename)
+      },
+    }))
+
+    return (
       <TranscriptsWrapper ref={transcriptsContainer}>
         {(showNonCodingTranscripts ? transcripts : transcripts.filter(isTranscriptCoding)).map(
           transcript => (
@@ -138,13 +118,11 @@ export const TranscriptsTrack = ({
           )
         )}
       </TranscriptsWrapper>
-    </div>
-  )
-}
+    )
+  }
+)
 
 TranscriptsTrack.propTypes = {
-  children: PropTypes.node,
-  exportFilename: PropTypes.string,
   renderTranscriptLeftPanel: PropTypes.func,
   renderTranscriptRightPanel: PropTypes.func,
   showNonCodingTranscripts: PropTypes.bool,
@@ -164,8 +142,6 @@ TranscriptsTrack.propTypes = {
 }
 
 TranscriptsTrack.defaultProps = {
-  children: undefined,
-  exportFilename: 'transcripts',
   // eslint-disable-next-line react/prop-types
   renderTranscriptLeftPanel: ({ transcript }) => <span>{transcript.transcript_id}</span>,
   renderTranscriptRightPanel: undefined,
