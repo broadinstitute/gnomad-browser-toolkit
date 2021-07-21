@@ -6,13 +6,12 @@ import { Track } from '@gnomad/region-viewer'
 
 import TranscriptPlot from './TranscriptPlot'
 
-const TranscriptsWrapper = styled.div`
-  margin-bottom: 1em;
-`
-
 const TranscriptWrapper = styled.div`
   display: flex;
   margin-bottom: 5px;
+`
+
+const TranscriptLabel = styled.span`
   font-size: 11px;
 `
 
@@ -86,7 +85,7 @@ export const TranscriptsTrack = forwardRef(
     }))
 
     return (
-      <TranscriptsWrapper ref={transcriptsContainer}>
+      <div ref={transcriptsContainer}>
         {(showNonCodingTranscripts ? transcripts : transcripts.filter(isTranscriptCoding)).map(
           transcript => (
             <TranscriptWrapper key={transcript.transcript_id}>
@@ -118,7 +117,7 @@ export const TranscriptsTrack = forwardRef(
             </TranscriptWrapper>
           )
         )}
-      </TranscriptsWrapper>
+      </div>
     )
   }
 )
@@ -144,8 +143,11 @@ TranscriptsTrack.propTypes = {
 }
 
 TranscriptsTrack.defaultProps = {
-  // eslint-disable-next-line react/prop-types
-  renderTranscriptLeftPanel: ({ transcript }) => <span>{transcript.transcript_id}</span>,
+  /* eslint-disable react/prop-types */
+  renderTranscriptLeftPanel: ({ transcript }) => (
+    <TranscriptLabel>{transcript.transcript_id}</TranscriptLabel>
+  ),
+  /* eslint-enable react/prop-types */
   renderTranscriptRightPanel: undefined,
   showNonCodingTranscripts: false,
   showUTRs: false,
