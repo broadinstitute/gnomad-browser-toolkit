@@ -43,53 +43,58 @@ const ClearButton = styled.button.attrs({ type: 'button' })`
   }
 `
 
-export const SearchInput = React.forwardRef(({ placeholder, onChange, value: propsValue }, ref) => {
-  const [stateValue, setValue] = useState('')
+export const SearchInput = React.forwardRef(
+  ({ id, placeholder, onChange, value: propsValue }, ref) => {
+    const [stateValue, setValue] = useState('')
 
-  const value = propsValue === undefined ? stateValue : propsValue
+    const value = propsValue === undefined ? stateValue : propsValue
 
-  return (
-    <Wrapper>
-      <Input
-        autoComplete="off"
-        onChange={e => {
-          setValue(e.target.value)
-          onChange(e.target.value)
-        }}
-        onKeyDown={e => {
-          if (e.key === 'Escape') {
-            setValue('')
-            onChange('')
-          }
-        }}
-        placeholder={placeholder}
-        ref={ref}
-        type="text"
-        value={value}
-      />
-      {value && (
-        <ClearButton
-          aria-label="Clear"
-          tabIndex={-1}
-          onClick={() => {
-            setValue('')
-            onChange('')
+    return (
+      <Wrapper>
+        <Input
+          autoComplete="off"
+          id={id}
+          onChange={e => {
+            setValue(e.target.value)
+            onChange(e.target.value)
           }}
-        >
-          &times;
-        </ClearButton>
-      )}
-    </Wrapper>
-  )
-})
+          onKeyDown={e => {
+            if (e.key === 'Escape') {
+              setValue('')
+              onChange('')
+            }
+          }}
+          placeholder={placeholder}
+          ref={ref}
+          type="text"
+          value={value}
+        />
+        {value && (
+          <ClearButton
+            aria-label="Clear"
+            tabIndex={-1}
+            onClick={() => {
+              setValue('')
+              onChange('')
+            }}
+          >
+            &times;
+          </ClearButton>
+        )}
+      </Wrapper>
+    )
+  }
+)
 
 SearchInput.propTypes = {
+  id: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
 }
 
 SearchInput.defaultProps = {
+  id: undefined,
   placeholder: 'Search',
   value: undefined,
 }
