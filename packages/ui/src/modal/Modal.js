@@ -31,7 +31,7 @@ export class Modal extends Component {
     footer: PropTypes.node,
     id: PropTypes.string,
     onRequestClose: PropTypes.func.isRequired,
-    size: PropTypes.oneOf(['small', 'medium', 'large']),
+    size: PropTypes.oneOf(['small', 'medium', 'large', 'xlarge']),
     title: PropTypes.string.isRequired,
   }
 

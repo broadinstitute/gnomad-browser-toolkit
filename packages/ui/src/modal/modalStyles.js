@@ -10,12 +10,21 @@ const mediumScreenMaxWidth = {
   small: 300,
   medium: 500,
   large: 500,
+  xlarge: 500,
 }
 
 const largeScreenMaxWidth = {
   small: 300,
   medium: 500,
   large: 800,
+  xlarge: 800,
+}
+
+const extraLargeScreenMaxWidth = {
+  small: 300,
+  medium: 500,
+  large: 800,
+  xlarge: 1360,
 }
 
 export const ModalContent = styled.div`
@@ -31,6 +40,10 @@ export const ModalContent = styled.div`
 
   @media (min-width: 992px) {
     max-width: ${props => largeScreenMaxWidth[props.size]}px;
+  }
+
+  @media (min-width: 1400px) {
+    max-width: ${props => extraLargeScreenMaxWidth[props.size]}px;
   }
 `
 
