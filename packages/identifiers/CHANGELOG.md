@@ -1,5 +1,9 @@
 # Changes
 
+## Version 2.3.1 - August 13, 2021
+
+- Match against full string for identifying/parsing region IDs [(b58177b)](https://github.com/broadinstitute/gnomad-browser-toolkit/commit/b58177beba500a5b2d9c5fc84f1f5091b27756f6)
+
 ## Version 2.3.0 - June 10, 2021
 
 - Accept underscores and pipes as separators in variant/region IDs ([#62](https://github.com/broadinstitute/gnomad-browser-toolkit/pull/62))
