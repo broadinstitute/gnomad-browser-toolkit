@@ -42,7 +42,14 @@ describe('isRegionId', () => {
     '1|15342343|15342563',
   ]
 
-  const negativeTestCases = ['chr1-', '5-1243421-a', '3-356788-123245', '54-12432-15440']
+  const negativeTestCases = [
+    'chr1-',
+    '5-1243421-a',
+    '3-356788-123245',
+    '54-12432-15440',
+    '...chr1-13414',
+    'chr1-13414...',
+  ]
 
   test(isRegionId, positiveTestCases, negativeTestCases)
 })
@@ -78,7 +85,14 @@ describe('parseRegionId', () => {
   })
 
   it('should throw an error on invalid region IDs', () => {
-    const negativeTestCases = ['chr1-', '5-1243421-a', '3-356788-123245', '54-12432-15440']
+    const negativeTestCases = [
+      'chr1-',
+      '5-1243421-a',
+      '3-356788-123245',
+      '54-12432-15440',
+      '...chr1-13414',
+      'chr1-13414...',
+    ]
     negativeTestCases.forEach(str => {
       expect(() => parseRegionId(str)).toThrow('Invalid region ID')
     })
@@ -145,6 +159,8 @@ describe('isVariantId', () => {
     '2.100T200A',
     '1T-100-A-G',
     '32-100-C-T',
+    '...1-13414-a-c',
+    '1-13414-a-c...',
   ]
 
   test(isVariantId, positiveTestCases, negativeTestCases)
@@ -194,6 +210,8 @@ describe('parseVariantId', () => {
       '2.100T200A',
       '1T-100-A-G',
       '32-100-C-T',
+      '...1-13414-a-c',
+      '1-13414-a-c...',
     ]
 
     negativeTestCases.forEach(str => {

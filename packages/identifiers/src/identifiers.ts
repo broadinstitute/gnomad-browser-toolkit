@@ -16,7 +16,7 @@ const SEPARATOR = `(?:${DASH}|[:./_|]|\\s+)`
 const REGEXP_FLAGS = `i${isRegExpUnicodeFlagSupported ? 'u' : ''}`
 
 const REGION_ID_REGEX = new RegExp(
-  `(${CHROMOSOME})${SEPARATOR}(${POSITION})(?:${SEPARATOR}(${POSITION})?)?$`,
+  `^(${CHROMOSOME})${SEPARATOR}(${POSITION})(?:${SEPARATOR}(${POSITION})?)?$`,
   REGEXP_FLAGS
 )
 
