@@ -25,13 +25,11 @@ export const RegionViewer = ({
       .sort((r1, r2) => r1.start - r2.start)
       .flatMap(region => [
         {
-          feature_type: 'padding',
           start: region.start - padding,
           stop: region.start - 1,
         },
         region,
         {
-          feature_type: 'padding',
           start: region.stop + 1,
           stop: region.stop + padding,
         },
@@ -66,7 +64,6 @@ RegionViewer.propTypes = {
   padding: PropTypes.number.isRequired,
   regions: PropTypes.arrayOf(
     PropTypes.shape({
-      feature_type: PropTypes.string.isRequired,
       start: PropTypes.number.isRequired,
       stop: PropTypes.number.isRequired,
     })

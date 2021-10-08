@@ -12,8 +12,8 @@ const RegionViewerExample = () => {
         width={1000}
         padding={0}
         regions={[
-          { feature_type: 'region', start: 0, stop: 100 },
-          { feature_type: 'region', start: 200, stop: 300 },
+          { start: 0, stop: 100 },
+          { start: 200, stop: 300 },
         ]}
       >
         <Cursor onClick={setLastClickedPosition}>

@@ -8,10 +8,8 @@ import { GenesTrack } from '../src'
 
 const regions = [
   {
-    chrom: '2',
     start: 175000000,
     stop: 176500000,
-    feature_type: 'region',
   },
 ]
 
