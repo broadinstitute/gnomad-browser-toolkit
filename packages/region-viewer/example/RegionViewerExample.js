@@ -7,7 +7,7 @@ const RegionViewerExample = () => {
   const [lastClickedPosition, setLastClickedPosition] = useState(null)
 
   return (
-    <div style={{ marginTop: '40px' }}>
+    <div style={{ width: '1000px', margin: '40px auto 0' }}>
       <RegionViewer
         width={1000}
         padding={0}
@@ -31,7 +31,12 @@ const RegionViewerExample = () => {
       </RegionViewer>
 
       <div
-        style={{ boxSizing: 'border-box', margin: '0 auto', paddingLeft: '100px', width: '1000px' }}
+        style={{
+          boxSizing: 'border-box',
+          margin: '1em 0',
+          paddingLeft: '100px',
+          width: '1000px',
+        }}
       >
         <label htmlFor="position">
           Position:{' '}

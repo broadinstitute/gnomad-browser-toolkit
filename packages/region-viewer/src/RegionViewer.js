@@ -10,8 +10,6 @@ const RegionViewerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: ${props => props.width}px;
-  margin: 0 auto 10px;
-  font-size: 12px;
 `
 
 export const RegionViewer = ({
