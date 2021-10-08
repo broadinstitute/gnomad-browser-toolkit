@@ -14,7 +14,7 @@ const regions = [
 ]
 
 const GenesTrackExample = () => (
-  <RegionViewer padding={0} regions={regions} width={1000}>
+  <RegionViewer regions={regions} width={1000}>
     <GenesTrack
       genes={genes}
       renderGeneLabel={gene => (

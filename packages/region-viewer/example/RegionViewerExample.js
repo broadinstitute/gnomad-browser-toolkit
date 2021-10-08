@@ -10,7 +10,6 @@ const RegionViewerExample = () => {
     <div style={{ width: '1000px', margin: '40px auto 0' }}>
       <RegionViewer
         width={1000}
-        padding={0}
         regions={[
           { start: 0, stop: 100 },
           { start: 200, stop: 300 },

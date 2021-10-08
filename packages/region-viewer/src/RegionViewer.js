@@ -11,41 +11,20 @@ const RegionViewerWrapper = styled.div`
   flex-direction: column;
 `
 
-export const RegionViewer = ({
-  children,
-  leftPanelWidth,
-  padding,
-  regions,
-  rightPanelWidth,
-  width,
-}) => {
-  const regionsWithPadding = mergeOverlappingRegions(
-    [...regions]
-      .sort((r1, r2) => r1.start - r2.start)
-      .flatMap(region => [
-        {
-          start: region.start - padding,
-          stop: region.start - 1,
-        },
-        region,
-        {
-          start: region.stop + 1,
-          stop: region.stop + padding,
-        },
-      ])
-  )
+export const RegionViewer = ({ children, leftPanelWidth, regions, rightPanelWidth, width }) => {
+  const mergedRegions = mergeOverlappingRegions([...regions].sort((r1, r2) => r1.start - r2.start))
 
   const isPositionDefined = pos =>
-    regionsWithPadding.some(region => region.start <= pos && pos <= region.stop)
+    mergedRegions.some(region => region.start <= pos && pos <= region.stop)
 
   const centerPanelWidth = width - (leftPanelWidth + rightPanelWidth)
-  const scalePosition = regionViewerScale(regionsWithPadding, [0, centerPanelWidth])
+  const scalePosition = regionViewerScale(mergedRegions, [0, centerPanelWidth])
 
   const childProps = {
     centerPanelWidth,
     isPositionDefined,
     leftPanelWidth,
-    regions: regionsWithPadding,
+    regions,
     rightPanelWidth,
     scalePosition,
   }
@@ -60,7 +39,6 @@ export const RegionViewer = ({
 RegionViewer.propTypes = {
   children: PropTypes.node,
   leftPanelWidth: PropTypes.number,
-  padding: PropTypes.number.isRequired,
   regions: PropTypes.arrayOf(
     PropTypes.shape({
       start: PropTypes.number.isRequired,
