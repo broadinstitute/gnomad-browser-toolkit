@@ -9,7 +9,6 @@ export const RegionViewerContext = React.createContext()
 const RegionViewerWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: ${props => props.width}px;
 `
 
 export const RegionViewer = ({
@@ -52,7 +51,7 @@ export const RegionViewer = ({
   }
 
   return (
-    <RegionViewerWrapper width={width}>
+    <RegionViewerWrapper style={{ width }}>
       <RegionViewerContext.Provider value={childProps}>{children}</RegionViewerContext.Provider>
     </RegionViewerWrapper>
   )

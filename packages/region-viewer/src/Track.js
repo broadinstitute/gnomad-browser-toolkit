@@ -17,23 +17,18 @@ const InnerWrapper = styled.div`
 
 const TopPanel = styled.div`
   display: flex;
-  width: ${props => props.width}px;
-  margin-right: ${props => props.marginRight}px;
-  margin-left: ${props => props.marginLeft}px;
 `
 
 const SidePanel = styled.div`
   display: flex;
   flex-shrink: 0;
   flex-direction: column;
-  width: ${props => props.width}px;
 `
 
 const CenterPanel = styled.div`
   display: flex;
   flex-shrink: 0;
   flex-direction: column;
-  width: ${props => props.width}px;
 `
 
 const TitlePanel = styled.div`
@@ -65,18 +60,20 @@ export const Track = ({ children, renderLeftPanel, renderRightPanel, renderTopPa
       <OuterWrapper>
         {renderTopPanel && (
           <TopPanel
-            marginLeft={leftPanelWidth}
-            marginRight={rightPanelWidth}
-            width={centerPanelWidth}
+            style={{
+              width: centerPanelWidth,
+              marginLeft: leftPanelWidth,
+              marginRight: rightPanelWidth,
+            }}
           >
             {renderTopPanel({ ...rest, width: centerPanelWidth })}
           </TopPanel>
         )}
         <InnerWrapper>
-          <SidePanel width={leftPanelWidth}>
+          <SidePanel style={{ width: leftPanelWidth }}>
             {renderLeftPanel && renderLeftPanel({ ...rest, width: leftPanelWidth })}
           </SidePanel>
-          <CenterPanel width={centerPanelWidth}>
+          <CenterPanel style={{ width: centerPanelWidth }}>
             {children({
               ...rest,
               isPositionDefined,
@@ -88,7 +85,7 @@ export const Track = ({ children, renderLeftPanel, renderRightPanel, renderTopPa
             })}
           </CenterPanel>
           {renderRightPanel && (
-            <SidePanel width={rightPanelWidth}>
+            <SidePanel style={{ width: rightPanelWidth }}>
               {renderRightPanel({ ...rest, width: rightPanelWidth })}
             </SidePanel>
           )}
