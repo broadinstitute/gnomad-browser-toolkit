@@ -8,9 +8,22 @@ const isRegExpUnicodeFlagSupported = (() => {
   }
 })()
 
+// Unicode property escapes are not supported in older versions of some browsers.
+const isRegExpUnicodePropertyEscapeSupported =
+  isRegExpUnicodeFlagSupported &&
+  (() => {
+    try {
+      new RegExp('\\p{Pd}', 'u') // eslint-disable-line no-new
+      return true
+    } catch (err) {
+      return false
+    }
+  })()
+
 const CHROMOSOME = '(?:chr)?(?:\\d+|x|y|m|mt)'
 const POSITION = '[\\d,]+'
-const DASH = isRegExpUnicodeFlagSupported ? '\\p{Pd}' : '-'
+const DASH =
+  isRegExpUnicodeFlagSupported && isRegExpUnicodePropertyEscapeSupported ? '\\p{Pd}' : '-'
 const SEPARATOR = `(?:${DASH}|[:./_|]|\\s+)`
 
 const REGEXP_FLAGS = `i${isRegExpUnicodeFlagSupported ? 'u' : ''}`
