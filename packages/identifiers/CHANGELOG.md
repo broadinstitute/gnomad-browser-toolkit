@@ -1,5 +1,9 @@
 # Changes
 
+## Version 2.3.2 - October 12, 2021
+
+- Gracefully degrade if Unicode property escapes are not supported [(2fffa99)](https://github.com/broadinstitute/gnomad-browser-toolkit/commit/2fffa996fa8d9642a8850e10d21dcb5063d01519)
+
 ## Version 2.3.1 - August 13, 2021
 
 - Match against full string for identifying/parsing region IDs [(b58177b)](https://github.com/broadinstitute/gnomad-browser-toolkit/commit/b58177beba500a5b2d9c5fc84f1f5091b27756f6)
