@@ -1,5 +1,9 @@
 # Changes
 
+## Version 2.0.1 - December 1, 2021
+
+- Update required version of `@gnomad/region-viewer`
+
 ## Version 2.0.0 - August 11, 2021
 
 Simplify the transcripts track component.
