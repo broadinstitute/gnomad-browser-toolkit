@@ -158,8 +158,8 @@ export const QQPlot = ({
     ctx.moveTo(xScale(p1), yScale(p1))
     const p2 = Math.min(xScale.domain()[1], yScale.domain()[1])
     ctx.lineTo(xScale(p2), yScale(p2))
-    ctx.strokeStyle = 'red'
-    ctx.lineWidth = 2
+    ctx.strokeStyle = '#ccc'
+    ctx.lineWidth = 1
     ctx.stroke()
 
     ctx.restore()
