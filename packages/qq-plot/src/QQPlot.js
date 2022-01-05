@@ -9,7 +9,9 @@ export const QQPlot = ({
   gridLines,
   height,
   onClickPoint,
+  pointColor,
   pointLabel,
+  pointRadius,
   thresholds,
   width,
   xDomain,
@@ -181,8 +183,8 @@ export const QQPlot = ({
       const point = points[i]
 
       ctx.beginPath()
-      ctx.arc(point.x, point.y, 3, 0, 2 * Math.PI, false)
-      ctx.fillStyle = '#000'
+      ctx.arc(point.x, point.y, pointRadius(point.data), 0, 2 * Math.PI, false)
+      ctx.fillStyle = pointColor(point.data)
       ctx.fill()
     }
 
@@ -319,7 +321,9 @@ QQPlot.propTypes = {
   gridLines: PropTypes.bool,
   height: PropTypes.number.isRequired,
   onClickPoint: PropTypes.func,
+  pointColor: PropTypes.func,
   pointLabel: PropTypes.func,
+  pointRadius: PropTypes.func,
   thresholds: PropTypes.arrayOf(
     PropTypes.shape({
       color: PropTypes.string,
@@ -337,7 +341,9 @@ QQPlot.propTypes = {
 QQPlot.defaultProps = {
   gridLines: true,
   onClickPoint: () => {},
+  pointColor: () => '#000',
   pointLabel: d => d.label,
+  pointRadius: () => 3,
   thresholds: [],
   yDomain: undefined,
   xLabel: 'Expected -log10(p)',
