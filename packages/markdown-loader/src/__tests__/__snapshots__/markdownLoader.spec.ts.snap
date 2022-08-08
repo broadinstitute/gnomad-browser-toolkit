@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`markdownLoader translateMarkdown returns promise to string of rendered HTML 1`] = `
+"<h1>This is a heading</h1>
+<p>Followed by a paragraph</p>
+<ul>
+<li>Some people</li>
+<li>overuse</li>
+<li>bulleted lists
+</li>
+</ul>
+"
+`;
