@@ -33,39 +33,42 @@ const linkTransformer = () => tree => {
 }
 /* eslint-enable no-param-reassign */
 
-module.exports = function markdownLoader(content) {
-  const callback = this.async()
-
+const translateMarkdown = markdownSource =>
   remark()
     .use(frontmatter)
     .use(extract, { yaml })
     .use(imageFinder)
     .use(linkTransformer)
     .use(html)
-    .process(content)
-    .then(vfile => {
-      let output = `export default ${JSON.stringify({
-        ...vfile.data,
-        html: vfile.contents,
-      })};`
+    .process(markdownSource)
 
-      const imports = []
+const markdownLoader = function (content) {
+  const callback = this.async()
+  translateMarkdown(content).then(vfile => {
+    let output = `export default ${JSON.stringify({
+      ...vfile.data,
+      html: vfile.contents,
+    })};`
 
-      output = output.replace(/___MD_CONTENT_IMAGE_([0-9]+)___/g, (match, p1) => {
-        const imageIndex = parseInt(p1, 10)
-        const request = loaderUtils.stringifyRequest(
-          this,
-          loaderUtils.urlToRequest(vfile.images[imageIndex])
-        )
-        imports.push(`import ___MD_CONTENT_IMAGE_${imageIndex}__ from ${request}`)
+    const imports = []
 
-        return `" + ___MD_CONTENT_IMAGE_${imageIndex}__ + "`
-      })
+    output = output.replace(/___MD_CONTENT_IMAGE_([0-9]+)___/g, (_match, p1) => {
+      const imageIndex = parseInt(p1, 10)
+      const request = loaderUtils.stringifyRequest(
+        this,
+        loaderUtils.urlToRequest(vfile.images[imageIndex])
+      )
+      imports.push(`import ___MD_CONTENT_IMAGE_${imageIndex}__ from ${request}`)
 
-      if (imports.length > 0) {
-        output = `${imports.join(';')};${output}`
-      }
+      return `" + ___MD_CONTENT_IMAGE_${imageIndex}__ + "`
+    })
 
-      callback(null, output)
-    }, callback)
+    if (imports.length > 0) {
+      output = `${imports.join(';')};${output}`
+    }
+    callback(null, output)
+  }, callback)
 }
+
+module.exports = markdownLoader
+module.exports.translateMarkdown = translateMarkdown
