@@ -1,7 +1,7 @@
 const path = require('path')
 
 const config = {
-  presets: ['@babel/preset-env', '@babel/preset-react'],
+  presets: ['@babel/preset-typescript', '@babel/preset-env', '@babel/preset-react'],
   plugins: ['@babel/plugin-proposal-class-properties', 'styled-components', 'inline-react-svg'],
   env: {
     test: {
