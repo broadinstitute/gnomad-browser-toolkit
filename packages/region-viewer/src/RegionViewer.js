@@ -11,14 +11,14 @@ const RegionViewerWrapper = styled.div`
   flex-direction: column;
 `
 
-export const RegionViewer = ({ children, leftPanelWidth, regions, rightPanelWidth, width }) => {
+export const RegionViewer = ({ children, leftPanelWidth, regions, rightPanelWidth, width, reverseRegions, gap }) => {
   const mergedRegions = mergeOverlappingRegions([...regions].sort((r1, r2) => r1.start - r2.start))
 
   const isPositionDefined = pos =>
     mergedRegions.some(region => region.start <= pos && pos <= region.stop)
 
   const centerPanelWidth = width - (leftPanelWidth + rightPanelWidth)
-  const scalePosition = regionViewerScale(mergedRegions, [0, centerPanelWidth])
+  const scalePosition = regionViewerScale(mergedRegions, [0, centerPanelWidth], reverseRegions, gap)
 
   const childProps = {
     centerPanelWidth,
@@ -46,11 +46,15 @@ RegionViewer.propTypes = {
     })
   ).isRequired,
   rightPanelWidth: PropTypes.number,
+  reverseRegions: PropTypes.bool,
   width: PropTypes.number.isRequired,
+  gap: PropTypes.number,
 }
 
 RegionViewer.defaultProps = {
   children: undefined,
   leftPanelWidth: 100,
   rightPanelWidth: 160,
+  reverseRegions: false,
+  gap: 1,
 }
