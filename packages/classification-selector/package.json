@@ -1,6 +1,6 @@
 {
   "name": "@gnomad/classification-selector",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "types": "lib/index.d.ts",
   "main": "lib/index.js",
   "files": ["lib"],
