@@ -3,14 +3,16 @@
   "version": "1.0.2",
   "license": "MIT",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/broadinstitute/gnomad-browser-toolkit.git",
+    "type": "git",
+    "url": "https://github.com/broadinstitute/gnomad-browser-toolkit.git",
     "directory": "packages/track-regions"
   },
   "homepage": "https://github.com/broadinstitute/gnomad-browser-toolkit#readme",
   "bugs": "https://github.com/broadinstitute/gnomad-browser-toolkit/issues",
   "main": "lib/cjs/index.js",
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -21,7 +23,7 @@
   },
   "dependencies": {
     "@gnomad/region-viewer": "^1.0.0||^2.0.0||^3.0.0",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.8.1"
   },
   "peerDependencies": {
     "react": "^16.9.0"
