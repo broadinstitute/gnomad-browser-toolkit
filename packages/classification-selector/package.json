@@ -18,7 +18,8 @@
     "clean": "rm -rf lib",
     "typecheck": "tsc --noEmit",
     "tsc:declaration": "tsc --declaration --emitDeclarationOnly --outDir lib",
-    "build": "yarn clean && yarn typecheck && yarn tsc:declaration && yarn rollup && cp src/cypressTestDataAttrs.json lib/",
+    "build-actual": "yarn clean && yarn typecheck && yarn tsc:declaration && yarn rollup && cp src/cypressTestDataAttrs.json lib/",
+    "build": "echo 'Build disabled'",
     "rollup": "IS_ROLLUP=true rollup -c"
   },
   "peerDependencies": {

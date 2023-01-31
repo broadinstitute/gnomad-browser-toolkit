@@ -17,11 +17,11 @@
     "access": "public"
   },
   "scripts": {
-    "build": "yarn clean && yarn typecheck && yarn tsc:declaration && babel src --extensions=.ts --ignore=src/**/*.spec.js --out-dir=lib/cjs",
+    "build": "pnpm clean && pnpm typecheck && pnpm tsc:declaration && gnomad-browser-toolkit-scripts build-with-declarations",
     "typecheck": "tsc --noEmit",
     "tsc:declaration": "tsc --declaration --emitDeclarationOnly --outDir lib/cjs",
     "clean": "rm -rf lib",
-    "prepack": "yarn run build",
+    "prepack": "pnpm run build",
     "test": "jest --coverage"
   },
   "devDependencies": {
