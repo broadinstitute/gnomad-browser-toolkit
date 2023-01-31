@@ -26,6 +26,7 @@
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
+    "@gnomad/scripts": "^0.0.1",
     "@rollup/plugin-babel": "5.0.4",
     "@rollup/plugin-commonjs": "13.0.0",
     "@rollup/plugin-node-resolve": "8.1.0",

@@ -29,5 +29,8 @@
   },
   "peerDependencies": {
     "react": "^16.9.0"
+  },
+  "devDependencies": {
+    "@gnomad/scripts": "^0.0.1"
   }
 }

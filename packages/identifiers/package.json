@@ -3,14 +3,16 @@
   "version": "2.3.2",
   "license": "MIT",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/broadinstitute/gnomad-browser-toolkit.git",
+    "type": "git",
+    "url": "https://github.com/broadinstitute/gnomad-browser-toolkit.git",
     "directory": "packages/identifiers"
   },
   "homepage": "https://github.com/broadinstitute/gnomad-browser-toolkit#readme",
   "bugs": "https://github.com/broadinstitute/gnomad-browser-toolkit/issues",
   "main": "lib/cjs/identifiers.js",
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -23,6 +25,7 @@
     "test": "jest --coverage"
   },
   "devDependencies": {
+    "@gnomad/scripts": "^0.0.1",
     "typescript": "3.9.5"
   }
 }
