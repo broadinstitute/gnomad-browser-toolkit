@@ -25,6 +25,7 @@
     "test": "jest --coverage"
   },
   "devDependencies": {
+    "@babel/cli": "^7.20.7",
     "@gnomad/scripts": "^0.0.1",
     "typescript": "3.9.5"
   }

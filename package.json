@@ -16,8 +16,5 @@
   "workspaces": [
     "packages/*",
     "scripts"
-  ],
-  "resolutions": {
-    "@types/react": "16.9.43"
-  }
+  ]
 }

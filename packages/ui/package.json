@@ -1,7 +1,7 @@
 {
   "name": "@gnomad/ui",
   "version": "1.2.0",
-  "types": "lib/index.d.ts",
+  "types": "lib/types/index.d.ts",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -18,11 +18,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gnomad-browser-toolkit-scripts build && yarn run copy-type-def",
-    "copy-type-def": "cp src/index.d.ts lib/",
-    "prepack": "yarn run build",
+    "build": "gnomad-browser-toolkit-scripts build && yarn type-declarations",
     "test": "jest --coverage",
-    "example": "gnomad-browser-toolkit-scripts example"
+    "example": "gnomad-bowser-toolkit-scripts example",
+    "type-declarations": "tsc"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.8.1",
@@ -41,7 +40,8 @@
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
-    "@gnomad/scripts": "^0.0.1"
+    "@babel/cli": "^7.20.7",
+    "@gnomad/scripts": "^0.0.1",
     "@types/react": "^18.0.27",
     "typescript": "^4.9.5"
   }
