@@ -22,10 +22,6 @@
     "build": "echo 'Build disabled'",
     "rollup": "IS_ROLLUP=true rollup -c"
   },
-  "peerDependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
-  },
   "devDependencies": {
     "@gnomad/scripts": "^0.0.1",
     "@rollup/plugin-babel": "5.0.4",
@@ -46,6 +42,8 @@
     "@material-ui/icons": "4.11.3",
     "@material-ui/lab": "4.0.0-alpha.56",
     "fontsource-roboto": "2.2.6",
-    "lodash": "4.17.21"
+    "lodash": "4.17.21",
+    "react": "^18.2.0",
+    "react": "^18.2.0"
   }
 }

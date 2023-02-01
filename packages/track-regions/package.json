@@ -23,10 +23,8 @@
   },
   "dependencies": {
     "@gnomad/region-viewer": "^1.0.0||^2.0.0||^3.0.0",
-    "prop-types": "^15.8.1"
-  },
-  "peerDependencies": {
-    "react": "^16.9.0"
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0"
   },
   "devDependencies": {
     "@gnomad/scripts": "^0.0.1"

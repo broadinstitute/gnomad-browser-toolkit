@@ -23,11 +23,9 @@
     "example": "gnomad-browser-toolkit-scripts example"
   },
   "dependencies": {
-    "prop-types": "^15.8.1"
-  },
-  "peerDependencies": {
-    "react": "^16.9.0",
-    "styled-components": "^4.2.0"
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
     "@gnomad/scripts": "^0.0.1"

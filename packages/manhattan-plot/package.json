@@ -25,10 +25,8 @@
     "d3-array": "^1.2.4",
     "d3-scale": "^2.2.2",
     "lodash.throttle": "^4.1.1",
-    "prop-types": "^15.8.1"
-  },
-  "peerDependencies": {
-    "react": "^16.9.0"
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0"
   },
   "devDependencies": {
     "@gnomad/scripts": "^0.0.1"
