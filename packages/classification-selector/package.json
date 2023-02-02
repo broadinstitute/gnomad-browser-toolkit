@@ -23,6 +23,7 @@
     "rollup": "IS_ROLLUP=true rollup -c"
   },
   "devDependencies": {
+    "@babel/core": "^7.20.12",
     "@gnomad/scripts": "^0.0.1",
     "@rollup/plugin-babel": "5.0.4",
     "@rollup/plugin-commonjs": "13.0.0",
@@ -43,7 +44,6 @@
     "@material-ui/lab": "4.0.0-alpha.56",
     "fontsource-roboto": "2.2.6",
     "lodash": "4.17.21",
-    "react": "^18.2.0",
     "react": "^18.2.0"
   }
 }
