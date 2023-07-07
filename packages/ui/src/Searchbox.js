@@ -61,6 +61,7 @@ const renderItem = (item, isHighlighted) => (
 export class Searchbox extends Component {
   static propTypes = {
     fetchSearchResults: PropTypes.func.isRequired,
+    postprocessSearchResults: PropTypes.func,
     id: PropTypes.string,
     onSelect: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
@@ -71,6 +72,7 @@ export class Searchbox extends Component {
     id: undefined,
     placeholder: undefined,
     width: undefined,
+    postprocessSearchResults: undefined,
   }
 
   state = {
@@ -86,7 +88,7 @@ export class Searchbox extends Component {
   /* eslint-enable react/sort-comp */
 
   fetchSearchResults = debounce(query => {
-    const { fetchSearchResults, onSelect } = this.props
+    const { fetchSearchResults, postprocessSearchResults, onSelect } = this.props
 
     if (this.searchRequest) {
       this.searchRequest.cancel()
@@ -97,7 +99,8 @@ export class Searchbox extends Component {
     })
 
     this.searchRequest.then(
-      results => {
+      rawResults => {
+        const results = postprocessSearchResults ? postprocessSearchResults(rawResults) : rawResults
         this.setState({ isFetching: false, options: results })
         if (this.selectOnSearchResponse && results.length > 0) {
           onSelect(results[0].value, results[0])

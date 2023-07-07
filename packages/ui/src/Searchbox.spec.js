@@ -75,4 +75,38 @@ describe('Searchbox', () => {
     const results = await findByTestId('searchbox-error')
     expect(results).not.toBeNull()
   })
+
+  test('optionally postprocesses search results', async () => {
+    const fetchSearchResults = jest.fn().mockImplementation(() =>
+      Promise.resolve([
+        { priority: '123', id: 'xyz' },
+        { priority: '456', id: 'abc' },
+        { priority: 'REJECT', id: 'shouldntappear' },
+      ])
+    )
+
+    const postprocessSearchResults = rawResults => {
+      return rawResults
+        .filter(result => result.priority !== 'REJECT')
+        .sort((result1, result2) => parseInt(result2.priority) - parseInt(result1.priority))
+        .map(result => ({ label: `Item ${result.id}`, value: `/page/${result.id}` }))
+    }
+
+    const { getByTestId, findAllByTestId } = render(
+      <Searchbox
+        fetchSearchResults={fetchSearchResults}
+        postprocessSearchResults={postprocessSearchResults}
+        onSelect={jest.fn()}
+      />
+    )
+
+    const input = getByTestId('searchbox-input')
+    input.focus()
+    fireEvent.change(input, { target: { value: 'a' } })
+
+    const results = await findAllByTestId('searchbox-menu-item')
+    expect(results).toHaveLength(2)
+    expect(results[0]).toHaveTextContent('Item abc')
+    expect(results[1]).toHaveTextContent('Item xyz')
+  })
 })
