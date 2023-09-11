@@ -4,11 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   devServer: {
-    contentBase: 'dist',
     historyApiFallback: true,
     hot: true,
     port: 8000,
-    publicPath: '/',
+    static: {
+      publicPath: '/',
+    },
   },
   devtool: 'source-map',
   entry: {
@@ -30,6 +31,12 @@ module.exports = {
       {
         test: /\.(gif|jpg|png)$/,
         use: 'file-loader',
+      },
+      {
+        test: /\.m?js$/,
+        resolve: {
+          fullySpecified: false,
+        },
       },
     ],
   },
