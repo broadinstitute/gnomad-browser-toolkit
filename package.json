@@ -69,7 +69,6 @@
     "webpack-dev-server": "~4"
   },
   "resolutions": {
-    "@types/react": "16.9.43",
     "memfs": "~4"
   }
 }
