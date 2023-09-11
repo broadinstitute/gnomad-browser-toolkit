@@ -22,12 +22,18 @@
     "example": "webpack-dev-server --config=./example/webpack.config.js --port=8000"
   },
   "dependencies": {
-    "loader-utils": "^2.0.4",
+    "loader-utils": "~3",
     "remark": "^10.0.1",
     "remark-extract-frontmatter": "^2.0.0",
     "remark-frontmatter": "^1.3.1",
     "remark-html": "^9.0.0",
     "unist-util-visit": "^1.4.0",
     "yaml": "^2.2.2"
+  },
+  "devDependencies": {
+    "path-browserify": "*",
+    "crypto-browserify": "*",
+    "stream-browserify": "*",
+    "vm-browserify": "*"
   }
 }
