@@ -1,4 +1,5 @@
 {
   "types": ["jest"],
-  "allowJs": true
+  "allowJs": true,
+  "resolveJsonModule": true
 }
