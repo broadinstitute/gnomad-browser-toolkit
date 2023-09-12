@@ -1,7 +1,7 @@
 import { translateMarkdown } from '../markdownLoader'
 
 describe('markdownLoader', () => {
-  test('translateMarkdown returns promise to string of rendered HTML', async done => {
+  test('translateMarkdown returns promise to string of rendered HTML', () => {
     const exampleMarkdownSource = `
 # This is a heading
 
@@ -12,9 +12,8 @@ Followed by a paragraph
 * bulleted lists
 	`
 
-    translateMarkdown(exampleMarkdownSource).then((result: any) => {
+    return translateMarkdown(exampleMarkdownSource).then((result: any) => {
       expect(result.contents).toMatchSnapshot()
-      done()
     })
   })
 })
