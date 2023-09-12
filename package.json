@@ -18,7 +18,8 @@
   },
   "workspaces": [
     "packages/*",
-    "scripts"
+    "scripts",
+    "resources"
   ],
   "devDependencies": {
     "@babel/cli": "^7.8.4",
