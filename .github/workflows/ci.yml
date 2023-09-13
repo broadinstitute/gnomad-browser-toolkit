@@ -10,29 +10,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: 14.x
-      - name: Get yarn cache
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: Use yarn cache
-        uses: actions/cache@v2
+          node-version: 18.17.1
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.4.0
         with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            yarn-
+          version: 8
       - name: Install dependencies
-        run: yarn install --frozen-lockfile --non-interactive --no-progress
+        run: pnpm install --frozen-lockfile
       - name: Build packages
-        run: yarn workspaces run build
+        run: pnpm run -r build
       - name: Run ESLint on JavaScript files
-        run: yarn run lint:js
+        run: pnpm run lint:js
       - name: Run stylelint
-        run: yarn run lint:css
+        run: pnpm run lint:css
       - name: Run tests
         run: |
           set -eu
@@ -41,7 +35,7 @@ jobs:
             pushd "$pkg" >/dev/null
             if jq -e '.scripts.test != null' package.json >/dev/null; then
               echo "Running tests for $pkg"
-              if ! yarn test; then
+              if ! pnpm test; then
                 status=1
               fi
             else
