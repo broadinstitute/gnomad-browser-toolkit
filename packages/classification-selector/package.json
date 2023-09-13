@@ -13,7 +13,7 @@
     "jest": "jest --coverage",
     "jest:watch": "jest --watch",
     "test": "jest --coverage",
-    "storybook": "start-storybook --port 3200",
+    "storybook": "storybook dev --port 3200",
     "cypress:open": "cypress open",
     "clean": "rm -rf lib",
     "typecheck": "tsc --noEmit",
@@ -22,21 +22,22 @@
     "rollup": "IS_ROLLUP=true rollup -c"
   },
   "devDependencies": {
-    "@rollup/plugin-babel": "5.0.4",
-    "@rollup/plugin-commonjs": "13.0.0",
-    "@rollup/plugin-node-resolve": "8.1.0",
-    "@storybook/react": "6.0.0-beta.31",
-    "@types/lodash": "4.14.155",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.2.1",
+    "@storybook/react": "7.4.4",
+    "@storybook/react-webpack5": "7.4.4",
     "core-js": "3.6.5",
     "csstype": "2.6.11",
     "cypress": "4.9.0",
-    "rollup": "2.18.0",
-    "typescript": "3.9.5"
+    "rollup": "~3",
+    "storybook": "7.4.4"
   },
   "dependencies": {
-    "@material-ui/core": "4.10.2",
-    "@material-ui/icons": "4.9.1",
-    "@material-ui/lab": "4.0.0-alpha.56",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.10",
     "fontsource-roboto": "2.2.6",
     "lodash": "4.17.21"
   }
