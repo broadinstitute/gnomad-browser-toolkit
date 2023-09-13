@@ -1,16 +1,20 @@
 import React from 'react'
-import { Grid, Typography, ThemeProvider, createMuiTheme, Container } from '@material-ui/core'
+import { ThemeProvider } from '@mui/styles'
+import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
+import Container from '@mui/material/Container'
+import { createTheme } from '@mui/material/styles'
 import ClassificationViewer, { Props as ClassificationViewerProps } from './ClassificationViewer'
 import useInternalState from './useClassificationSelectorState'
 
-const cypressTestDataAttrs = require('./cypressTestDataAttrs.json')
+import cypressTestDataAttrs from './cypressTestDataAttrs.json'
 
 const {
   selectedItemsContainerCypressDataAttr,
   numFilteredItemsCypressDataAttr,
 } = cypressTestDataAttrs
 
-const theme = createMuiTheme()
+const theme = createTheme()
 interface TestItem {
   name: string
 }
