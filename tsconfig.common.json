@@ -1,0 +1,13 @@
+{
+  "types": ["jest"],
+  "allowJs": true,
+  "strict": true,
+
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "es2015",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
+  }
+}
