@@ -55,10 +55,7 @@
     "jest-environment-jsdom": "~29",
     "prettier": "2.0.5",
     "quill-delta": "~5",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
     "rxjs": "~7",
-    "styled-components": "^4.2.0",
     "stylelint": "^13.2.1",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-config-styled-components": "^0.1.1",
@@ -71,7 +68,14 @@
     "webpack-cli": "~4",
     "webpack-dev-server": "~4",
     "pnpm": "~8",
-    "@gnomad/scripts": "*"
+    "@gnomad/scripts": "*",
+    "@types/react": "*",
+    "@types/react-dom": "*"
+  },
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "styled-components": "^4.2.0"
   },
   "resolutions": {
     "memfs": "~4"

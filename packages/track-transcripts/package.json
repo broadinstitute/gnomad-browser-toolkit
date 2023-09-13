@@ -25,9 +25,5 @@
     "@gnomad/region-viewer": "^1.0.0||^2.0.0||^3.0.0",
     "@gnomad/track-regions": "^1.0.0",
     "prop-types": "^15.7.2"
-  },
-  "peerDependencies": {
-    "react": "^16.9.0",
-    "styled-components": "^4.2.0"
   }
 }
