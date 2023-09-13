@@ -3,23 +3,25 @@
   "version": "2.3.2",
   "license": "MIT",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/broadinstitute/gnomad-browser-toolkit.git",
+    "type": "git",
+    "url": "https://github.com/broadinstitute/gnomad-browser-toolkit.git",
     "directory": "packages/identifiers"
   },
   "homepage": "https://github.com/broadinstitute/gnomad-browser-toolkit#readme",
   "bugs": "https://github.com/broadinstitute/gnomad-browser-toolkit/issues",
   "main": "lib/cjs/identifiers.js",
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "yarn clean && yarn typecheck && yarn tsc:declaration && babel src --extensions=.ts --ignore=src/**/*.spec.js --out-dir=lib/cjs",
+    "build": "pnpm clean && pnpm typecheck && pnpm tsc:declaration && babel src --extensions=.ts --ignore=src/**/*.spec.js --out-dir=lib/cjs",
     "typecheck": "tsc --noEmit",
     "tsc:declaration": "tsc --declaration --emitDeclarationOnly --outDir lib/cjs",
     "clean": "rm -rf lib",
-    "prepack": "yarn run build",
+    "prepack": "pnpm run build",
     "test": "jest --coverage"
   },
   "devDependencies": {

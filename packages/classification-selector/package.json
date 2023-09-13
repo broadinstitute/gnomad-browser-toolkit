@@ -3,7 +3,9 @@
   "version": "0.7.1",
   "types": "lib/index.d.ts",
   "main": "lib/index.js",
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -16,7 +18,7 @@
     "clean": "rm -rf lib",
     "typecheck": "tsc --noEmit",
     "tsc:declaration": "tsc --declaration --emitDeclarationOnly --outDir lib",
-    "build": "yarn clean && yarn typecheck && yarn tsc:declaration && yarn rollup && cp src/cypressTestDataAttrs.json lib/",
+    "build": "pnpm clean && pnpm typecheck && pnpm tsc:declaration && pnpm rollup && cp src/cypressTestDataAttrs.json lib/",
     "rollup": "IS_ROLLUP=true rollup -c"
   },
   "peerDependencies": {

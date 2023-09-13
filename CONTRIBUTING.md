@@ -5,13 +5,13 @@
 - Install dependencies
 
   ```
-  yarn install
+  pnpm install
   ```
 
 - Build all packages
 
   ```
-  yarn workspaces run build
+  pnpm -r run build
   ```
 
 ## Publishing a package
