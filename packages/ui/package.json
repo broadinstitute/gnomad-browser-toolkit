@@ -4,21 +4,23 @@
   "types": "lib/index.d.ts",
   "license": "MIT",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/broadinstitute/gnomad-browser-toolkit.git",
+    "type": "git",
+    "url": "https://github.com/broadinstitute/gnomad-browser-toolkit.git",
     "directory": "packages/ui"
   },
   "homepage": "https://github.com/broadinstitute/gnomad-browser-toolkit#readme",
   "bugs": "https://github.com/broadinstitute/gnomad-browser-toolkit/issues",
   "main": "lib/cjs/index.js",
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "gnomad-browser-toolkit-scripts build && yarn run copy-type-def",
+    "build": "gnomad-browser-toolkit-scripts build && pnpm run copy-type-def",
     "copy-type-def": "cp src/index.d.ts lib/",
-    "prepack": "yarn run build",
+    "prepack": "pnpm run build",
     "test": "jest --coverage",
     "example": "gnomad-browser-toolkit-scripts example"
   },

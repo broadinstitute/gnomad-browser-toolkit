@@ -3,20 +3,22 @@
   "version": "1.0.2",
   "license": "MIT",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/broadinstitute/gnomad-browser-toolkit.git",
+    "type": "git",
+    "url": "https://github.com/broadinstitute/gnomad-browser-toolkit.git",
     "directory": "packages/track-regions"
   },
   "homepage": "https://github.com/broadinstitute/gnomad-browser-toolkit#readme",
   "bugs": "https://github.com/broadinstitute/gnomad-browser-toolkit/issues",
   "main": "lib/cjs/index.js",
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
     "build": "gnomad-browser-toolkit-scripts build",
-    "prepack": "yarn run build",
+    "prepack": "pnpm run build",
     "example": "gnomad-browser-toolkit-scripts example"
   },
   "dependencies": {

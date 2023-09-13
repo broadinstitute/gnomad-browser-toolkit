@@ -18,7 +18,7 @@
   },
   "scripts": {
     "build": "rm -rf lib && mkdir lib && cp -R src lib/cjs",
-    "prepack": "yarn run build",
+    "prepack": "pnpm run build",
     "example": "webpack-dev-server --config=./example/webpack.config.js --port=8000"
   },
   "dependencies": {
