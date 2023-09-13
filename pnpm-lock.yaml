@@ -10,6 +10,16 @@ overrides:
 importers:
 
   .:
+    dependencies:
+      react:
+        specifier: ^16.13.1
+        version: 16.14.0
+      react-dom:
+        specifier: ^16.13.1
+        version: 16.14.0(react@16.14.0)
+      styled-components:
+        specifier: ^4.2.0
+        version: 4.4.1(react-dom@16.14.0)(react@16.14.0)
     devDependencies:
       '@babel/cli':
         specifier: ^7.8.4
@@ -44,6 +54,12 @@ importers:
       '@types/jest':
         specifier: ^26.0.0
         version: 26.0.24
+      '@types/react':
+        specifier: '*'
+        version: 16.9.38
+      '@types/react-dom':
+        specifier: '*'
+        version: 16.9.8
       '@typescript-eslint/eslint-plugin':
         specifier: 3.8.0
         version: 3.8.0(@typescript-eslint/parser@3.8.0)(eslint@7.32.0)(typescript@5.2.2)
@@ -116,18 +132,9 @@ importers:
       quill-delta:
         specifier: ~5
         version: 5.1.0
-      react:
-        specifier: ^16.13.1
-        version: 16.14.0
-      react-dom:
-        specifier: ^16.13.1
-        version: 16.14.0(react@16.14.0)
       rxjs:
         specifier: ~7
         version: 7.8.1
-      styled-components:
-        specifier: ^4.2.0
-        version: 4.4.1(react-dom@16.14.0)(react@16.14.0)
       stylelint:
         specifier: ^13.2.1
         version: 13.13.1
@@ -179,12 +186,6 @@ importers:
       lodash:
         specifier: 4.17.21
         version: 4.17.21
-      react:
-        specifier: ^16.13.1
-        version: 16.14.0
-      react-dom:
-        specifier: ^16.13.1
-        version: 16.14.0(react@16.14.0)
     devDependencies:
       '@rollup/plugin-babel':
         specifier: 5.0.4
@@ -201,12 +202,6 @@ importers:
       '@types/lodash':
         specifier: 4.14.155
         version: 4.14.155
-      '@types/react':
-        specifier: 16.9.38
-        version: 16.9.38
-      '@types/react-dom':
-        specifier: 16.9.8
-        version: 16.9.8
       core-js:
         specifier: 3.6.5
         version: 3.6.5
@@ -243,9 +238,6 @@ importers:
       prop-types:
         specifier: ^15.7.2
         version: 15.8.1
-      react:
-        specifier: ^16.9.0
-        version: 16.14.0
 
   packages/markdown-loader:
     dependencies:
@@ -298,21 +290,12 @@ importers:
       prop-types:
         specifier: ^15.7.2
         version: 15.8.1
-      react:
-        specifier: ^16.9.0
-        version: 16.14.0
 
   packages/region-viewer:
     dependencies:
       prop-types:
         specifier: ^15.7.2
         version: 15.8.1
-      react:
-        specifier: ^16.9.0
-        version: 16.14.0
-      styled-components:
-        specifier: ^4.2.0
-        version: 4.4.1(react-dom@16.14.0)(react@16.14.0)
 
   packages/track-genes:
     dependencies:
@@ -322,12 +305,6 @@ importers:
       prop-types:
         specifier: ^15.7.2
         version: 15.8.1
-      react:
-        specifier: ^16.9.0
-        version: 16.14.0
-      styled-components:
-        specifier: ^4.2.0
-        version: 4.4.1(react-dom@16.14.0)(react@16.14.0)
 
   packages/track-regions:
     dependencies:
@@ -337,9 +314,6 @@ importers:
       prop-types:
         specifier: ^15.7.2
         version: 15.8.1
-      react:
-        specifier: ^16.9.0
-        version: 16.14.0
 
   packages/track-transcripts:
     dependencies:
@@ -352,12 +326,6 @@ importers:
       prop-types:
         specifier: ^15.7.2
         version: 15.8.1
-      react:
-        specifier: ^16.9.0
-        version: 16.14.0
-      styled-components:
-        specifier: ^4.2.0
-        version: 4.4.1(react-dom@16.14.0)(react@16.14.0)
 
   packages/track-variants:
     dependencies:
@@ -370,9 +338,6 @@ importers:
       prop-types:
         specifier: ^15.7.2
         version: 15.8.1
-      react:
-        specifier: ^16.9.0
-        version: 16.14.0
 
   packages/ui:
     dependencies:
@@ -391,9 +356,6 @@ importers:
       prop-types:
         specifier: ^15.7.2
         version: 15.8.1
-      react:
-        specifier: ^16.9.0
-        version: 16.14.0
       react-aria-modal:
         specifier: ^4.0.0
         version: 4.0.2(prop-types@15.8.1)(react-dom@16.14.0)(react@16.14.0)
@@ -403,9 +365,6 @@ importers:
       react-autocomplete:
         specifier: ^1.8.1
         version: 1.8.1(react-dom@16.14.0)(react@16.14.0)
-      react-dom:
-        specifier: ^16.9.0
-        version: 16.14.0(react@16.14.0)
       react-popper:
         specifier: ^1.3.3
         version: 1.3.11(react@16.14.0)
@@ -415,9 +374,6 @@ importers:
       react-window:
         specifier: ^1.7.1
         version: 1.8.9(react-dom@16.14.0)(react@16.14.0)
-      styled-components:
-        specifier: ^4.2.0
-        version: 4.4.1(react-dom@16.14.0)(react@16.14.0)
 
   scripts: {}
 
