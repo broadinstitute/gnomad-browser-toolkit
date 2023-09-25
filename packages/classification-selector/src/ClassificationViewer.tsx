@@ -5,7 +5,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import TreeItem from '@mui/lab/TreeItem'
 import Button from '@mui/material/Button'
 import { makeStyles, createStyles } from '@mui/styles'
-import { StandardLonghandProperties } from 'csstype'
+import type * as CSS from 'csstype'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import ScopedCssBaseline from '@mui/material/ScopedCssBaseline'
 import { Classification, ClassificationType } from './types'
@@ -24,7 +24,7 @@ import {
   selectNoneCypressDataAttr,
 } from './cypressTestDataAttrs.json'
 
-type CategoryListMaxHeight = StandardLonghandProperties['maxHeight']
+type CategoryListMaxHeight = CSS.StandardLonghandProperties['maxHeight']
 interface MakeStyleProps {
   categoryListMaxHeight: CategoryListMaxHeight
   spacing: (n: number) => number

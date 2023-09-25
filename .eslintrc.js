@@ -39,6 +39,13 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': ['error'],
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': ['error'],
+    'react/no-unused-prop-types': 'off',
+    'react/require-default-props': 'off',
+    'react/forbid-prop-types': 'off',
   },
   overrides: [
     {
