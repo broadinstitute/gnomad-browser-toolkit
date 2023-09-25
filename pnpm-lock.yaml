@@ -84,6 +84,9 @@ importers:
       babel-plugin-styled-components:
         specifier: ^1.10.7
         version: 1.13.3(styled-components@4.4.1)
+      csstype:
+        specifier: ^3.1.2
+        version: 3.1.2
       eslint:
         specifier: ^7.3.1
         version: 7.32.0
@@ -229,9 +232,6 @@ importers:
       core-js:
         specifier: 3.6.5
         version: 3.6.5
-      csstype:
-        specifier: 2.6.11
-        version: 2.6.11
       cypress:
         specifier: 4.9.0
         version: 4.9.0
@@ -7999,10 +7999,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       cssom: 0.3.8
-    dev: true
-
-  /csstype@2.6.11:
-    resolution: {integrity: sha512-l8YyEC9NBkSm783PFTvh0FmJy7s5pFKrDp49ZL7zBGX3fWkO+N4EEyan1qqp8cwPLDcD0OSdyY6hAMoxp34JFw==}
     dev: true
 
   /csstype@3.1.2:

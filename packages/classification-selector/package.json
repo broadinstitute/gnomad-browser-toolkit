@@ -29,7 +29,6 @@
     "@storybook/react": "7.4.4",
     "@storybook/react-webpack5": "7.4.4",
     "core-js": "3.6.5",
-    "csstype": "2.6.11",
     "cypress": "4.9.0",
     "rollup": "~3",
     "storybook": "7.4.4"

@@ -12,7 +12,7 @@ Followed by a paragraph
 * bulleted lists
 	`
 
-    return translateMarkdown(exampleMarkdownSource).then((result: any) => {
+    return translateMarkdown(exampleMarkdownSource).then(result => {
       expect(result.contents).toMatchSnapshot()
     })
   })
