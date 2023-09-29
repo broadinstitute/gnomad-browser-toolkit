@@ -30,7 +30,7 @@
     "@storybook/react-webpack5": "7.4.4",
     "core-js": "3.6.5",
     "cypress": "4.9.0",
-    "rollup": "~3",
+    "rollup": "^3.0.0",
     "storybook": "7.4.4",
     "csstype": "*"
   },
@@ -46,8 +46,8 @@
     "lodash": "4.17.21"
   },
   "peerDependencies": {
-    "react": "~17",
-    "react-dom": "~17",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
     "styled-components": "^4.2.0"
   }
 }
