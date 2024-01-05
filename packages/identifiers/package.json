@@ -1,6 +1,6 @@
 {
   "name": "@gnomad/identifiers",
-  "version": "2.3.2",
+  "version": "3.0.0-rc1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -23,8 +23,5 @@
     "clean": "rm -rf lib",
     "prepack": "pnpm run build",
     "test": "jest --coverage"
-  },
-  "devDependencies": {
-    "typescript": "3.9.5"
   }
 }
