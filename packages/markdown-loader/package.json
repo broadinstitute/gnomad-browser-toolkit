@@ -1,6 +1,6 @@
 {
   "name": "@gnomad/markdown-loader",
-  "version": "2.0.0-rc1",
+  "version": "2.0.0-rc2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
     "example": "webpack-dev-server --config=./example/webpack.config.js --port=8000"
   },
   "dependencies": {
-    "loader-utils": "^3.0.0",
+    "loader-utils": "^2.0.0",
     "remark": "^10.0.1",
     "remark-extract-frontmatter": "^2.0.0",
     "remark-frontmatter": "^1.3.1",

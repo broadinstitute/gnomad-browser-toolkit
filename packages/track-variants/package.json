@@ -1,6 +1,6 @@
 {
   "name": "@gnomad/track-variants",
-  "version": "2.0.0-rc1",
+  "version": "2.0.0-rc2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
     "example": "gnomad-browser-toolkit-scripts example"
   },
   "dependencies": {
-    "@gnomad/region-viewer": "^1.0.0||^2.0.0||^3.0.0",
+    "@gnomad/region-viewer": "4.0.0-rc1",
     "d3-scale": "^2.2.2",
     "prop-types": "^15.7.2"
   }
