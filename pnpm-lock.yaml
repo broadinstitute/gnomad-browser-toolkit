@@ -242,11 +242,7 @@ importers:
         specifier: 7.4.4
         version: 7.4.4
 
-  packages/identifiers:
-    devDependencies:
-      typescript:
-        specifier: 3.9.5
-        version: 3.9.5
+  packages/identifiers: {}
 
   packages/manhattan-plot:
     dependencies:
@@ -325,7 +321,7 @@ importers:
     dependencies:
       '@gnomad/region-viewer':
         specifier: ^1.0.0||^2.0.0||^3.0.0
-        version: link:../region-viewer
+        version: 3.0.0(react@16.14.0)(styled-components@4.4.1)
       prop-types:
         specifier: ^15.7.2
         version: 15.8.1
@@ -334,7 +330,7 @@ importers:
     dependencies:
       '@gnomad/region-viewer':
         specifier: ^1.0.0||^2.0.0||^3.0.0
-        version: link:../region-viewer
+        version: 3.0.0(react@16.14.0)(styled-components@4.4.1)
       prop-types:
         specifier: ^15.7.2
         version: 15.8.1
@@ -343,10 +339,10 @@ importers:
     dependencies:
       '@gnomad/region-viewer':
         specifier: ^1.0.0||^2.0.0||^3.0.0
-        version: link:../region-viewer
+        version: 3.0.0(react@16.14.0)(styled-components@4.4.1)
       '@gnomad/track-regions':
         specifier: ^1.0.0
-        version: link:../track-regions
+        version: 1.0.2(react@16.14.0)(styled-components@4.4.1)
       prop-types:
         specifier: ^15.7.2
         version: 15.8.1
@@ -355,7 +351,7 @@ importers:
     dependencies:
       '@gnomad/region-viewer':
         specifier: ^1.0.0||^2.0.0||^3.0.0
-        version: link:../region-viewer
+        version: 3.0.0(react@16.14.0)(styled-components@4.4.1)
       d3-scale:
         specifier: ^2.2.2
         version: 2.2.2
@@ -3429,6 +3425,29 @@ packages:
     resolution: {integrity: sha512-eYm8vijH/hpzr/6/1CJ/V/Eb1xQFW2nnUKArb3z+yUWv7HTwj6M7SP957oMjfZjAHU6qpoNc2wQvIxBLWYa/Jg==}
     engines: {node: '>=6'}
     requiresBuild: true
+    dev: false
+
+  /@gnomad/region-viewer@3.0.0(react@16.14.0)(styled-components@4.4.1):
+    resolution: {integrity: sha512-ZS8GXyczL0KqkvV22ztlU3UEHt166tHZBIZBWwWqypsTRr/fIb6UfjF3LZUh4Ut3TLLsA5nRdUXSLkZkRtg3dQ==}
+    peerDependencies:
+      react: ^16.9.0
+      styled-components: ^4.2.0
+    dependencies:
+      prop-types: 15.8.1
+      react: 16.14.0
+      styled-components: 4.4.1(react-dom@17.0.2)(react@16.14.0)
+    dev: false
+
+  /@gnomad/track-regions@1.0.2(react@16.14.0)(styled-components@4.4.1):
+    resolution: {integrity: sha512-vw0sumvjI69NLslihk8Mvjq1CzsqOdWmrIOsW3L+B507njvhk09p6O4gPweQJDD9E3Cc4G+PQu+fXnq3yyzQ6Q==}
+    peerDependencies:
+      react: ^16.9.0
+    dependencies:
+      '@gnomad/region-viewer': 3.0.0(react@16.14.0)(styled-components@4.4.1)
+      prop-types: 15.8.1
+      react: 16.14.0
+    transitivePeerDependencies:
+      - styled-components
     dev: false
 
   /@humanwhocodes/config-array@0.5.0:
@@ -13478,6 +13497,17 @@ packages:
       scheduler: 0.19.1
     dev: false
 
+  /react-dom@17.0.2(react@16.14.0):
+    resolution: {integrity: sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==}
+    peerDependencies:
+      react: 17.0.2
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      react: 16.14.0
+      scheduler: 0.20.2
+    dev: false
+
   /react-dom@17.0.2(react@17.0.2):
     resolution: {integrity: sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==}
     peerDependencies:
@@ -14687,6 +14717,30 @@ packages:
     resolution: {integrity: sha512-Dj1Okke1C3uKKwQcetra4jSuk0DqbzbYtXipzFlFMZtowbF1x7BKJwB9AayVMyFARvU8EDrZdcax4At/452cAg==}
     dev: true
 
+  /styled-components@4.4.1(react-dom@17.0.2)(react@16.14.0):
+    resolution: {integrity: sha512-RNqj14kYzw++6Sr38n7197xG33ipEOktGElty4I70IKzQF1jzaD1U4xQ+Ny/i03UUhHlC5NWEO+d8olRCDji6g==}
+    requiresBuild: true
+    peerDependencies:
+      react: '>= 16.3.0'
+      react-dom: '>= 16.3.0'
+    dependencies:
+      '@babel/helper-module-imports': 7.22.15
+      '@babel/traverse': 7.22.17(supports-color@5.5.0)
+      '@emotion/is-prop-valid': 0.8.8
+      '@emotion/unitless': 0.7.5
+      babel-plugin-styled-components: 1.13.3(styled-components@4.4.1)
+      css-to-react-native: 2.3.2
+      memoize-one: 5.2.1
+      merge-anything: 2.4.4
+      prop-types: 15.8.1
+      react: 16.14.0
+      react-dom: 17.0.2(react@16.14.0)
+      react-is: 16.13.1
+      stylis: 3.5.4
+      stylis-rule-sheet: 0.0.10(stylis@3.5.4)
+      supports-color: 5.5.0
+    dev: false
+
   /styled-components@4.4.1(react-dom@17.0.2)(react@17.0.2):
     resolution: {integrity: sha512-RNqj14kYzw++6Sr38n7197xG33ipEOktGElty4I70IKzQF1jzaD1U4xQ+Ny/i03UUhHlC5NWEO+d8olRCDji6g==}
     requiresBuild: true
@@ -15361,12 +15415,6 @@ packages:
 
   /typedarray@0.0.6:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
-    dev: true
-
-  /typescript@3.9.5:
-    resolution: {integrity: sha512-hSAifV3k+i6lEoCJ2k6R2Z/rp/H3+8sdmcn5NrS3/3kE7+RyZXm9aqvxWqjEXHAd8b0pShatpcdMTvEdvAJltQ==}
-    engines: {node: '>=4.2.0'}
-    hasBin: true
     dev: true
 
   /typescript@5.2.2:
