@@ -1,6 +1,6 @@
 {
   "name": "@gnomad/region-viewer",
-  "version": "4.0.0-rc1",
+  "version": "4.0.0",
   "license": "MIT",
   "repository": {
     "type": "git",
