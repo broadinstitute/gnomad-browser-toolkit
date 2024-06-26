@@ -1,5 +1,5 @@
 #  - Disables non-security update PRs
-#  - Schedules security update PRs daily
+#  - Schedules security update PRs weekly
 #  - Auto assigns PRs to the gnomad-browser team
 
 version: 2
@@ -7,7 +7,7 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     # Disable version updates for npm dependencies
     open-pull-requests-limit: 0
     reviewers:
