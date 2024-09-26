@@ -19,7 +19,12 @@ export const QQPlot = ({
   yDomain,
   yLabel,
 }) => {
-  const minPval = min(dataPoints, d => d.pval)
+  dataPoints = dataPoints.map(d => ({
+    ...d,
+    obs_pval: d.obs_pval === undefined ? d.pval : d.obs_pval,
+  }))
+
+  const minPval = min(dataPoints, d => d.obs_pval)
 
   const margin = {
     bottom: 55,
@@ -31,7 +36,7 @@ export const QQPlot = ({
   const xScale = scaleLinear().range([0, width - margin.left - margin.right])
 
   if (xDomain === undefined) {
-    xScale.domain([0, -Math.log10(1 / dataPoints.length)]).nice()
+    xScale.domain([0, -Math.log10(1 / dataPoints.length) + 4]).nice()
   } else {
     xScale.domain(xDomain)
   }
@@ -44,10 +49,10 @@ export const QQPlot = ({
     yScale.domain(yDomain)
   }
 
-  const sortedPoints = [...dataPoints].sort((d1, d2) => d1.pval - d2.pval)
+  const sortedPoints = [...dataPoints].sort((d1, d2) => d1.obs_pval - d2.obs_pval)
   const points = sortedPoints.map((d, i, arr) => ({
-    x: xScale(-Math.log10((i + 1) / (arr.length + 1))),
-    y: yScale(-Math.log10(d.pval)),
+    x: xScale(d.exp_pval ? -Math.log10(d.exp_pval) : -Math.log10((i + 1) / (arr.length + 1))),
+    y: yScale(-Math.log10(d.obs_pval)),
     data: d,
   }))
 
@@ -315,8 +320,10 @@ export const QQPlot = ({
 QQPlot.propTypes = {
   dataPoints: PropTypes.arrayOf(
     PropTypes.shape({
-      pval: PropTypes.number.isRequired,
-    })
+      pval: PropTypes.number,
+      obs_pval: PropTypes.number,
+      exp_pval: PropTypes.number,
+    }),
   ).isRequired,
   gridLines: PropTypes.bool,
   height: PropTypes.number.isRequired,
@@ -329,7 +336,7 @@ QQPlot.propTypes = {
       color: PropTypes.string,
       label: PropTypes.string,
       value: PropTypes.number.isRequired,
-    })
+    }),
   ),
   width: PropTypes.number.isRequired,
   xDomain: PropTypes.arrayOf(PropTypes.number),
@@ -348,5 +355,5 @@ QQPlot.defaultProps = {
   yDomain: undefined,
   xLabel: 'Expected -log10(p)',
   xDomain: undefined,
-  yLabel: 'Actual -log10(p)',
+  yLabel: 'Observed -log10(p)',
 }
