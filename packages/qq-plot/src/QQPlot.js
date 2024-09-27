@@ -18,6 +18,7 @@ export const QQPlot = ({
   xLabel,
   yDomain,
   yLabel,
+  xyStrokeStyle,
 }) => {
   dataPoints = dataPoints.map(d => ({
     ...d,
@@ -165,7 +166,7 @@ export const QQPlot = ({
     ctx.moveTo(xScale(p1), yScale(p1))
     const p2 = Math.min(xScale.domain()[1], yScale.domain()[1])
     ctx.lineTo(xScale(p2), yScale(p2))
-    ctx.strokeStyle = '#ccc'
+    ctx.strokeStyle = xyStrokeStyle
     ctx.lineWidth = 1
     ctx.stroke()
 
@@ -343,6 +344,7 @@ QQPlot.propTypes = {
   xLabel: PropTypes.string,
   yDomain: PropTypes.arrayOf(PropTypes.number),
   yLabel: PropTypes.string,
+  xyStrokeStyle: PropTypes.string,
 }
 
 QQPlot.defaultProps = {
@@ -356,4 +358,5 @@ QQPlot.defaultProps = {
   xLabel: 'Expected -log10(p)',
   xDomain: undefined,
   yLabel: 'Observed -log10(p)',
+  xyStrokeStyle: '#CCC',
 }
