@@ -21,7 +21,7 @@ export const ManhattanPlot = ({
 }) => {
   const positionExtents = chromosomes.reduce(
     (acc, chr) => ({ ...acc, [chr]: { min: Infinity, max: -Infinity } }),
-    Object.create(null)
+    Object.create(null),
   )
 
   for (let i = 0; i < dataPoints.length; i += 1) {
@@ -146,7 +146,14 @@ export const ManhattanPlot = ({
       ctx.font = '10px sans-serif'
       ctx.fillStyle = '#000'
       const { width: tickLabelWidth } = ctx.measureText(chr)
-      ctx.fillText(chr, x - tickLabelWidth / 2, 13)
+
+      let labelY
+      if (i <= 10) {
+        labelY = 13
+      } else {
+        labelY = i % 2 === 0 ? 13 : 23
+      }
+      ctx.fillText(chr, x - tickLabelWidth / 2, labelY)
     }
 
     ctx.beginPath()
@@ -338,7 +345,7 @@ const CHROMOSOMES = Array.from(new Array(22), (_, i) => `${i + 1}`).concat(['X',
 ManhattanPlot.defaultProps = {
   chromosomes: CHROMOSOMES,
   gridLines: true,
-  onClickPoint: () => {},
+  onClickPoint: () => { },
   pointColor: rotateColorByChromosome(['rgb(139,53,40)', 'rgb(60,100,166)'], CHROMOSOMES),
   pointLabel: d => d.label,
   thresholds: [],
