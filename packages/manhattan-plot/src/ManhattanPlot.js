@@ -178,7 +178,7 @@ export const ManhattanPlot = ({
       const point = points[i]
 
       ctx.beginPath()
-      ctx.arc(point.x, point.y, 3, 0, 2 * Math.PI, false)
+      ctx.arc(point.x, point.y, 2, 0, 2 * Math.PI, false)
       ctx.fillStyle = pointColor(point.data)
       ctx.fill()
     }
@@ -314,7 +314,7 @@ ManhattanPlot.propTypes = {
       chrom: PropTypes.string.isRequired,
       pos: PropTypes.number.isRequired,
       pval: PropTypes.number.isRequired,
-    })
+    }),
   ).isRequired,
   gridLines: PropTypes.bool,
   height: PropTypes.number.isRequired,
@@ -326,7 +326,7 @@ ManhattanPlot.propTypes = {
       color: PropTypes.string,
       label: PropTypes.string,
       value: PropTypes.number.isRequired,
-    })
+    }),
   ),
   width: PropTypes.number.isRequired,
   xLabel: PropTypes.string,
