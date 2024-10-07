@@ -22,7 +22,7 @@ export const QQPlot = ({
 }) => {
   dataPoints = dataPoints.map(d => ({
     ...d,
-    obs_pval: d.obs_pval === undefined ? d.pval : d.obs_pval,
+    obs_pval: d.obs_pval === undefined ? (d.pval !== undefined ? d.pval : d.pvalue) : d.obs_pval,
   }))
 
   const minPval = min(dataPoints, d => d.obs_pval)
@@ -322,6 +322,7 @@ QQPlot.propTypes = {
   dataPoints: PropTypes.arrayOf(
     PropTypes.shape({
       pval: PropTypes.number,
+      pvalue: PropTypes.number,
       obs_pval: PropTypes.number,
       exp_pval: PropTypes.number,
     }),
@@ -349,7 +350,7 @@ QQPlot.propTypes = {
 
 QQPlot.defaultProps = {
   gridLines: true,
-  onClickPoint: () => {},
+  onClickPoint: () => { },
   pointColor: () => '#000',
   pointLabel: d => d.label,
   pointRadius: () => 3,
