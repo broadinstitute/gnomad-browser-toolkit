@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const Link = styled.a`
   color: #1173bb;
   text-decoration: none;
+  cursor: pointer;
 
   &:visited,
   &:active {
