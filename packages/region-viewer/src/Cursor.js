@@ -20,7 +20,6 @@ export const Cursor = ({ children, onClick, renderCursor }) => {
   const [cursorPosition, setCursorPosition] = useState(null)
 
   const containerX = container.current ? container.current.getBoundingClientRect().left : null
-
   return (
     <RegionViewerContext.Consumer>
       {({ centerPanelWidth, leftPanelWidth, scalePosition }) => {

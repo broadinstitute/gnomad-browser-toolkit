@@ -1,0 +1,545 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Track can omit any side panel 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 100%;
+}
+
+<div
+    class="c0"
+    style="width: 1200px;"
+  >
+    <div
+      class="c1"
+    >
+      <div
+        class="c2"
+        style="width: 890px; margin-left: 200px; margin-right: 110px;"
+      >
+        <div
+          style="width: 890px;"
+        >
+          Top panel says "Top label as in a heading or such"
+        </div>
+      </div>
+      <div
+        class="c3"
+      >
+        <div
+          class="c4"
+          style="width: 200px;"
+        >
+          <div
+            class="c5"
+          >
+            <span />
+          </div>
+        </div>
+        <div
+          class="c6"
+          style="width: 890px;"
+        >
+          <div
+            style="width: 890px;"
+          >
+            Greetings from main body of the track. "Right here in the center"
+            <ul>
+              <li>
+                leftPanelWidth: 200
+              </li>
+              <li>
+                Regions: [{"start":123,"stop":456}]
+              </li>
+              <li>
+                rightPanelWidth: 110
+              </li>
+              <li>
+                scalePosition: 71.94610778443113
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="c4"
+          style="width: 110px;"
+        >
+          <div
+            style="width: 110px;"
+          >
+            Right panel says "I am on the right"
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Track can omit any side panel 2`] = `
+<DocumentFragment>
+  .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+<div
+    class="c0"
+    style="width: 1200px;"
+  >
+    <div
+      class="c1"
+    >
+      <div
+        class="c2"
+      >
+        <div
+          class="c3"
+          style="width: 200px;"
+        >
+          <div
+            style="width: 200px;"
+          >
+            Left panel says "I am on the left"
+          </div>
+        </div>
+        <div
+          class="c4"
+          style="width: 890px;"
+        >
+          <div
+            style="width: 890px;"
+          >
+            Greetings from main body of the track. "Right here in the center"
+            <ul>
+              <li>
+                leftPanelWidth: 200
+              </li>
+              <li>
+                Regions: [{"start":123,"stop":456}]
+              </li>
+              <li>
+                rightPanelWidth: 110
+              </li>
+              <li>
+                scalePosition: 71.94610778443113
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="c3"
+          style="width: 110px;"
+        >
+          <div
+            style="width: 110px;"
+          >
+            Right panel says "I am on the right"
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Track can omit any side panel 3`] = `
+<DocumentFragment>
+  .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+<div
+    class="c0"
+    style="width: 1200px;"
+  >
+    <div
+      class="c1"
+    >
+      <div
+        class="c2"
+        style="width: 890px; margin-left: 200px; margin-right: 110px;"
+      >
+        <div
+          style="width: 890px;"
+        >
+          Top panel says "Top label as in a heading or such"
+        </div>
+      </div>
+      <div
+        class="c3"
+      >
+        <div
+          class="c4"
+          style="width: 200px;"
+        >
+          <div
+            style="width: 200px;"
+          >
+            Left panel says "I am on the left"
+          </div>
+        </div>
+        <div
+          class="c5"
+          style="width: 890px;"
+        >
+          <div
+            style="width: 890px;"
+          >
+            Greetings from main body of the track. "Right here in the center"
+            <ul>
+              <li>
+                leftPanelWidth: 200
+              </li>
+              <li>
+                Regions: [{"start":123,"stop":456}]
+              </li>
+              <li>
+                rightPanelWidth: 110
+              </li>
+              <li>
+                scalePosition: 71.94610778443113
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Track has no unexpected changes 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+<div
+    class="c0"
+    style="width: 1200px;"
+  >
+    <div
+      class="c1"
+    >
+      <div
+        class="c2"
+        style="width: 890px; margin-left: 200px; margin-right: 110px;"
+      >
+        <div
+          style="width: 890px;"
+        >
+          Top panel says "Top label as in a heading or such"
+        </div>
+      </div>
+      <div
+        class="c3"
+      >
+        <div
+          class="c4"
+          style="width: 200px;"
+        >
+          <div
+            style="width: 200px;"
+          >
+            Left panel says "I am on the left"
+          </div>
+        </div>
+        <div
+          class="c5"
+          style="width: 890px;"
+        >
+          <div
+            style="width: 890px;"
+          >
+            Greetings from main body of the track. "Right here in the center"
+            <ul>
+              <li>
+                leftPanelWidth: 200
+              </li>
+              <li>
+                Regions: [{"start":123,"stop":456}]
+              </li>
+              <li>
+                rightPanelWidth: 110
+              </li>
+              <li>
+                scalePosition: 71.94610778443113
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="c4"
+          style="width: 110px;"
+        >
+          <div
+            style="width: 110px;"
+          >
+            Right panel says "I am on the right"
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

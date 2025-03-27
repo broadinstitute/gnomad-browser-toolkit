@@ -1,0 +1,167 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Track makes centerPanelWidth available via context, calculating it by overall width minus panel widths 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+<div
+    class="c0"
+    style="width: 800px;"
+  >
+    <div>
+      350
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Track makes isPositionDefined available via context, which indicates if a given position lies within any of the track's regions 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+<div
+    class="c0"
+    style="width: 800px;"
+  >
+    <div />
+    <div>
+      yes
+    </div>
+    <div />
+    <div />
+    <div>
+      yes
+    </div>
+    <div />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Track makes leftPanelWidth available via context 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+<div
+    class="c0"
+    style="width: 800px;"
+  >
+    <div>
+      130
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Track makes regions available via context 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+<div
+    class="c0"
+    style="width: 800px;"
+  >
+    <div>
+      [{"start":123,"stop":456},{"start":789,"stop":1011}]
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Track makes rightPanelWidth available via context 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+<div
+    class="c0"
+    style="width: 800px;"
+  >
+    <div>
+      320
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Track makes scalePosition available via context 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+<div
+    class="c0"
+    style="width: 800px;"
+  >
+    <div>
+      31.81818181818182
+    </div>
+    <div>
+      67.17171717171716
+    </div>
+    <div>
+      67.17171717171716
+    </div>
+    <div>
+      98.98989898989899
+    </div>
+    <div>
+      134.34343434343432
+    </div>
+    <div>
+      134.34343434343432
+    </div>
+    <div>
+      169.6969696969697
+    </div>
+    <div>
+      350
+    </div>
+  </div>
+</DocumentFragment>
+`;
