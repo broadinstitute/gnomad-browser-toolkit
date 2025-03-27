@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cursor has no unexpected changes 1`] = `
+<DocumentFragment>
+  <div
+    class="RegionViewer__RegionViewerWrapper-sc-tk0egb-0 cgruVM"
+    style="width: 800px;"
+  >
+    <div
+      class="Cursor__CursorWrapper-sc-13d1ui0-0 dCwpWl"
+    >
+      <svg
+        class="Cursor__CursorOverlay-sc-13d1ui0-1 kpkkyt"
+        style="left: 130px; width: 350px;"
+      />
+      <div>
+        some cursor child content goes here
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Cursor renders a cursor in the correct place if mouse is over the center panel 1`] = `
+<DocumentFragment>
+  <div
+    class="RegionViewer__RegionViewerWrapper-sc-tk0egb-0 cgruVM"
+    style="width: 800px;"
+  >
+    <div
+      class="Cursor__CursorWrapper-sc-13d1ui0-0 dCwpWl"
+    >
+      <svg
+        class="Cursor__CursorOverlay-sc-13d1ui0-1 kpkkyt"
+        style="left: 130px; width: 350px;"
+      />
+      <div
+        class="Cursorspec__InnerWrapper-sc-o807pr-0 fHbogc"
+      >
+        <div
+          style="width: 130px;"
+        >
+          Left panel content
+        </div>
+        <div
+          style="width: 350px;"
+        >
+          Center panel content
+        </div>
+        <div
+          style="width: 320px;"
+        >
+          Right panel content
+        </div>
+      </div>
+       
+    </div>
+  </div>
+</DocumentFragment>
+`;
