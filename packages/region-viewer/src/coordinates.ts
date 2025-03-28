@@ -1,4 +1,14 @@
-export const mergeOverlappingRegions = regions => {
+export interface Region {
+  start: number
+  stop: number
+}
+
+export type ScalePosition = {
+  (position: number): number
+  invert: (x: number) => number
+}
+
+export const mergeOverlappingRegions = (regions: Region[]) => {
   if (regions.length === 0) {
     return []
   }
@@ -23,13 +33,16 @@ export const mergeOverlappingRegions = regions => {
   return mergedRegions
 }
 
-export const regionViewerScale = (domainRegions, range) => {
+export const regionViewerScale = (
+  domainRegions: Region[],
+  range: [number, number]
+): ScalePosition => {
   const totalRegionSize = domainRegions.reduce(
     (acc, region) => acc + (region.stop - region.start + 1),
     0
   )
 
-  const scale = position => {
+  const scale = (position: number) => {
     const distanceToPosition = domainRegions
       .filter(region => region.start <= position)
       .reduce(
@@ -43,7 +56,7 @@ export const regionViewerScale = (domainRegions, range) => {
     return range[0] + (range[1] - range[0]) * (distanceToPosition / totalRegionSize)
   }
 
-  scale.invert = x => {
+  scale.invert = (x: number) => {
     const clampedX = Math.max(Math.min(x, range[1]), range[0])
     let distanceToPosition = Math.floor(
       totalRegionSize * ((clampedX - range[0]) / (range[1] - range[0]))

@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.common.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ES5",
+    "outDir": "lib/cjs",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
+}

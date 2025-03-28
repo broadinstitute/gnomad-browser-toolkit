@@ -1,7 +1,12 @@
-import PropTypes from 'prop-types'
 import React from 'react'
+import { ScalePosition } from './coordinates'
 
-export const PositionAxis = ({ scalePosition, width }) => {
+type Props = {
+  scalePosition: ScalePosition
+  width: number
+}
+
+export const PositionAxis = ({ scalePosition, width }: Props) => {
   const height = 15
   const numIntervals = Math.min(10, Math.floor(width / 90))
 
@@ -33,9 +38,4 @@ export const PositionAxis = ({ scalePosition, width }) => {
       </g>
     </svg>
   )
-}
-
-PositionAxis.propTypes = {
-  scalePosition: PropTypes.func.isRequired,
-  width: PropTypes.number.isRequired,
 }

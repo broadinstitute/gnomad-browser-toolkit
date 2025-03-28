@@ -1,6 +1,6 @@
 {
   "name": "@gnomad/region-viewer",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -17,10 +17,14 @@
     "access": "public"
   },
   "scripts": {
-    "build": "gnomad-browser-toolkit-scripts build",
+    "build": "pnpm run build:code && pnpm run build:declarations",
+    "build:code": "tsc --project ./tsconfig.build.json",
+    "build:declarations": "tsc -d --declarationMap --emitDeclarationOnly --project ./tsconfig.build.json",
     "prepack": "pnpm run build",
     "test": "jest --coverage",
-    "example": "gnomad-browser-toolkit-scripts example"
+    "example": "gnomad-browser-toolkit-scripts example",
+    "typecheck": "pnpm tsc --noEmit",
+    "typecheck:watch": "pnpm tsc -w --noEmit"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
@@ -31,6 +35,7 @@
     "jest-styled-components": "^6.0.0"
   },
   "dependencies": {
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "styled-components": "^4.0.0"
   }
 }
