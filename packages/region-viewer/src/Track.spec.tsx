@@ -4,18 +4,18 @@ import { render } from '@testing-library/react'
 import 'jest-styled-components'
 
 import { RegionViewer } from './RegionViewer'
-import { Track } from './Track'
+import { CenterPanelProps, SidePanelProps, Track } from './Track'
 
 describe('Track', () => {
   const TopPanelContent = ({ width, topLabel }: { width: number; topLabel: string }) => (
     <div style={{ width }}>Top panel says "{topLabel}"</div>
   )
 
-  const LeftPanelContent = ({ width, leftLabel }: { width: number; leftLabel: string }) => (
+  const LeftPanelContent = ({ width, leftLabel }: SidePanelProps & { leftLabel: string }) => (
     <div style={{ width }}>Left panel says "{leftLabel}"</div>
   )
 
-  const RightPanelContent = ({ width, rightLabel }: { width: number; rightLabel: string }) => (
+  const RightPanelContent = ({ width, rightLabel }: SidePanelProps & { rightLabel: string }) => (
     <div style={{ width }}>Right panel says "{rightLabel}"</div>
   )
 
@@ -26,7 +26,7 @@ describe('Track', () => {
     scalePosition,
     width,
     centerLabel,
-  }) => (
+  }: CenterPanelProps & { centerLabel: string }) => (
     <div style={{ width }}>
       Greetings from main body of the track. "{centerLabel}"
       <ul>

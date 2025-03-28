@@ -3,14 +3,14 @@
 exports[`Cursor has no unexpected changes 1`] = `
 <DocumentFragment>
   <div
-    class="RegionViewer__RegionViewerWrapper-sc-tk0egb-0 cgruVM"
+    class="RegionViewer__RegionViewerWrapper-sc-1vo08m2-0 ddUyVP"
     style="width: 800px;"
   >
     <div
-      class="Cursor__CursorWrapper-sc-13d1ui0-0 dCwpWl"
+      class="Cursor__CursorWrapper-sc-ein478-0 cEgytb"
     >
       <svg
-        class="Cursor__CursorOverlay-sc-13d1ui0-1 kpkkyt"
+        class="Cursor__CursorOverlay-sc-ein478-1 dgHrSL"
         style="left: 130px; width: 350px;"
       />
       <div>

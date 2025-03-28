@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types'
-import React, { useRef, useState } from 'react'
+import React, { ReactNode, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import { RegionViewerContext } from './RegionViewer'
@@ -15,9 +14,28 @@ const CursorOverlay = styled.svg`
   pointer-events: none;
 `
 
-export const Cursor = ({ children, onClick, renderCursor }) => {
-  const container = useRef()
-  const [cursorPosition, setCursorPosition] = useState(null)
+export const defaultRenderCursor = (x: number) => (
+  <rect
+    x={x - 15}
+    y={0}
+    width={30}
+    height="100%"
+    fill="none"
+    stroke="black"
+    strokeDasharray="5, 5"
+    strokeWidth={1}
+  />
+)
+
+type Props = {
+  children?: ReactNode
+  onClick: (x: number | null) => void
+  renderCursor: (x: number) => ReactNode
+}
+
+export const Cursor = ({ children, onClick, renderCursor }: Props) => {
+  const container = useRef<HTMLDivElement | null>()
+  const [cursorPosition, setCursorPosition] = useState<number | null>(null)
 
   const containerX = container.current ? container.current.getBoundingClientRect().left : null
   return (
@@ -66,26 +84,4 @@ export const Cursor = ({ children, onClick, renderCursor }) => {
       }}
     </RegionViewerContext.Consumer>
   )
-}
-
-Cursor.propTypes = {
-  children: PropTypes.node,
-  onClick: PropTypes.func.isRequired,
-  renderCursor: PropTypes.func,
-}
-
-Cursor.defaultProps = {
-  children: undefined,
-  renderCursor: x => (
-    <rect
-      x={x - 15}
-      y={0}
-      width={30}
-      height="100%"
-      fill="none"
-      stroke="black"
-      strokeDasharray="5, 5"
-      strokeWidth={1}
-    />
-  ),
 }

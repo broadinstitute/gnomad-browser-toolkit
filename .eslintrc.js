@@ -46,6 +46,8 @@ module.exports = {
     'react/no-unused-prop-types': 'off',
     'react/require-default-props': 'off',
     'react/forbid-prop-types': 'off',
+    'import/order': 'off',
+    'react/no-unescaped-entities': 'off',
   },
   overrides: [
     {

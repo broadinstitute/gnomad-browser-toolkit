@@ -37,7 +37,7 @@ describe('Cursor', () => {
   test('has no unexpected changes', () => {
     const { asFragment } = render(
       <RegionViewer leftPanelWidth={130} rightPanelWidth={320} width={800} regions={regions}>
-        <Cursor onClick={(_event: MouseEvent) => {}} renderCursor={renderCursor}>
+        <Cursor onClick={() => {}} renderCursor={renderCursor}>
           <div>some cursor child content goes here</div>
         </Cursor>
       </RegionViewer>
@@ -66,7 +66,7 @@ describe('Cursor', () => {
 
     render(
       <RegionViewer leftPanelWidth={130} rightPanelWidth={320} width={800} regions={regions}>
-        <Cursor onClick={(_event: MouseEvent) => {}} renderCursor={renderCursor}>
+        <Cursor onClick={() => {}} renderCursor={renderCursor}>
           <InnerWrapper>
             <LeftPanel />
             <CenterPanel />
