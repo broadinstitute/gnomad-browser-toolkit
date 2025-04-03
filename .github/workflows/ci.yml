@@ -23,6 +23,8 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build packages
         run: pnpm run -r build
+      - name: Typecheck region-viewer
+        run: cd packages/region-viewer && pnpm typecheck
       - name: Run ESLint on JavaScript files
         run: pnpm run lint:js
       - name: Run stylelint
