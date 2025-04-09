@@ -1,6 +1,6 @@
 {
   "name": "@gnomad/track-genes",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
     "example": "gnomad-browser-toolkit-scripts example"
   },
   "dependencies": {
-    "@gnomad/region-viewer": "4.0.0",
+    "@gnomad/region-viewer": "^5.0.0",
     "prop-types": "^15.7.2"
   }
 }

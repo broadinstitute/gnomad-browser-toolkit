@@ -348,7 +348,7 @@ importers:
   packages/track-genes:
     dependencies:
       '@gnomad/region-viewer':
-        specifier: 4.0.0
+        specifier: ^5.0.0
         version: link:../region-viewer
       prop-types:
         specifier: ^15.7.2
@@ -357,7 +357,7 @@ importers:
   packages/track-regions:
     dependencies:
       '@gnomad/region-viewer':
-        specifier: 4.0.0
+        specifier: ^5.0.0
         version: link:../region-viewer
       prop-types:
         specifier: ^15.7.2
@@ -366,10 +366,10 @@ importers:
   packages/track-transcripts:
     dependencies:
       '@gnomad/region-viewer':
-        specifier: 4.0.0
+        specifier: ^5.0.0
         version: link:../region-viewer
       '@gnomad/track-regions':
-        specifier: 2.0.0
+        specifier: 2.0.1
         version: link:../track-regions
       prop-types:
         specifier: ^15.7.2
@@ -378,7 +378,7 @@ importers:
   packages/track-variants:
     dependencies:
       '@gnomad/region-viewer':
-        specifier: 4.0.0
+        specifier: ^5.0.0
         version: link:../region-viewer
       d3-scale:
         specifier: ^2.2.2
