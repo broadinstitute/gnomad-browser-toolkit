@@ -11,7 +11,7 @@ const dataPoints = data.map(d => ({
 }))
 
 const ManhattanPlotExample = () => (
-  <ManhattanPlot dataPoints={dataPoints} height={500} width={900} pointLabel={d => d.snp} />
+  <ManhattanPlot dataPoints={dataPoints} height={500} width={900} pointLabel={d => d.pval} />
 )
 
 export default ManhattanPlotExample
