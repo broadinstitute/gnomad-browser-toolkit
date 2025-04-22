@@ -32,10 +32,18 @@
     "@testing-library/user-event": "^14.6.1",
     "@types/react-test-renderer": "^18.0.0",
     "jest-environment-jsdom": "^29.0.0",
-    "jest-styled-components": "^6.0.0"
+    "jest-styled-components": "^6.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/styled-components": "^5.1.25"
   },
   "dependencies": {
     "prop-types": "^15.7.2",
+    "styled-components": "^4.2.0"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
     "styled-components": "^4.2.0"
   }
 }

@@ -24,6 +24,11 @@
     "test": "jest --coverage",
     "example": "gnomad-browser-toolkit-scripts example"
   },
+  "devDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/styled-components": "^5.1.25"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.8.1",
     "lodash.debounce": "^4.0.8",
@@ -36,5 +41,10 @@
     "react-popper": "^1.3.3",
     "react-sizeme": "^3.0.0",
     "react-window": "^1.7.1"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "styled-components": "^4.2.0"
   }
 }

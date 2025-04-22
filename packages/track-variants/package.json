@@ -21,9 +21,17 @@
     "prepack": "pnpm run build",
     "example": "gnomad-browser-toolkit-scripts example"
   },
+  "devDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0"
+  },
   "dependencies": {
     "@gnomad/region-viewer": "^5.0.0",
     "d3-scale": "^2.2.2",
     "prop-types": "^15.7.2"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
   }
 }
