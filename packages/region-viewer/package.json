@@ -36,6 +36,6 @@
   },
   "dependencies": {
     "prop-types": "^15.7.2",
-    "styled-components": "^4.0.0"
+    "styled-components": "^4.2.0"
   }
 }
