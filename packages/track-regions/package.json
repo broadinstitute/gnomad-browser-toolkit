@@ -22,15 +22,15 @@
     "example": "gnomad-browser-toolkit-scripts example"
   },
   "devDependencies": {
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0"
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0"
   },
   "dependencies": {
     "@gnomad/region-viewer": "^5.0.0",
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   }
 }

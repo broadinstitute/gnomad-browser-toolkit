@@ -413,18 +413,18 @@ importers:
         specifier: ^15.7.2
         version: 15.8.1
       react:
-        specifier: ^17.0.0
-        version: 17.0.2
+        specifier: ^18.0.0
+        version: 18.3.1
       react-dom:
-        specifier: ^17.0.0
-        version: 17.0.2(react@17.0.2)
+        specifier: ^18.0.0
+        version: 18.3.1(react@18.3.1)
     devDependencies:
       '@types/react':
-        specifier: ^17.0.0
-        version: 17.0.65
+        specifier: ^18.0.0
+        version: 18.3.20
       '@types/react-dom':
-        specifier: ^17.0.0
-        version: 17.0.20
+        specifier: ^18.0.0
+        version: 18.3.6(@types/react@18.3.20)
 
   packages/track-transcripts:
     dependencies:
