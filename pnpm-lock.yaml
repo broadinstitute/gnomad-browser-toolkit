@@ -323,7 +323,7 @@ importers:
         specifier: ^15.7.2
         version: 15.8.1
       styled-components:
-        specifier: ^4.0.0
+        specifier: ^4.2.0
         version: 4.4.1(react-dom@17.0.2)(react@17.0.2)
     devDependencies:
       '@testing-library/dom':
@@ -524,7 +524,7 @@ packages:
       '@babel/helpers': 7.23.1
       '@babel/parser': 7.23.0
       '@babel/template': 7.22.15
-      '@babel/traverse': 7.23.0
+      '@babel/traverse': 7.23.0(supports-color@5.5.0)
       '@babel/types': 7.23.0
       convert-source-map: 2.0.0
       debug: 4.3.4(supports-color@5.5.0)
@@ -876,7 +876,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/template': 7.22.15
-      '@babel/traverse': 7.23.0
+      '@babel/traverse': 7.23.0(supports-color@5.5.0)
       '@babel/types': 7.23.0
     transitivePeerDependencies:
       - supports-color
@@ -2965,7 +2965,7 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@babel/traverse@7.23.0:
+  /@babel/traverse@7.23.0(supports-color@5.5.0):
     resolution: {integrity: sha512-t/QaEvyIoIkwzpiZ7aoSKK8kObQYeF7T2v+dazAYCb8SXtp58zEVkWW7zAnju8FNKNdr4ScAOEDmMItbyOmEYw==}
     engines: {node: '>=6.9.0'}
     dependencies:
@@ -5152,7 +5152,7 @@ packages:
     dependencies:
       '@babel/generator': 7.22.15
       '@babel/parser': 7.22.16
-      '@babel/traverse': 7.23.0
+      '@babel/traverse': 7.23.0(supports-color@5.5.0)
       '@babel/types': 7.22.17
       '@storybook/csf': 0.1.1
       '@storybook/types': 7.4.4
@@ -9276,7 +9276,7 @@ packages:
     resolution: {integrity: sha512-YNF+mZ/Wu2FU/gvmzuWtYc8rloubL7wfXCTgouFrnjGVXPA/EeYYA7pupXWrb3Iv1cTBeSSxxJIbK23l4MRNqg==}
     engines: {node: '>=8.3.0'}
     dependencies:
-      '@babel/traverse': 7.23.0
+      '@babel/traverse': 7.23.0(supports-color@5.5.0)
       '@babel/types': 7.23.0
       c8: 7.14.0
     transitivePeerDependencies:
