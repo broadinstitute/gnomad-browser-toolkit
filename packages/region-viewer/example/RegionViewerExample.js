@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 
-import { RegionViewer, Track, PositionAxisTrack, Cursor } from '../src'
+import { RegionViewer, Track, PositionAxisTrack, Cursor } from '../lib/cjs'
 
 const RegionViewerExample = () => {
   const [position, setPosition] = useState(250)
   const [lastClickedPosition, setLastClickedPosition] = useState(null)
+
+  const renderCursor = x => <rect x={x} y={0} width={1} height="100%" fill="black" />
 
   return (
     <div style={{ width: '1000px', margin: '40px auto 0' }}>
@@ -15,7 +17,7 @@ const RegionViewerExample = () => {
           { start: 200, stop: 300 },
         ]}
       >
-        <Cursor onClick={setLastClickedPosition}>
+        <Cursor onClick={setLastClickedPosition} renderCursor={renderCursor}>
           <Track>
             {({ scalePosition, width }) => {
               return (
