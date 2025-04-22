@@ -339,30 +339,30 @@ importers:
         specifier: ^15.7.2
         version: 15.8.1
       react:
-        specifier: ^17.0.0
-        version: 17.0.2
+        specifier: ^18.0.0
+        version: 18.3.1
       react-dom:
-        specifier: ^17.0.0
-        version: 17.0.2(react@17.0.2)
+        specifier: ^18.0.0
+        version: 18.3.1(react@18.3.1)
       styled-components:
         specifier: ^4.2.0
-        version: 4.4.1(react-dom@17.0.2)(react@17.0.2)
+        version: 4.4.1(react-dom@18.3.1)(react@18.3.1)
     devDependencies:
       '@testing-library/dom':
         specifier: ^10.4.0
         version: 10.4.0
       '@testing-library/react':
         specifier: ^10.0.1
-        version: 10.4.9(react-dom@17.0.2)(react@17.0.2)
+        version: 10.4.9(react-dom@18.3.1)(react@18.3.1)
       '@testing-library/user-event':
         specifier: ^14.6.1
         version: 14.6.1(@testing-library/dom@10.4.0)
       '@types/react':
-        specifier: ^17.0.0
-        version: 17.0.65
+        specifier: ^18.0.0
+        version: 18.3.20
       '@types/react-dom':
-        specifier: ^17.0.0
-        version: 17.0.20
+        specifier: ^18.0.0
+        version: 18.3.6(@types/react@18.3.20)
       '@types/react-test-renderer':
         specifier: ^18.0.0
         version: 18.3.1
@@ -5773,19 +5773,6 @@ packages:
       dom-accessibility-api: 0.5.16
       lodash: 4.17.21
       redent: 3.0.0
-    dev: true
-
-  /@testing-library/react@10.4.9(react-dom@17.0.2)(react@17.0.2):
-    resolution: {integrity: sha512-pHZKkqUy0tmiD81afs8xfiuseXfU/N7rAX3iKjeZYje86t9VaB0LrxYVa+OOsvkrveX5jCK3IjajVn2MbePvqA==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      react: '*'
-      react-dom: '*'
-    dependencies:
-      '@babel/runtime': 7.22.15
-      '@testing-library/dom': 7.31.2
-      react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
     dev: true
 
   /@testing-library/react@10.4.9(react-dom@18.3.1)(react@18.3.1):
@@ -11588,7 +11575,7 @@ packages:
       styled-components: ^2 || ^3 || ^4
     dependencies:
       css: 2.2.4
-      styled-components: 4.4.1(react-dom@17.0.2)(react@17.0.2)
+      styled-components: 4.4.1(react-dom@18.3.1)(react@18.3.1)
     dev: true
 
   /jest-util@29.7.0:
@@ -13712,6 +13699,7 @@ packages:
       object-assign: 4.1.1
       react: 17.0.2
       scheduler: 0.20.2
+    dev: false
 
   /react-dom@18.3.1(react@18.3.1):
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
@@ -13863,6 +13851,7 @@ packages:
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
+    dev: false
 
   /react@18.3.1:
     resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
@@ -14341,6 +14330,7 @@ packages:
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
+    dev: false
 
   /scheduler@0.23.2:
     resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
@@ -14959,6 +14949,7 @@ packages:
       stylis: 3.5.4
       stylis-rule-sheet: 0.0.10(stylis@3.5.4)
       supports-color: 5.5.0
+    dev: false
 
   /styled-components@4.4.1(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-RNqj14kYzw++6Sr38n7197xG33ipEOktGElty4I70IKzQF1jzaD1U4xQ+Ny/i03UUhHlC5NWEO+d8olRCDji6g==}
