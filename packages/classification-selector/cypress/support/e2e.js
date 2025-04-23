@@ -19,6 +19,15 @@ import './commands'
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
+// Ignore "ResizeObserver loop limit exceeded" errors caused by interaction
+// of Cypress and Storybook
+Cypress.on('uncaught:exception', error => {
+  if (error.message.match(/ResizeObserver loop/)) {
+    return false
+  }
+  return err
+})
+
 Cypress.Commands.add('getIframeBody', () => {
   // get the iframe > document > body
   // and retry until the body element is not empty

@@ -5,7 +5,8 @@
     "noUnusedParameters": true,
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "skipLibCheck": true
   },
   "exclude": ["lib", "coverage"]
 }
