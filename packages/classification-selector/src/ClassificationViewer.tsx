@@ -4,7 +4,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import TreeItem from '@mui/lab/TreeItem'
 import Button from '@mui/material/Button'
-import { makeStyles, createStyles } from '@mui/styles'
 import type * as CSS from 'csstype'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import ScopedCssBaseline from '@mui/material/ScopedCssBaseline'
@@ -16,6 +15,7 @@ import {
 } from './Utils'
 import useInternalState from './useClassificationSelectorState'
 import 'fontsource-roboto'
+import styled from '@emotion/styled'
 
 import {
   categoryTreeItemCypressDataAttr,
@@ -25,23 +25,14 @@ import {
 } from './cypressTestDataAttrs.json'
 
 type CategoryListMaxHeight = CSS.StandardLonghandProperties['maxHeight']
-interface MakeStyleProps {
-  categoryListMaxHeight: CategoryListMaxHeight
-  spacing: (n: number) => number
+type CategoryListTreeItemProps = {
+  maxheight?: CategoryListMaxHeight
 }
 
-const useMaterialStyles = makeStyles((theme: MakeStyleProps) =>
-  createStyles({
-    levelSelector: {
-      width: theme.spacing(5),
-    },
-    categoryList: {
-      maxHeight: ({ categoryListMaxHeight }: { categoryListMaxHeight: CategoryListMaxHeight }) =>
-        categoryListMaxHeight,
-      overflowY: 'auto',
-    },
-  })
-)
+const CategoryListTreeItem = styled(TreeItem)(({ maxheight }: CategoryListTreeItemProps) => ({
+  maxHeight: maxheight === undefined ? 'none' : maxheight,
+  overflowY: 'auto',
+}))
 
 const displayedHierarchicalCategoryToReactElem = (category: DisplayedHierarchicalCategory) => {
   const { nodeId } = category
@@ -75,7 +66,7 @@ type ExternallyControlledState = ReturnType<typeof useInternalState>
 export interface Props<Item> {
   classifications: Classification<Item>[]
   // How tall the category list is allowed to get (because the list can be very long):
-  categoryListMaxHeight?: MakeStyleProps['categoryListMaxHeight']
+  categoryListMaxHeight?: CategoryListMaxHeight
   selected: ExternallyControlledState['selected']
   setSelected: ExternallyControlledState['setSelected']
   expanded: ExternallyControlledState['expanded']
@@ -97,10 +88,7 @@ function ClassificationViewer<Item>({
   const handleToggle = (_e: React.ChangeEvent<unknown>, nodeIds: string[]) => setExpanded(nodeIds)
   const handleSelect = (_e: React.ChangeEvent<unknown>, nodeIds: string[]) => setSelected(nodeIds)
 
-  const materialClasses = useMaterialStyles({ categoryListMaxHeight })
-
   const classificationElems = classifications.map(classification => {
-    const categoryListClassName = materialClasses.categoryList
     let result: React.ReactNode
     if (classification.type === ClassificationType.Simple) {
       const {
@@ -118,15 +106,15 @@ function ClassificationViewer<Item>({
         />
       ))
       result = (
-        <TreeItem
+        <CategoryListTreeItem
           key={classificationNodeId}
           data-cy={classificationTreeItemCypressDataAttr}
           nodeId={classificationNodeId}
           label={classificationName}
-          classes={{ group: categoryListClassName }}
+          maxheight={categoryListMaxHeight}
         >
           {categoryElems}
-        </TreeItem>
+        </CategoryListTreeItem>
       )
     } else {
       const {
@@ -139,15 +127,15 @@ function ClassificationViewer<Item>({
       )
 
       result = (
-        <TreeItem
+        <CategoryListTreeItem
           key={classificationNodeId}
           data-cy={classificationTreeItemCypressDataAttr}
           nodeId={classificationNodeId}
-          classes={{ group: categoryListClassName }}
           label={classificationName}
+          maxheight={categoryListMaxHeight}
         >
           {categoryElems}
-        </TreeItem>
+        </CategoryListTreeItem>
       )
     }
     return result

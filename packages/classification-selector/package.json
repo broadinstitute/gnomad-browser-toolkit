@@ -17,6 +17,7 @@
     "cypress:open": "cypress open",
     "clean": "rm -rf lib",
     "typecheck": "tsc --noEmit",
+    "typecheck:watch": "tsc --noEmit -w",
     "tsc:declaration": "tsc --declaration --emitDeclarationOnly --outDir lib",
     "build": "pnpm clean && pnpm typecheck && pnpm tsc:declaration && pnpm rollup && cp src/cypressTestDataAttrs.json lib/",
     "rollup": "IS_ROLLUP=true rollup -c"
@@ -43,7 +44,6 @@
     "@mui/icons-material": "^5.14.9",
     "@mui/lab": "5.0.0-alpha.145",
     "@mui/material": "^5.14.10",
-    "@mui/styles": "^5.14.10",
     "fontsource-roboto": "2.2.6",
     "lodash": "4.17.21"
   },
