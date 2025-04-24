@@ -29,21 +29,21 @@
     "@rollup/plugin-node-resolve": "^15.2.1",
     "@storybook/react": "7.4.4",
     "@storybook/react-webpack5": "7.4.4",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
     "core-js": "3.6.5",
+    "csstype": "*",
     "cypress": "^14.0.0",
     "rollup": "^3.0.0",
-    "storybook": "7.4.4",
-    "csstype": "*",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0"
+    "storybook": "7.4.4"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/base": "5.0.0-beta.16",
     "@mui/icons-material": "^5.14.9",
-    "@mui/lab": "5.0.0-alpha.145",
-    "@mui/material": "^5.14.10",
+    "@mui/material": "^5.15.10",
+    "@mui/x-tree-view": "^8.1.0",
     "fontsource-roboto": "2.2.6",
     "lodash": "4.17.21"
   },

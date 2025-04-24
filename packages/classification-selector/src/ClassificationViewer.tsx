@@ -1,8 +1,8 @@
 import React from 'react'
-import TreeView from '@mui/lab/TreeView'
+import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView'
+import { TreeItem as BaseTreeItem, TreeItemProps, TreeItemContent } from '@mui/x-tree-view/TreeItem'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import TreeItem from '@mui/lab/TreeItem'
 import Button from '@mui/material/Button'
 import type * as CSS from 'csstype'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
@@ -29,6 +29,19 @@ type CategoryListTreeItemProps = {
   maxheight?: CategoryListMaxHeight
 }
 
+/* Older versions of the TreeItem component had no padding-top or padding-bottom. More recent versions do have them, so here we override those properties, to stay consistent with the old layout. */
+const UnpaddedTreeItemContent = styled(TreeItemContent)`
+  padding-top: 0;
+  padding-bottom: 0;
+`
+
+const TreeItem = (inputProps: TreeItemProps) => {
+  const inputSlots = inputProps.slots || {}
+  const slots = { ...inputSlots, content: UnpaddedTreeItemContent }
+  const props = { ...inputProps, slots }
+  return <BaseTreeItem {...props} />
+}
+
 const CategoryListTreeItem = styled(TreeItem)(({ maxheight }: CategoryListTreeItemProps) => ({
   maxHeight: maxheight === undefined ? 'none' : maxheight,
   overflowY: 'auto',
@@ -41,7 +54,7 @@ const displayedHierarchicalCategoryToReactElem = (category: DisplayedHierarchica
     const children = category.children.map(elem => displayedHierarchicalCategoryToReactElem(elem))
     return (
       <TreeItem
-        nodeId={nodeId}
+        itemId={nodeId}
         key={nodeId}
         data-cy={categoryTreeItemCypressDataAttr}
         label={displayedLabel}
@@ -52,11 +65,12 @@ const displayedHierarchicalCategoryToReactElem = (category: DisplayedHierarchica
   }
   return (
     <TreeItem
-      nodeId={nodeId}
+      itemId={nodeId}
       key={nodeId}
       data-cy={categoryTreeItemCypressDataAttr}
       label={displayedLabel}
-      icon={<FiberManualRecordIcon style={{ color: category.color }} />}
+      slots={{ icon: FiberManualRecordIcon }}
+      slotProps={{ icon: { style: { color: category.color } } }}
     />
   )
 }
@@ -99,17 +113,18 @@ function ClassificationViewer<Item>({
       const categoryElems = categories.map(({ nodeId, color, displayedLabel }) => (
         <TreeItem
           key={nodeId}
-          nodeId={nodeId}
+          itemId={nodeId}
           data-cy={categoryTreeItemCypressDataAttr}
           label={displayedLabel}
-          icon={<FiberManualRecordIcon style={{ color }} />}
+          slots={{ icon: FiberManualRecordIcon }}
+          slotProps={{ icon: { style: { color } } }}
         />
       ))
       result = (
         <CategoryListTreeItem
           key={classificationNodeId}
           data-cy={classificationTreeItemCypressDataAttr}
-          nodeId={classificationNodeId}
+          itemId={classificationNodeId}
           label={classificationName}
           maxheight={categoryListMaxHeight}
         >
@@ -130,7 +145,7 @@ function ClassificationViewer<Item>({
         <CategoryListTreeItem
           key={classificationNodeId}
           data-cy={classificationTreeItemCypressDataAttr}
-          nodeId={classificationNodeId}
+          itemId={classificationNodeId}
           label={classificationName}
           maxheight={categoryListMaxHeight}
         >
@@ -143,17 +158,16 @@ function ClassificationViewer<Item>({
   return (
     <>
       <ScopedCssBaseline>
-        <TreeView
+        <SimpleTreeView
           multiSelect
-          defaultCollapseIcon={<ExpandMoreIcon />}
-          defaultExpandIcon={<ChevronRightIcon />}
-          expanded={expanded}
-          selected={selected}
-          onNodeToggle={handleToggle}
-          onNodeSelect={handleSelect}
+          expandedItems={expanded}
+          selectedItems={selected}
+          onExpandedItemsChange={handleToggle}
+          onSelectedItemsChange={handleSelect}
+          slots={{ collapseIcon: ExpandMoreIcon, expandIcon: ChevronRightIcon }}
         >
           {classificationElems}
-        </TreeView>
+        </SimpleTreeView>
         <div>
           <Button
             variant="outlined"
