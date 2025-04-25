@@ -14,7 +14,6 @@ import {
   DisplayedHierarchicalCategory,
 } from './Utils'
 import useInternalState from './useClassificationSelectorState'
-import 'fontsource-roboto'
 import styled from '@emotion/styled'
 
 import {
