@@ -44,7 +44,6 @@
     "@mui/icons-material": "^5.14.9",
     "@mui/material": "^5.15.10",
     "@mui/x-tree-view": "^8.1.0",
-    "fontsource-roboto": "2.2.6",
     "lodash": "4.17.21"
   },
   "peerDependencies": {
