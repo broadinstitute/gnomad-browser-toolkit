@@ -44,7 +44,7 @@ function TestWrapper<Item extends TestItem>({
   return (
     <>
       <Grid container spacing={1}>
-        <Grid item xs={6}>
+        <Grid size={{ xs: 6 }}>
           <ClassificationViewer
             clearSelectedCategories={clearSelectedCategories}
             selectAllVisibleCategories={selectAllVisibleCategories}
@@ -55,7 +55,7 @@ function TestWrapper<Item extends TestItem>({
             setExpanded={setExpanded}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid size={{ xs: 6 }}>
           <Typography variant="h5" align="center">
             Selected items:
             <span data-cy={numFilteredItemsCypressDataAttr}>{filteredItems.length}</span>
