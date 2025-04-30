@@ -496,9 +496,6 @@ importers:
       react-aria-modal:
         specifier: ^5.0.0
         version: 5.0.2(prop-types@15.8.1)(react-dom@18.3.1)(react@18.3.1)
-      react-aria-tabpanel:
-        specifier: ^4.4.0
-        version: 4.4.0(react-dom@18.3.1)(react@18.3.1)
       react-autocomplete:
         specifier: ^1.8.1
         version: 1.8.1(react-dom@18.3.1)(react@18.3.1)
@@ -511,6 +508,9 @@ importers:
       react-sizeme:
         specifier: ^3.0.0
         version: 3.0.2
+      react-tabs:
+        specifier: ^6.1.0
+        version: 6.1.0(react@18.3.1)
       react-window:
         specifier: ^1.7.1
         version: 1.8.9(react-dom@18.3.1)(react@18.3.1)
@@ -8057,13 +8057,6 @@ packages:
       - ts-node
     dev: true
 
-  /create-react-class@15.7.0:
-    resolution: {integrity: sha512-QZv4sFWG9S5RUvkTYWbflxeZX+JG7Cz0Tn33rQBJ+WFQTqTfUTjMjiv9tnfXazjsO5r0KhPs+AqCjyrQX6h2ng==}
-    dependencies:
-      loose-envify: 1.4.0
-      object-assign: 4.1.1
-    dev: false
-
   /cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
     engines: {node: '>= 8'}
@@ -9725,10 +9718,6 @@ packages:
     resolution: {integrity: sha512-hEa5n0dta1RcaDwJDWbnyelw07PK7+Vx0f9kDht28JOt2hXgKdKGaT3wM45euWV2DxOXtzDSTaUgGSD/FPvC2Q==}
     engines: {node: '>=0.4.0'}
     dev: true
-
-  /focus-group@0.2.3:
-    resolution: {integrity: sha512-r6lvrLjRxPoewvkf53o/1fGTlpPiHjEdtPkJzYfOIhM8FsUN3OBHj44jr68crDgd4OVaqEXVljELIN5qY4y4zw==}
-    dev: false
 
   /focus-trap-react@10.2.3(prop-types@15.8.1)(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-YXBpFu/hIeSu6NnmV2xlXzOYxuWkoOtar9jzgp3lOmjWLWY59C/b8DtDHEAV4SPU07Nd/t+nS/SBNGkhUBFmEw==}
@@ -13376,19 +13365,6 @@ packages:
       - prop-types
     dev: false
 
-  /react-aria-tabpanel@4.4.0(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-mnwXP/BjaY4JZsR0cqlVupKhptWlIofl5/DsIoqsNYGb6y6idVP7aSr2vYUdJ4t8eEsXZqSwU3w45AGv5S9OyA==}
-    peerDependencies:
-      react: 0.14.x || ^15.0.0 || ^16.0.0
-      react-dom: 0.14.x || ^15.0.0 || ^16.0.0
-    dependencies:
-      create-react-class: 15.7.0
-      focus-group: 0.2.3
-      prop-types: 15.8.1
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-    dev: false
-
   /react-autocomplete@1.8.1(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-YQGVN5POdcI3G89wUVWnJhk9rLF6JeB6Ik6xnNpfvSMG4tJkksBzqOE4mkFNGqEz+2AaQw13xNmVXresg9E3zg==}
     peerDependencies:
@@ -13552,6 +13528,16 @@ packages:
       react: 18.3.1
       tslib: 2.6.2
     dev: true
+
+  /react-tabs@6.1.0(react@18.3.1):
+    resolution: {integrity: sha512-6QtbTRDKM+jA/MZTTefvigNxo0zz+gnBTVFw2CFVvq+f2BuH0nF0vDLNClL045nuTAdOoK/IL1vTP0ZLX0DAyQ==}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+    dependencies:
+      clsx: 2.1.1
+      prop-types: 15.8.1
+      react: 18.3.1
+    dev: false
 
   /react-transition-group@4.4.5(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g==}

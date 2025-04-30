@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Tabs } from '../src'
+import { Tabs } from '../src/Tabs'
 
 const TabsExample = () => (
   <Tabs
