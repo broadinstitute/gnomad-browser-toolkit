@@ -36,10 +36,10 @@
     "polished": "^3.2.0",
     "prop-types": "^15.7.2",
     "react-aria-modal": "^5.0.0",
-    "react-aria-tabpanel": "^4.4.0",
     "react-autocomplete": "^1.8.1",
     "react-popper": "^2.0.0",
     "react-sizeme": "^3.0.0",
+    "react-tabs": "^6.1.0",
     "react-window": "^1.7.1"
   },
   "peerDependencies": {

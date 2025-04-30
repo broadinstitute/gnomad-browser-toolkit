@@ -1,11 +1,13 @@
 import { transparentize } from 'polished'
-import PropTypes from 'prop-types'
+import { PropTypes } from 'prop-types'
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { Tab, TabPanel, TabList, Tabs as BaseTabs } from 'react-tabs'
 
-import { Tab, TabList, TabPanel, Wrapper } from 'react-aria-tabpanel'
+const activeTabColor = '#428bca'
+const inactiveTabColor = '#e0e0e0'
 
-const TabListWrapper = styled.ul`
+const StyledTabList = styled(TabList)`
   display: inline-flex;
   flex-direction: row;
   width: 100%;
@@ -22,62 +24,64 @@ const StyledTab = styled(Tab)`
   cursor: pointer;
 
   &:focus {
-    box-shadow: 0 0 0 0.2em ${transparentize(0.5, '#428bca')};
+    box-shadow: 0 0 0 0.2em ${transparentize(0.5, activeTabColor)};
   }
 `
 
-const TabLabel = styled.div`
+/* We split TabLabel like this, rather than having TabLabel be a styled.div
+ * directly, because React gets angry if you pass a non-DOM prop such as
+ * isActive to a DOM component such as a div. TabLabel being a
+ * styled(BaseTabLabel) lets us work around that. */
+
+// eslint-disable-next-line react/prop-types
+const BaseTabLabel = ({ isActive, ...props }) => <div {...props} />
+const TabLabel = styled(BaseTabLabel)`
   box-sizing: border-box;
   padding: 0.375em 0.75em;
-  border-color: ${props => (props.isActive ? '#428bca' : '#e0e0e0')};
+  border-color: ${props => (props.isActive ? activeTabColor : inactiveTabColor)};
   border-style: solid;
   border-top-left-radius: 0.5em;
   border-top-right-radius: 0.5em;
   border-width: 1px 1px 0 1px;
-  color: ${props => (props.isActive ? '#428bca' : 'inherit')};
+  color: ${props => (props.isActive ? activeTabColor : 'inherit')};
 `
 
-const StyledTabPanel = styled(TabPanel)`
+const TabPanelWrapper = styled.div`
   padding: 0.5em;
 `
 
-export const Tabs = ({ activeTabId: activeTabProp, tabs, onChange }) => {
+export const Tabs = props => {
+  const { tabs } = props
+  const onChange = props.onChange || (() => {})
+
   const [activeTabState, setActiveTabState] = useState(tabs[0].id)
-  const activeTabId = activeTabProp || activeTabState
+  const activeTabId = props.activeTabId || activeTabState
+
+  const activeTabIndex = tabs.findIndex(tab => tab.id === activeTabId)
+  const onSelect = newTabIndex => {
+    const newTabId = tabs[newTabIndex].id
+    setActiveTabState(newTabId)
+    onChange(newTabId)
+  }
 
   return (
-    <Wrapper
-      activeTabId={activeTabId}
-      onChange={tabId => {
-        setActiveTabState(tabId)
-        onChange(tabId)
-      }}
-    >
-      <TabList>
-        <TabListWrapper>
-          {tabs.map(tab => {
-            const { id, label } = tab
-            return (
-              <li key={id}>
-                <StyledTab active={id === activeTabId} id={id}>
-                  {({ isActive }) => <TabLabel isActive={isActive}>{label}</TabLabel>}
-                </StyledTab>
-              </li>
-            )
-          })}
-        </TabListWrapper>
-      </TabList>
-      <div>
-        {tabs.map(tab => {
-          const { id, render } = tab
+    <BaseTabs selectedIndex={activeTabIndex} onSelect={onSelect}>
+      <StyledTabList>
+        {tabs.map((tab, tabIndex) => {
+          const isActive = tabIndex === activeTabIndex
           return (
-            <StyledTabPanel key={id} active={id === activeTabId} tabId={id}>
-              {render()}
-            </StyledTabPanel>
+            <StyledTab key={tab.id}>
+              <TabLabel isActive={isActive}>{tab.label}</TabLabel>
+            </StyledTab>
           )
         })}
-      </div>
-    </Wrapper>
+      </StyledTabList>
+      <TabPanelWrapper>
+        {tabs.map(tab => (
+          <TabPanel key={tab.id}>{tab.render()}</TabPanel>
+        ))}
+      </TabPanelWrapper>
+    </BaseTabs>
   )
 }
 
@@ -87,13 +91,13 @@ Tabs.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
-      render: PropTypes.func.isRequired,
+      render: PropTypes.func.isRequired
     })
   ).isRequired,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func
 }
 
 Tabs.defaultProps = {
   activeTabId: undefined,
-  onChange: () => {},
+  onChange: () => {}
 }
