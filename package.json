@@ -73,5 +73,13 @@
   },
   "resolutions": {
     "memfs": "^4.0.0"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0"
+      }
+    }
   }
 }
