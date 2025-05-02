@@ -48,6 +48,7 @@ module.exports = {
     'react/forbid-prop-types': 'off',
     'import/order': 'off',
     'react/no-unescaped-entities': 'off',
+    'react/destructuring-assignment': 'off',
   },
   overrides: [
     {
