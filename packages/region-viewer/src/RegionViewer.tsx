@@ -18,7 +18,7 @@ const defaultRegionViewerContextValue: RegionViewerContextValue = {
   leftPanelWidth: 100,
   regions: [],
   rightPanelWidth: 160,
-  scalePosition: regionViewerScale([], [0, 1440]),
+  scalePosition: regionViewerScale([], [0, 1440])
 }
 
 export const RegionViewerContext = React.createContext<RegionViewerContextValue>(
@@ -43,7 +43,7 @@ export const RegionViewer = ({
   leftPanelWidth = 100,
   regions,
   rightPanelWidth = 160,
-  width,
+  width
 }: Props) => {
   const mergedRegions = mergeOverlappingRegions([...regions].sort((r1, r2) => r1.start - r2.start))
 
@@ -59,7 +59,7 @@ export const RegionViewer = ({
     leftPanelWidth,
     regions,
     rightPanelWidth,
-    scalePosition,
+    scalePosition
   }
 
   return (

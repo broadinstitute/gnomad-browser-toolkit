@@ -55,5 +55,5 @@ export const KeyboardShortcut = ({ handler, keys }) => {
 
 KeyboardShortcut.propTypes = {
   handler: PropTypes.func.isRequired,
-  keys: PropTypes.string.isRequired,
+  keys: PropTypes.string.isRequired
 }

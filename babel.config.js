@@ -5,9 +5,9 @@ const config = {
   plugins: ['@babel/plugin-proposal-class-properties', 'styled-components', 'inline-react-svg'],
   env: {
     test: {
-      plugins: ['@babel/plugin-transform-runtime'],
-    },
-  },
+      plugins: ['@babel/plugin-transform-runtime']
+    }
+  }
 }
 
 if (process.env.NODE_ENV === 'development') {
@@ -15,9 +15,9 @@ if (process.env.NODE_ENV === 'development') {
     'module-resolver',
     {
       alias: {
-        '@resources': path.resolve(__dirname, './resources'),
-      },
-    },
+        '@resources': path.resolve(__dirname, './resources')
+      }
+    }
   ])
 }
 

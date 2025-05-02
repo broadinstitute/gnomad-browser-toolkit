@@ -34,22 +34,22 @@ const layoutRows = (genes, scalePosition) => {
 const featureAttributes = {
   exon: {
     fill: '#bdbdbd',
-    height: 6,
+    height: 6
   },
   CDS: {
     fill: '#424242',
-    height: 16,
+    height: 16
   },
   UTR: {
     fill: '#424242',
-    height: 6,
-  },
+    height: 6
+  }
 }
 
 const featureTypeOrder = {
   exon: 0,
   UTR: 1,
-  CDS: 2,
+  CDS: 2
 }
 
 const featureTypeCompareFn = (r1, r2) =>
@@ -62,7 +62,7 @@ export const GenesPlot = ({
   includeNonCodingGenes,
   renderGeneLabel,
   scalePosition,
-  width,
+  width
 }) => {
   const rows = layoutRows(includeNonCodingGenes ? genes : genes.filter(isCodingGene), scalePosition)
   const rowHeight = 50
@@ -122,18 +122,18 @@ GenesPlot.propTypes = {
         PropTypes.shape({
           feature_type: PropTypes.oneOf(['CDS', 'exon', 'UTR']).isRequired,
           start: PropTypes.number.isRequired,
-          stop: PropTypes.number.isRequired,
+          stop: PropTypes.number.isRequired
         })
-      ).isRequired,
+      ).isRequired
     })
   ).isRequired,
   includeNonCodingGenes: PropTypes.bool,
   renderGeneLabel: PropTypes.func,
   scalePosition: PropTypes.func.isRequired,
-  width: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired
 }
 
 GenesPlot.defaultProps = {
   includeNonCodingGenes: false,
-  renderGeneLabel: gene => <text textAnchor="middle">{gene.symbol}</text>,
+  renderGeneLabel: gene => <text textAnchor="middle">{gene.symbol}</text>
 }

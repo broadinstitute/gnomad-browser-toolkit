@@ -9,15 +9,15 @@ import { Arrow, Container } from './tooltipStyles'
 export class TooltipAnchor extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    tooltipComponent: PropTypes.func,
+    tooltipComponent: PropTypes.func
   }
 
   static defaultProps = {
-    tooltipComponent: DefaultTooltip,
+    tooltipComponent: DefaultTooltip
   }
 
   state = {
-    isVisible: false,
+    isVisible: false
   }
 
   constructor(props) {
@@ -57,7 +57,7 @@ export class TooltipAnchor extends Component {
             React.cloneElement(React.Children.only(children), {
               onMouseEnter: this.showTooltip,
               onMouseLeave: this.hideTooltip,
-              ref,
+              ref
             })
           }
         </Reference>

@@ -8,12 +8,12 @@ module.exports = {
     hot: true,
     port: 8000,
     static: {
-      publicPath: '/',
-    },
+      publicPath: '/'
+    }
   },
   devtool: 'source-map',
   entry: {
-    bundle: path.resolve(__dirname, 'entry.js'),
+    bundle: path.resolve(__dirname, 'entry.js')
   },
   mode: 'development',
   module: {
@@ -24,30 +24,30 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            rootMode: 'upward',
-          },
-        },
+            rootMode: 'upward'
+          }
+        }
       },
       {
         test: /\.(gif|jpg|png)$/,
-        use: 'file-loader',
+        use: 'file-loader'
       },
       {
         test: /\.m?js$/,
         resolve: {
-          fullySpecified: false,
-        },
-      },
-    ],
+          fullySpecified: false
+        }
+      }
+    ]
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    filename: '[name].js',
+    filename: '[name].js'
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './index.html'),
-    }),
-  ],
+      template: path.resolve(__dirname, './index.html')
+    })
+  ]
 }

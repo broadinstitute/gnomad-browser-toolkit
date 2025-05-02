@@ -1,6 +1,6 @@
 export enum ClassificationType {
   Simple,
-  Hierarchical,
+  Hierarchical
 }
 
 export interface Predicate<Item> {

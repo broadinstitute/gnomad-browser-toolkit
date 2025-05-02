@@ -4,7 +4,7 @@ import { Button, Modal } from '../src'
 
 export default class ModalExample extends Component {
   state = {
-    isModalOpen: false,
+    isModalOpen: false
   }
 
   render() {
@@ -16,7 +16,7 @@ export default class ModalExample extends Component {
           disabled={isModalOpen}
           onClick={() => {
             this.setState({
-              isModalOpen: true,
+              isModalOpen: true
             })
           }}
         >

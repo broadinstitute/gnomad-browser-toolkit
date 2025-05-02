@@ -2,7 +2,7 @@ import { darken, transparentize } from 'polished'
 import styled from 'styled-components'
 
 export const BaseButton = styled.button.attrs({
-  type: 'button',
+  type: 'button'
 })`
   box-sizing: border-box;
   height: calc(2em + 2px);
@@ -44,18 +44,18 @@ export const BaseButton = styled.button.attrs({
 /* stylelint-disable block-no-empty */
 export const Button = styled(BaseButton).attrs({
   backgroundColor: '#f8f9fa',
-  borderColor: '#6c757d',
+  borderColor: '#6c757d'
 })``
 
 export const PrimaryButton = styled(BaseButton).attrs({
   backgroundColor: '#428bca',
   borderColor: '#428bca',
-  textColor: '#fff',
+  textColor: '#fff'
 })``
 /* stylelint-enable block-no-empty */
 
 export const TextButton = styled.button.attrs({
-  type: 'button',
+  type: 'button'
 })`
   padding: 0;
   border: none;

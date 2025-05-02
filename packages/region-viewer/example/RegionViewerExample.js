@@ -14,7 +14,7 @@ const RegionViewerExample = () => {
         width={1000}
         regions={[
           { start: 0, stop: 100 },
-          { start: 200, stop: 300 },
+          { start: 200, stop: 300 }
         ]}
       >
         <Cursor onClick={setLastClickedPosition} renderCursor={renderCursor}>
@@ -36,7 +36,7 @@ const RegionViewerExample = () => {
           boxSizing: 'border-box',
           margin: '1em 0',
           paddingLeft: '100px',
-          width: '1000px',
+          width: '1000px'
         }}
       >
         <label htmlFor="position">

@@ -18,7 +18,7 @@ const columns = [...Array(10)].map((val, index) => ({
   heading: `Column ${String.fromCharCode(65 + index)}`,
   key: index.toString(),
   isSortable: true,
-  render: row => row[index],
+  render: row => row[index]
 }))
 
 const GridExample = () => (

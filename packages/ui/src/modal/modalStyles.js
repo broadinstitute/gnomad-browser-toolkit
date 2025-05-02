@@ -10,21 +10,21 @@ const mediumScreenMaxWidth = {
   small: 300,
   medium: 500,
   large: 500,
-  xlarge: 500,
+  xlarge: 500
 }
 
 const largeScreenMaxWidth = {
   small: 300,
   medium: 500,
   large: 800,
-  xlarge: 800,
+  xlarge: 800
 }
 
 const extraLargeScreenMaxWidth = {
   small: 300,
   medium: 500,
   large: 800,
-  xlarge: 1360,
+  xlarge: 1360
 }
 
 export const ModalContent = styled.div`
@@ -88,5 +88,5 @@ export const ModalHeaderCloseButton = styled.button`
 export const underlayStyle = {
   boxSizing: 'border-box',
   padding: '2em 0',
-  zIndex: zIndices.modal,
+  zIndex: zIndices.modal
 }

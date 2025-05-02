@@ -14,9 +14,9 @@ export const VariantTrack = ({ title, ...otherProps }) => (
 )
 
 VariantTrack.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string
 }
 
 VariantTrack.defaultProps = {
-  title: '',
+  title: ''
 }

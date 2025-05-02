@@ -8,7 +8,7 @@ import gene from './PCSK9.json'
 
 const regionViewerRegions = gene.exons.map(({ start, stop }) => ({
   start: start - 75,
-  stop: stop + 75,
+  stop: stop + 75
 }))
 
 const TranscriptsTrackExample = () => (

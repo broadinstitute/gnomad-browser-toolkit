@@ -4,7 +4,7 @@ import { Checkbox } from '../src'
 
 export default class CheckboxExample extends Component {
   state = {
-    isChecked: false,
+    isChecked: false
   }
 
   render() {

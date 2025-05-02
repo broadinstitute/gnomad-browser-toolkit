@@ -6,7 +6,7 @@ import {
   generateNodeId,
   getDisplayedHierarchicalClassification,
   getDisplayedSimpleClassification,
-  serializeHierarchicalPath,
+  serializeHierarchicalPath
 } from './Utils'
 import usePrevious from './usePrevious'
 
@@ -39,12 +39,12 @@ const parseSelectedNodeIds = (selectedNodeIds: string[]) => {
       if (parsed.classificationType === ClassificationType.Simple) {
         selectedSimpleCategories.push({
           classificationName: parsed.classification,
-          name: parsed.category,
+          name: parsed.category
         })
       } else {
         selectedHierarchicalCategories.push({
           classificationName: parsed.classification,
-          path: parsed.path,
+          path: parsed.path
         })
       }
     } else {
@@ -55,7 +55,7 @@ const parseSelectedNodeIds = (selectedNodeIds: string[]) => {
     selectedSimpleCategories,
     selectedHierarchicalCategories,
     selectedHollowClassifications,
-    selectedNonHollowClassifications: _uniq(selectedNonHollowClassifications),
+    selectedNonHollowClassifications: _uniq(selectedNonHollowClassifications)
   }
 }
 
@@ -68,7 +68,7 @@ interface Inputs<Item> {
 export default <Item>({
   classifications,
   items,
-  shouldAutoExpandFirstClassification,
+  shouldAutoExpandFirstClassification
 }: Inputs<Item>) => {
   const [selected, setSelected] = useState<string[]>([])
   const [expanded, setExpanded] = useState<string[]>(() => {
@@ -79,12 +79,12 @@ export default <Item>({
           ? generateNodeId({
               classificationType: ClassificationType.Simple,
               type: 'classification',
-              classification: firstClassification.name,
+              classification: firstClassification.name
             })
           : generateNodeId({
               classification: firstClassification.name,
               classificationType: ClassificationType.Hierarchical,
-              type: 'classification',
+              type: 'classification'
             })
       return [classificationNodeId]
     }
@@ -95,7 +95,7 @@ export default <Item>({
     selectedNonHollowClassifications: currentClassificationNames,
     selectedHierarchicalCategories: currentHierarchicalCategories,
     selectedSimpleCategories: currentSimpleCategories,
-    selectedHollowClassifications,
+    selectedHollowClassifications
   } = useMemo(() => parseSelectedNodeIds(selected), [selected])
   const prevSelected = usePrevious(selected)
 
@@ -126,7 +126,7 @@ export default <Item>({
             classification: classificationName,
             classificationType: ClassificationType.Hierarchical,
             type: 'category',
-            path,
+            path
           })
         )
       }
@@ -138,7 +138,7 @@ export default <Item>({
             classification: classificationName,
             classificationType: ClassificationType.Simple,
             type: 'category',
-            category: name,
+            category: name
           })
         )
       }
@@ -230,7 +230,7 @@ export default <Item>({
             result.push({
               ...item,
               group: thisCategoryName,
-              color: thisCategoryColor,
+              color: thisCategoryColor
             })
             break
           }
@@ -246,7 +246,7 @@ export default <Item>({
               result.push({
                 ...item,
                 group: serializeHierarchicalPath(pathValue),
-                color,
+                color
               })
             }
           }
@@ -263,7 +263,7 @@ export default <Item>({
         const classificationNodeId = generateNodeId({
           classification: soleClassification.classificationName,
           classificationType: ClassificationType.Hierarchical,
-          type: 'classification',
+          type: 'classification'
         })
         setSelected([classificationNodeId])
       } else if (currentSimpleCategories.length > 0) {
@@ -271,7 +271,7 @@ export default <Item>({
         const classificationNodeId = generateNodeId({
           classification: soleClassification.classificationName,
           classificationType: ClassificationType.Simple,
-          type: 'classification',
+          type: 'classification'
         })
         setSelected([classificationNodeId])
       }
@@ -280,7 +280,7 @@ export default <Item>({
     setSelected,
     currentClassificationNames,
     currentHierarchicalCategories,
-    currentSimpleCategories,
+    currentSimpleCategories
   ])
   const selectAllVisibleCategories = useCallback(() => {
     let targetClassification: Classification<Item> | undefined
@@ -299,7 +299,7 @@ export default <Item>({
         const classificationNodeId = generateNodeId({
           classificationType: ClassificationType.Simple,
           type: 'classification',
-          classification: targetClassification.name,
+          classification: targetClassification.name
         })
         setExpanded([classificationNodeId])
         setSelected(categories.map(({ nodeId }) => nodeId))
@@ -310,7 +310,7 @@ export default <Item>({
         const classificationNodeId = generateNodeId({
           classificationType: ClassificationType.Hierarchical,
           type: 'classification',
-          classification: targetClassification.name,
+          classification: targetClassification.name
         })
         const expandedCategories = branchCategories.map(({ nodeId }) => nodeId)
         setExpanded([...expandedCategories, classificationNodeId])
@@ -326,6 +326,6 @@ export default <Item>({
     clearSelectedCategories,
     selectAllVisibleCategories,
     filteredItems,
-    filteredItemsWithColorAndGrouping,
+    filteredItemsWithColorAndGrouping
   }
 }

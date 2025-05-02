@@ -31,7 +31,7 @@ describe('Cursor', () => {
   const regions = [
     { start: 91, stop: 109 },
     { start: 191, stop: 209 },
-    { start: 321, stop: 381 },
+    { start: 321, stop: 381 }
   ]
 
   test('has no unexpected changes', () => {

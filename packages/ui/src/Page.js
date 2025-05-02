@@ -54,10 +54,10 @@ export const PageHeading = ({ children, className, renderPageControls }) => (
 PageHeading.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
-  renderPageControls: PropTypes.func,
+  renderPageControls: PropTypes.func
 }
 
 PageHeading.defaultProps = {
   className: undefined,
-  renderPageControls: undefined,
+  renderPageControls: undefined
 }

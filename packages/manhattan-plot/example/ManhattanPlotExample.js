@@ -7,7 +7,7 @@ import { ManhattanPlot } from '../src'
 const dataPoints = data.map(d => ({
   chrom: `${d.chromosome}`,
   pos: d.pos,
-  pval: d.pvalue,
+  pval: d.pvalue
 }))
 
 const ManhattanPlotExample = () => (

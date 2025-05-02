@@ -11,10 +11,10 @@ const simpleClassifications = [
     categories: [
       { name: 'simple category 1', itemCount: 5, color: '#7fc97f' },
       { name: 'simple category 2', itemCount: 3, color: '#beaed4' },
-      { name: 'simple category 3', itemCount: 2, color: '#fdc086' },
+      { name: 'simple category 3', itemCount: 2, color: '#fdc086' }
     ],
-    getCategoryValueOfItem: ({ simpleCategory }) => simpleCategory,
-  },
+    getCategoryValueOfItem: ({ simpleCategory }) => simpleCategory
+  }
 ]
 const hierarchicalClassifications = [
   {
@@ -27,80 +27,80 @@ const hierarchicalClassifications = [
       {
         path: ['category 1-1--2', 'category 1-2--3', 'category 1-3--1'],
         itemCount: 2,
-        color: '#ffff99',
+        color: '#ffff99'
       },
       {
         path: ['category 1-1--2', 'category 1-2--3', 'category 1-3--2'],
         itemCount: 1,
-        color: '#386cb0',
+        color: '#386cb0'
       },
       {
         path: ['category 2-1--1', 'category 2-2--1', 'category 2-3--2', 'category 2-4--1'],
         itemCount: 1,
-        color: '#f0027f',
-      },
+        color: '#f0027f'
+      }
     ],
-    getPathValueOfItem: item => item.hierarchicalClassifications,
-  },
+    getPathValueOfItem: item => item.hierarchicalClassifications
+  }
 ]
 const items = [
   {
     name: 'item a',
     simpleCategory: 'simple category 1',
-    hierarchicalClassifications: [['category 1-1--1'], ['category 1-1--2', 'category 1-2--1']],
+    hierarchicalClassifications: [['category 1-1--1'], ['category 1-1--2', 'category 1-2--1']]
   },
   {
     name: 'item b',
     simpleCategory: 'simple category 1',
-    hierarchicalClassifications: [['category 1-1--2', 'category 1-2--1']],
+    hierarchicalClassifications: [['category 1-1--2', 'category 1-2--1']]
   },
   {
     name: 'item c',
     simpleCategory: 'simple category 1',
-    hierarchicalClassifications: [['category 1-1--2', 'category 1-2--2']],
+    hierarchicalClassifications: [['category 1-1--2', 'category 1-2--2']]
   },
   {
     name: 'item d',
     simpleCategory: 'simple category 2',
-    hierarchicalClassifications: [['category 1-1--2', 'category 1-2--3', 'category 1-3--1']],
+    hierarchicalClassifications: [['category 1-1--2', 'category 1-2--3', 'category 1-3--1']]
   },
   {
     name: 'item e',
     simpleCategory: 'simple category 3',
-    hierarchicalClassifications: [['category 1-1--2', 'category 1-2--3', 'category 1-3--2']],
+    hierarchicalClassifications: [['category 1-1--2', 'category 1-2--3', 'category 1-3--2']]
   },
   {
     name: 'item f',
     simpleCategory: 'simple category 1',
     hierarchicalClassifications: [
-      ['category 2-1--1', 'category 2-2--1', 'category 2-3--2', 'category 2-4--1'],
-    ],
+      ['category 2-1--1', 'category 2-2--1', 'category 2-3--2', 'category 2-4--1']
+    ]
   },
   {
     name: 'item g',
     simpleCategory: 'simple category 2',
-    hierarchicalClassifications: [['category 1-1--1']],
+    hierarchicalClassifications: [['category 1-1--1']]
   },
   {
     name: 'item h',
     simpleCategory: 'simple category 3',
-    hierarchicalClassifications: [['category 1-1--2', 'category 1-2--1']],
+    hierarchicalClassifications: [['category 1-1--2', 'category 1-2--1']]
   },
   {
     name: 'item i',
     simpleCategory: 'simple category 1',
-    hierarchicalClassifications: [['category 1-1--2', 'category 1-2--2']],
+    hierarchicalClassifications: [['category 1-1--2', 'category 1-2--2']]
   },
   {
     name: 'item j',
     simpleCategory: 'simple category 2',
-    hierarchicalClassifications: [['category 1-1--2', 'category 1-2--3', 'category 1-3--1']],
+    hierarchicalClassifications: [['category 1-1--2', 'category 1-2--3', 'category 1-3--1']]
   },
   {
     name: 'item z',
     simpleCategory: undefined,
-    hierarchicalClassifications: [],
-  },
+    hierarchicalClassifications: []
+  }
 ]
 
 export const simpleClassification = () => (
@@ -130,28 +130,28 @@ const selectAllSelectNoneClassifications = [
     categories: [
       { name: 'simple category 1', itemCount: 1, color: '#7fc97f' },
       { name: 'simple category 2', itemCount: 1, color: '#beaed4' },
-      { name: 'simple category 3', itemCount: 1, color: '#fdc086' },
+      { name: 'simple category 3', itemCount: 1, color: '#fdc086' }
     ],
-    getCategoryValueOfItem: ({ simpleCategory }) => simpleCategory,
-  },
+    getCategoryValueOfItem: ({ simpleCategory }) => simpleCategory
+  }
 ]
 const selectAllSelectNoneItems = [
   {
     name: 'item a',
-    simpleCategory: 'simple category 1',
+    simpleCategory: 'simple category 1'
   },
   {
     name: 'item b',
-    simpleCategory: 'simple category 2',
+    simpleCategory: 'simple category 2'
   },
   {
     name: 'item c',
-    simpleCategory: 'simple category 3',
+    simpleCategory: 'simple category 3'
   },
   {
     name: 'item z',
-    simpleCategory: undefined,
-  },
+    simpleCategory: undefined
+  }
 ]
 
 export const selectAllOrNoneSimpleClassification = () => (

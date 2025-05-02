@@ -7,7 +7,7 @@ export type {
   HierarchicalClassification,
   SimpleClassification,
   SimpleCategory,
-  HierarchicalCategory,
+  HierarchicalCategory
 } from './types'
 export { useClassificationSelectorState }
 export { ClassificationType } from './types'

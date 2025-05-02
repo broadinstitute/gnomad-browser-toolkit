@@ -63,22 +63,22 @@ export class SegmentedControl extends Component {
       PropTypes.shape({
         disabled: PropTypes.bool,
         label: PropTypes.string,
-        value: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.string]),
+        value: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.string])
       })
     ).isRequired,
     textColor: PropTypes.string,
-    value: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.string]).isRequired,
+    value: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.string]).isRequired
   }
 
   static defaultProps = {
     backgroundColor: '#f8f9fa',
     borderColor: '#6c757d',
     disabled: false,
-    textColor: '#000',
+    textColor: '#000'
   }
 
   state = {
-    isFocused: false,
+    isFocused: false
   }
 
   onBlur = () => {
@@ -124,7 +124,7 @@ export class SegmentedControl extends Component {
           // eslint-disable-next-line jsx-a11y/label-has-for
           <label key={`${opt.value}-label`} htmlFor={`segmented-control-input-${id}-${opt.value}`}>
             {opt.label || opt.value}
-          </label>,
+          </label>
         ])}
       </SegmentedControlContainer>
     )

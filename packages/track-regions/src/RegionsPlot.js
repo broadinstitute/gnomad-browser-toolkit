@@ -20,7 +20,7 @@ export const RegionsPlot = ({
         fill: '#000',
         height,
         stroke: 'none',
-        ...regionAttributes(region),
+        ...regionAttributes(region)
       }
 
       return (
@@ -42,17 +42,17 @@ RegionsPlot.propTypes = {
   regions: PropTypes.arrayOf(
     PropTypes.shape({
       start: PropTypes.number.isRequired,
-      stop: PropTypes.number.isRequired,
+      stop: PropTypes.number.isRequired
     })
   ).isRequired,
   regionAttributes: PropTypes.func,
   regionKey: PropTypes.func,
   scalePosition: PropTypes.func.isRequired,
-  width: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired
 }
 
 RegionsPlot.defaultProps = {
   axisColor: '#bdbdbd',
   regionAttributes: () => ({}),
-  regionKey: region => `${region.start}-${region.stop}`,
+  regionKey: region => `${region.start}-${region.stop}`
 }

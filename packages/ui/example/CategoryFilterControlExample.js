@@ -7,7 +7,7 @@ const CategoryFilterControlExample = () => {
     lof: true,
     missense: true,
     synonymous: true,
-    other: true,
+    other: true
   })
 
   return (
@@ -16,23 +16,23 @@ const CategoryFilterControlExample = () => {
         {
           id: 'lof',
           label: 'LoF',
-          color: '#FF583F',
+          color: '#FF583F'
         },
         {
           id: 'missense',
           label: 'Missense',
-          color: '#F0C94D',
+          color: '#F0C94D'
         },
         {
           id: 'synonymous',
           label: 'Synonymous',
-          color: 'green',
+          color: 'green'
         },
         {
           id: 'other',
           label: 'Other',
-          color: '#757575',
-        },
+          color: '#757575'
+        }
       ]}
       id="category-filter-control-example"
       categorySelections={categorySelections}

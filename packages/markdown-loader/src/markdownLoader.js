@@ -47,7 +47,7 @@ const markdownLoader = function (content) {
   translateMarkdown(content).then(vfile => {
     let output = `export default ${JSON.stringify({
       ...vfile.data,
-      html: vfile.contents,
+      html: vfile.contents
     })};`
 
     const imports = []

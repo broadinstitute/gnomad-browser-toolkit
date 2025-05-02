@@ -90,11 +90,11 @@ SearchInput.propTypes = {
   id: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.string
 }
 
 SearchInput.defaultProps = {
   id: undefined,
   placeholder: 'Search',
-  value: undefined,
+  value: undefined
 }

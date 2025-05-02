@@ -10,7 +10,7 @@ import {
   ModalHeader,
   ModalHeaderCloseButton,
   ModalTitle,
-  underlayStyle,
+  underlayStyle
 } from './modalStyles'
 
 function getApplicationNode() {
@@ -32,14 +32,14 @@ export class Modal extends Component {
     id: PropTypes.string,
     onRequestClose: PropTypes.func.isRequired,
     size: PropTypes.oneOf(['small', 'medium', 'large', 'xlarge']),
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired
   }
 
   static defaultProps = {
     children: undefined,
     footer: undefined,
     id: undefined,
-    size: 'medium',
+    size: 'medium'
   }
 
   /* eslint-disable react/sort-comp */

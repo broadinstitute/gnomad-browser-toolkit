@@ -5,7 +5,7 @@ import {
   isVariantId,
   parseVariantId,
   normalizeVariantId,
-  isRsId,
+  isRsId
 } from './identifiers'
 
 const test = (fn, positiveTestCases, negativeTestCases) => {
@@ -39,7 +39,7 @@ describe('isRegionId', () => {
     '5/247,300/248,175',
     '1\u201315342343\u201415342563',
     '1_15342343_15342563',
-    '1|15342343|15342563',
+    '1|15342343|15342563'
   ]
 
   const negativeTestCases = [
@@ -48,7 +48,7 @@ describe('isRegionId', () => {
     '3-356788-123245',
     '54-12432-15440',
     '...chr1-13414',
-    'chr1-13414...',
+    'chr1-13414...'
   ]
 
   test(isRegionId, positiveTestCases, negativeTestCases)
@@ -72,10 +72,10 @@ describe('parseRegionId', () => {
     { input: '5/247,300/248,175', parsed: { chrom: '5', start: 247300, stop: 248175 } },
     {
       input: '1\u201315342343\u201415342563',
-      parsed: { chrom: '1', start: 15342343, stop: 15342563 },
+      parsed: { chrom: '1', start: 15342343, stop: 15342563 }
     },
     { input: '1_15342343_15342563', parsed: { chrom: '1', start: 15342343, stop: 15342563 } },
-    { input: '1|15342343|15342563', parsed: { chrom: '1', start: 15342343, stop: 15342563 } },
+    { input: '1|15342343|15342563', parsed: { chrom: '1', start: 15342343, stop: 15342563 } }
   ]
 
   testCases.forEach(({ input, parsed }) => {
@@ -91,7 +91,7 @@ describe('parseRegionId', () => {
       '3-356788-123245',
       '54-12432-15440',
       '...chr1-13414',
-      'chr1-13414...',
+      'chr1-13414...'
     ]
     negativeTestCases.forEach(str => {
       expect(() => parseRegionId(str)).toThrow('Invalid region ID')
@@ -117,7 +117,7 @@ describe('normalizeRegionId', () => {
     { input: '5/247,300/248,175', normalized: '5-247300-248175' },
     { input: '1\u201315342343\u201415342563', normalized: '1-15342343-15342563' },
     { input: '1_15342343_15342563', normalized: '1-15342343-15342563' },
-    { input: '1|15342343|15342563', normalized: '1-15342343-15342563' },
+    { input: '1|15342343|15342563', normalized: '1-15342343-15342563' }
   ]
 
   testCases.forEach(({ input, normalized }) => {
@@ -142,7 +142,7 @@ describe('isVariantId', () => {
     '21:47406495 CT>C',
     '1:55516888  G/GA',
     '1_55516888_G_GA',
-    '1|55516888|G|GA',
+    '1|55516888|G|GA'
   ]
 
   const negativeTestCases = [
@@ -160,7 +160,7 @@ describe('isVariantId', () => {
     '1T-100-A-G',
     '32-100-C-T',
     '...1-13414-a-c',
-    '1-13414-a-c...',
+    '1-13414-a-c...'
   ]
 
   test(isVariantId, positiveTestCases, negativeTestCases)
@@ -183,10 +183,10 @@ describe('parseVariantId', () => {
     { input: '1:55516888  G/GA', parsed: { chrom: '1', pos: 55516888, ref: 'G', alt: 'GA' } },
     {
       input: '1\u201355516888\u2014G\u2014GA',
-      parsed: { chrom: '1', pos: 55516888, ref: 'G', alt: 'GA' },
+      parsed: { chrom: '1', pos: 55516888, ref: 'G', alt: 'GA' }
     },
     { input: '1_55516888_G_GA', parsed: { chrom: '1', pos: 55516888, ref: 'G', alt: 'GA' } },
-    { input: '1|55516888|G|GA', parsed: { chrom: '1', pos: 55516888, ref: 'G', alt: 'GA' } },
+    { input: '1|55516888|G|GA', parsed: { chrom: '1', pos: 55516888, ref: 'G', alt: 'GA' } }
   ]
 
   testCases.forEach(({ input, parsed }) => {
@@ -211,7 +211,7 @@ describe('parseVariantId', () => {
       '1T-100-A-G',
       '32-100-C-T',
       '...1-13414-a-c',
-      '1-13414-a-c...',
+      '1-13414-a-c...'
     ]
 
     negativeTestCases.forEach(str => {
@@ -237,10 +237,10 @@ describe('normalizeVariantId', () => {
     { input: '1:55516888  G/GA', normalized: '1-55516888-G-GA' },
     {
       input: '1\u201355516888\u2014G\u2014GA',
-      normalized: '1-55516888-G-GA',
+      normalized: '1-55516888-G-GA'
     },
     { input: '1_55516888_G_GA', normalized: '1-55516888-G-GA' },
-    { input: '1|55516888|G|GA', normalized: '1-55516888-G-GA' },
+    { input: '1|55516888|G|GA', normalized: '1-55516888-G-GA' }
   ]
 
   testCases.forEach(({ input, normalized }) => {

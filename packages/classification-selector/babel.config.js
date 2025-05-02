@@ -10,11 +10,11 @@ if (process.env.CYPRESS_INTERNAL_ENV !== undefined) {
         '@babel/preset-env',
         {
           targets: {
-            node: 'current',
+            node: 'current'
           },
-          modules: false,
-        },
-      ],
+          modules: false
+        }
+      ]
     ]
   } else if (process.env.NODE_ENV === 'test') {
     presets = [
@@ -23,14 +23,14 @@ if (process.env.CYPRESS_INTERNAL_ENV !== undefined) {
         '@babel/preset-env',
         {
           targets: {
-            node: 'current',
-          },
-        },
-      ],
+            node: 'current'
+          }
+        }
+      ]
     ]
   }
 }
 
 module.exports = {
-  presets,
+  presets
 }

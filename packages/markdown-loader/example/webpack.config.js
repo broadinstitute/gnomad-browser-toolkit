@@ -5,40 +5,40 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: {
-    bundle: path.resolve(__dirname, 'MarkdownLoaderExample.js'),
+    bundle: path.resolve(__dirname, 'MarkdownLoaderExample.js')
   },
   mode: 'development',
   module: {
     rules: [
       {
         test: /\.(gif|jpg|png)$/,
-        use: 'file-loader',
+        use: 'file-loader'
       },
       {
         test: /\.md$/,
-        use: path.resolve(__dirname, '..'),
+        use: path.resolve(__dirname, '..')
       },
       {
         test: /\.m?js$/,
         resolve: {
-          fullySpecified: false,
-        },
-      },
-    ],
+          fullySpecified: false
+        }
+      }
+    ]
   },
   plugins: [
     new webpack.ProvidePlugin({
       process: 'process/browser',
-      Buffer: ['buffer', 'Buffer'],
+      Buffer: ['buffer', 'Buffer']
     }),
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin()
   ],
   resolve: {
     fallback: {
       path: require.resolve('path-browserify'),
       crypto: require.resolve('crypto-browserify'),
       stream: require.resolve('stream-browserify'),
-      vm: require.resolve('vm-browserify'),
-    },
-  },
+      vm: require.resolve('vm-browserify')
+    }
+  }
 }

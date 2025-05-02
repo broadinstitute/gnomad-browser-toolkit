@@ -18,11 +18,11 @@ export const QQPlot = ({
   xLabel,
   yDomain,
   yLabel,
-  xyStrokeStyle,
+  xyStrokeStyle
 }) => {
   dataPoints = dataPoints.map(d => ({
     ...d,
-    obs_pval: d.obs_pval === undefined ? (d.pval !== undefined ? d.pval : d.pvalue) : d.obs_pval,
+    obs_pval: d.obs_pval === undefined ? (d.pval !== undefined ? d.pval : d.pvalue) : d.obs_pval
   }))
 
   const minPval = min(dataPoints, d => d.obs_pval)
@@ -31,7 +31,7 @@ export const QQPlot = ({
     bottom: 55,
     left: 60,
     right: 10,
-    top: 10,
+    top: 10
   }
 
   const xScale = scaleLinear().range([0, width - margin.left - margin.right])
@@ -54,7 +54,7 @@ export const QQPlot = ({
   const points = sortedPoints.map((d, i, arr) => ({
     x: xScale(d.exp_pval ? -Math.log10(d.exp_pval) : -Math.log10((i + 1) / (arr.length + 1))),
     y: yScale(-Math.log10(d.obs_pval)),
-    data: d,
+    data: d
   }))
 
   const scale = window.devicePixelRatio || 1
@@ -309,7 +309,7 @@ export const QQPlot = ({
       width={width * scale}
       style={{
         height: `${height}px`,
-        width: `${width}px`,
+        width: `${width}px`
       }}
       onClick={onClick}
       onMouseLeave={drawPlot}
@@ -324,8 +324,8 @@ QQPlot.propTypes = {
       pval: PropTypes.number,
       pvalue: PropTypes.number,
       obs_pval: PropTypes.number,
-      exp_pval: PropTypes.number,
-    }),
+      exp_pval: PropTypes.number
+    })
   ).isRequired,
   gridLines: PropTypes.bool,
   height: PropTypes.number.isRequired,
@@ -337,20 +337,20 @@ QQPlot.propTypes = {
     PropTypes.shape({
       color: PropTypes.string,
       label: PropTypes.string,
-      value: PropTypes.number.isRequired,
-    }),
+      value: PropTypes.number.isRequired
+    })
   ),
   width: PropTypes.number.isRequired,
   xDomain: PropTypes.arrayOf(PropTypes.number),
   xLabel: PropTypes.string,
   yDomain: PropTypes.arrayOf(PropTypes.number),
   yLabel: PropTypes.string,
-  xyStrokeStyle: PropTypes.string,
+  xyStrokeStyle: PropTypes.string
 }
 
 QQPlot.defaultProps = {
   gridLines: true,
-  onClickPoint: () => { },
+  onClickPoint: () => {},
   pointColor: () => '#000',
   pointLabel: d => d.label,
   pointRadius: () => 3,
@@ -359,5 +359,5 @@ QQPlot.defaultProps = {
   xLabel: 'Expected -log10(p)',
   xDomain: undefined,
   yLabel: 'Observed -log10(p)',
-  xyStrokeStyle: '#CCC',
+  xyStrokeStyle: '#CCC'
 }

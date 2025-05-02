@@ -4,7 +4,7 @@ const {
   numFilteredItemsCypressDataAttr,
   categoryTreeItemCypressDataAttr,
   selectAllCypressDataAttr,
-  selectNoneCypressDataAttr,
+  selectNoneCypressDataAttr
 } = require('../../src/cypressTestDataAttrs.json')
 
 const attr = attrString => `[data-cy=${attrString}]`

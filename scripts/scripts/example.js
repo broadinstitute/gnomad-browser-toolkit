@@ -4,8 +4,8 @@ const webpackConfig = require('../example-server/webpack.config')
 
 webpackConfig.resolve = {
   alias: {
-    'example-component': `${process.cwd()}/example/index.js`,
-  },
+    'example-component': `${process.cwd()}/example/index.js`
+  }
 }
 
 process.env.NODE_ENV = 'development'

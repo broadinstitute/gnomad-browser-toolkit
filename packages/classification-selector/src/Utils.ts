@@ -46,14 +46,14 @@ export const parseNodeId = (
         return {
           classification,
           classificationType: ClassificationType.Simple,
-          type: 'classification',
+          type: 'classification'
         }
       }
       return {
         classification,
         classificationType: ClassificationType.Simple,
         type: 'category',
-        category: rawCategory,
+        category: rawCategory
       }
     }
   } else if (input.startsWith('hierarchical') === true) {
@@ -68,7 +68,7 @@ export const parseNodeId = (
         return {
           classification,
           classificationType: ClassificationType.Hierarchical,
-          type: 'classification',
+          type: 'classification'
         }
       }
       if (rawCategory !== '') {
@@ -77,7 +77,7 @@ export const parseNodeId = (
           classification,
           classificationType: ClassificationType.Hierarchical,
           type: 'category',
-          path,
+          path
         }
       }
       throw new Error(`Cannot parse hierarchical node id ${input}`)
@@ -101,12 +101,12 @@ interface DisplayedSimpleClassification {
 
 export const getDisplayedSimpleClassification = <Item>({
   name: classificationName,
-  categories,
+  categories
 }: SimpleClassification<Item>): DisplayedSimpleClassification => {
   const classificationNodeId = generateNodeId({
     type: 'classification',
     classificationType: ClassificationType.Simple,
-    classification: classificationName,
+    classification: classificationName
   })
 
   const processedCategories = categories.map(({ name: categoryName, itemCount, color }) => {
@@ -114,20 +114,20 @@ export const getDisplayedSimpleClassification = <Item>({
       type: 'category',
       classificationType: ClassificationType.Simple,
       classification: classificationName,
-      category: categoryName,
+      category: categoryName
     })
     return {
       name: categoryName,
       displayedLabel: `${categoryName} (${itemCount})`,
       nodeId,
-      color,
+      color
     }
   })
 
   return {
     nodeId: classificationNodeId,
     name: classificationName,
-    categories: processedCategories,
+    categories: processedCategories
   }
 }
 
@@ -158,7 +158,7 @@ interface DisplayedHierarchicalClassification {
 
 export const getDisplayedHierarchicalCategories = <Item>({
   name: classificationName,
-  categories,
+  categories
 }: HierarchicalClassification<Item>) => {
   const result: DisplayedHierarchicalCategory[] = []
   let leafCategories: DisplayedHierarchicalCategory[] = []
@@ -170,14 +170,14 @@ export const getDisplayedHierarchicalCategories = <Item>({
         type: 'category',
         classificationType: ClassificationType.Hierarchical,
         classification: classificationName,
-        path: category.path,
+        path: category.path
       })
       const item: DisplayedHierarchicalCategory = {
         nodeId,
         name: category.path[0],
         itemCount: category.itemCount,
         hasChildren: false,
-        color: category.color,
+        color: category.color
       }
       categoryLookup.set(nodeId, item)
       result.push(item)
@@ -189,7 +189,7 @@ export const getDisplayedHierarchicalCategories = <Item>({
           type: 'category',
           classificationType: ClassificationType.Hierarchical,
           classification: classificationName,
-          path: category.path.slice(0, childIndex + 1),
+          path: category.path.slice(0, childIndex + 1)
         })
         const foundChild = categoryLookup.get(childNodeId)
         let child: DisplayedHierarchicalCategory
@@ -200,7 +200,7 @@ export const getDisplayedHierarchicalCategories = <Item>({
               name: category.path[childIndex],
               itemCount: category.itemCount,
               hasChildren: false,
-              color: category.color,
+              color: category.color
             }
             categoryLookup.set(childNodeId, child)
             leafCategories.push(child)
@@ -218,7 +218,7 @@ export const getDisplayedHierarchicalCategories = <Item>({
           type: 'category',
           classificationType: ClassificationType.Hierarchical,
           classification: classificationName,
-          path: category.path.slice(0, parentIndex + 1),
+          path: category.path.slice(0, parentIndex + 1)
         })
         const foundParent = categoryLookup.get(parentNodeId)
         let parent: DisplayedHierarchicalCategory
@@ -228,7 +228,7 @@ export const getDisplayedHierarchicalCategories = <Item>({
             name: category.path[parentIndex],
             itemCount: 0,
             hasChildren: true,
-            children: [],
+            children: []
           }
           if (parentIndex === 0) {
             result.push(parent)
@@ -260,7 +260,7 @@ export const getDisplayedHierarchicalCategories = <Item>({
     categoriesAsList: result,
     categoriesLookup: categoryLookup,
     leafCategories,
-    branchCategories,
+    branchCategories
   }
 }
 
@@ -275,10 +275,10 @@ export const getDisplayedHierarchicalClassification = <Item>(
     nodeId: generateNodeId({
       type: 'classification',
       classification: classification.name,
-      classificationType: ClassificationType.Hierarchical,
+      classificationType: ClassificationType.Hierarchical
     }),
     categories: result.categoriesAsList,
     leafCategories: result.leafCategories,
-    branchCategories: result.branchCategories,
+    branchCategories: result.branchCategories
   }
 }

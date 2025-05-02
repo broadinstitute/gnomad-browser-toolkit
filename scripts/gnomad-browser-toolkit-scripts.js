@@ -12,7 +12,7 @@ const script = args[0]
 const scriptArgs = args.slice(1)
 
 const result = spawnSync('node', [require.resolve(`./scripts/${script}`), ...scriptArgs], {
-  stdio: 'inherit',
+  stdio: 'inherit'
 })
 if (result.signal) {
   process.exit(1)
