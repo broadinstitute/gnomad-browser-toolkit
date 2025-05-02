@@ -25,7 +25,7 @@ Cypress.on('uncaught:exception', error => {
   if (error.message.match(/ResizeObserver loop/)) {
     return false
   }
-  return err
+  return error
 })
 
 Cypress.Commands.add('getIframeBody', () => {
