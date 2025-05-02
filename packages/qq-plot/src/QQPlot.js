@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useMemo, useRef } from 'react'
 
 export const QQPlot = ({
-  dataPoints,
+  dataPoints: inputDatapoints,
   gridLines,
   height,
   onClickPoint,
@@ -20,9 +20,9 @@ export const QQPlot = ({
   yLabel,
   xyStrokeStyle
 }) => {
-  dataPoints = dataPoints.map(d => ({
+  const dataPoints = inputDatapoints.map(d => ({
     ...d,
-    obs_pval: d.obs_pval === undefined ? (d.pval !== undefined ? d.pval : d.pvalue) : d.obs_pval
+    obs_pval: d.obs_pval ?? d.pval ?? d.pvalue
   }))
 
   const minPval = min(dataPoints, d => d.obs_pval)
