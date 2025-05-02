@@ -6,19 +6,19 @@ import { RegionsPlot } from '@gnomad/track-regions'
 const FEATURE_COLORS = {
   exon: '#bdbdbd',
   CDS: '#424242',
-  UTR: '#424242',
+  UTR: '#424242'
 }
 
 const FEATURE_HEIGHT_MULTIPLIERS = {
   exon: 0.4,
   CDS: 1.0,
-  UTR: 0.4,
+  UTR: 0.4
 }
 
 const FEATURE_ORDER = {
   exon: 0,
   UTR: 1,
-  CDS: 2,
+  CDS: 2
 }
 
 const featureCompareFn = (r1, r2) => FEATURE_ORDER[r1.feature_type] - FEATURE_ORDER[r2.feature_type]
@@ -51,7 +51,7 @@ const TranscriptPlot = ({
       regionAttributes={exon => {
         return {
           fill: FEATURE_COLORS[exon.feature_type] || 'gray',
-          height: height * (FEATURE_HEIGHT_MULTIPLIERS[exon.feature_type] || 1.0),
+          height: height * (FEATURE_HEIGHT_MULTIPLIERS[exon.feature_type] || 1.0)
         }
       }}
       scalePosition={scalePosition}
@@ -70,17 +70,17 @@ TranscriptPlot.propTypes = {
       PropTypes.shape({
         feature_type: PropTypes.string.isRequired,
         start: PropTypes.number.isRequired,
-        stop: PropTypes.number.isRequired,
+        stop: PropTypes.number.isRequired
       })
-    ).isRequired,
+    ).isRequired
   }).isRequired,
-  width: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired
 }
 
 TranscriptPlot.defaultProps = {
   height: 10,
   showNonCodingExons: false,
-  showUTRs: false,
+  showUTRs: false
 }
 
 export default TranscriptPlot

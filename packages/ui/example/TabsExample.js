@@ -8,18 +8,18 @@ const TabsExample = () => (
       {
         id: 'foo',
         label: 'Tab #1',
-        render: () => 'First tab',
+        render: () => 'First tab'
       },
       {
         id: 'bar',
         label: 'Tab #2',
-        render: () => 'Second tab',
+        render: () => 'Second tab'
       },
       {
         id: 'baz',
         label: 'Tab #3',
-        render: () => 'Third tab',
-      },
+        render: () => 'Third tab'
+      }
     ]}
   />
 )

@@ -9,8 +9,8 @@ import { GenesTrack } from '../src'
 const regions = [
   {
     start: 175000000,
-    stop: 176500000,
-  },
+    stop: 176500000
+  }
 ]
 
 const GenesTrackExample = () => (

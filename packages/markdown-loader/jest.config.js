@@ -2,7 +2,7 @@
 module.exports = {
   preset: 'ts-jest',
   transform: {
-    '.': 'ts-jest',
+    '.': 'ts-jest'
   },
-  testPathIgnorePatterns: ['index.ts'],
+  testPathIgnorePatterns: ['index.ts']
 }

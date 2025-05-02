@@ -8,7 +8,7 @@ const allItems = [
   { label: 'ABD', value: 'item4' },
   { label: 'BAR', value: 'item5' },
   { label: 'BAZ', value: 'item6' },
-  { label: 'FOO', value: 'item7' },
+  { label: 'FOO', value: 'item7' }
 ]
 
 const fetchSearchResults = queryTerm => {

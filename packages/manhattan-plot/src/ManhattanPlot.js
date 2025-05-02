@@ -17,11 +17,11 @@ export const ManhattanPlot = ({
   thresholds,
   width,
   xLabel,
-  yLabel,
+  yLabel
 }) => {
   const positionExtents = chromosomes.reduce(
     (acc, chr) => ({ ...acc, [chr]: { min: Infinity, max: -Infinity } }),
-    Object.create(null),
+    Object.create(null)
   )
 
   for (let i = 0; i < dataPoints.length; i += 1) {
@@ -42,7 +42,7 @@ export const ManhattanPlot = ({
     bottom: 55,
     left: 60,
     right: 10,
-    top: 10,
+    top: 10
   }
 
   const xScale = scaleLinear()
@@ -61,7 +61,7 @@ export const ManhattanPlot = ({
   const points = dataPoints.map(d => ({
     data: d,
     x: xScale(chromOffset[d.chrom] + d.pos - positionExtents[d.chrom].min),
-    y: yScale(-Math.log10(d.pval)),
+    y: yScale(-Math.log10(d.pval))
   }))
 
   const scale = window.devicePixelRatio || 1
@@ -305,7 +305,7 @@ export const ManhattanPlot = ({
       width={width * scale}
       style={{
         height: `${height}px`,
-        width: `${width}px`,
+        width: `${width}px`
       }}
       onClick={onClick}
       onMouseLeave={drawPlot}
@@ -320,8 +320,8 @@ ManhattanPlot.propTypes = {
     PropTypes.shape({
       chrom: PropTypes.string.isRequired,
       pos: PropTypes.number.isRequired,
-      pval: PropTypes.number.isRequired,
-    }),
+      pval: PropTypes.number.isRequired
+    })
   ).isRequired,
   gridLines: PropTypes.bool,
   height: PropTypes.number.isRequired,
@@ -332,12 +332,12 @@ ManhattanPlot.propTypes = {
     PropTypes.shape({
       color: PropTypes.string,
       label: PropTypes.string,
-      value: PropTypes.number.isRequired,
-    }),
+      value: PropTypes.number.isRequired
+    })
   ),
   width: PropTypes.number.isRequired,
   xLabel: PropTypes.string,
-  yLabel: PropTypes.string,
+  yLabel: PropTypes.string
 }
 
 const CHROMOSOMES = Array.from(new Array(22), (_, i) => `${i + 1}`).concat(['X', 'Y'])
@@ -345,10 +345,10 @@ const CHROMOSOMES = Array.from(new Array(22), (_, i) => `${i + 1}`).concat(['X',
 ManhattanPlot.defaultProps = {
   chromosomes: CHROMOSOMES,
   gridLines: true,
-  onClickPoint: () => { },
+  onClickPoint: () => {},
   pointColor: rotateColorByChromosome(['rgb(139,53,40)', 'rgb(60,100,166)'], CHROMOSOMES),
   pointLabel: d => d.label,
   thresholds: [],
   xLabel: 'Chromosome',
-  yLabel: '-log10(p)',
+  yLabel: '-log10(p)'
 }

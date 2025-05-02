@@ -27,7 +27,7 @@ describe('Track', () => {
   test("makes isPositionDefined available via context, which indicates if a given position lies within any of the track's regions", () => {
     const regions = [
       { start: 91, stop: 109 },
-      { start: 191, stop: 209 },
+      { start: 191, stop: 209 }
     ]
 
     const Consumer = () => {
@@ -72,7 +72,7 @@ describe('Track', () => {
         width={800}
         regions={[
           { start: 123, stop: 456 },
-          { start: 789, stop: 1011 },
+          { start: 789, stop: 1011 }
         ]}
       >
         <Consumer />
@@ -96,7 +96,7 @@ describe('Track', () => {
     const regions = [
       { start: 91, stop: 109 },
       { start: 191, stop: 209 },
-      { start: 321, stop: 381 },
+      { start: 321, stop: 381 }
     ]
 
     const Consumer = () => {

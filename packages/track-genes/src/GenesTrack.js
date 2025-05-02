@@ -38,18 +38,18 @@ GenesTrack.propTypes = {
         PropTypes.shape({
           feature_type: PropTypes.oneOf(['CDS', 'exon', 'UTR']).isRequired,
           start: PropTypes.number.isRequired,
-          stop: PropTypes.number.isRequired,
+          stop: PropTypes.number.isRequired
         })
-      ).isRequired,
+      ).isRequired
     })
   ).isRequired,
   includeNonCodingGenes: PropTypes.bool,
   renderGeneLabel: PropTypes.func,
-  title: PropTypes.string,
+  title: PropTypes.string
 }
 
 GenesTrack.defaultProps = {
   includeNonCodingGenes: false,
   renderGeneLabel: undefined,
-  title: 'Genes',
+  title: 'Genes'
 }

@@ -116,7 +116,7 @@ export const CategoryFilterControl = ({
   className,
   id,
   onChange,
-  style,
+  style
 }) => (
   <Wrapper className={className} id={id} style={style}>
     {categories.map(category => (
@@ -144,7 +144,7 @@ export const CategoryFilterControl = ({
               categories.reduce(
                 (acc, cat) => ({
                   ...acc,
-                  [cat.id]: cat.id === category.id,
+                  [cat.id]: cat.id === category.id
                 }),
                 {}
               )
@@ -164,17 +164,17 @@ CategoryFilterControl.propTypes = {
       id: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
       className: PropTypes.string,
-      color: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired
     })
   ).isRequired,
   categorySelections: PropTypes.objectOf(PropTypes.bool).isRequired,
   className: PropTypes.string,
   id: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  style: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+  style: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
 }
 
 CategoryFilterControl.defaultProps = {
   className: undefined,
-  style: undefined,
+  style: undefined
 }

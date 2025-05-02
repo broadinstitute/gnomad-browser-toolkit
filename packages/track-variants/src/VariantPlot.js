@@ -62,7 +62,7 @@ const Canvas = forwardRef(({ children, height, width, ...otherProps }, ref) => {
       width={width * scale}
       style={{
         height: `${height}px`,
-        width: `${width}px`,
+        width: `${width}px`
       }}
     />
   )
@@ -71,7 +71,7 @@ const Canvas = forwardRef(({ children, height, width, ...otherProps }, ref) => {
 Canvas.propTypes = {
   children: PropTypes.func.isRequired,
   height: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired
 }
 
 export const VariantPlot = ({
@@ -80,7 +80,7 @@ export const VariantPlot = ({
   variants,
   variantColor,
   width,
-  onHoverVariants,
+  onHoverVariants
 }) => {
   const canvas = useRef(null)
 
@@ -169,16 +169,16 @@ VariantPlot.propTypes = {
       consequence: PropTypes.string,
       isHighlighted: PropTypes.bool,
       pos: PropTypes.number.isRequired,
-      variant_id: PropTypes.string.isRequired,
+      variant_id: PropTypes.string.isRequired
     })
   ).isRequired,
   variantColor: PropTypes.func,
   width: PropTypes.number.isRequired,
-  onHoverVariants: PropTypes.func,
+  onHoverVariants: PropTypes.func
 }
 
 VariantPlot.defaultProps = {
   height: 60,
   variantColor: () => '#757575',
-  onHoverVariants: undefined,
+  onHoverVariants: undefined
 }

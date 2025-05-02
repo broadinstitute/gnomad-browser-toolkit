@@ -50,7 +50,7 @@ const exportTranscriptsPlot = (containerElement, filename) => {
   const data = serializer.serializeToString(plot)
 
   const blob = new Blob(['<?xml version="1.0" standalone="no"?>\r\n', data], {
-    type: 'image/svg+xml;charset=utf-8',
+    type: 'image/svg+xml;charset=utf-8'
   })
   const url = URL.createObjectURL(blob)
   const link = document.createElement('a')
@@ -72,7 +72,7 @@ export const TranscriptsTrack = forwardRef(
       transcripts,
       showUTRs,
       showNonCodingTranscripts,
-      transcriptHeight,
+      transcriptHeight
     },
     ref
   ) => {
@@ -81,7 +81,7 @@ export const TranscriptsTrack = forwardRef(
     useImperativeHandle(ref, () => ({
       downloadPlot: (filename = 'transcripts') => {
         exportTranscriptsPlot(transcriptsContainer.current, filename)
-      },
+      }
     }))
 
     return (
@@ -135,11 +135,11 @@ TranscriptsTrack.propTypes = {
         PropTypes.shape({
           feature_type: PropTypes.string.isRequired,
           start: PropTypes.number.isRequired,
-          stop: PropTypes.number.isRequired,
+          stop: PropTypes.number.isRequired
         })
-      ).isRequired,
+      ).isRequired
     })
-  ).isRequired,
+  ).isRequired
 }
 
 TranscriptsTrack.defaultProps = {
@@ -151,5 +151,5 @@ TranscriptsTrack.defaultProps = {
   renderTranscriptRightPanel: undefined,
   showNonCodingTranscripts: false,
   showUTRs: false,
-  transcriptHeight: 10,
+  transcriptHeight: 10
 }

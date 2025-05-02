@@ -13,14 +13,14 @@ const TextTooltipWrapper = styled.span`
 const TextTooltip = ({ text }) => <TextTooltipWrapper>{text}</TextTooltipWrapper>
 
 TextTooltip.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired
 }
 
 const BADGE_COLOR = {
   error: '#DD2C00',
   info: '#424242',
   success: '#2E7D32',
-  warning: 'orange',
+  warning: 'orange'
 }
 
 const BadgeWrapper = styled.span`
@@ -49,10 +49,10 @@ export const Badge = ({ children, level, tooltip }) =>
 Badge.propTypes = {
   children: PropTypes.string.isRequired,
   level: PropTypes.oneOf(['error', 'info', 'success', 'warning']),
-  tooltip: PropTypes.string,
+  tooltip: PropTypes.string
 }
 
 Badge.defaultProps = {
   level: 'info',
-  tooltip: undefined,
+  tooltip: undefined
 }

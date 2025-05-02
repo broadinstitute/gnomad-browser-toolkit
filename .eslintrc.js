@@ -7,10 +7,10 @@ module.exports = {
     'plugin:cypress/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
-    'plugin:import/typescript',
+    'plugin:import/typescript'
   ],
   env: {
-    browser: true,
+    browser: true
   },
   parser: '@typescript-eslint/parser',
   plugins: ['prettier', '@typescript-eslint', 'cypress'],
@@ -36,8 +36,8 @@ module.exports = {
         mjs: 'never',
         jsx: 'never',
         ts: 'never',
-        tsx: 'never',
-      },
+        tsx: 'never'
+      }
     ],
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
@@ -48,7 +48,7 @@ module.exports = {
     'react/forbid-prop-types': 'off',
     'import/order': 'off',
     'react/no-unescaped-entities': 'off',
-    'react/destructuring-assignment': 'off',
+    'react/destructuring-assignment': 'off'
   },
   overrides: [
     {
@@ -56,7 +56,7 @@ module.exports = {
       extends: [
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@typescript-eslint/recommended',
-        'prettier/@typescript-eslint',
+        'prettier/@typescript-eslint'
       ],
       rules: {
         '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -65,8 +65,8 @@ module.exports = {
         '@typescript-eslint/no-var-requires': 'off',
         'no-restricted-syntax': 'off',
         'react/jsx-filename-extension': 'off',
-        'react/prop-types': 'off',
-      },
+        'react/prop-types': 'off'
+      }
     },
     {
       // Set environment for tests
@@ -74,21 +74,21 @@ module.exports = {
         '**/*spec.[jt]s',
         '**/*test.[jt]s',
         '**/__tests__/**/*.[jt]s',
-        '**/__mocks__/**/*.[jt]s',
+        '**/__mocks__/**/*.[jt]s'
       ],
       env: {
-        jest: true,
-      },
+        jest: true
+      }
     },
     {
       // Allow importing from resources only in package examples
       files: ['packages/**/example/*.js'],
       rules: {
-        'import/no-unresolved': ['error', { ignore: ['^@resources/'] }],
-      },
-    },
+        'import/no-unresolved': ['error', { ignore: ['^@resources/'] }]
+      }
+    }
   ],
   parserOptions: {
-    ecmaVersion: '2018',
-  },
+    ecmaVersion: '2018'
+  }
 }

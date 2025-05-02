@@ -4,6 +4,6 @@ module.exports = {
   testEnvironment: 'node',
   projects: ['<rootDir>/packages/*'],
   transform: {
-    '.': 'ts-jest',
-  },
+    '.': 'ts-jest'
+  }
 }

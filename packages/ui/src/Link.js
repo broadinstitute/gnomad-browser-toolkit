@@ -18,7 +18,7 @@ export const Link = styled.a`
 
 export const ExternalLink = styled(Link).attrs({
   rel: 'noopener noreferrer',
-  target: '_blank',
+  target: '_blank'
 })`
   /* stylelint-ignore-line block-no-empty */
 `

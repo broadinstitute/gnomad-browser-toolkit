@@ -11,10 +11,10 @@ const result = spawnSync(
     'src',
     '--out-dir=lib/cjs',
     '--delete-dir-on-start',
-    '--ignore=src/**/*.spec.js,src/**/*.test.js',
+    '--ignore=src/**/*.spec.js,src/**/*.test.js'
   ],
   {
-    stdio: 'inherit',
+    stdio: 'inherit'
   }
 )
 

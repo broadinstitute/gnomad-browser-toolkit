@@ -5,7 +5,7 @@ import { SegmentedControl } from '../src'
 export default class SegmentedControlExample extends Component {
   state = {
     options: [{ value: 'foo' }, { value: 'bar' }, { value: 'baz', disabled: true }],
-    value: 'foo',
+    value: 'foo'
   }
 
   onChange = value => {

@@ -6,7 +6,7 @@ describe('mergeOverlappingRegions', () => {
       mergeOverlappingRegions([
         { start: 5, stop: 10 },
         { start: 7, stop: 12 },
-        { start: 10, stop: 11 },
+        { start: 10, stop: 11 }
       ])
     ).toEqual([{ start: 5, stop: 12 }])
   })
@@ -17,11 +17,11 @@ describe('mergeOverlappingRegions', () => {
         { start: 5, stop: 10 },
         { start: 11, stop: 14 },
         { start: 17, stop: 22 },
-        { start: 22, stop: 24 },
+        { start: 22, stop: 24 }
       ])
     ).toEqual([
       { start: 5, stop: 14 },
-      { start: 17, stop: 24 },
+      { start: 17, stop: 24 }
     ])
   })
 
@@ -36,7 +36,7 @@ describe('regionViewerScale', () => {
       regionViewerScale(
         [
           { start: 1, stop: 5 },
-          { start: 10, stop: 14 },
+          { start: 10, stop: 14 }
         ],
         [0, 10]
       )(2)
@@ -46,7 +46,7 @@ describe('regionViewerScale', () => {
       regionViewerScale(
         [
           { start: 1, stop: 5 },
-          { start: 10, stop: 14 },
+          { start: 10, stop: 14 }
         ],
         [0, 10]
       )(12)
@@ -58,7 +58,7 @@ describe('regionViewerScale', () => {
       regionViewerScale(
         [
           { start: 1, stop: 5 },
-          { start: 10, stop: 14 },
+          { start: 10, stop: 14 }
         ],
         [0, 10]
       )(7)
@@ -68,7 +68,7 @@ describe('regionViewerScale', () => {
       regionViewerScale(
         [
           { start: 1, stop: 5 },
-          { start: 10, stop: 14 },
+          { start: 10, stop: 14 }
         ],
         [0, 10]
       )(9)
@@ -80,7 +80,7 @@ describe('regionViewerScale', () => {
       regionViewerScale(
         [
           { start: 1, stop: 5 },
-          { start: 10, stop: 14 },
+          { start: 10, stop: 14 }
         ],
         [0, 10]
       )(-5)
@@ -90,7 +90,7 @@ describe('regionViewerScale', () => {
       regionViewerScale(
         [
           { start: 1, stop: 5 },
-          { start: 10, stop: 14 },
+          { start: 10, stop: 14 }
         ],
         [0, 10]
       )(20)
@@ -103,7 +103,7 @@ describe('regionViewerScale', () => {
         regionViewerScale(
           [
             { start: 1, stop: 5 },
-            { start: 10, stop: 14 },
+            { start: 10, stop: 14 }
           ],
           [0, 10]
         ).invert(1)
@@ -113,7 +113,7 @@ describe('regionViewerScale', () => {
         regionViewerScale(
           [
             { start: 1, stop: 5 },
-            { start: 10, stop: 14 },
+            { start: 10, stop: 14 }
           ],
           [0, 10]
         ).invert(7)
@@ -123,7 +123,7 @@ describe('regionViewerScale', () => {
         regionViewerScale(
           [
             { start: 1, stop: 5 },
-            { start: 10, stop: 14 },
+            { start: 10, stop: 14 }
           ],
           [0, 10]
         ).invert(5)
@@ -135,7 +135,7 @@ describe('regionViewerScale', () => {
         regionViewerScale(
           [
             { start: 1, stop: 5 },
-            { start: 10, stop: 14 },
+            { start: 10, stop: 14 }
           ],
           [0, 10]
         ).invert(-1)
@@ -145,7 +145,7 @@ describe('regionViewerScale', () => {
         regionViewerScale(
           [
             { start: 1, stop: 5 },
-            { start: 10, stop: 14 },
+            { start: 10, stop: 14 }
           ],
           [0, 10]
         ).invert(11)

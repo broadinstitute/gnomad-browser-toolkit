@@ -25,7 +25,7 @@ describe('Track', () => {
     rightPanelWidth,
     scalePosition,
     width,
-    centerLabel,
+    centerLabel
   }: CenterPanelProps & { centerLabel: string }) => (
     <div style={{ width }}>
       Greetings from main body of the track. "{centerLabel}"

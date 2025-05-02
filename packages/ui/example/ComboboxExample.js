@@ -4,7 +4,7 @@ import { Combobox } from '../src'
 
 export default class ComboboxExample extends Component {
   state = {
-    value: 'foo',
+    value: 'foo'
   }
 
   render() {

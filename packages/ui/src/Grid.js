@@ -109,13 +109,13 @@ export const GridHeadingTooltip = ({ tooltip }) => (
 )
 
 GridHeadingTooltip.propTypes = {
-  tooltip: PropTypes.string.isRequired,
+  tooltip: PropTypes.string.isRequired
 }
 
 const DataRow = ({
   index: dataRowIndex,
   data: { cellData, columns, columnWidths, data, focusedCell, onMouseEnter, shouldHighlightRow },
-  style,
+  style
 }) => {
   const rowData = data[dataRowIndex]
   const rowIndex = dataRowIndex + 1 // + 1 for header row
@@ -156,20 +156,20 @@ DataRow.propTypes = {
       PropTypes.shape({
         key: PropTypes.string.isRequired,
         isRowHeader: PropTypes.bool,
-        render: PropTypes.func.isRequired,
+        render: PropTypes.func.isRequired
       })
     ).isRequired,
     columnWidths: PropTypes.arrayOf(PropTypes.number.isRequired),
     data: PropTypes.arrayOf(PropTypes.any).isRequired,
     focusedCell: PropTypes.shape({
       columnIndex: PropTypes.number.isRequired,
-      rowIndex: PropTypes.number.isRequired,
+      rowIndex: PropTypes.number.isRequired
     }).isRequired,
     onMouseEnter: PropTypes.func.isRequired,
-    shouldHighlightRow: PropTypes.func.isRequired,
+    shouldHighlightRow: PropTypes.func.isRequired
   }).isRequired,
   index: PropTypes.number.isRequired,
-  style: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  style: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
 }
 
 export class Grid extends Component {
@@ -182,7 +182,7 @@ export class Grid extends Component {
         isSortable: PropTypes.bool,
         minWidth: PropTypes.number,
         render: PropTypes.func,
-        tooltip: PropTypes.string,
+        tooltip: PropTypes.string
       })
     ).isRequired,
     cellData: PropTypes.object, // eslint-disable-line react/forbid-prop-types
@@ -196,7 +196,7 @@ export class Grid extends Component {
     rowKey: PropTypes.func,
     shouldHighlightRow: PropTypes.func,
     sortKey: PropTypes.string,
-    sortOrder: PropTypes.oneOf(['ascending', 'descending']),
+    sortOrder: PropTypes.oneOf(['ascending', 'descending'])
   }
 
   static defaultProps = {
@@ -210,7 +210,7 @@ export class Grid extends Component {
     rowKey: rowData => rowData.key,
     shouldHighlightRow: () => false,
     sortKey: undefined,
-    sortOrder: 'ascending',
+    sortOrder: 'ascending'
   }
 
   /* eslint-disable react/sort-comp */
@@ -262,7 +262,7 @@ export class Grid extends Component {
     const { onVisibleRowsChange } = this.props
     onVisibleRowsChange({
       startIndex: visibleStartIndex,
-      stopIndex: visibleStopIndex,
+      stopIndex: visibleStopIndex
     })
   }
 
@@ -375,7 +375,7 @@ export class Grid extends Component {
         isRowHeader: false,
         isSortable: false,
         minWidth: 100,
-        render: rowData => <div className="grid-cell-content">{rowData[column.key]}</div>,
+        render: rowData => <div className="grid-cell-content">{rowData[column.key]}</div>
       }
 
       return { ...columnDefaults, ...column }
@@ -479,14 +479,14 @@ export class Grid extends Component {
                     data,
                     focusedCell: this.focusedCell,
                     onMouseEnter: this.onMouseEnterRow,
-                    shouldHighlightRow,
+                    shouldHighlightRow
                   }}
                   itemKey={rowIndex => rowKey(data[rowIndex])}
                   itemSize={rowHeight}
                   overscanCount={10}
                   ref={this.list}
                   style={{
-                    overflowX: 'hidden',
+                    overflowX: 'hidden'
                   }}
                   width={gridWidth}
                   onItemsRendered={this.onItemsRendered}

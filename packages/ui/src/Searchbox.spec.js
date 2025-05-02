@@ -40,7 +40,7 @@ describe('Searchbox', () => {
     const fetchSearchResults = jest.fn().mockImplementation(() =>
       Promise.resolve([
         { value: 'bar', label: 'bar' },
-        { value: 'baz', label: 'baz' },
+        { value: 'baz', label: 'baz' }
       ])
     )
 

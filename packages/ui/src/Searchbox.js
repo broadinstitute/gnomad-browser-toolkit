@@ -64,13 +64,13 @@ export class Searchbox extends Component {
     id: PropTypes.string,
     onSelect: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
-    width: PropTypes.string,
+    width: PropTypes.string
   }
 
   static defaultProps = {
     id: undefined,
     placeholder: undefined,
-    width: undefined,
+    width: undefined
   }
 
   state = {
@@ -78,7 +78,7 @@ export class Searchbox extends Component {
     inputValue: '',
     isFetching: false,
     isOpen: false,
-    options: [],
+    options: []
   }
 
   /* eslint-disable react/sort-comp */
@@ -129,7 +129,7 @@ export class Searchbox extends Component {
 
   onMenuVisibilityChange = isOpen => {
     this.setState(state => ({
-      isOpen: isOpen || state.isFetching,
+      isOpen: isOpen || state.isFetching
     }))
   }
 
@@ -200,7 +200,7 @@ export class Searchbox extends Component {
           hasResults: options.length > 0,
           id,
           placeholder,
-          onKeyDown: this.onKeyDown,
+          onKeyDown: this.onKeyDown
         }}
         items={options}
         open={isOpen}
@@ -211,7 +211,7 @@ export class Searchbox extends Component {
         value={inputValue}
         wrapperStyle={{
           display: 'inline-block',
-          width,
+          width
         }}
         onChange={this.onChange}
         onMenuVisibilityChange={this.onMenuVisibilityChange}

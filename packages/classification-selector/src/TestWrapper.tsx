@@ -9,7 +9,7 @@ import cypressTestDataAttrs from './cypressTestDataAttrs.json'
 
 const {
   selectedItemsContainerCypressDataAttr,
-  numFilteredItemsCypressDataAttr,
+  numFilteredItemsCypressDataAttr
 } = cypressTestDataAttrs
 
 interface TestItem {
@@ -24,7 +24,7 @@ interface Props<Item extends TestItem>
 function TestWrapper<Item extends TestItem>({
   items,
   classifications,
-  shouldAutoExpandFirstClassification,
+  shouldAutoExpandFirstClassification
 }: Props<Item>) {
   const {
     filteredItems,
@@ -33,7 +33,7 @@ function TestWrapper<Item extends TestItem>({
     expanded,
     setExpanded,
     clearSelectedCategories,
-    selectAllVisibleCategories,
+    selectAllVisibleCategories
   } = useInternalState({ items, classifications, shouldAutoExpandFirstClassification })
 
   const filteredElems = filteredItems.map(elem => (

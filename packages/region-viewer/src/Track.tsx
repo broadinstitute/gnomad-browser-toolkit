@@ -75,7 +75,7 @@ export const Track = ({
       leftPanelWidth,
       regions,
       rightPanelWidth,
-      scalePosition,
+      scalePosition
     }) => {
       return (
         <OuterWrapper>
@@ -84,7 +84,7 @@ export const Track = ({
               style={{
                 width: centerPanelWidth,
                 marginLeft: leftPanelWidth,
-                marginRight: rightPanelWidth,
+                marginRight: rightPanelWidth
               }}
             >
               {renderTopPanel({ ...rest, width: centerPanelWidth })}
@@ -102,7 +102,7 @@ export const Track = ({
                 leftPanelWidth,
                 regions,
                 rightPanelWidth,
-                scalePosition,
+                scalePosition
               })}
             </CenterPanel>
             {renderRightPanel && (

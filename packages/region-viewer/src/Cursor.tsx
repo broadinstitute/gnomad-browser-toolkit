@@ -73,7 +73,7 @@ export const Cursor = ({ children, onClick, renderCursor }: Props) => {
             <CursorOverlay
               style={{
                 left: `${leftPanelWidth}px`,
-                width: `${centerPanelWidth}px`,
+                width: `${centerPanelWidth}px`
               }}
             >
               {cursorPosition && renderCursor(cursorPosition)}

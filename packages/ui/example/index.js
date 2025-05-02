@@ -9,7 +9,7 @@ import {
   Page,
   PageHeading,
   PrimaryButton,
-  TextButton,
+  TextButton
 } from '../src'
 import CategoryFilterControlExample from './CategoryFilterControlExample'
 import CheckboxExample from './CheckboxExample'

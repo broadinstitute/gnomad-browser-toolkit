@@ -6,8 +6,8 @@ import { VariantTrack } from '../src/VariantTrack'
 const regions = [
   {
     start: 1,
-    stop: 2000,
-  },
+    stop: 2000
+  }
 ]
 
 const fakeVariants = [
@@ -15,32 +15,32 @@ const fakeVariants = [
     variant_id: '1-345-AA-CG',
     allele_freq: 0.1345,
     pos: 345,
-    consequence: 'benign',
+    consequence: 'benign'
   },
   {
     variant_id: '1-456-GCAG-C',
     allele_freq: 0.1456,
     pos: 456,
-    consequence: 'plof',
+    consequence: 'plof'
   },
   {
     variant_id: '1-567-A-C',
     allele_freq: 0.1567,
     pos: 567,
-    consequence: 'lof',
+    consequence: 'lof'
   },
   {
     variant_id: '1-678-A-C',
     allele_freq: 0.1678,
     pos: 678,
-    consequence: 'benign',
+    consequence: 'benign'
   },
   {
     variant_id: '1-789-A-C',
     allele_freq: 0.1789,
     pos: 789,
-    consequence: 'lof',
-  },
+    consequence: 'lof'
+  }
 ]
 
 const variantColor = variant => {

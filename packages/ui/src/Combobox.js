@@ -44,7 +44,7 @@ export const menuStyle = {
   padding: '2px 0',
   borderRadius: '3px',
   background: '#fff',
-  boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
+  boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)'
 }
 
 export class Combobox extends Component {
@@ -56,7 +56,7 @@ export class Combobox extends Component {
     placeholder: PropTypes.string,
     renderOption: PropTypes.func,
     value: PropTypes.string.isRequired,
-    width: PropTypes.string,
+    width: PropTypes.string
   }
 
   static defaultProps = {
@@ -64,13 +64,13 @@ export class Combobox extends Component {
     onChange: () => {},
     placeholder: undefined,
     renderOption: option => option.label,
-    width: undefined,
+    width: undefined
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      inputValue: props.value,
+      inputValue: props.value
     }
   }
 
@@ -112,7 +112,7 @@ export class Combobox extends Component {
           onFocus: () => {
             this.setState({ inputValue: '' })
           },
-          placeholder,
+          placeholder
         }}
         items={options}
         menuStyle={menuStyle}
@@ -126,7 +126,7 @@ export class Combobox extends Component {
         value={inputValue}
         wrapperStyle={{
           display: 'inline-block',
-          width,
+          width
         }}
         onChange={this.onChange}
         onSelect={this.onSelect}

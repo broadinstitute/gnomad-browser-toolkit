@@ -11,7 +11,7 @@ import { Classification, ClassificationType } from './types'
 import {
   getDisplayedHierarchicalClassification,
   getDisplayedSimpleClassification,
-  DisplayedHierarchicalCategory,
+  DisplayedHierarchicalCategory
 } from './Utils'
 import useInternalState from './useClassificationSelectorState'
 import styled from '@emotion/styled'
@@ -20,7 +20,7 @@ import {
   categoryTreeItemCypressDataAttr,
   classificationTreeItemCypressDataAttr,
   selectAllCypressDataAttr,
-  selectNoneCypressDataAttr,
+  selectNoneCypressDataAttr
 } from './cypressTestDataAttrs.json'
 
 type CategoryListMaxHeight = CSS.StandardLonghandProperties['maxHeight']
@@ -43,7 +43,7 @@ const TreeItem = (inputProps: TreeItemProps) => {
 
 const CategoryListTreeItem = styled(TreeItem)(({ maxheight }: CategoryListTreeItemProps) => ({
   maxHeight: maxheight === undefined ? 'none' : maxheight,
-  overflowY: 'auto',
+  overflowY: 'auto'
 }))
 
 const displayedHierarchicalCategoryToReactElem = (category: DisplayedHierarchicalCategory) => {
@@ -96,7 +96,7 @@ function ClassificationViewer<Item>({
   classifications,
   categoryListMaxHeight,
   clearSelectedCategories,
-  selectAllVisibleCategories,
+  selectAllVisibleCategories
 }: Props<Item>) {
   const handleToggle = (_e: React.ChangeEvent<unknown>, nodeIds: string[]) => setExpanded(nodeIds)
   const handleSelect = (_e: React.ChangeEvent<unknown>, nodeIds: string[]) => setSelected(nodeIds)
@@ -107,7 +107,7 @@ function ClassificationViewer<Item>({
       const {
         name: classificationName,
         nodeId: classificationNodeId,
-        categories,
+        categories
       } = getDisplayedSimpleClassification(classification)
       const categoryElems = categories.map(({ nodeId, color, displayedLabel }) => (
         <TreeItem
@@ -134,7 +134,7 @@ function ClassificationViewer<Item>({
       const {
         name: classificationName,
         nodeId: classificationNodeId,
-        categories,
+        categories
       } = getDisplayedHierarchicalClassification(classification)
       const categoryElems = categories.map(category =>
         displayedHierarchicalCategoryToReactElem(category)
