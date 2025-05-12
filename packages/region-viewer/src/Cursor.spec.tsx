@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { expect, test, describe } from '@jest/globals'
 import { RegionViewer, RegionViewerContext } from './RegionViewer'
 import { render, screen } from '@testing-library/react'
+import { createRoot } from 'react-dom/client'
 import { userEvent } from '@testing-library/user-event'
 import styled from 'styled-components'
 
@@ -13,6 +14,8 @@ const InnerWrapper = styled.div`
   flex-direction: row;
   align-items: stretch;
 `
+
+const flushPromises = () => new Promise(resolve => setTimeout(resolve, 0))
 
 describe('Cursor', () => {
   const renderCursor = (x: number) => (
@@ -34,16 +37,18 @@ describe('Cursor', () => {
     { start: 321, stop: 381 }
   ]
 
-  test('has no unexpected changes', () => {
-    const { asFragment } = render(
+  test('has no unexpected changes', async () => {
+    const container = document.createElement('div')
+    const root = createRoot(container)
+    root.render(
       <RegionViewer leftPanelWidth={130} rightPanelWidth={320} width={800} regions={regions}>
         <Cursor onClick={() => {}} renderCursor={renderCursor}>
           <div>some cursor child content goes here</div>
         </Cursor>
       </RegionViewer>
     )
-
-    expect(asFragment()).toMatchSnapshot()
+    await flushPromises()
+    expect(container).toMatchSnapshot()
   })
 
   test.skip('renders a cursor in the correct place if mouse is over the center panel', async () => {

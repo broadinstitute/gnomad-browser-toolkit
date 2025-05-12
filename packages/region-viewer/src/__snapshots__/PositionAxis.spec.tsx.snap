@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PositionAxis has no unexpected changes 1`] = `
-<DocumentFragment>
+<div>
   <svg
     height="15"
     width="800"
@@ -177,5 +177,5 @@ exports[`PositionAxis has no unexpected changes 1`] = `
       </text>
     </g>
   </svg>
-</DocumentFragment>
+</div>
 `;

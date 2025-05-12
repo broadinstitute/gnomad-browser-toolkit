@@ -1,10 +1,12 @@
 import React from 'react'
 import { expect, test, describe } from '@jest/globals'
-import { render } from '@testing-library/react'
+import { createRoot } from 'react-dom/client'
 import 'jest-styled-components'
 
 import { RegionViewer } from './RegionViewer'
 import { CenterPanelProps, SidePanelProps, Track } from './Track'
+
+const flushPromises = () => new Promise(resolve => setTimeout(resolve, 0))
 
 describe('Track', () => {
   const TopPanelContent = ({ width, topLabel }: { width: number; topLabel: string }) => (
@@ -38,8 +40,10 @@ describe('Track', () => {
     </div>
   )
 
-  test('has no unexpected changes', () => {
-    const { asFragment } = render(
+  test('has no unexpected changes', async () => {
+    const container = document.createElement('div')
+    const root = createRoot(container)
+    root.render(
       <RegionViewer
         leftPanelWidth={200}
         rightPanelWidth={110}
@@ -59,12 +63,14 @@ describe('Track', () => {
         </Track>
       </RegionViewer>
     )
-
-    expect(asFragment()).toMatchSnapshot()
+    await flushPromises()
+    expect(container).toMatchSnapshot()
   })
 
-  test('can omit any side panel', () => {
-    const { asFragment: noLeftAsFragment } = render(
+  test('can omit any side panel', async () => {
+    const container = document.createElement('div')
+    const root = createRoot(container)
+    root.render(
       <RegionViewer
         leftPanelWidth={200}
         rightPanelWidth={110}
@@ -84,10 +90,10 @@ describe('Track', () => {
         </Track>
       </RegionViewer>
     )
+    await flushPromises()
+    expect(container).toMatchSnapshot()
 
-    expect(noLeftAsFragment()).toMatchSnapshot()
-
-    const { asFragment: noTopAsFragment } = render(
+    root.render(
       <RegionViewer
         leftPanelWidth={200}
         rightPanelWidth={110}
@@ -107,10 +113,10 @@ describe('Track', () => {
         </Track>
       </RegionViewer>
     )
+    await flushPromises()
+    expect(container).toMatchSnapshot()
 
-    expect(noTopAsFragment()).toMatchSnapshot()
-
-    const { asFragment: noRightAsFragment } = render(
+    root.render(
       <RegionViewer
         leftPanelWidth={200}
         rightPanelWidth={110}
@@ -130,7 +136,7 @@ describe('Track', () => {
         </Track>
       </RegionViewer>
     )
-
-    expect(noRightAsFragment()).toMatchSnapshot()
+    await flushPromises()
+    expect(container).toMatchSnapshot()
   })
 })
