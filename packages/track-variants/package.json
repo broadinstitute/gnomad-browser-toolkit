@@ -1,6 +1,6 @@
 {
   "name": "@gnomad/track-variants",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -26,7 +26,7 @@
     "@types/react-dom": "^18.0.0"
   },
   "dependencies": {
-    "@gnomad/region-viewer": "^5.0.0",
+    "@gnomad/region-viewer": "^6.0.0",
     "d3-scale": "^2.2.2",
     "prop-types": "^15.7.2"
   },
