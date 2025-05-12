@@ -34,7 +34,7 @@ importers:
         version: 7.10.1(@babel/core@7.22.17)
       '@gnomad/scripts':
         specifier: '*'
-        version: link:scripts
+        version: 0.0.2-rc0(react-dom@18.3.1)(react@18.3.1)
       '@jest/globals':
         specifier: ^29.0.0
         version: 29.7.0
@@ -42,8 +42,8 @@ importers:
         specifier: ^5.2.0
         version: 5.17.0
       '@testing-library/react':
-        specifier: ^10.0.1
-        version: 10.4.9(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^16.3.0
+        version: 16.3.0(@testing-library/dom@10.4.0)(react-dom@18.3.1)(react@18.3.1)
       '@types/jest':
         specifier: ^26.0.0
         version: 26.0.24
@@ -3624,6 +3624,17 @@ packages:
     requiresBuild: true
     dev: false
 
+  /@gnomad/scripts@0.0.2-rc0(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-3IgmCWXXNEndtFyqHs3Qy1/a5Is5L5yapCEmlxjnO9WLA2eDi7AdH1NIX41QeFrFe3BTIudjSSEaIRMpRY4e3w==}
+    hasBin: true
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    dev: true
+
   /@humanwhocodes/config-array@0.5.0:
     resolution: {integrity: sha512-FagtKFz74XrTl7y6HCzQpwDfXP0yhxe9lHLD1UZxjvZIcbyRz8zTFF/yYNfSfzU414eDwZ1SrO0Qvtyf+wFMQg==}
     engines: {node: '>=10.10.0'}
@@ -5711,7 +5722,7 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       '@babel/code-frame': 7.22.13
-      '@babel/runtime': 7.22.15
+      '@babel/runtime': 7.27.0
       '@types/aria-query': 4.2.2
       aria-query: 4.2.2
       chalk: 4.1.2
@@ -5744,6 +5755,27 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.15
       '@testing-library/dom': 7.31.2
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    dev: true
+
+  /@testing-library/react@16.3.0(@testing-library/dom@10.4.0)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-kFSyxiEDwv1WLl2fgsq6pPBbw5aWKrsY2/noi1Id0TK0UParSF62oFQFGHXIyaG4pp2tEub/Zlel+fjjZILDsw==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@testing-library/dom': ^10.0.0
+      '@types/react': ^18.0.0 || ^19.0.0
+      '@types/react-dom': ^18.0.0 || ^19.0.0
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.27.0
+      '@testing-library/dom': 10.4.0
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     dev: true

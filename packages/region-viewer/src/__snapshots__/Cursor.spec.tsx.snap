@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Cursor has no unexpected changes 1`] = `
-<DocumentFragment>
+<div>
   <div
     class="RegionViewer__RegionViewerWrapper-sc-1vo08m2-0 ddUyVP"
     style="width: 800px;"
@@ -18,7 +18,7 @@ exports[`Cursor has no unexpected changes 1`] = `
       </div>
     </div>
   </div>
-</DocumentFragment>
+</div>
 `;
 
 exports[`Cursor renders a cursor in the correct place if mouse is over the center panel 1`] = `
