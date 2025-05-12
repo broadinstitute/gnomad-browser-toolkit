@@ -34,7 +34,7 @@ importers:
         version: 7.10.1(@babel/core@7.22.17)
       '@gnomad/scripts':
         specifier: '*'
-        version: 0.0.2-rc0(react-dom@18.3.1)(react@18.3.1)
+        version: link:scripts
       '@jest/globals':
         specifier: ^29.0.0
         version: 29.7.0
@@ -370,7 +370,7 @@ importers:
   packages/track-genes:
     dependencies:
       '@gnomad/region-viewer':
-        specifier: ^5.0.0
+        specifier: ^6.0.0
         version: link:../region-viewer
       prop-types:
         specifier: ^15.7.2
@@ -398,7 +398,7 @@ importers:
   packages/track-regions:
     dependencies:
       '@gnomad/region-viewer':
-        specifier: ^5.0.0
+        specifier: ^6.0.0
         version: link:../region-viewer
       prop-types:
         specifier: ^15.7.2
@@ -420,10 +420,10 @@ importers:
   packages/track-transcripts:
     dependencies:
       '@gnomad/region-viewer':
-        specifier: ^5.0.0
+        specifier: ^6.0.0
         version: link:../region-viewer
       '@gnomad/track-regions':
-        specifier: 2.0.1
+        specifier: ^3.0.0
         version: link:../track-regions
       prop-types:
         specifier: ^15.7.2
@@ -451,7 +451,7 @@ importers:
   packages/track-variants:
     dependencies:
       '@gnomad/region-viewer':
-        specifier: ^5.0.0
+        specifier: ^6.0.0
         version: link:../region-viewer
       d3-scale:
         specifier: ^2.2.2
@@ -3623,17 +3623,6 @@ packages:
     engines: {node: '>=6'}
     requiresBuild: true
     dev: false
-
-  /@gnomad/scripts@0.0.2-rc0(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-3IgmCWXXNEndtFyqHs3Qy1/a5Is5L5yapCEmlxjnO9WLA2eDi7AdH1NIX41QeFrFe3BTIudjSSEaIRMpRY4e3w==}
-    hasBin: true
-    peerDependencies:
-      react: ^18.0.0
-      react-dom: ^18.0.0
-    dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-    dev: true
 
   /@humanwhocodes/config-array@0.5.0:
     resolution: {integrity: sha512-FagtKFz74XrTl7y6HCzQpwDfXP0yhxe9lHLD1UZxjvZIcbyRz8zTFF/yYNfSfzU414eDwZ1SrO0Qvtyf+wFMQg==}
