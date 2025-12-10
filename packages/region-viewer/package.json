@@ -1,6 +1,6 @@
 {
   "name": "@gnomad/region-viewer",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -32,18 +32,16 @@
     "@testing-library/user-event": "^14.6.1",
     "@types/react-test-renderer": "^18.0.0",
     "jest-environment-jsdom": "^29.0.0",
-    "jest-styled-components": "^6.0.0",
+    "jest-styled-components": "^7.2.0",
     "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "@types/styled-components": "^5.1.25"
+    "@types/react-dom": "^18.0.0"
   },
   "dependencies": {
     "prop-types": "^15.7.2",
-    "styled-components": "^4.2.0"
+    "styled-components": "^6.1.19"
   },
   "peerDependencies": {
     "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "styled-components": "^4.2.0"
+    "react-dom": "^18.0.0"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@gnomad/track-genes",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -23,16 +23,15 @@
   },
   "devDependencies": {
     "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "@types/styled-components": "^5.1.25"
+    "@types/react-dom": "^18.0.0"
   },
   "dependencies": {
-    "@gnomad/region-viewer": "^6.0.0",
+    "@gnomad/region-viewer": "6.1.0",
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "styled-components": "^4.2.0"
+    "styled-components": "^6.1.19"
   }
 }

@@ -16,3 +16,4 @@ resources
 
 # Jest test coverage output:
 packages/*/coverage
+*/**/.DS_Store
