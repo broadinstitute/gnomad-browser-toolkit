@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add opt-in Track positionInspection configuration without changing unconfigured tracks.
+
 - **Breaking:** Mount Cursor inside each plot instead of around whole tracks. Cursors in one RegionViewer synchronize through viewer-scoped inspection.
 - **Breaking:** Snap Cursor hover and local selection to the nearest displayed base. Keep default scale inversion flooring unchanged.
 - Add independent display/publication/enable options and useInspectedPosition for small subscribers.

@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { Cursor, CursorProps } from './Cursor'
 import { RegionViewerContext, RegionViewerContextValue } from './RegionViewer'
 
 const OuterWrapper = styled.div`
@@ -45,7 +46,10 @@ type _CenterPanelProps = Omit<RegionViewerContextValue, 'centerPanelWidth'> & { 
 
 export interface CenterPanelProps extends _CenterPanelProps {}
 
-type Props = {
+export type TrackPositionInspection = Omit<CursorProps, 'children'>
+
+export interface TrackProps {
+  positionInspection?: TrackPositionInspection
   renderLeftPanel?: React.FC<SidePanelProps>
   renderRightPanel?: React.FC<SidePanelProps>
   renderTopPanel?: React.FC<SidePanelProps>
@@ -61,58 +65,86 @@ const defaultRenderLeftPanel = ({ title = '' }: SidePanelProps & { title: string
   </TitlePanel>
 )
 
+const TrackPlot = ({
+  children,
+  inspection
+}: {
+  children: React.ReactNode
+  inspection?: TrackPositionInspection
+}) => {
+  if (!inspection) {
+    return <>{children}</>
+  }
+  return (
+    <Cursor
+      enabled={inspection.enabled}
+      publishPosition={inspection.publishPosition}
+      showCursor={inspection.showCursor}
+      onClick={inspection.onClick}
+      renderCursor={inspection.renderCursor}
+    >
+      {children}
+    </Cursor>
+  )
+}
+
 export const Track = ({
   children,
   renderLeftPanel = defaultRenderLeftPanel,
   renderRightPanel,
   renderTopPanel,
+  positionInspection,
   ...rest
-}: Props) => (
-  <RegionViewerContext.Consumer>
-    {({
-      centerPanelWidth,
-      isPositionDefined,
-      leftPanelWidth,
-      regions,
-      rightPanelWidth,
-      scalePosition
-    }) => {
-      return (
-        <OuterWrapper>
-          {renderTopPanel && (
-            <TopPanel
-              style={{
-                width: centerPanelWidth,
-                marginLeft: leftPanelWidth,
-                marginRight: rightPanelWidth
-              }}
-            >
-              {renderTopPanel({ ...rest, width: centerPanelWidth })}
-            </TopPanel>
-          )}
-          <InnerWrapper>
-            <SidePanel style={{ width: leftPanelWidth }}>
-              {renderLeftPanel && renderLeftPanel({ ...rest, width: leftPanelWidth })}
-            </SidePanel>
-            <CenterPanel style={{ width: centerPanelWidth }}>
-              {children({
-                ...rest,
-                width: centerPanelWidth,
-                isPositionDefined,
-                leftPanelWidth,
-                regions,
-                rightPanelWidth,
-                scalePosition
-              })}
-            </CenterPanel>
-            {renderRightPanel && (
-              <SidePanel style={{ width: rightPanelWidth }}>
-                {renderRightPanel({ ...rest, width: rightPanelWidth })}
-              </SidePanel>
+}: TrackProps): React.JSX.Element => {
+  return (
+    <RegionViewerContext.Consumer>
+      {({
+        centerPanelWidth,
+        isPositionDefined,
+        leftPanelWidth,
+        regions,
+        rightPanelWidth,
+        scalePosition
+      }) => {
+        return (
+          <OuterWrapper>
+            {renderTopPanel && (
+              <TopPanel
+                style={{
+                  width: centerPanelWidth,
+                  marginLeft: leftPanelWidth,
+                  marginRight: rightPanelWidth
+                }}
+              >
+                {renderTopPanel({ ...rest, width: centerPanelWidth })}
+              </TopPanel>
             )}
-          </InnerWrapper>
-        </OuterWrapper>
-      )
-    }}
-  </RegionViewerContext.Consumer>
-)
+            <InnerWrapper>
+              <SidePanel style={{ width: leftPanelWidth }}>
+                {renderLeftPanel && renderLeftPanel({ ...rest, width: leftPanelWidth })}
+              </SidePanel>
+              <CenterPanel style={{ width: centerPanelWidth }}>
+                <TrackPlot inspection={positionInspection}>
+                  {children({
+                    ...rest,
+                    width: centerPanelWidth,
+                    isPositionDefined,
+                    leftPanelWidth,
+                    regions,
+                    rightPanelWidth,
+                    scalePosition
+                  })}
+                </TrackPlot>
+              </CenterPanel>
+              {renderRightPanel && (
+                <SidePanel style={{ width: rightPanelWidth }}>
+                  {renderRightPanel({ ...rest, width: rightPanelWidth })}
+                </SidePanel>
+              )}
+            </InnerWrapper>
+          </OuterWrapper>
+        )
+      }}
+    </RegionViewerContext.Consumer>
+  )
+}

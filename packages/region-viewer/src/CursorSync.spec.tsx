@@ -414,6 +414,60 @@ describe('viewer-scoped cursor inspection', () => {
     expect(renderReadout.mock.calls.length).toBeGreaterThan(afterFirstPosition)
   })
 
+  test('Track forwards display-only, hidden-line, and custom-renderer options to Cursor', () => {
+    const selectFollower = jest.fn()
+    mount(
+      <RegionViewer width={360} leftPanelWidth={100} rightPanelWidth={160} regions={REGIONS}>
+        <Track positionInspection={{ showCursor: false, renderCursor: marker('source') }}>
+          {() => <Plot name="source" />}
+        </Track>
+        <Track
+          positionInspection={{
+            publishPosition: false,
+            onClick: selectFollower,
+            renderCursor: marker('follower')
+          }}
+        >
+          {() => <Plot name="follower" />}
+        </Track>
+        <Position />
+      </RegionViewer>
+    )
+    move('source', 170)
+    expect(screen.getByTestId('follower-cursor').getAttribute('x1')).toBe('70')
+    expect(screen.queryByTestId('source-cursor')).toBeNull()
+    move('follower', 120)
+    pointer('follower', 'click', 120)
+    expect(screen.getByTestId('position').textContent).toBe('12')
+    expect(selectFollower).not.toHaveBeenCalled()
+  })
+
+  test('Track inspection preserves its plot and selection when dynamically disabled', () => {
+    const onClick = jest.fn()
+    const renderPlot = jest.fn(() => <Plot name="configured" />)
+    const viewer = (enabled: boolean) => {
+      return (
+        <RegionViewer width={360} leftPanelWidth={100} rightPanelWidth={160} regions={REGIONS}>
+          <Track positionInspection={{ enabled, onClick }}>{renderPlot}</Track>
+          <Position />
+        </RegionViewer>
+      )
+    }
+    mount(viewer(true))
+    const plot = screen.getByTestId('configured')
+    const initialRenders = renderPlot.mock.calls.length
+    move('configured', 170)
+    expect(renderPlot.mock.calls.length).toBe(initialRenders)
+    pointer('configured', 'click', 170)
+    expect(onClick.mock.calls).toEqual([[12]])
+    mount(viewer(false))
+    expect(screen.getByTestId('configured')).toBe(plot)
+    expect(screen.getByTestId('position').textContent).toBe('none')
+    move('configured', 120)
+    pointer('configured', 'click', 120)
+    expect(onClick.mock.calls).toEqual([[12]])
+  })
+
   test('stable layout inputs do not notify memoized plots, while resize and data changes do', () => {
     const renderPlot = jest.fn(() => <div>expensive plot</div>)
     const StableTrack = memo(({ value }: { value: number }) => {

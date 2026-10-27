@@ -26,6 +26,16 @@ Cursor selects the latest locally hovered base, not the click event's X coordina
 
 Cursor uses `scalePosition.invert(x, 'nearest')`. Halfway ties choose the next displayed base across disjoint regions. Existing `invert(x)` callers retain floor rounding.
 
+## Track configuration
+
+Set `positionInspection={{}}` on Track to wrap only its center plot in Cursor. Pass `enabled`, `publishPosition`, `showCursor`, `onClick`, and `renderCursor` in that object. Tracks without configuration keep their existing output. Keep `children` responsible for the plot and its data lookup.
+
+```jsx
+<Track title="Coverage" positionInspection={{ onClick: selectBase }}>
+  {props => <CoveragePlot {...props} />}
+</Track>
+```
+
 ## Run the example
 
 Run the emitting compiler and example server in separate toolkit-root terminals:
