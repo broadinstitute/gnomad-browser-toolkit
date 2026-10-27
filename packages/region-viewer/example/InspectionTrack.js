@@ -136,6 +136,11 @@ const InspectionTrack = ({
   onDetails
 }) => {
   const maximum = Math.max(1, ...intervals.map(interval => interval.value))
+  const resolveCoverageReadoutY = ({ position, readoutHeight }) => {
+    const value = lookupValue(intervals, position)
+    return value === null ? 8 : coverageY(value, maximum) - readoutHeight - 8
+  }
+  const placement = label === 'Coverage' ? resolveCoverageReadoutY : readoutY
   const renderReadout = ({ position }) => {
     const value = lookupValue(intervals, position)
     const customValue = (
@@ -171,7 +176,7 @@ const InspectionTrack = ({
         showCursor: settings.cursor,
         showGenomicPositionOnHover: settings.genomicPosition,
         onClick: onSelect,
-        readoutY
+        readoutY: placement
       }}
       renderPositionReadout={readout}
     >

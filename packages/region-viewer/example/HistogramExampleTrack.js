@@ -80,6 +80,10 @@ HistogramPlot.propTypes = {
 }
 
 const HistogramExampleTrack = ({ onSelect, readoutFontSize }) => {
+  const readoutY = ({ position, readoutHeight }) => {
+    const bin = binAt(position)
+    return bin ? binTop(bin.count) - readoutHeight - 8 : 8
+  }
   const renderReadout = ({ position }) => {
     const bin = binAt(position)
     const label = bin ? `Bin ${bin.start} to ${bin.stop}` : 'Bin count'
@@ -98,9 +102,9 @@ const HistogramExampleTrack = ({ onSelect, readoutFontSize }) => {
     <Track
       title="Histogram"
       renderTopPanel={() => {
-        return <h3 style={{ margin: '1em 0 0.25em' }}>Histogram: value-only readout</h3>
+        return <h3 style={{ margin: '1em 0 0.25em' }}>Histogram: readout above each bin</h3>
       }}
-      positionInspection={{ onClick: onSelect, readoutY: 'top', showGenomicPositionOnHover: false }}
+      positionInspection={{ onClick: onSelect, readoutY, showGenomicPositionOnHover: false }}
       renderPositionReadout={renderReadout}
     >
       {({ regions, width, scalePosition }) => {

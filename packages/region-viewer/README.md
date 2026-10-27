@@ -50,6 +50,12 @@ Cursor and configured Tracks default `showGenomicPositionOnHover` to true. Show 
 
 Set the option false to keep values and the line without a coordinate badge. Omit the value renderer for coordinate-only inspection. Position and measure coordinate/value bubbles together. Value font overrides do not change the automatic coordinate's typography.
 
+## Data-driven placement
+
+Set `readoutY` to `({ position, height, readoutHeight }) => number` to follow track data. Resolve local pixels with the same Y scale as the plot. `readoutHeight` includes the combined coordinate/value group, so subtract it when placing a group above a curve or bar. The toolkit still clamps the result to plot bounds and remeasures after content/font changes.
+
+Coverage demonstrates curve-relative placement; Histogram positions values above each 10-base bin, including zero-count bins. Keep lookups cheap and local to each track.
+
 ## Run the example
 
 Run the emitting compiler and example server in separate toolkit-root terminals:

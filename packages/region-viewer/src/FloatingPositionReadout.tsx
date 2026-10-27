@@ -4,7 +4,12 @@ import styled from 'styled-components'
 import { PositionReadout } from './PositionReadout'
 
 export type PositionReadoutPlacement = 'top' | 'middle' | 'bottom'
-export type PositionReadoutY = PositionReadoutPlacement | number
+export type PositionReadoutYResolver = (props: {
+  position: number
+  height: number
+  readoutHeight: number
+}) => number
+export type PositionReadoutY = PositionReadoutPlacement | number | PositionReadoutYResolver
 export type PositionReadoutRenderer = (props: { position: number }) => ReactNode
 
 const READOUT_GAP = 8
@@ -115,6 +120,8 @@ export const FloatingPositionReadout = ({
     top = size.height - size.readoutHeight - READOUT_GAP
   } else if (typeof y === 'number') {
     top = y
+  } else if (typeof y === 'function') {
+    top = y({ position, height: size.height, readoutHeight: size.readoutHeight })
   }
 
   return (

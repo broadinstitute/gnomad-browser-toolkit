@@ -13,7 +13,8 @@ import { useInspectedPosition } from './useInspectedPosition'
 export type {
   PositionReadoutPlacement,
   PositionReadoutRenderer,
-  PositionReadoutY
+  PositionReadoutY,
+  PositionReadoutYResolver
 } from './FloatingPositionReadout'
 
 const CursorWrapper = styled.div`

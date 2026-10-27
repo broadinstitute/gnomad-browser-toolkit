@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add track-owned readoutY resolvers with genomic position, plot height, and combined measured readout height.
+- Demonstrate curve-relative Coverage and bin-relative Histogram readouts, including font remeasurement and zero values.
+
 - Add source-only genomic position badges, default on, with per-track opt-out and same-base ownership transfer.
 - Demonstrate coordinate-only Annotations and value-only Histogram alongside Coverage/Score.
 

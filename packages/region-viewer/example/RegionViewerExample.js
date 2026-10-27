@@ -124,8 +124,9 @@ const RegionViewerExample = () => {
         details without selecting a base.
       </p>
       <p>
-        Histogram opts out of the coordinate badge and reports a value for each 10-base bin.
-        Annotations shows only the coordinate badge while hovered, without a value readout.
+        Coverage readouts follow the curve, and histogram readouts follow each 10-base bin's bar.
+        Histogram opts out of the coordinate badge. Annotations shows only the coordinate badge
+        while hovered, without a value readout.
       </p>
 
       <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>

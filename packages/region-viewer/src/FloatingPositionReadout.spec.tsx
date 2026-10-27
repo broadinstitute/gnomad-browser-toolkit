@@ -119,6 +119,26 @@ describe('readouts beside the cursor', () => {
     expect(readoutOverlay().style.top).toBe('80px')
   })
 
+  test('lets a track resolve pixel Y using the base, plot height, and measured readout height', () => {
+    const resolveY = jest.fn(
+      ({
+        position,
+        height,
+        readoutHeight
+      }: {
+        position: number
+        height: number
+        readoutHeight: number
+      }) => {
+        return height - readoutHeight - position
+      }
+    )
+    mount(<ReadoutTrack y={resolveY} />)
+    move(150)
+    expect(resolveY).toHaveBeenLastCalledWith({ position: 51, height: 100, readoutHeight: 20 })
+    expect(readoutOverlay().style.top).toBe('29px')
+  })
+
   test('switches to the left of the cursor near the right edge and stays inside at the left edge', () => {
     mount(<ReadoutTrack />)
     move(295)
