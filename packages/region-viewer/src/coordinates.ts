@@ -3,9 +3,11 @@ export interface Region {
   stop: number
 }
 
+export type PositionRounding = 'floor' | 'nearest'
+
 export type ScalePosition = {
   (position: number): number
-  invert: (x: number) => number
+  invert: (x: number, rounding?: PositionRounding) => number
 }
 
 export const mergeOverlappingRegions = (regions: Region[]) => {
@@ -56,9 +58,10 @@ export const regionViewerScale = (
     return range[0] + (range[1] - range[0]) * (distanceToPosition / totalRegionSize)
   }
 
-  scale.invert = (x: number) => {
+  scale.invert = (x: number, rounding: PositionRounding = 'floor') => {
     const clampedX = Math.max(Math.min(x, range[1]), range[0])
-    let distanceToPosition = Math.floor(
+    const round = rounding === 'nearest' ? Math.round : Math.floor
+    let distanceToPosition = round(
       totalRegionSize * ((clampedX - range[0]) / (range[1] - range[0]))
     )
 

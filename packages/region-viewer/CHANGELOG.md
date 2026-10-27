@@ -1,5 +1,13 @@
 # Changes
 
+## Unreleased
+
+- **Breaking:** Mount Cursor inside each plot instead of around whole tracks. Cursors in one RegionViewer synchronize through viewer-scoped inspection.
+- **Breaking:** Snap Cursor hover and local selection to the nearest displayed base. Keep default scale inversion flooring unchanged.
+- Add independent display/publication/enable options and useInspectedPosition for small subscribers.
+- Clear inspection after layout changes until actual pointer movement resumes.
+- Demonstrate synchronized coverage/score plots with browser regression checks.
+
 ## Version 3.0.0 - December 1, 2021
 
 - **Breaking** `RegionViewer` no longer extends input regions and its `padding` prop has been removed [(8833edd)](https://github.com/broadinstitute/gnomad-browser-toolkit/commit/8833edd0a311f8eb19103a1c284a5fff4f6f3bfe)

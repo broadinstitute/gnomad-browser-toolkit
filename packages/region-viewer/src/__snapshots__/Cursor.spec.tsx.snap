@@ -4,15 +4,13 @@ exports[`Cursor has no unexpected changes 1`] = `
 <div>
   <div
     class="RegionViewer__RegionViewerWrapper-sc-1vo08m2-0 hwFSOp"
+    data-region-viewer=""
     style="width: 800px;"
   >
     <div
-      class="Cursor__CursorWrapper-sc-ein478-0 ffENub"
+      class="Cursor__CursorWrapper-sc-ein478-0 geAwAQ"
+      data-region-cursor=""
     >
-      <svg
-        class="Cursor__CursorOverlay-sc-ein478-1 bWVllm"
-        style="left: 130px; width: 350px;"
-      />
       <div>
         some cursor child content goes here
       </div>

@@ -43,6 +43,7 @@ exports[`Track can omit any side panel 1`] = `
 <div>
   <div
     class="c0"
+    data-region-viewer=""
     style="width: 1200px;"
   >
     <div
@@ -153,6 +154,7 @@ exports[`Track can omit any side panel 2`] = `
 <div>
   <div
     class="c0"
+    data-region-viewer=""
     style="width: 1200px;"
   >
     <div
@@ -257,6 +259,7 @@ exports[`Track can omit any side panel 3`] = `
 <div>
   <div
     class="c0"
+    data-region-viewer=""
     style="width: 1200px;"
   >
     <div
@@ -361,6 +364,7 @@ exports[`Track has no unexpected changes 1`] = `
 <div>
   <div
     class="c0"
+    data-region-viewer=""
     style="width: 1200px;"
   >
     <div

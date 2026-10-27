@@ -51,7 +51,7 @@ describe('Cursor', () => {
     const fireEvent = {
       mouseMove(target: Element, coordinates: { clientX: number }) {
         act(() => {
-          domFireEvent.mouseMove(target, coordinates)
+          domFireEvent(target, new MouseEvent('pointermove', { ...coordinates, bubbles: true }))
         })
       },
       click(target: Element, coordinates: { clientX: number }) {
@@ -61,12 +61,15 @@ describe('Cursor', () => {
       },
       mouseLeave(target: Element) {
         act(() => {
-          domFireEvent.mouseOut(target, { relatedTarget: null })
+          domFireEvent(target, new MouseEvent('pointerout', { bubbles: true, relatedTarget: null }))
         })
       },
       mouseEnter(target: Element, coordinates: { clientX: number }) {
         act(() => {
-          domFireEvent.mouseOver(target, { ...coordinates, relatedTarget: null })
+          domFireEvent(
+            target,
+            new MouseEvent('pointerover', { ...coordinates, bubbles: true, relatedTarget: null })
+          )
         })
       }
     }
@@ -74,13 +77,13 @@ describe('Cursor', () => {
     beforeEach(() => {
       Reflect.set(globalThis, 'IS_REACT_ACT_ENVIRONMENT', true)
       jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockReturnValue({
-        x: 0,
+        x: 100,
         y: 0,
-        left: 0,
+        left: 100,
         top: 0,
-        right: 360,
+        right: 200,
         bottom: 50,
-        width: 360,
+        width: 100,
         height: 50,
         toJSON: () => ({})
       })
@@ -116,17 +119,17 @@ describe('Cursor', () => {
               { start: 10, stop: 14 }
             ]}
           >
-            <Cursor onClick={onClick} renderCursor={renderMarker}>
-              <Track
-                renderLeftPanel={() => {
-                  return <span>Left panel</span>
-                }}
-                renderRightPanel={() => {
-                  return <span>Right panel</span>
-                }}
-              >
-                {() => {
-                  return (
+            <Track
+              renderLeftPanel={() => {
+                return <span>Left panel</span>
+              }}
+              renderRightPanel={() => {
+                return <span>Right panel</span>
+              }}
+            >
+              {() => {
+                return (
+                  <Cursor onClick={onClick} renderCursor={renderMarker}>
                     <div data-testid="plot">
                       <button type="button" onClick={onChildClick}>
                         Details
@@ -141,10 +144,10 @@ describe('Cursor', () => {
                         Isolated details
                       </button>
                     </div>
-                  )
-                }}
-              </Track>
-            </Cursor>
+                  </Cursor>
+                )
+              }}
+            </Track>
           </RegionViewer>
         )
       })
@@ -198,6 +201,7 @@ describe('Cursor', () => {
       expect(screen.queryByTestId('cursor-marker')).not.toBeNull()
       const sidePanel = screen.getByText(panel)
 
+      fireEvent.mouseLeave(plot)
       fireEvent.mouseMove(sidePanel, { clientX })
       fireEvent.click(sidePanel, { clientX })
 

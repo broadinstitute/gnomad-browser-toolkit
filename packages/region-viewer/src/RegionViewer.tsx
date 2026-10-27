@@ -1,7 +1,8 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useLayoutEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 
 import { mergeOverlappingRegions, regionViewerScale, Region, ScalePosition } from './coordinates'
+import { createPositionInspection, PositionInspectionContext } from './positionInspection'
 
 export type RegionViewerContextValue = {
   centerPanelWidth: number
@@ -45,6 +46,7 @@ export const RegionViewer = ({
   rightPanelWidth = 160,
   width
 }: Props) => {
+  const [inspection] = useState(createPositionInspection)
   const mergedRegions = useMemo(
     () => mergeOverlappingRegions([...regions].sort((r1, r2) => r1.start - r2.start)),
     [regions]
@@ -73,9 +75,17 @@ export const RegionViewer = ({
     [centerPanelWidth, isPositionDefined, leftPanelWidth, regions, rightPanelWidth, scalePosition]
   )
 
+  useLayoutEffect(() => {
+    inspection.clear()
+  }, [inspection, childProps])
+
   return (
-    <RegionViewerWrapper style={{ width }}>
-      <RegionViewerContext.Provider value={childProps}>{children}</RegionViewerContext.Provider>
+    <RegionViewerWrapper data-region-viewer="" style={{ width }}>
+      <RegionViewerContext.Provider value={childProps}>
+        <PositionInspectionContext.Provider value={inspection}>
+          {children}
+        </PositionInspectionContext.Provider>
+      </RegionViewerContext.Provider>
     </RegionViewerWrapper>
   )
 }
