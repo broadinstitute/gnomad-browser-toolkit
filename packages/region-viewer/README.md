@@ -36,6 +36,14 @@ Set `positionInspection={{}}` on Track to wrap only its center plot in Cursor. P
 </Track>
 ```
 
+## Floating values
+
+Set `renderPositionReadout={({ position }) => ...}` on Track or Cursor to return JSX for the active genomic base. Own the data lookup in the track. The toolkit measures and positions the pointer-transparent bubble inside the plot, flips at horizontal edges, and clamps it to plot bounds.
+
+Use `PositionReadout` for standard labels, React-node values, units, and `formatValue`. Zero remains a value; null/undefined show No data. Set `fontSize` to a pixel number or CSS string; the default is 0.75rem. Set `showPosition` explicitly if the value itself needs a coordinate.
+
+Use `readoutY` on Cursor or in Track's `positionInspection` object. Accept top, middle, bottom, or a local pixel number. Float only during active inspection; disabling the line does not disable the value. Very short plots can clip the readout.
+
 ## Run the example
 
 Run the emitting compiler and example server in separate toolkit-root terminals:

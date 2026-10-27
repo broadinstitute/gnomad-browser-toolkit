@@ -1,8 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Cursor, CursorProps } from './Cursor'
+import { Cursor, CursorProps, PositionReadoutRenderer } from './Cursor'
 import { RegionViewerContext, RegionViewerContextValue } from './RegionViewer'
+
+export type { PositionReadoutRenderer } from './Cursor'
 
 const OuterWrapper = styled.div`
   display: flex;
@@ -46,10 +48,11 @@ type _CenterPanelProps = Omit<RegionViewerContextValue, 'centerPanelWidth'> & { 
 
 export interface CenterPanelProps extends _CenterPanelProps {}
 
-export type TrackPositionInspection = Omit<CursorProps, 'children'>
+export type TrackPositionInspection = Omit<CursorProps, 'children' | 'renderPositionReadout'>
 
 export interface TrackProps {
   positionInspection?: TrackPositionInspection
+  renderPositionReadout?: PositionReadoutRenderer
   renderLeftPanel?: React.FC<SidePanelProps>
   renderRightPanel?: React.FC<SidePanelProps>
   renderTopPanel?: React.FC<SidePanelProps>
@@ -67,10 +70,12 @@ const defaultRenderLeftPanel = ({ title = '' }: SidePanelProps & { title: string
 
 const TrackPlot = ({
   children,
-  inspection
+  inspection,
+  renderReadout
 }: {
   children: React.ReactNode
   inspection?: TrackPositionInspection
+  renderReadout?: PositionReadoutRenderer
 }) => {
   if (!inspection) {
     return <>{children}</>
@@ -82,6 +87,8 @@ const TrackPlot = ({
       showCursor={inspection.showCursor}
       onClick={inspection.onClick}
       renderCursor={inspection.renderCursor}
+      renderPositionReadout={renderReadout}
+      readoutY={inspection.readoutY}
     >
       {children}
     </Cursor>
@@ -94,6 +101,7 @@ export const Track = ({
   renderRightPanel,
   renderTopPanel,
   positionInspection,
+  renderPositionReadout,
   ...rest
 }: TrackProps): React.JSX.Element => {
   return (
@@ -124,7 +132,7 @@ export const Track = ({
                 {renderLeftPanel && renderLeftPanel({ ...rest, width: leftPanelWidth })}
               </SidePanel>
               <CenterPanel style={{ width: centerPanelWidth }}>
-                <TrackPlot inspection={positionInspection}>
+                <TrackPlot inspection={positionInspection} renderReadout={renderPositionReadout}>
                   {children({
                     ...rest,
                     width: centerPanelWidth,

@@ -1,9 +1,20 @@
 import React, { ReactNode, useContext, useLayoutEffect, useRef } from 'react'
 import styled from 'styled-components'
 
+import {
+  FloatingPositionReadout,
+  PositionReadoutRenderer,
+  PositionReadoutY
+} from './FloatingPositionReadout'
 import { usePositionInspection } from './positionInspection'
 import { RegionViewerContext } from './RegionViewer'
 import { useInspectedPosition } from './useInspectedPosition'
+
+export type {
+  PositionReadoutPlacement,
+  PositionReadoutRenderer,
+  PositionReadoutY
+} from './FloatingPositionReadout'
 
 const CursorWrapper = styled.div`
   position: relative;
@@ -46,22 +57,44 @@ export interface CursorProps {
   showCursor?: boolean
   onClick?: (position: number | null) => void
   renderCursor?: (x: number) => ReactNode
+  renderPositionReadout?: PositionReadoutRenderer
+  readoutY?: PositionReadoutY
 }
 
-const SharedCursorOverlay = ({ renderCursor }: Pick<CursorProps, 'renderCursor'>) => {
+const SharedCursorOverlay = ({
+  renderCursor,
+  showCursor,
+  renderPositionReadout,
+  readoutY,
+  plotRef
+}: Pick<CursorProps, 'renderCursor' | 'showCursor' | 'renderPositionReadout'> & {
+  readoutY: PositionReadoutY
+  plotRef: React.RefObject<HTMLDivElement>
+}) => {
   const position = useInspectedPosition()
   const { scalePosition, isPositionDefined } = useContext(RegionViewerContext)
   if (position === null || !isPositionDefined(position)) {
     return null
   }
   const drawCursor = renderCursor ?? renderStandardCursor
-  return <CursorOverlay aria-hidden="true">{drawCursor(scalePosition(position))}</CursorOverlay>
+  const x = scalePosition(position)
+  return (
+    <>
+      {showCursor && <CursorOverlay aria-hidden="true">{drawCursor(x)}</CursorOverlay>}
+      {renderPositionReadout && (
+        <FloatingPositionReadout x={x} y={readoutY} plotRef={plotRef}>
+          {renderPositionReadout?.({ position })}
+        </FloatingPositionReadout>
+      )}
+    </>
+  )
 }
 
 const isLocalPlotEvent = (event: React.SyntheticEvent<HTMLDivElement>) => {
   const { target } = event
   return (
     target instanceof Element &&
+    !target.closest('[data-region-readout]') &&
     target.closest('[data-region-cursor]') === event.currentTarget &&
     target.closest('[data-region-viewer]') === event.currentTarget.closest('[data-region-viewer]')
   )
@@ -73,8 +106,11 @@ export const Cursor = ({
   publishPosition = true,
   showCursor = true,
   onClick,
-  renderCursor
+  renderCursor,
+  renderPositionReadout,
+  readoutY = 'top'
 }: CursorProps): React.JSX.Element => {
+  const plotRef = useRef<HTMLDivElement>(null)
   const layout = useContext(RegionViewerContext)
   const inspection = usePositionInspection()
   const source = useRef({})
@@ -141,6 +177,7 @@ export const Cursor = ({
     // Preserve child click behavior without making pointer inspection a focus target.
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <CursorWrapper
+      ref={plotRef}
       data-region-cursor=""
       onPointerEnter={inspectPointer}
       onPointerMove={inspectPointer}
@@ -149,7 +186,15 @@ export const Cursor = ({
       onClick={selectLocalHover}
     >
       {children}
-      {enabled && showCursor && <SharedCursorOverlay renderCursor={renderCursor} />}
+      {enabled && (showCursor || renderPositionReadout) && (
+        <SharedCursorOverlay
+          renderCursor={renderCursor}
+          showCursor={showCursor}
+          renderPositionReadout={renderPositionReadout}
+          readoutY={readoutY}
+          plotRef={plotRef}
+        />
+      )}
     </CursorWrapper>
   )
 }

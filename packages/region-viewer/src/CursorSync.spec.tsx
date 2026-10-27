@@ -6,7 +6,8 @@ import { createRoot } from 'react-dom/client'
 import { Cursor, CursorProps } from './Cursor'
 import { Region } from './coordinates'
 import { RegionViewer } from './RegionViewer'
-import { Track } from './Track'
+import { CenterPanelProps, Track } from './Track'
+import { PositionReadout } from './PositionReadout'
 import { useInspectedPosition } from './useInspectedPosition'
 
 const REGIONS = [
@@ -414,6 +415,45 @@ describe('viewer-scoped cursor inspection', () => {
     expect(renderReadout.mock.calls.length).toBeGreaterThan(afterFirstPosition)
   })
 
+  test('Track wires standard readouts without rerendering its plot on hover', () => {
+    const onClick = jest.fn()
+    const renderPlot = jest.fn(() => <Plot name="coverage" />)
+    const renderReadout = ({ position }: { position: number | null }) => {
+      return (
+        <PositionReadout
+          position={position}
+          label="Coverage"
+          value={position === 12 ? 0 : null}
+          unit="×"
+        />
+      )
+    }
+    const viewer = (enabled: boolean) => {
+      return (
+        <RegionViewer width={360} leftPanelWidth={100} rightPanelWidth={160} regions={REGIONS}>
+          <Track positionInspection={{ enabled, onClick }} renderPositionReadout={renderReadout}>
+            {renderPlot}
+          </Track>
+        </RegionViewer>
+      )
+    }
+    mount(viewer(true))
+    const plot = screen.getByTestId('coverage')
+    const initialPlotRenders = renderPlot.mock.calls.length
+    expect(screen.queryByText(/Coverage:/)).toBeNull()
+    move('coverage', 170)
+    expect(screen.getByText('Coverage: 0')).not.toBeNull()
+    expect(renderPlot.mock.calls.length).toBe(initialPlotRenders)
+    pointer('coverage', 'click', 170)
+    expect(onClick.mock.calls).toEqual([[12]])
+    mount(viewer(false))
+    expect(screen.getByTestId('coverage')).toBe(plot)
+    expect(screen.queryByText(/Coverage:/)).toBeNull()
+    move('coverage', 120)
+    pointer('coverage', 'click', 120)
+    expect(onClick.mock.calls).toEqual([[12]])
+  })
+
   test('Track forwards display-only, hidden-line, and custom-renderer options to Cursor', () => {
     const selectFollower = jest.fn()
     mount(
@@ -466,6 +506,45 @@ describe('viewer-scoped cursor inspection', () => {
     move('configured', 120)
     pointer('configured', 'click', 120)
     expect(onClick.mock.calls).toEqual([[12]])
+  })
+
+  test('floating readout content cannot publish a position and disappears on plot leave', () => {
+    mount(
+      <RegionViewer width={360} leftPanelWidth={100} rightPanelWidth={160} regions={REGIONS}>
+        <Track
+          positionInspection={{}}
+          renderPositionReadout={({ position }) => {
+            return <output data-testid="track-readout">{position ?? 'none'}</output>
+          }}
+        >
+          {() => <Plot name="coverage" />}
+        </Track>
+      </RegionViewer>
+    )
+    move('coverage', 170)
+    expect(screen.getByTestId('track-readout').closest('[data-region-cursor]')).not.toBeNull()
+    move('track-readout', 120)
+    expect(screen.getByTestId('track-readout').textContent).toBe('12')
+    pointer('coverage', 'pointerout')
+    expect(screen.queryByTestId('track-readout')).toBeNull()
+  })
+
+  test('Track without inspection keeps forwarding plot props and does not invoke a readout slot', () => {
+    const readout = jest.fn(() => <span>unexpected readout</span>)
+    const renderPlot = jest.fn((props: CenterPanelProps & { customLabel?: string }) => (
+      <div>{props.customLabel}</div>
+    ))
+    mount(
+      <RegionViewer width={360} leftPanelWidth={100} rightPanelWidth={160} regions={REGIONS}>
+        <Track customLabel="Forwarded label" renderPositionReadout={readout}>
+          {renderPlot}
+        </Track>
+      </RegionViewer>
+    )
+    expect(screen.getByText('Forwarded label')).not.toBeNull()
+    expect(renderPlot.mock.calls[0][0].width).toBe(100)
+    expect(renderPlot.mock.calls[0][0]).not.toHaveProperty('position')
+    expect(readout).not.toHaveBeenCalled()
   })
 
   test('stable layout inputs do not notify memoized plots, while resize and data changes do', () => {

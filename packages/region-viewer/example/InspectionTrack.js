@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import { Track } from '../lib/cjs'
+import { PositionReadout, Track } from '../lib/cjs'
 
 export const COVERAGE = [
   { start: 1, stop: 40, value: 32 },
@@ -24,6 +24,11 @@ export const SCORES = [
   { start: 201, stop: 260, value: 0.45 },
   { start: 281, stop: 300, value: 0.93 }
 ]
+
+const lookupValue = (intervals, position) => {
+  const interval = intervals.find(({ start, stop }) => start <= position && position <= stop)
+  return interval?.value ?? null
+}
 
 const COVERAGE_PLOT_HEIGHT = 160
 const COVERAGE_BASELINE = COVERAGE_PLOT_HEIGHT - 10
@@ -120,8 +125,40 @@ IntervalPlot.propTypes = {
   onDetails: PropTypes.func.isRequired
 }
 
-const InspectionTrack = ({ label, intervals, settings, onSelect, onDetails }) => {
+const InspectionTrack = ({
+  label,
+  intervals,
+  settings,
+  readoutFontSize,
+  readoutY = 'top',
+  customContent = false,
+  onSelect,
+  onDetails
+}) => {
   const maximum = Math.max(1, ...intervals.map(interval => interval.value))
+  const renderReadout = ({ position }) => {
+    const value = lookupValue(intervals, position)
+    const customValue = (
+      <span>
+        <strong>{value}</strong> normalized score
+      </span>
+    )
+    const displayedValue = customContent && value !== null ? customValue : value
+    const unit = label === 'Coverage' ? '×' : undefined
+    return (
+      <div aria-label={`${label} readout`}>
+        <PositionReadout
+          position={position}
+          label={label}
+          value={displayedValue}
+          unit={unit}
+          fontSize={readoutFontSize}
+        />
+      </div>
+    )
+  }
+  const readout = settings.readout ? renderReadout : undefined
+
   return (
     <Track
       title={label}
@@ -132,8 +169,10 @@ const InspectionTrack = ({ label, intervals, settings, onSelect, onDetails }) =>
         enabled: settings.enabled,
         publishPosition: settings.publish,
         showCursor: settings.cursor,
-        onClick: onSelect
+        onClick: onSelect,
+        readoutY
       }}
+      renderPositionReadout={readout}
     >
       {({ regions, width, scalePosition }) => {
         return (
@@ -158,8 +197,12 @@ InspectionTrack.propTypes = {
   settings: PropTypes.shape({
     enabled: PropTypes.bool.isRequired,
     publish: PropTypes.bool.isRequired,
-    cursor: PropTypes.bool.isRequired
+    cursor: PropTypes.bool.isRequired,
+    readout: PropTypes.bool.isRequired
   }).isRequired,
+  readoutFontSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  readoutY: PropTypes.oneOf(['top', 'middle', 'bottom']),
+  customContent: PropTypes.bool,
   onSelect: PropTypes.func.isRequired,
   onDetails: PropTypes.func.isRequired
 }

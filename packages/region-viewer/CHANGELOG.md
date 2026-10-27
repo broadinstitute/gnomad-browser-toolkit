@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add floating Track/Cursor value readouts with preset/pixel placement, bounds measurement, and font-size overrides.
+- Add PositionReadout formatting, units, custom content, and distinct zero/missing values.
+
 - Add opt-in Track positionInspection configuration without changing unconfigured tracks.
 
 - **Breaking:** Mount Cursor inside each plot instead of around whole tracks. Cursors in one RegionViewer synchronize through viewer-scoped inspection.
