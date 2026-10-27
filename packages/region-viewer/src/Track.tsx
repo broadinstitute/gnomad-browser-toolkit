@@ -85,6 +85,7 @@ const TrackPlot = ({
       enabled={inspection.enabled}
       publishPosition={inspection.publishPosition}
       showCursor={inspection.showCursor}
+      showGenomicPositionOnHover={inspection.showGenomicPositionOnHover}
       onClick={inspection.onClick}
       renderCursor={inspection.renderCursor}
       renderPositionReadout={renderReadout}

@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 
 import { Cursor, PositionAxisTrack, RegionViewer, Track } from '../lib/cjs'
 
+import AnnotationsExampleTrack from './AnnotationsExampleTrack'
+import HistogramExampleTrack from './HistogramExampleTrack'
 import InspectionTrack, { COVERAGE, SCORES } from './InspectionTrack'
 
 const REGIONS = [
@@ -22,6 +24,7 @@ const DEFAULT_SETTINGS = {
   enabled: true,
   publish: true,
   cursor: true,
+  genomicPosition: true,
   readout: true
 }
 
@@ -33,6 +36,7 @@ const TrackControls = ({ label, settings, onChange }) => {
         ['enabled', 'Enable inspection'],
         ['publish', 'Publish hover'],
         ['cursor', 'Show hover line'],
+        ['genomicPosition', 'Show position on hover'],
         ['readout', 'Show value readout']
       ].map(([key, text]) => {
         return (
@@ -61,6 +65,7 @@ TrackControls.propTypes = {
     enabled: PropTypes.bool.isRequired,
     publish: PropTypes.bool.isRequired,
     cursor: PropTypes.bool.isRequired,
+    genomicPosition: PropTypes.bool.isRequired,
     readout: PropTypes.bool.isRequired
   }).isRequired,
   onChange: PropTypes.func.isRequired
@@ -109,14 +114,18 @@ const RegionViewerExample = () => {
     >
       <h1>Synchronized cursor reporting</h1>
       <p>
-        Hover either plot to inspect the nearest genomic base in both tracks. Click a plot to select
-        its last hovered base. Readouts float beside the cursor; headings and gaps do not publish
-        hover.
+        Hover any plot to inspect the nearest genomic base across all four tracks. Click a plot to
+        select its last hovered base. Readouts float beside the cursor; headings and gaps do not
+        publish hover.
       </p>
       <p>
         Explore 200 bases across regions 1 to 100 and 201 to 300. Coverage at base 50 is zero; base
         230 has no coverage data. Score at base 270 has no data. The small outlined circles open
         details without selecting a base.
+      </p>
+      <p>
+        Histogram opts out of the coordinate badge and reports a value for each 10-base bin.
+        Annotations shows only the coordinate badge while hovered, without a value readout.
       </p>
 
       <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
@@ -211,6 +220,11 @@ const RegionViewerExample = () => {
             onDetails={setDetails}
           />
           {optionalScore}
+          <HistogramExampleTrack
+            onSelect={setLastClickedPosition}
+            readoutFontSize={valueFontSize}
+          />
+          <AnnotationsExampleTrack onSelect={setLastClickedPosition} />
           <PositionAxisTrack />
         </RegionViewer>
       </section>

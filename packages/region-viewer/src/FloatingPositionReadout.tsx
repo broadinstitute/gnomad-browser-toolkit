@@ -1,6 +1,8 @@
 import React, { ReactNode, RefObject, useCallback, useLayoutEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
+import { PositionReadout } from './PositionReadout'
+
 export type PositionReadoutPlacement = 'top' | 'middle' | 'bottom'
 export type PositionReadoutY = PositionReadoutPlacement | number
 export type PositionReadoutRenderer = (props: { position: number }) => ReactNode
@@ -38,6 +40,8 @@ const localPixelSize = (cssSize: string, fallback: number) => {
 
 interface Props {
   children?: ReactNode
+  showGenomicPosition: boolean
+  position: number
   x: number
   y: PositionReadoutY
   plotRef: RefObject<HTMLDivElement>
@@ -45,6 +49,8 @@ interface Props {
 
 export const FloatingPositionReadout = ({
   children,
+  showGenomicPosition,
+  position,
   x,
   y,
   plotRef
@@ -91,11 +97,11 @@ export const FloatingPositionReadout = ({
       observer.observe(readoutRef.current)
     }
     return () => observer.disconnect()
-  }, [children, measure, plotRef])
+  }, [children, measure, plotRef, showGenomicPosition])
 
   const hasValueReadout =
     children !== null && children !== undefined && typeof children !== 'boolean'
-  if (!hasValueReadout) {
+  if (!hasValueReadout && !showGenomicPosition) {
     return null
   }
 
@@ -122,6 +128,11 @@ export const FloatingPositionReadout = ({
         alignItems: fitsOnRight ? 'flex-start' : 'flex-end'
       }}
     >
+      {showGenomicPosition && (
+        <ReadoutBubble data-genomic-position="">
+          <PositionReadout position={position} label="Position" value={position} />
+        </ReadoutBubble>
+      )}
       {hasValueReadout && <ReadoutBubble data-value-readout="">{children}</ReadoutBubble>}
     </ReadoutOverlay>
   )

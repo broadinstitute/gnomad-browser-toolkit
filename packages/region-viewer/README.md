@@ -44,6 +44,12 @@ Use `PositionReadout` for standard labels, React-node values, units, and `format
 
 Use `readoutY` on Cursor or in Track's `positionInspection` object. Accept top, middle, bottom, or a local pixel number. Float only during active inspection; disabling the line does not disable the value. Very short plots can clip the readout.
 
+## Source coordinate badge
+
+Cursor and configured Tracks default `showGenomicPositionOnHover` to true. Show the automatic coordinate only on the active publishing plot, above any optional value bubble. Followers still show their own values. Transfer the badge on a same-base source handoff without rerendering numeric-position subscribers.
+
+Set the option false to keep values and the line without a coordinate badge. Omit the value renderer for coordinate-only inspection. Position and measure coordinate/value bubbles together. Value font overrides do not change the automatic coordinate's typography.
+
 ## Run the example
 
 Run the emitting compiler and example server in separate toolkit-root terminals:

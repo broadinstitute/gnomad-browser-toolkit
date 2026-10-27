@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useLayoutEffect, useRef } from 'react'
+import React, { ReactNode, useContext, useLayoutEffect, useRef, useSyncExternalStore } from 'react'
 import styled from 'styled-components'
 
 import {
@@ -55,6 +55,7 @@ export interface CursorProps {
   enabled?: boolean
   publishPosition?: boolean
   showCursor?: boolean
+  showGenomicPositionOnHover?: boolean
   onClick?: (position: number | null) => void
   renderCursor?: (x: number) => ReactNode
   renderPositionReadout?: PositionReadoutRenderer
@@ -64,14 +65,26 @@ export interface CursorProps {
 const SharedCursorOverlay = ({
   renderCursor,
   showCursor,
+  showGenomicPositionOnHover,
   renderPositionReadout,
   readoutY,
-  plotRef
-}: Pick<CursorProps, 'renderCursor' | 'showCursor' | 'renderPositionReadout'> & {
+  plotRef,
+  source
+}: Pick<
+  CursorProps,
+  'renderCursor' | 'showCursor' | 'showGenomicPositionOnHover' | 'renderPositionReadout'
+> & {
   readoutY: PositionReadoutY
   plotRef: React.RefObject<HTMLDivElement>
+  source: object
 }) => {
   const position = useInspectedPosition()
+  const inspection = usePositionInspection()
+  const showGenomicPosition = useSyncExternalStore(
+    inspection.subscribe,
+    () => showGenomicPositionOnHover === true && inspection.getSourceSnapshot() === source,
+    () => false
+  )
   const { scalePosition, isPositionDefined } = useContext(RegionViewerContext)
   if (position === null || !isPositionDefined(position)) {
     return null
@@ -81,8 +94,14 @@ const SharedCursorOverlay = ({
   return (
     <>
       {showCursor && <CursorOverlay aria-hidden="true">{drawCursor(x)}</CursorOverlay>}
-      {renderPositionReadout && (
-        <FloatingPositionReadout x={x} y={readoutY} plotRef={plotRef}>
+      {(renderPositionReadout || showGenomicPosition) && (
+        <FloatingPositionReadout
+          position={position}
+          x={x}
+          y={readoutY}
+          plotRef={plotRef}
+          showGenomicPosition={showGenomicPosition}
+        >
           {renderPositionReadout?.({ position })}
         </FloatingPositionReadout>
       )}
@@ -105,6 +124,7 @@ export const Cursor = ({
   enabled = true,
   publishPosition = true,
   showCursor = true,
+  showGenomicPositionOnHover = true,
   onClick,
   renderCursor,
   renderPositionReadout,
@@ -186,10 +206,12 @@ export const Cursor = ({
       onClick={selectLocalHover}
     >
       {children}
-      {enabled && (showCursor || renderPositionReadout) && (
+      {enabled && (showCursor || renderPositionReadout || showGenomicPositionOnHover) && (
         <SharedCursorOverlay
           renderCursor={renderCursor}
           showCursor={showCursor}
+          showGenomicPositionOnHover={showGenomicPositionOnHover}
+          source={source.current}
           renderPositionReadout={renderPositionReadout}
           readoutY={readoutY}
           plotRef={plotRef}

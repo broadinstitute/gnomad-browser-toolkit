@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add source-only genomic position badges, default on, with per-track opt-out and same-base ownership transfer.
+- Demonstrate coordinate-only Annotations and value-only Histogram alongside Coverage/Score.
+
 - Add floating Track/Cursor value readouts with preset/pixel placement, bounds measurement, and font-size overrides.
 - Add PositionReadout formatting, units, custom content, and distinct zero/missing values.
 

@@ -88,7 +88,7 @@ describe('readouts beside the cursor', () => {
     expect(screen.queryByText(/Coverage:/)).toBeNull()
     move(150)
     const overlay = readoutOverlay()
-    expect(screen.getByText('Coverage: 32')).not.toBeNull()
+    expect(screen.getByText('Position: 51')).not.toBeNull()
     expect(overlay.closest('[data-region-cursor]')).not.toBeNull()
     expect(overlay.style.left).toBe('58px')
     expect(overlay.style.top).toBe('8px')

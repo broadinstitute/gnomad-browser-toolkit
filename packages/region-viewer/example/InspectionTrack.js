@@ -169,6 +169,7 @@ const InspectionTrack = ({
         enabled: settings.enabled,
         publishPosition: settings.publish,
         showCursor: settings.cursor,
+        showGenomicPositionOnHover: settings.genomicPosition,
         onClick: onSelect,
         readoutY
       }}
@@ -198,6 +199,7 @@ InspectionTrack.propTypes = {
     enabled: PropTypes.bool.isRequired,
     publish: PropTypes.bool.isRequired,
     cursor: PropTypes.bool.isRequired,
+    genomicPosition: PropTypes.bool.isRequired,
     readout: PropTypes.bool.isRequired
   }).isRequired,
   readoutFontSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
