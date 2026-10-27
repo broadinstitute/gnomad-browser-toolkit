@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useMemo } from 'react'
 import styled from 'styled-components'
 
 import { mergeOverlappingRegions, regionViewerScale, Region, ScalePosition } from './coordinates'
@@ -45,22 +45,33 @@ export const RegionViewer = ({
   rightPanelWidth = 160,
   width
 }: Props) => {
-  const mergedRegions = mergeOverlappingRegions([...regions].sort((r1, r2) => r1.start - r2.start))
+  const mergedRegions = useMemo(
+    () => mergeOverlappingRegions([...regions].sort((r1, r2) => r1.start - r2.start)),
+    [regions]
+  )
 
-  const isPositionDefined = (pos: number) =>
-    mergedRegions.some(region => region.start <= pos && pos <= region.stop)
+  const isPositionDefined = useCallback(
+    (pos: number) => mergedRegions.some(region => region.start <= pos && pos <= region.stop),
+    [mergedRegions]
+  )
 
   const centerPanelWidth = width - (leftPanelWidth + rightPanelWidth)
-  const scalePosition = regionViewerScale(mergedRegions, [0, centerPanelWidth])
+  const scalePosition = useMemo(() => regionViewerScale(mergedRegions, [0, centerPanelWidth]), [
+    mergedRegions,
+    centerPanelWidth
+  ])
 
-  const childProps = {
-    centerPanelWidth,
-    isPositionDefined,
-    leftPanelWidth,
-    regions,
-    rightPanelWidth,
-    scalePosition
-  }
+  const childProps = useMemo(
+    () => ({
+      centerPanelWidth,
+      isPositionDefined,
+      leftPanelWidth,
+      regions,
+      rightPanelWidth,
+      scalePosition
+    }),
+    [centerPanelWidth, isPositionDefined, leftPanelWidth, regions, rightPanelWidth, scalePosition]
+  )
 
   return (
     <RegionViewerWrapper style={{ width }}>
