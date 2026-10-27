@@ -2,22 +2,13 @@
 
 ## Unreleased
 
-- Add track-owned readoutY resolvers with genomic position, plot height, and combined measured readout height.
-- Demonstrate curve-relative Coverage and bin-relative Histogram readouts, including font remeasurement and zero values.
-
-- Add source-only genomic position badges, default on, with per-track opt-out and same-base ownership transfer.
-- Demonstrate coordinate-only Annotations and value-only Histogram alongside Coverage/Score.
-
-- Add floating Track/Cursor value readouts with preset/pixel placement, bounds measurement, and font-size overrides.
-- Add PositionReadout formatting, units, custom content, and distinct zero/missing values.
-
-- Add opt-in Track positionInspection configuration without changing unconfigured tracks.
-
-- **Breaking:** Mount Cursor inside each plot instead of around whole tracks. Cursors in one RegionViewer synchronize through viewer-scoped inspection.
-- **Breaking:** Snap Cursor hover and local selection to the nearest displayed base. Keep default scale inversion flooring unchanged.
-- Add independent display/publication/enable options and useInspectedPosition for small subscribers.
-- Clear inspection after layout changes until actual pointer movement resumes.
-- Demonstrate synchronized coverage/score plots with browser regression checks.
+- **Breaking:** Wrap each plot with Cursor inside Track's center panel, rather than wrapping whole tracks. Share hover within one actual RegionViewer; separate viewers remain independent.
+- **Breaking:** Snap Cursor hover, custom-renderer X, and local click selection to the nearest displayed base. Preserve last-local-hover click semantics and default floor inversion for other scale callers.
+- **Breaking:** Reserve Track's `positionInspection` and `renderPositionReadout` props for inspection. Require an actual RegionViewer for Cursor and `useInspectedPosition`; a layout-context provider alone is insufficient.
+- Add opt-in Track inspection, independent publication/display controls, and cleanup on leave, disable, unmount, or layout changes without rerendering plot callbacks on hover.
+- Default to a 2px cursor line and a source-only coordinate badge. Retain the explicit `defaultRenderCursor` renderer and allow coordinate opt-out.
+- Add floating PositionReadout values with formatting, zero/missing handling, custom content, and configurable fonts. Support preset, pixel, and track-data-driven Y placement within plot bounds.
+- Add interactive Coverage, Score, Histogram, and Annotations examples with component and browser regression tests.
 
 ## Version 3.0.0 - December 1, 2021
 
