@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
-import { expect, test, describe } from '@jest/globals'
+import React, { act, memo, useContext } from 'react'
+import { expect, test, describe, jest } from '@jest/globals'
 import { createRoot } from 'react-dom/client'
 import 'jest-styled-components'
 
-import { RegionViewer, RegionViewerContext } from './RegionViewer'
+import { RegionViewer, RegionViewerContext, RegionViewerContextValue } from './RegionViewer'
 
 const flushPromises = () => new Promise(resolve => setTimeout(resolve, 0))
 
@@ -15,6 +15,58 @@ const makeFieldConsumer = (fieldName: string) => {
 }
 
 describe('Track', () => {
+  test('keeps layout consumers stable while preserving data, width, and region updates', () => {
+    const previousActEnvironment = Reflect.get(globalThis, 'IS_REACT_ACT_ENVIRONMENT')
+    Reflect.set(globalThis, 'IS_REACT_ACT_ENVIRONMENT', true)
+    const container = document.createElement('div')
+    const root = createRoot(container)
+    const observeLayout = jest.fn<(layout: RegionViewerContextValue) => void>()
+    const regions = [{ start: 1, stop: 10 }]
+    const Consumer = memo(({ position }: { position: number }) => {
+      const layout = useContext(RegionViewerContext)
+      observeLayout(layout)
+      return <output>{layout.scalePosition(position)}</output>
+    })
+    const render = (width = 360, currentRegions = regions, position = 5) => {
+      act(() => {
+        root.render(
+          <RegionViewer
+            width={width}
+            leftPanelWidth={100}
+            rightPanelWidth={160}
+            regions={currentRegions}
+          >
+            <Consumer position={position} />
+          </RegionViewer>
+        )
+      })
+    }
+
+    try {
+      render()
+      const initialLayout = observeLayout.mock.calls[0][0]
+      expect(container.textContent).toBe('40')
+      render()
+      expect(observeLayout).toHaveBeenCalledTimes(1)
+
+      render(360, regions, 6)
+      expect(container.textContent).toBe('50')
+      expect(observeLayout.mock.calls[1][0]).toBe(initialLayout)
+
+      render(460, regions, 6)
+      expect(container.textContent).toBe('100')
+      expect(observeLayout.mock.calls[2][0]).not.toBe(initialLayout)
+
+      render(460, [{ start: 20, stop: 29 }], 25)
+      expect(container.textContent).toBe('100')
+      expect(observeLayout.mock.calls[3][0].isPositionDefined(25)).toBe(true)
+      expect(observeLayout.mock.calls[3][0].isPositionDefined(6)).toBe(false)
+    } finally {
+      act(() => root.unmount())
+      Reflect.set(globalThis, 'IS_REACT_ACT_ENVIRONMENT', previousActEnvironment)
+    }
+  })
+
   test('makes centerPanelWidth available via context, calculating it by overall width minus panel widths', async () => {
     const Consumer = makeFieldConsumer('centerPanelWidth')
     const container = document.createElement('div')

@@ -1,5 +1,15 @@
 # Changes
 
+## Unreleased
+
+- **Breaking:** Wrap each plot with Cursor inside Track's center panel, rather than wrapping whole tracks. Share hover within one actual RegionViewer; separate viewers remain independent.
+- **Breaking:** Snap Cursor hover, custom-renderer X, and local click selection to the nearest displayed base. Preserve last-local-hover click semantics and default floor inversion for other scale callers.
+- **Breaking:** Reserve Track's `positionInspection` and `renderPositionReadout` props for inspection. Require an actual RegionViewer for Cursor and `useInspectedPosition`; a layout-context provider alone is insufficient.
+- Add opt-in Track inspection, independent publication/display controls, and cleanup on leave, disable, unmount, or layout changes without rerendering plot callbacks on hover.
+- Default to a 2px cursor line and a source-only coordinate badge. Retain the explicit `defaultRenderCursor` renderer and allow coordinate opt-out.
+- Add floating PositionReadout values with formatting, zero/missing handling, custom content, and configurable fonts. Support preset, pixel, and track-data-driven Y placement within plot bounds.
+- Add interactive Coverage, Score, Histogram, and Annotations examples with component and browser regression tests.
+
 ## Version 3.0.0 - December 1, 2021
 
 - **Breaking** `RegionViewer` no longer extends input regions and its `padding` prop has been removed [(8833edd)](https://github.com/broadinstitute/gnomad-browser-toolkit/commit/8833edd0a311f8eb19103a1c284a5fff4f6f3bfe)

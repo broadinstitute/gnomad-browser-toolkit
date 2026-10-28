@@ -9,6 +9,7 @@ exports[`Track makes centerPanelWidth available via context, calculating it by o
 <div>
   <div
     class="c0"
+    data-region-viewer=""
     style="width: 800px;"
   >
     <div>
@@ -27,6 +28,7 @@ exports[`Track makes isPositionDefined available via context, which indicates if
 <div>
   <div
     class="c0"
+    data-region-viewer=""
     style="width: 800px;"
   >
     <div />
@@ -52,6 +54,7 @@ exports[`Track makes leftPanelWidth available via context 1`] = `
 <div>
   <div
     class="c0"
+    data-region-viewer=""
     style="width: 800px;"
   >
     <div>
@@ -72,6 +75,7 @@ exports[`Track makes rightPanelWidth available via context 1`] = `
 <div>
   <div
     class="c0"
+    data-region-viewer=""
     style="width: 800px;"
   >
     <div>
@@ -90,6 +94,7 @@ exports[`Track makes scalePosition available via context 1`] = `
 <div>
   <div
     class="c0"
+    data-region-viewer=""
     style="width: 800px;"
   >
     <div>
