@@ -2,25 +2,31 @@
 
 ## Unreleased
 
-- Keep RegionViewer's layout context stable across renders, so memoized tracks re-render only when the layout changes. Compare `regions` field by field: a new array with equal regions keeps the layout. Treat regions as immutable; changing a region in place no longer updates the layout.
-- Add `showReadoutWhenHovered`. Set it to `false` on plots with their own tooltips to hide that plot's badge and value while it is hovered; other plots keep showing their values.
-- Add `readoutY` resolvers that receive the hovered base, plot height, and the measured badge-and-value height.
-- Demonstrate curve-relative Coverage and bin-relative Histogram readouts, including font remeasurement and zero values.
-- Add a position badge on the hovered plot, default on, with per-track `showPositionBadge` opt-out and same-base handoff.
-- Demonstrate badge-only Annotations and value-only Histogram alongside Coverage, Score and Exon rows.
-- Add floating readouts through `renderReadout` on Cursor and in Track `positionInspection`, with preset or pixel placement inside the plot, edge flipping, and remeasurement on resize.
-- Add `ReadoutValue` with formatting, units, custom content, font size, and distinct zero/missing values.
-- Draw readouts as white text on `DEFAULT_READOUT_BACKGROUND_COLOR` (`#474747`, matching `@gnomad/ui` tooltips) with a 1px `DEFAULT_READOUT_BORDER_COLOR` (`#9e9e9e`) border; override with `readoutBackgroundColor` and `readoutBorderColor`.
-- Fit readouts into short plots: margins drop when there is no room, and bubbles take their height from their content.
-- Add opt-in Track `positionInspection`; tracks without it render as before.
-- **Breaking:** Mount Cursor inside each plot instead of around whole tracks. Cursors in one RegionViewer synchronize through viewer-scoped inspection.
-- **Breaking:** Snap Cursor hover and selection to the nearest displayed base. Keep default scale inversion flooring unchanged.
-- **Breaking:** Cursor `onClick` receives the base under the click or tap, typed `number`, instead of the last hovered base. Taps select again.
-- **Breaking:** Remove `defaultRenderCursor`. The default cursor is a 2px line in the current text colour.
-- Add independent display/publication/enable options and useInspectedPosition for small subscribers.
-- Clear inspection after layout changes until actual pointer movement resumes.
-- Warn outside production builds when a Track renders inside a Cursor, the pre-7 whole-track wrapping that now reports wrong positions.
-- Demonstrate synchronized coverage/score plots with browser regression checks.
+### Breaking
+
+- Mount Cursor inside each plot, not around whole tracks. Cursors in one RegionViewer share the hovered base; separate viewers stay independent.
+- Hover and selection snap to the nearest displayed base. `scalePosition.invert` keeps flooring by default.
+- Cursor `onClick` receives the base under the click or tap, typed `number`, instead of the last hovered base. Taps select again.
+- Remove `defaultRenderCursor`. The default cursor is a 2px line in the current text colour.
+- Cursor and `useInspectedPosition` require a RegionViewer ancestor.
+
+### Added
+
+- Track `positionInspection` opts a plot in with any Cursor option; tracks without it render as before.
+- Cursor options `enabled`, `publishPosition` and `showCursor`, and `useInspectedPosition` for small subscribers.
+- Floating readouts through `renderReadout`, placed with `readoutY` presets, pixels, or resolvers that receive the hovered base, plot height and measured readout height.
+- `ReadoutValue` with formatting, units, custom content, font size, and distinct zero and missing values.
+- A position badge on the hovered plot (`showPositionBadge`, default on) and `showReadoutWhenHovered` for plots with their own tooltips.
+- Readout colours `readoutBackgroundColor` and `readoutBorderColor`, defaulting to the exported `DEFAULT_READOUT_BACKGROUND_COLOR` (`#474747`, matching `@gnomad/ui` tooltips) and `DEFAULT_READOUT_BORDER_COLOR` (`#9e9e9e`).
+- `scalePosition.invert(x, 'nearest')`.
+- A development warning when a Track renders inside a Cursor.
+- Examples for coverage, score, histogram, annotations and exon rows, with browser tests run in CI.
+
+### Changed
+
+- RegionViewer compares `regions` field by field and keeps its layout context stable, so equal region arrays do not re-render tracks. Treat regions as immutable; changing a region in place no longer updates the layout.
+- Inspection clears after layout changes until the pointer moves again.
+- Readouts fit short plots: margins drop when there is no room, and pills size to their content.
 
 ## Version 3.0.0 - December 1, 2021
 
