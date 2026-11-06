@@ -10,7 +10,7 @@ const TRANSCRIPTS = ['ENST1', 'ENST2'].map(transcriptId => ({
   exons: [{ feature_type: 'CDS', start: 20, stop: 60 }]
 }))
 
-const renderTranscripts = positionInspection => {
+const renderTranscripts = (positionInspection, renderTranscriptReadout) => {
   return render(
     <RegionViewer
       width={360}
@@ -18,7 +18,11 @@ const renderTranscripts = positionInspection => {
       rightPanelWidth={160}
       regions={[{ start: 1, stop: 100 }]}
     >
-      <TranscriptsTrack transcripts={TRANSCRIPTS} positionInspection={positionInspection} />
+      <TranscriptsTrack
+        transcripts={TRANSCRIPTS}
+        positionInspection={positionInspection}
+        renderTranscriptReadout={renderTranscriptReadout}
+      />
     </RegionViewer>
   )
 }
@@ -59,5 +63,23 @@ describe('TranscriptsTrack', () => {
 
     expect(container.querySelectorAll('svg[aria-hidden="true"] line')).toHaveLength(2)
     expect(onClick.mock.calls).toEqual([[51]])
+  })
+
+  test('each row renders its own readout with its transcript', () => {
+    const { container, getByText } = renderTranscripts(
+      { showPositionBadge: false },
+      ({ position, transcript }) => (
+        <span>
+          {transcript.transcript_id} at {position}
+        </span>
+      )
+    )
+    const [firstRow] = container.querySelectorAll('[data-region-cursor]')
+
+    fireEvent(firstRow, new MouseEvent('pointermove', { bubbles: true, clientX: 150 }))
+
+    expect(getByText('ENST1 at 51')).toBeTruthy()
+    expect(getByText('ENST2 at 51')).toBeTruthy()
+    expect(container.querySelector('[data-position-badge]')).toBeNull()
   })
 })

@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Forward `positionInspection` from `TranscriptsTrack` to every transcript row's region-viewer `Track`, so expanded transcripts can show the synchronized cursor line.
+- Add `renderTranscriptReadout({ position, transcript })` for a per-row readout. Rows are 10px tall: keep it compact (8px text, `lineHeight: 1`) and pass `showPositionBadge: false`.
 
 ## Version 2.0.1 - December 1, 2021
 
