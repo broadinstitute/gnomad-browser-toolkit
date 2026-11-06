@@ -12,8 +12,17 @@ const TitlePanel = styled.div`
   justify-content: flex-start;
 `
 
-export const GenesTrack = ({ genes, includeNonCodingGenes, renderGeneLabel, title }) => (
-  <Track renderLeftPanel={() => <TitlePanel>{title}</TitlePanel>}>
+export const GenesTrack = ({
+  genes,
+  includeNonCodingGenes,
+  positionInspection,
+  renderGeneLabel,
+  title
+}) => (
+  <Track
+    positionInspection={positionInspection}
+    renderLeftPanel={() => <TitlePanel>{title}</TitlePanel>}
+  >
     {({ scalePosition, width }) => {
       return (
         <GenesPlot
@@ -44,6 +53,8 @@ GenesTrack.propTypes = {
     })
   ).isRequired,
   includeNonCodingGenes: PropTypes.bool,
+  // Passed unchanged to region-viewer's Track; see its TrackPositionInspection type.
+  positionInspection: PropTypes.object,
   renderGeneLabel: PropTypes.func,
   title: PropTypes.string
 }
