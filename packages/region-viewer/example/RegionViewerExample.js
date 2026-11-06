@@ -26,7 +26,8 @@ const DEFAULT_SETTINGS = {
   publish: true,
   cursor: true,
   positionBadge: true,
-  readout: true
+  readout: true,
+  readoutWhenHovered: true
 }
 
 const TrackControls = ({ label, settings, onChange }) => {
@@ -38,7 +39,8 @@ const TrackControls = ({ label, settings, onChange }) => {
         ['publish', 'Publish hover'],
         ['cursor', 'Show hover line'],
         ['positionBadge', 'Show position badge on hover'],
-        ['readout', 'Show value readout']
+        ['readout', 'Show value readout'],
+        ['readoutWhenHovered', 'Show readout while this plot is hovered']
       ].map(([key, text]) => {
         return (
           <label
@@ -67,7 +69,8 @@ TrackControls.propTypes = {
     publish: PropTypes.bool.isRequired,
     cursor: PropTypes.bool.isRequired,
     positionBadge: PropTypes.bool.isRequired,
-    readout: PropTypes.bool.isRequired
+    readout: PropTypes.bool.isRequired,
+    readoutWhenHovered: PropTypes.bool.isRequired
   }).isRequired,
   onChange: PropTypes.func.isRequired
 }

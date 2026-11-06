@@ -53,6 +53,11 @@ export interface CursorProps {
   showCursor?: boolean
   /** Default true. Shows the hovered base in a badge, only on the plot under the pointer. */
   showPositionBadge?: boolean
+  /**
+   * Default true. False hides this plot's badge and value while this plot is the one hovered, for plots with
+   * their own tooltips. Its line still draws, and it still shows its value while another plot is hovered.
+   */
+  showReadoutWhenHovered?: boolean
   /** Called with the base under a click or tap inside this plot. Never called for other plots' clicks. */
   onClick?: (position: number) => void
   /** Draws the line from plot-local pixel X. Defaults to a 2px line in the current text colour. */
@@ -74,13 +79,17 @@ const SharedCursorOverlay = ({
   renderCursor,
   showCursor,
   showPositionBadge,
+  showReadoutWhenHovered,
   renderReadout,
   readoutY,
   readoutBackgroundColor,
   readoutBorderColor,
   plotRef,
   source
-}: Pick<CursorProps, 'renderCursor' | 'showCursor' | 'showPositionBadge' | 'renderReadout'> & {
+}: Pick<
+  CursorProps,
+  'renderCursor' | 'showCursor' | 'showPositionBadge' | 'showReadoutWhenHovered' | 'renderReadout'
+> & {
   readoutY: PositionReadoutY
   readoutBackgroundColor: string
   readoutBorderColor: string
@@ -89,11 +98,14 @@ const SharedCursorOverlay = ({
 }) => {
   const position = useInspectedPosition()
   const inspection = usePositionInspection()
-  const isBadgeShown = useSyncExternalStore(
+  const isHoveredPlot = useSyncExternalStore(
     inspection.subscribe,
-    () => showPositionBadge === true && inspection.getSourceSnapshot() === source,
+    () => inspection.getSourceSnapshot() === source,
     () => false
   )
+  const showReadout = showReadoutWhenHovered !== false || !isHoveredPlot
+  const isBadgeShown = showReadout && showPositionBadge === true && isHoveredPlot
+  const valueReadout = showReadout ? renderReadout : undefined
   const { scalePosition, isPositionDefined } = useContext(RegionViewerContext)
   if (position === null || !isPositionDefined(position)) {
     return null
@@ -103,7 +115,7 @@ const SharedCursorOverlay = ({
   return (
     <>
       {showCursor && <CursorOverlay aria-hidden="true">{drawCursor(x)}</CursorOverlay>}
-      {(renderReadout || isBadgeShown) && (
+      {(valueReadout || isBadgeShown) && (
         <FloatingPositionReadout
           position={position}
           showPositionBadge={isBadgeShown}
@@ -113,7 +125,7 @@ const SharedCursorOverlay = ({
           backgroundColor={readoutBackgroundColor}
           borderColor={readoutBorderColor}
         >
-          {renderReadout?.({ position })}
+          {valueReadout?.({ position })}
         </FloatingPositionReadout>
       )}
     </>
@@ -137,6 +149,7 @@ export const Cursor = ({
   publishPosition = true,
   showCursor = true,
   showPositionBadge = true,
+  showReadoutWhenHovered = true,
   onClick,
   renderCursor,
   renderReadout,
@@ -227,6 +240,7 @@ export const Cursor = ({
           renderCursor={renderCursor}
           showCursor={showCursor}
           showPositionBadge={showPositionBadge}
+          showReadoutWhenHovered={showReadoutWhenHovered}
           source={source.current}
           renderReadout={renderReadout}
           readoutY={readoutY}

@@ -52,6 +52,8 @@ Cursor and configured Tracks default `showPositionBadge` to true. The badge show
 
 Set `showPositionBadge: false` to keep the line and values without a badge. Omit `renderReadout` for badge-only inspection. The badge and value are positioned and measured together. Value font overrides do not change the badge's typography.
 
+Set `showReadoutWhenHovered: false` on a plot with its own tooltips. While that plot is the one hovered it shows no badge or value, so the readout does not stack on the tooltip; it still shows its value while another plot is hovered.
+
 ## Data-driven placement
 
 Set `readoutY` to `({ position, height, readoutHeight }) => number` to follow track data. Resolve local pixels with the same Y scale as the plot. `readoutHeight` covers the badge and value together, so subtract it when placing the group above a curve or bar. The toolkit still clamps the result to plot bounds and remeasures after content or font changes.

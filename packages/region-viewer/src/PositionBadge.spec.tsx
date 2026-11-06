@@ -13,10 +13,12 @@ const REGIONS = [{ start: 1, stop: 200 }]
 
 const TwoTracks = ({
   showCoveragePosition,
+  showCoverageReadoutWhenHovered,
   readoutY,
   children
 }: {
   showCoveragePosition?: boolean
+  showCoverageReadoutWhenHovered?: boolean
   readoutY?: PositionReadoutY
   children?: React.ReactNode
 }) => {
@@ -25,6 +27,7 @@ const TwoTracks = ({
       <Track
         positionInspection={{
           showPositionBadge: showCoveragePosition,
+          showReadoutWhenHovered: showCoverageReadoutWhenHovered,
           readoutY,
           renderReadout: () => {
             return (
@@ -117,6 +120,21 @@ describe('position badge on the hovered track', () => {
     expect(host().querySelector('[data-position-badge]')).toBeNull()
     expect(screen.getByText('Coverage: 32')).not.toBeNull()
     move('score')
+    expect(badgeIn('Score')?.textContent).toBe('Position: 51')
+  })
+
+  test('a track can hide its readout while hovered and still show values while another track is', () => {
+    mockLayout()
+    mount(<TwoTracks showCoverageReadoutWhenHovered={false} />)
+    move('coverage')
+    const coverageCursor = screen.getByTestId('coverage').closest('[data-region-cursor]')
+    expect(coverageCursor?.querySelector('[data-region-readout]')).toBeNull()
+    expect(coverageCursor?.querySelector('svg[aria-hidden="true"]')).not.toBeNull()
+    expect(screen.getByText('Score: 0.5')).not.toBeNull()
+    expect(badgeIn('Score')).toBeNull()
+
+    move('score')
+    expect(screen.getByText('Coverage: 32')).not.toBeNull()
     expect(badgeIn('Score')?.textContent).toBe('Position: 51')
   })
 

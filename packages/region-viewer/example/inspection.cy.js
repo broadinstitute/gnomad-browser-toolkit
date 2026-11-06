@@ -115,6 +115,17 @@ describe('synchronized cursor example in a real browser', () => {
     cursor('Coverage').should('exist')
   })
 
+  it('hides a track readout only while that track is hovered', () => {
+    cy.get('#Coverage-controls-readoutWhenHovered').uncheck()
+    inspect('Coverage', 251)
+    plot('Coverage').parent().find('[data-region-readout]').should('not.exist')
+    cursor('Coverage').should('exist')
+    readout('Score').should('contain.text', '0.45')
+    inspect('Score', 251)
+    readout('Coverage').should('contain.text', '38 ×')
+    positionBadge('Score').should('have.text', 'Position: 251')
+  })
+
   it('keeps preset readouts inside the plot at either edge and honors vertical placement', () => {
     cy.get('#readout-y').select('bottom')
     inspect('Score', 300)
