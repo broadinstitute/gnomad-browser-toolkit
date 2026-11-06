@@ -36,6 +36,16 @@ Set `positionInspection={{}}` on Track to wrap only its center plot in Cursor. P
 </Track>
 ```
 
+## Floating values
+
+Set `renderReadout: ({ position }) => ...` in Track's `positionInspection` (or `renderReadout` on Cursor) to return JSX for the hovered genomic base. Own the data lookup in the track. The toolkit measures and positions the pointer-transparent bubble inside the plot, flips it at horizontal edges, and clamps it to plot bounds. Readouts never extend outside their plot; on short plots the 8px margins drop, and a compact readout (for example 8px text with `lineHeight: 1`) fits a 10px row.
+
+Use `ReadoutValue` for standard labels, React-node values, units, and `formatValue`. Zero remains a value; null/undefined show No data. Set `fontSize` to a pixel number or CSS string; the default is 0.75rem.
+
+Readout content inherits white text on a dark grey (`DEFAULT_READOUT_BACKGROUND_COLOR`, matching `@gnomad/ui` tooltips) pill with a mid-grey border (`DEFAULT_READOUT_BORDER_COLOR`). Override them with `readoutBackgroundColor` and `readoutBorderColor`.
+
+Use `readoutY` for top, middle, bottom, or a pixel offset from the plot top. Readouts float only during active inspection; hiding the line does not hide the value.
+
 ## Run the example
 
 Run the emitting compiler and example server in separate toolkit-root terminals:

@@ -3,6 +3,10 @@
 ## Unreleased
 
 - Keep RegionViewer's layout context stable across renders, so memoized tracks re-render only when the layout changes. Compare `regions` field by field: a new array with equal regions keeps the layout. Treat regions as immutable; changing a region in place no longer updates the layout.
+- Add floating readouts through `renderReadout` on Cursor and in Track `positionInspection`, with preset or pixel placement inside the plot, edge flipping, and remeasurement on resize.
+- Add `ReadoutValue` with formatting, units, custom content, font size, and distinct zero/missing values.
+- Draw readouts as white text on `DEFAULT_READOUT_BACKGROUND_COLOR` (`#474747`, matching `@gnomad/ui` tooltips) with a 1px `DEFAULT_READOUT_BORDER_COLOR` (`#9e9e9e`) border; override with `readoutBackgroundColor` and `readoutBorderColor`.
+- Fit readouts into short plots: margins drop when there is no room, and bubbles take their height from their content.
 - Add opt-in Track `positionInspection`; tracks without it render as before.
 - **Breaking:** Mount Cursor inside each plot instead of around whole tracks. Cursors in one RegionViewer synchronize through viewer-scoped inspection.
 - **Breaking:** Snap Cursor hover and selection to the nearest displayed base. Keep default scale inversion flooring unchanged.

@@ -1,6 +1,7 @@
 export * from './Cursor'
 export * from './PositionAxis'
 export * from './PositionAxisTrack'
+export * from './ReadoutValue'
 export * from './RegionViewer'
 export * from './Track'
 export * from './coordinates'
