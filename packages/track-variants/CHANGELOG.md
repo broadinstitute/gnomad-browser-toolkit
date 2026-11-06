@@ -1,5 +1,9 @@
 # Changes
 
+## Unreleased
+
+- Forward `positionInspection` from `VariantTrack` to its region-viewer `Track`, so variant tracks can join synchronized cursors.
+
 ## Version 1.0.2 - December 1, 2021
 
 - Update required version of `@gnomad/region-viewer`
