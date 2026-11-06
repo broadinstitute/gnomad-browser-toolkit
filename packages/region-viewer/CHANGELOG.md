@@ -9,6 +9,7 @@
 - **Breaking:** Remove `defaultRenderCursor`. The default cursor is a 2px line in the current text colour.
 - Add independent display/publication/enable options and useInspectedPosition for small subscribers.
 - Clear inspection after layout changes until actual pointer movement resumes.
+- Warn outside production builds when a Track renders inside a Cursor, the pre-7 whole-track wrapping that now reports wrong positions.
 - Demonstrate synchronized coverage/score plots with browser regression checks.
 
 ## Version 3.0.0 - December 1, 2021

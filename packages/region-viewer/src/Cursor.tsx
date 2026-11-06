@@ -1,6 +1,7 @@
 import React, { ReactNode, useContext, useLayoutEffect, useRef } from 'react'
 import styled from 'styled-components'
 
+import { InsideCursorContext } from './cursorNesting'
 import { usePositionInspection } from './positionInspection'
 import { RegionViewerContext } from './RegionViewer'
 import { useInspectedPosition } from './useInspectedPosition'
@@ -141,7 +142,7 @@ export const Cursor = ({
       onPointerCancel={release}
       onClick={selectClickedPosition}
     >
-      {children}
+      <InsideCursorContext.Provider value>{children}</InsideCursorContext.Provider>
       {enabled && showCursor && <SharedCursorOverlay renderCursor={renderCursor} />}
     </CursorWrapper>
   )

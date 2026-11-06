@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 
+import { InsideCursorContext, warnTrackInsideCursor } from './cursorNesting'
 import { RegionViewerContext, RegionViewerContextValue } from './RegionViewer'
 
 const OuterWrapper = styled.div`
@@ -67,52 +68,61 @@ export const Track = ({
   renderRightPanel,
   renderTopPanel,
   ...rest
-}: Props) => (
-  <RegionViewerContext.Consumer>
-    {({
-      centerPanelWidth,
-      isPositionDefined,
-      leftPanelWidth,
-      regions,
-      rightPanelWidth,
-      scalePosition
-    }) => {
-      return (
-        <OuterWrapper>
-          {renderTopPanel && (
-            <TopPanel
-              style={{
-                width: centerPanelWidth,
-                marginLeft: leftPanelWidth,
-                marginRight: rightPanelWidth
-              }}
-            >
-              {renderTopPanel({ ...rest, width: centerPanelWidth })}
-            </TopPanel>
-          )}
-          <InnerWrapper>
-            <SidePanel style={{ width: leftPanelWidth }}>
-              {renderLeftPanel && renderLeftPanel({ ...rest, width: leftPanelWidth })}
-            </SidePanel>
-            <CenterPanel style={{ width: centerPanelWidth }}>
-              {children({
-                ...rest,
-                width: centerPanelWidth,
-                isPositionDefined,
-                leftPanelWidth,
-                regions,
-                rightPanelWidth,
-                scalePosition
-              })}
-            </CenterPanel>
-            {renderRightPanel && (
-              <SidePanel style={{ width: rightPanelWidth }}>
-                {renderRightPanel({ ...rest, width: rightPanelWidth })}
-              </SidePanel>
+}: Props) => {
+  const isInsideCursor = useContext(InsideCursorContext)
+  useEffect(() => {
+    if (isInsideCursor) {
+      warnTrackInsideCursor()
+    }
+  }, [isInsideCursor])
+
+  return (
+    <RegionViewerContext.Consumer>
+      {({
+        centerPanelWidth,
+        isPositionDefined,
+        leftPanelWidth,
+        regions,
+        rightPanelWidth,
+        scalePosition
+      }) => {
+        return (
+          <OuterWrapper>
+            {renderTopPanel && (
+              <TopPanel
+                style={{
+                  width: centerPanelWidth,
+                  marginLeft: leftPanelWidth,
+                  marginRight: rightPanelWidth
+                }}
+              >
+                {renderTopPanel({ ...rest, width: centerPanelWidth })}
+              </TopPanel>
             )}
-          </InnerWrapper>
-        </OuterWrapper>
-      )
-    }}
-  </RegionViewerContext.Consumer>
-)
+            <InnerWrapper>
+              <SidePanel style={{ width: leftPanelWidth }}>
+                {renderLeftPanel && renderLeftPanel({ ...rest, width: leftPanelWidth })}
+              </SidePanel>
+              <CenterPanel style={{ width: centerPanelWidth }}>
+                {children({
+                  ...rest,
+                  width: centerPanelWidth,
+                  isPositionDefined,
+                  leftPanelWidth,
+                  regions,
+                  rightPanelWidth,
+                  scalePosition
+                })}
+              </CenterPanel>
+              {renderRightPanel && (
+                <SidePanel style={{ width: rightPanelWidth }}>
+                  {renderRightPanel({ ...rest, width: rightPanelWidth })}
+                </SidePanel>
+              )}
+            </InnerWrapper>
+          </OuterWrapper>
+        )
+      }}
+    </RegionViewerContext.Consumer>
+  )
+}
