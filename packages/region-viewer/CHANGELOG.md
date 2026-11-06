@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Keep RegionViewer's layout context stable across renders, so memoized tracks re-render only when the layout changes. Compare `regions` field by field: a new array with equal regions keeps the layout. Treat regions as immutable; changing a region in place no longer updates the layout.
+- Add opt-in Track `positionInspection`; tracks without it render as before.
 - **Breaking:** Mount Cursor inside each plot instead of around whole tracks. Cursors in one RegionViewer synchronize through viewer-scoped inspection.
 - **Breaking:** Snap Cursor hover and selection to the nearest displayed base. Keep default scale inversion flooring unchanged.
 - **Breaking:** Cursor `onClick` receives the base under the click or tap, typed `number`, instead of the last hovered base. Taps select again.

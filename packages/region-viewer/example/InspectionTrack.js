@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import { Cursor, Track } from '../lib/cjs'
+import { Track } from '../lib/cjs'
 
 export const COVERAGE = [
   { start: 1, stop: 40, value: 32 },
@@ -128,25 +128,24 @@ const InspectionTrack = ({ label, intervals, settings, onSelect, onDetails }) =>
       renderTopPanel={() => {
         return <h3 style={{ margin: '1em 0 0.25em' }}>{label}</h3>
       }}
+      positionInspection={{
+        enabled: settings.enabled,
+        publishPosition: settings.publish,
+        showCursor: settings.cursor,
+        onClick: onSelect
+      }}
     >
       {({ regions, width, scalePosition }) => {
         return (
-          <Cursor
-            enabled={settings.enabled}
-            publishPosition={settings.publish}
-            showCursor={settings.cursor}
-            onClick={onSelect}
-          >
-            <IntervalPlot
-              label={label}
-              intervals={intervals}
-              maximum={maximum}
-              regions={regions}
-              width={width}
-              scalePosition={scalePosition}
-              onDetails={onDetails}
-            />
-          </Cursor>
+          <IntervalPlot
+            label={label}
+            intervals={intervals}
+            maximum={maximum}
+            regions={regions}
+            width={width}
+            scalePosition={scalePosition}
+            onDetails={onDetails}
+          />
         )
       }}
     </Track>

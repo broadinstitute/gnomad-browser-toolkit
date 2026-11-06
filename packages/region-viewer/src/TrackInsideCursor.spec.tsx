@@ -44,18 +44,21 @@ describe('Track inside Cursor warning', () => {
       </Cursor>
     )
     expect(warn).toHaveBeenCalledTimes(2)
-    expect(String(warn.mock.calls[0][0])).toMatch(/Track rendered inside Cursor/)
+    expect(String(warn.mock.calls[0][0])).toMatch(/pass positionInspection to each Track/)
   })
 
-  test('a Cursor around a plot does not warn', () => {
+  test('Track positionInspection and a Cursor around a plot do not warn', () => {
     mount(
-      <Track>
-        {() => (
-          <Cursor>
-            <Plot />
-          </Cursor>
-        )}
-      </Track>
+      <>
+        <Track positionInspection={{}}>{() => <Plot />}</Track>
+        <Track>
+          {() => (
+            <Cursor>
+              <Plot />
+            </Cursor>
+          )}
+        </Track>
+      </>
     )
     expect(warn).not.toHaveBeenCalled()
   })

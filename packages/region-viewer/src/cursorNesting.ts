@@ -15,7 +15,7 @@ export const warnTrackInsideCursor = (): void => {
   if (!isProductionBuild()) {
     // eslint-disable-next-line no-console
     console.warn(
-      '@gnomad/region-viewer: Track rendered inside Cursor. Cursor maps hover across its own width, so wrapping whole tracks reports wrong positions. Move the Cursor inside each Track, around only the plot.'
+      '@gnomad/region-viewer: Track rendered inside Cursor. Cursor maps hover across its own width, so wrapping whole tracks reports wrong positions. Remove the outer Cursor and pass positionInspection to each Track instead.'
     )
   }
 }

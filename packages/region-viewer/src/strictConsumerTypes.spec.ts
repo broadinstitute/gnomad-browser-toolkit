@@ -34,14 +34,18 @@ const strictConsumerDiagnostics = (source: string): string[] => {
     .map(diagnostic => ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'))
 }
 
-test('strict consumers can pass number-only click handlers to Cursor', () => {
+test('strict consumers can pass number-only click handlers to Cursor and Track', () => {
   const diagnostics = strictConsumerDiagnostics(`
     import React from 'react'
     import { Cursor } from './Cursor'
+    import { Track } from './Track'
 
     const scrollToPosition = (position: number) => position.toFixed()
 
     export const cursor = <Cursor onClick={scrollToPosition} />
+    export const track = (
+      <Track positionInspection={{ onClick: scrollToPosition }}>{() => <svg />}</Track>
+    )
   `)
   expect(diagnostics).toEqual([])
 })

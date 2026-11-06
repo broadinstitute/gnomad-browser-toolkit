@@ -188,20 +188,18 @@ const RegionViewerExample = () => {
           rightPanelWidth={0}
           regions={INDEPENDENT_REGIONS}
         >
-          <Track title="Independent">
+          <Track title="Independent" positionInspection={{}}>
             {({ width: plotWidth }) => {
               return (
-                <Cursor>
-                  <svg
-                    role="img"
-                    aria-label="Independent plot"
-                    width={plotWidth}
-                    height={50}
-                    style={{ display: 'block', background: '#eee' }}
-                  >
-                    <title>Independent plot</title>
-                  </svg>
-                </Cursor>
+                <svg
+                  role="img"
+                  aria-label="Independent plot"
+                  width={plotWidth}
+                  height={50}
+                  style={{ display: 'block', background: '#eee' }}
+                >
+                  <title>Independent plot</title>
+                </svg>
               )
             }}
           </Track>

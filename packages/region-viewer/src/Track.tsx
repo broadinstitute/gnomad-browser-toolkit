@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 
+import { Cursor, CursorProps } from './Cursor'
 import { InsideCursorContext, warnTrackInsideCursor } from './cursorNesting'
 import { RegionViewerContext, RegionViewerContextValue } from './RegionViewer'
 
@@ -46,12 +47,29 @@ type _CenterPanelProps = Omit<RegionViewerContextValue, 'centerPanelWidth'> & { 
 
 export interface CenterPanelProps extends _CenterPanelProps {}
 
-type Props = {
+export type TrackPositionInspection = Omit<CursorProps, 'children'>
+
+export interface TrackProps {
+  /** Omit to render the Track exactly as without inspection. `{}` opts its plot in with Cursor defaults. */
+  positionInspection?: TrackPositionInspection
   renderLeftPanel?: React.FC<SidePanelProps>
   renderRightPanel?: React.FC<SidePanelProps>
   renderTopPanel?: React.FC<SidePanelProps>
   children: (props: CenterPanelProps) => React.JSX.Element
   [x: string]: unknown
+}
+
+const TrackPlot = ({
+  children,
+  inspection
+}: {
+  children: React.ReactNode
+  inspection?: TrackPositionInspection
+}) => {
+  if (!inspection) {
+    return <>{children}</>
+  }
+  return <Cursor {...inspection}>{children}</Cursor>
 }
 
 const defaultRenderLeftPanel = ({ title = '' }: SidePanelProps & { title: string }) => (
@@ -67,8 +85,9 @@ export const Track = ({
   renderLeftPanel = defaultRenderLeftPanel,
   renderRightPanel,
   renderTopPanel,
+  positionInspection,
   ...rest
-}: Props) => {
+}: TrackProps): React.JSX.Element => {
   const isInsideCursor = useContext(InsideCursorContext)
   useEffect(() => {
     if (isInsideCursor) {
@@ -104,15 +123,17 @@ export const Track = ({
                 {renderLeftPanel && renderLeftPanel({ ...rest, width: leftPanelWidth })}
               </SidePanel>
               <CenterPanel style={{ width: centerPanelWidth }}>
-                {children({
-                  ...rest,
-                  width: centerPanelWidth,
-                  isPositionDefined,
-                  leftPanelWidth,
-                  regions,
-                  rightPanelWidth,
-                  scalePosition
-                })}
+                <TrackPlot inspection={positionInspection}>
+                  {children({
+                    ...rest,
+                    width: centerPanelWidth,
+                    isPositionDefined,
+                    leftPanelWidth,
+                    regions,
+                    rightPanelWidth,
+                    scalePosition
+                  })}
+                </TrackPlot>
               </CenterPanel>
               {renderRightPanel && (
                 <SidePanel style={{ width: rightPanelWidth }}>
