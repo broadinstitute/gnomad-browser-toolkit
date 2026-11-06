@@ -19,6 +19,7 @@
   "scripts": {
     "build": "gnomad-browser-toolkit-scripts build",
     "prepack": "pnpm run build",
+    "test": "jest --coverage",
     "example": "gnomad-browser-toolkit-scripts example"
   },
   "devDependencies": {
