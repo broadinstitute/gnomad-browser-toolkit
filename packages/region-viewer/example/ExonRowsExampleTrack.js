@@ -48,6 +48,7 @@ const ExonRow = ({ transcript, heading, onSelect }) => {
         renderTopPanel={heading ? renderHeading : undefined}
         positionInspection={{
           onClick: onSelect,
+          showPositionBadge: false,
           readoutY: 'middle',
           renderReadout: ({ position }) => {
             const exonNumber = exonNumberAt(transcript.exons, position)

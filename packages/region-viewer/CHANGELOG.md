@@ -3,6 +3,8 @@
 ## Unreleased
 
 - Keep RegionViewer's layout context stable across renders, so memoized tracks re-render only when the layout changes. Compare `regions` field by field: a new array with equal regions keeps the layout. Treat regions as immutable; changing a region in place no longer updates the layout.
+- Add a position badge on the hovered plot, default on, with per-track `showPositionBadge` opt-out and same-base handoff.
+- Demonstrate badge-only Annotations and value-only Histogram alongside Coverage, Score and Exon rows.
 - Add floating readouts through `renderReadout` on Cursor and in Track `positionInspection`, with preset or pixel placement inside the plot, edge flipping, and remeasurement on resize.
 - Add `ReadoutValue` with formatting, units, custom content, font size, and distinct zero/missing values.
 - Draw readouts as white text on `DEFAULT_READOUT_BACKGROUND_COLOR` (`#474747`, matching `@gnomad/ui` tooltips) with a 1px `DEFAULT_READOUT_BORDER_COLOR` (`#9e9e9e`) border; override with `readoutBackgroundColor` and `readoutBorderColor`.

@@ -163,6 +163,7 @@ const InspectionTrack = ({
         enabled: settings.enabled,
         publishPosition: settings.publish,
         showCursor: settings.cursor,
+        showPositionBadge: settings.positionBadge,
         onClick: onSelect,
         readoutY,
         renderReadout: readout
@@ -192,6 +193,7 @@ InspectionTrack.propTypes = {
     enabled: PropTypes.bool.isRequired,
     publish: PropTypes.bool.isRequired,
     cursor: PropTypes.bool.isRequired,
+    positionBadge: PropTypes.bool.isRequired,
     readout: PropTypes.bool.isRequired
   }).isRequired,
   readoutFontSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

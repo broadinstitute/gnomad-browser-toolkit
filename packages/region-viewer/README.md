@@ -46,6 +46,12 @@ Readout content inherits white text on a dark grey (`DEFAULT_READOUT_BACKGROUND_
 
 Use `readoutY` for top, middle, bottom, or a pixel offset from the plot top. Readouts float only during active inspection; hiding the line does not hide the value.
 
+## Position badge
+
+Cursor and configured Tracks default `showPositionBadge` to true. The badge shows the hovered base only on the plot under the pointer, above any value bubble; other plots still show their own values. The badge moves on a same-base handoff without re-rendering numeric-position subscribers.
+
+Set `showPositionBadge: false` to keep the line and values without a badge. Omit `renderReadout` for badge-only inspection. The badge and value are positioned and measured together. Value font overrides do not change the badge's typography.
+
 ## Run the example
 
 Run the emitting compiler and example server in separate toolkit-root terminals:

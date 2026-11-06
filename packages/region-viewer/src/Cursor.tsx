@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useLayoutEffect, useRef } from 'react'
+import React, { ReactNode, useContext, useLayoutEffect, useRef, useSyncExternalStore } from 'react'
 import styled from 'styled-components'
 
 import {
@@ -50,6 +50,8 @@ export interface CursorProps {
   publishPosition?: boolean
   /** Default true. False hides this plot's line; hovering it still publishes. */
   showCursor?: boolean
+  /** Default true. Shows the hovered base in a badge, only on the plot under the pointer. */
+  showPositionBadge?: boolean
   /** Called with the base under a click or tap inside this plot. Never called for other plots' clicks. */
   onClick?: (position: number) => void
   /** Draws the line from plot-local pixel X. Defaults to a 2px line in the current text colour. */
@@ -70,18 +72,27 @@ export interface CursorProps {
 const SharedCursorOverlay = ({
   renderCursor,
   showCursor,
+  showPositionBadge,
   renderReadout,
   readoutY,
   readoutBackgroundColor,
   readoutBorderColor,
-  plotRef
-}: Pick<CursorProps, 'renderCursor' | 'showCursor' | 'renderReadout'> & {
+  plotRef,
+  source
+}: Pick<CursorProps, 'renderCursor' | 'showCursor' | 'showPositionBadge' | 'renderReadout'> & {
   readoutY: PositionReadoutY
   readoutBackgroundColor: string
   readoutBorderColor: string
   plotRef: React.RefObject<HTMLDivElement>
+  source: object
 }) => {
   const position = useInspectedPosition()
+  const inspection = usePositionInspection()
+  const isBadgeShown = useSyncExternalStore(
+    inspection.subscribe,
+    () => showPositionBadge === true && inspection.getSourceSnapshot() === source,
+    () => false
+  )
   const { scalePosition, isPositionDefined } = useContext(RegionViewerContext)
   if (position === null || !isPositionDefined(position)) {
     return null
@@ -91,15 +102,17 @@ const SharedCursorOverlay = ({
   return (
     <>
       {showCursor && <CursorOverlay aria-hidden="true">{drawCursor(x)}</CursorOverlay>}
-      {renderReadout && (
+      {(renderReadout || isBadgeShown) && (
         <FloatingPositionReadout
+          position={position}
+          showPositionBadge={isBadgeShown}
           x={x}
           y={readoutY}
           plotRef={plotRef}
           backgroundColor={readoutBackgroundColor}
           borderColor={readoutBorderColor}
         >
-          {renderReadout({ position })}
+          {renderReadout?.({ position })}
         </FloatingPositionReadout>
       )}
     </>
@@ -122,6 +135,7 @@ export const Cursor = ({
   enabled = true,
   publishPosition = true,
   showCursor = true,
+  showPositionBadge = true,
   onClick,
   renderCursor,
   renderReadout,
@@ -207,10 +221,12 @@ export const Cursor = ({
       onClick={selectClickedPosition}
     >
       <InsideCursorContext.Provider value>{children}</InsideCursorContext.Provider>
-      {enabled && (showCursor || renderReadout) && (
+      {enabled && (showCursor || renderReadout || showPositionBadge) && (
         <SharedCursorOverlay
           renderCursor={renderCursor}
           showCursor={showCursor}
+          showPositionBadge={showPositionBadge}
+          source={source.current}
           renderReadout={renderReadout}
           readoutY={readoutY}
           readoutBackgroundColor={readoutBackgroundColor}

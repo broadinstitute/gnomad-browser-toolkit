@@ -14,9 +14,54 @@ const inspect = (label, position) => {
 }
 
 const cursor = label => plot(label).parent('[data-region-cursor]').find('svg[aria-hidden="true"]')
+const positionBadge = label =>
+  plot(label).parent('[data-region-cursor]').find('[data-position-badge]')
 
 describe('floating value readouts', () => {
   beforeEach(() => cy.visit('/'))
+
+  it('shows one position badge above its value and transfers it at the same base', () => {
+    inspect('Coverage', 251)
+    positionBadge('Coverage').should('have.text', 'Position: 251')
+    positionBadge('Score').should('not.exist')
+    positionBadge('Coverage').then($badge => {
+      const badge = $badge[0].getBoundingClientRect()
+      plot('Coverage')
+        .parent()
+        .find('[data-value-readout]')
+        .should($value => {
+          expect($value[0].getBoundingClientRect().top).to.be.closeTo(badge.bottom + 4, 0.1)
+        })
+    })
+    inspect('Score', 251)
+    positionBadge('Score').should('have.text', 'Position: 251')
+    positionBadge('Coverage').should('not.exist')
+    cy.get('[aria-label="Shared inspection viewer"] [data-position-badge]').should('have.length', 1)
+    plot('Score').trigger('pointerout', { eventConstructor: 'PointerEvent', relatedTarget: null })
+    cy.get('[aria-label="Shared inspection viewer"] [data-position-badge]').should('not.exist')
+  })
+
+  it('supports badge-only, value-only, and badge opt-out participation', () => {
+    cy.get('#Coverage-controls-readout').uncheck()
+    inspect('Coverage', 251)
+    positionBadge('Coverage').should('have.text', 'Position: 251')
+    readout('Coverage').should('not.exist')
+    cy.get('#Coverage-controls-positionBadge').uncheck()
+    inspect('Coverage', 251)
+    positionBadge('Coverage').should('not.exist')
+    plot('Coverage').parent().find('[data-region-readout]').should('not.exist')
+    cursor('Coverage').should('exist')
+    inspect('Histogram', 251)
+    positionBadge('Histogram').should('not.exist')
+    readout('Histogram').should('contain.text', 'Bin 251 to 260: 10')
+    cy.get('[aria-label="Shared inspection viewer"] [data-position-badge]').should('not.exist')
+    inspect('Annotations', 251)
+    positionBadge('Annotations').should('have.text', 'Position: 251')
+    plot('Annotations').parent().find('[data-value-readout]').should('not.exist')
+    readout('Score').should('contain.text', '0.45')
+    readout('Histogram').should('contain.text', 'Bin 251 to 260: 10')
+    cursor('Annotations').should('exist')
+  })
 
   it('reports independent values, including zero and missing data, inside pointer-transparent plots', () => {
     inspect('Coverage', 250.8)
@@ -85,6 +130,7 @@ describe('floating value readouts', () => {
   it('remeasures values after font changes without another pointer movement', () => {
     inspect('Coverage', 251)
     readout('Coverage').children().should('have.css', 'font-size', '11px')
+    positionBadge('Coverage').children().invoke('css', 'font-size').as('badgeFont')
     cy.window().then(win => {
       const input = win.document.getElementById('value-font-size')
       const setValue = Object.getOwnPropertyDescriptor(win.HTMLInputElement.prototype, 'value').set
@@ -93,6 +139,10 @@ describe('floating value readouts', () => {
     })
     readout('Coverage').children().should('have.css', 'font-size', '15px')
     readout('Score').children().should('have.css', 'font-size', '15px')
+    readout('Histogram').children().should('have.css', 'font-size', '15px')
+    cy.get('@badgeFont').then(fontSize => {
+      positionBadge('Coverage').children().should('have.css', 'font-size', fontSize)
+    })
     plot('Coverage').then($plot => {
       const bounds = $plot[0].getBoundingClientRect()
       readout('Coverage')

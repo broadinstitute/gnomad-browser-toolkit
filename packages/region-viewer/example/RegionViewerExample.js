@@ -3,7 +3,9 @@ import React, { useState } from 'react'
 
 import { Cursor, PositionAxisTrack, RegionViewer, Track } from '../lib/cjs'
 
+import AnnotationsExampleTrack from './AnnotationsExampleTrack'
 import ExonRowsExampleTrack from './ExonRowsExampleTrack'
+import HistogramExampleTrack from './HistogramExampleTrack'
 import InspectionTrack, { COVERAGE, SCORES } from './InspectionTrack'
 
 const REGIONS = [
@@ -23,6 +25,7 @@ const DEFAULT_SETTINGS = {
   enabled: true,
   publish: true,
   cursor: true,
+  positionBadge: true,
   readout: true
 }
 
@@ -34,6 +37,7 @@ const TrackControls = ({ label, settings, onChange }) => {
         ['enabled', 'Enable inspection'],
         ['publish', 'Publish hover'],
         ['cursor', 'Show hover line'],
+        ['positionBadge', 'Show position badge on hover'],
         ['readout', 'Show value readout']
       ].map(([key, text]) => {
         return (
@@ -62,6 +66,7 @@ TrackControls.propTypes = {
     enabled: PropTypes.bool.isRequired,
     publish: PropTypes.bool.isRequired,
     cursor: PropTypes.bool.isRequired,
+    positionBadge: PropTypes.bool.isRequired,
     readout: PropTypes.bool.isRequired
   }).isRequired,
   onChange: PropTypes.func.isRequired
@@ -110,14 +115,19 @@ const RegionViewerExample = () => {
     >
       <h1>Synchronized cursor reporting</h1>
       <p>
-        Hover either plot to inspect the nearest genomic base in both tracks. Click or tap a plot to
+        Hover any plot to inspect the nearest genomic base across all tracks. Click or tap a plot to
         select the base under the pointer. Readouts float beside the cursor; headings and gaps do
-        not publish hover. Exon rows are 10px tall and show compact exon-number readouts.
+        not publish hover.
       </p>
       <p>
         Explore 200 bases across regions 1 to 100 and 201 to 300. Coverage at base 50 is zero; base
         230 has no coverage data. Score at base 270 has no data. The small outlined circles open
         details without selecting a base.
+      </p>
+      <p>
+        Histogram opts out of the position badge and reports a value for each 10-base bin.
+        Annotations shows only the position badge while hovered, without a value readout. Exon rows
+        are 10px tall and show compact exon-number readouts.
       </p>
 
       <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
@@ -212,6 +222,11 @@ const RegionViewerExample = () => {
             onDetails={setDetails}
           />
           {optionalScore}
+          <HistogramExampleTrack
+            onSelect={setLastClickedPosition}
+            readoutFontSize={valueFontSize}
+          />
+          <AnnotationsExampleTrack onSelect={setLastClickedPosition} />
           <ExonRowsExampleTrack onSelect={setLastClickedPosition} />
           <PositionAxisTrack />
         </RegionViewer>

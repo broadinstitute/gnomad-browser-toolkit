@@ -1,6 +1,8 @@
 import React, { ReactNode, RefObject, useCallback, useLayoutEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
+import { ReadoutValue } from './ReadoutValue'
+
 export type PositionReadoutPlacement = 'top' | 'middle' | 'bottom'
 /** A preset, or pixels from the plot's top edge. The readout is always clamped inside the plot. */
 export type PositionReadoutY = PositionReadoutPlacement | number
@@ -44,6 +46,8 @@ const localPixelSize = (cssSize: string, fallback: number) => {
 
 interface Props {
   children?: ReactNode
+  position: number
+  showPositionBadge: boolean
   x: number
   y: PositionReadoutY
   plotRef: RefObject<HTMLDivElement>
@@ -53,6 +57,8 @@ interface Props {
 
 export const FloatingPositionReadout = ({
   children,
+  position,
+  showPositionBadge,
   x,
   y,
   plotRef,
@@ -104,9 +110,9 @@ export const FloatingPositionReadout = ({
       observer.observe(readoutRef.current)
     }
     return () => observer.disconnect()
-  }, [hasValueReadout, measure, plotRef])
+  }, [hasValueReadout, measure, plotRef, showPositionBadge])
 
-  if (!hasValueReadout) {
+  if (!hasValueReadout && !showPositionBadge) {
     return null
   }
 
@@ -135,9 +141,16 @@ export const FloatingPositionReadout = ({
         alignItems: fitsOnRight ? 'flex-start' : 'flex-end'
       }}
     >
-      <ReadoutBubble data-value-readout="" style={bubbleStyle}>
-        {children}
-      </ReadoutBubble>
+      {showPositionBadge && (
+        <ReadoutBubble data-position-badge="" style={bubbleStyle}>
+          <ReadoutValue label="Position" value={position} />
+        </ReadoutBubble>
+      )}
+      {hasValueReadout && (
+        <ReadoutBubble data-value-readout="" style={bubbleStyle}>
+          {children}
+        </ReadoutBubble>
+      )}
     </ReadoutOverlay>
   )
 }

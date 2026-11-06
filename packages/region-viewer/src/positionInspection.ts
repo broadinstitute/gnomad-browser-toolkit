@@ -2,6 +2,7 @@ import { createContext, useContext } from 'react'
 
 interface PositionInspectionStore {
   getSnapshot: () => number | null
+  getSourceSnapshot: () => object | null
   getServerSnapshot: () => null
   subscribe: (notify: () => void) => () => void
   publish: (source: object, position: number) => void
@@ -14,8 +15,9 @@ export const createPositionInspection = (): PositionInspectionStore => {
   let source: object | null = null
   const listeners = new Set<() => void>()
 
-  const setPosition = (nextPosition: number | null) => {
-    if (position !== nextPosition) {
+  const setInspection = (nextSource: object | null, nextPosition: number | null) => {
+    if (source !== nextSource || position !== nextPosition) {
+      source = nextSource
       position = nextPosition
       listeners.forEach(notify => notify())
     }
@@ -23,6 +25,7 @@ export const createPositionInspection = (): PositionInspectionStore => {
 
   return {
     getSnapshot: () => position,
+    getSourceSnapshot: () => source,
     getServerSnapshot: (): null => null,
     subscribe(notify: () => void) {
       listeners.add(notify)
@@ -31,18 +34,15 @@ export const createPositionInspection = (): PositionInspectionStore => {
       }
     },
     publish(nextSource: object, nextPosition: number) {
-      source = nextSource
-      setPosition(nextPosition)
+      setInspection(nextSource, nextPosition)
     },
     release(previousSource: object) {
       if (source === previousSource) {
-        source = null
-        setPosition(null)
+        setInspection(null, null)
       }
     },
     clear() {
-      source = null
-      setPosition(null)
+      setInspection(null, null)
     }
   }
 }
