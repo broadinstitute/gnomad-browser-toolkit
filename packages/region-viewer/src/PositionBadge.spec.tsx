@@ -142,4 +142,24 @@ describe('position badge on the hovered track', () => {
     expect(host().querySelector('[data-region-readout]')).toBeNull()
     expect(host().querySelector('svg[aria-hidden="true"]')).not.toBeNull()
   })
+
+  test('positions badge and value bubbles as one measured group for custom Y placement', () => {
+    mockLayout()
+    const resolveY = jest.fn(
+      ({ height, readoutHeight }: { height: number; readoutHeight: number }) =>
+        height - readoutHeight - 8
+    )
+    mount(<TwoTracks readoutY={resolveY} />)
+    move('coverage')
+    const group = screen
+      .getByLabelText('Coverage readout')
+      .closest<HTMLElement>('[data-region-readout]')
+    expect(group?.querySelector('[data-position-badge]')).not.toBeNull()
+    expect(group?.querySelector('[data-value-readout]')).not.toBeNull()
+    expect(resolveY).toHaveBeenLastCalledWith({ position: 51, height: 100, readoutHeight: 56 })
+    expect(group?.style.top).toBe('36px')
+    move('score')
+    expect(resolveY).toHaveBeenLastCalledWith({ position: 51, height: 100, readoutHeight: 26 })
+    expect(group?.style.top).toBe('66px')
+  })
 })

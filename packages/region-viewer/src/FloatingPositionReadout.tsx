@@ -4,8 +4,17 @@ import styled from 'styled-components'
 import { ReadoutValue } from './ReadoutValue'
 
 export type PositionReadoutPlacement = 'top' | 'middle' | 'bottom'
-/** A preset, or pixels from the plot's top edge. The readout is always clamped inside the plot. */
-export type PositionReadoutY = PositionReadoutPlacement | number
+/**
+ * Returns pixels from the plot's top edge for the hovered base. `readoutHeight` is the measured height of the
+ * badge and value together, so subtract it to place the group above a curve or bar.
+ */
+export type PositionReadoutYResolver = (props: {
+  position: number
+  height: number
+  readoutHeight: number
+}) => number
+/** A preset, pixels from the plot's top edge, or a resolver. The readout is always clamped inside the plot. */
+export type PositionReadoutY = PositionReadoutPlacement | number | PositionReadoutYResolver
 export type PositionReadoutRenderer = (props: { position: number }) => ReactNode
 
 // Matches the @gnomad/ui tooltip background without depending on that package.
@@ -126,6 +135,8 @@ export const FloatingPositionReadout = ({
     top = size.height - size.readoutHeight - READOUT_GAP
   } else if (typeof y === 'number') {
     top = y
+  } else if (typeof y === 'function') {
+    top = y({ position, height: size.height, readoutHeight: size.readoutHeight })
   }
   const bubbleStyle = { backgroundColor, borderColor }
 

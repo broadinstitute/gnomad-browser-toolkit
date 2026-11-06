@@ -125,9 +125,10 @@ const RegionViewerExample = () => {
         details without selecting a base.
       </p>
       <p>
-        Histogram opts out of the position badge and reports a value for each 10-base bin.
-        Annotations shows only the position badge while hovered, without a value readout. Exon rows
-        are 10px tall and show compact exon-number readouts.
+        Coverage readouts follow the curve, and histogram readouts follow each 10-base bin's bar.
+        Histogram opts out of the position badge. Annotations shows only the position badge while
+        hovered, without a value readout. Exon rows are 10px tall and show compact exon-number
+        readouts.
       </p>
 
       <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>

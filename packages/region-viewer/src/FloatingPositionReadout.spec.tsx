@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, test } from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, jest, test } from '@jest/globals'
 import { screen } from '@testing-library/dom'
 import React, { act } from 'react'
 
@@ -113,6 +113,26 @@ describe('readouts beside the cursor', () => {
     expect(readoutOverlay().style.top).toBe('0px')
     mount(<ReadoutTrack y={1000} />)
     expect(readoutOverlay().style.top).toBe('80px')
+  })
+
+  test('lets a track resolve pixel Y using the base, plot height, and measured readout height', () => {
+    const resolveY = jest.fn(
+      ({
+        position,
+        height,
+        readoutHeight: measuredHeight
+      }: {
+        position: number
+        height: number
+        readoutHeight: number
+      }) => {
+        return height - measuredHeight - position
+      }
+    )
+    mount(<ReadoutTrack y={resolveY} inspection={{ showPositionBadge: false }} />)
+    move(150)
+    expect(resolveY).toHaveBeenLastCalledWith({ position: 51, height: 100, readoutHeight: 20 })
+    expect(readoutOverlay().style.top).toBe('29px')
   })
 
   test('switches to the left of the cursor near the right edge and stays inside at the left edge', () => {

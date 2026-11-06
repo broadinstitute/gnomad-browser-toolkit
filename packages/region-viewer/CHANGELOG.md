@@ -3,6 +3,8 @@
 ## Unreleased
 
 - Keep RegionViewer's layout context stable across renders, so memoized tracks re-render only when the layout changes. Compare `regions` field by field: a new array with equal regions keeps the layout. Treat regions as immutable; changing a region in place no longer updates the layout.
+- Add `readoutY` resolvers that receive the hovered base, plot height, and the measured badge-and-value height.
+- Demonstrate curve-relative Coverage and bin-relative Histogram readouts, including font remeasurement and zero values.
 - Add a position badge on the hovered plot, default on, with per-track `showPositionBadge` opt-out and same-base handoff.
 - Demonstrate badge-only Annotations and value-only Histogram alongside Coverage, Score and Exon rows.
 - Add floating readouts through `renderReadout` on Cursor and in Track `positionInspection`, with preset or pixel placement inside the plot, edge flipping, and remeasurement on resize.
