@@ -1,6 +1,6 @@
 # Changes
 
-## Unreleased
+## Version 7.0.0 - November 7, 2026
 
 ### Breaking
 

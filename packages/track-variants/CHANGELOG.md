@@ -1,7 +1,8 @@
 # Changes
 
-## Unreleased
+## Version 4.0.0 - November 7, 2026
 
+- Require `@gnomad/region-viewer` 7.0.0. Apps must use region-viewer 7.0.0 so tracks share one cursor.
 - Forward `positionInspection` from `VariantTrack` to its region-viewer `Track`, so variant tracks can join synchronized cursors.
 
 ## Version 1.0.2 - December 1, 2021

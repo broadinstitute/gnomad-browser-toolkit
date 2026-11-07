@@ -1,7 +1,8 @@
 # Changes
 
-## Unreleased
+## Version 5.0.0 - November 7, 2026
 
+- Require `@gnomad/region-viewer` 7.0.0. Apps must use region-viewer 7.0.0 so tracks share one cursor.
 - Forward `positionInspection` from `GenesTrack` to its region-viewer `Track`, so gene tracks can join synchronized cursors.
 
 ## Version 2.0.2 - December 1, 2021

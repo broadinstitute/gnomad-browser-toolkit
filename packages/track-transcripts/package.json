@@ -1,6 +1,6 @@
 {
   "name": "@gnomad/track-transcripts",
-  "version": "4.1.0",
+  "version": "5.0.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -27,8 +27,8 @@
     "@types/react-dom": "^18.0.0"
   },
   "dependencies": {
-    "@gnomad/region-viewer": "6.1.0",
-    "@gnomad/track-regions": "3.1.0",
+    "@gnomad/region-viewer": "7.0.0",
+    "@gnomad/track-regions": "4.0.0",
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {
