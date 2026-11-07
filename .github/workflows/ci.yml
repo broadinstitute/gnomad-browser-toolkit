@@ -47,3 +47,13 @@ jobs:
           done
           exit $status
         shell: bash
+      - name: Run region-viewer browser tests
+        run: |
+          set -eu
+          pnpm --filter @gnomad/region-viewer example > example-server.log 2>&1 &
+          for attempt in $(seq 1 60); do
+            curl --silent --output /dev/null http://localhost:8000 && break
+            sleep 1
+          done
+          pnpm --filter @gnomad/region-viewer test:browser
+        shell: bash

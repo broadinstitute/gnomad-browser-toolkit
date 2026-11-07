@@ -125,8 +125,7 @@ Open http://localhost:8000. The example imports compiled output, so keep the emi
 ```sh
 pnpm --filter @gnomad/region-viewer test --runInBand
 pnpm --filter @gnomad/region-viewer typecheck
-pnpm --filter @gnomad/classification-selector exec cypress run --project ../region-viewer --browser electron
+pnpm --filter @gnomad/region-viewer test:browser
 ```
 
-Cypress needs the example server running, and reuses the runner declared by the sibling classification-selector
-package. CI runs the unit tests and typecheck.
+`test:browser` runs Cypress against the example, so start the example server first. CI runs all three.
