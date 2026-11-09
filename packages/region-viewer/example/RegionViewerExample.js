@@ -17,17 +17,17 @@ const RegionViewerExample = () => {
           { start: 200, stop: 300 }
         ]}
       >
-        <Cursor onClick={setLastClickedPosition} renderCursor={renderCursor}>
-          <Track>
-            {({ scalePosition, width }) => {
-              return (
+        <Track>
+          {({ scalePosition, width }) => {
+            return (
+              <Cursor onClick={setLastClickedPosition} renderCursor={renderCursor}>
                 <svg height={50} width={width}>
                   <circle cx={scalePosition(position)} cy={25} r={10} fill="blue" />
                 </svg>
-              )
-            }}
-          </Track>
-        </Cursor>
+              </Cursor>
+            )
+          }}
+        </Track>
         <PositionAxisTrack />
       </RegionViewer>
 
