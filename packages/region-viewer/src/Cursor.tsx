@@ -1,10 +1,28 @@
-import React, { ReactNode, useContext, useLayoutEffect, useRef } from 'react'
+import React, { ReactNode, useContext, useLayoutEffect, useRef, useSyncExternalStore } from 'react'
 import styled from 'styled-components'
 
+import {
+  DEFAULT_READOUT_BACKGROUND_COLOR,
+  DEFAULT_READOUT_BORDER_COLOR,
+  FloatingPositionReadout,
+  PositionReadoutRenderer,
+  PositionReadoutY
+} from './FloatingPositionReadout'
 import { InsideCursorContext } from './cursorNesting'
 import { usePositionInspection } from './positionInspection'
 import { RegionViewerContext } from './RegionViewer'
 import { useInspectedPosition } from './useInspectedPosition'
+
+export {
+  DEFAULT_READOUT_BACKGROUND_COLOR,
+  DEFAULT_READOUT_BORDER_COLOR
+} from './FloatingPositionReadout'
+export type {
+  PositionReadoutPlacement,
+  PositionReadoutRenderer,
+  PositionReadoutY,
+  PositionReadoutYResolver
+} from './FloatingPositionReadout'
 
 const CursorWrapper = styled.div`
   position: relative;
@@ -33,26 +51,92 @@ export interface CursorProps {
   publishPosition?: boolean
   /** Default true. False hides this plot's line; hovering it still publishes. */
   showCursor?: boolean
+  /** Default true. Shows the hovered base in a badge, only on the plot under the pointer. */
+  showPositionBadge?: boolean
+  /**
+   * Default true. False hides this plot's badge and value while this plot is the one hovered, for plots with
+   * their own tooltips. Its line still draws, and it still shows its value while another plot is hovered.
+   */
+  showReadoutWhenHovered?: boolean
   /** Called with the base under a click or tap inside this plot. Never called for other plots' clicks. */
   onClick?: (position: number) => void
   /** Draws the line from plot-local pixel X. Defaults to a 2px line in the current text colour. */
   renderCursor?: (x: number) => ReactNode
+  /**
+   * Returns this plot's value at the hovered base. Runs only while a plot in the viewer is hovered, including
+   * when this plot's line is hidden. Content inherits white text on the readout background.
+   */
+  renderReadout?: PositionReadoutRenderer
+  /** Default `'top'`. */
+  readoutY?: PositionReadoutY
+  /** Default `DEFAULT_READOUT_BACKGROUND_COLOR`. */
+  readoutBackgroundColor?: string
+  /** Default `DEFAULT_READOUT_BORDER_COLOR`. */
+  readoutBorderColor?: string
 }
 
-const SharedCursorOverlay = ({ renderCursor }: Pick<CursorProps, 'renderCursor'>) => {
+const SharedCursorOverlay = ({
+  renderCursor,
+  showCursor,
+  showPositionBadge,
+  showReadoutWhenHovered,
+  renderReadout,
+  readoutY,
+  readoutBackgroundColor,
+  readoutBorderColor,
+  plotRef,
+  source
+}: Pick<
+  CursorProps,
+  'renderCursor' | 'showCursor' | 'showPositionBadge' | 'showReadoutWhenHovered' | 'renderReadout'
+> & {
+  readoutY: PositionReadoutY
+  readoutBackgroundColor: string
+  readoutBorderColor: string
+  plotRef: React.RefObject<HTMLDivElement>
+  source: object
+}) => {
   const position = useInspectedPosition()
+  const inspection = usePositionInspection()
+  const isHoveredPlot = useSyncExternalStore(
+    inspection.subscribe,
+    () => inspection.getSourceSnapshot() === source,
+    () => false
+  )
+  const showReadout = showReadoutWhenHovered !== false || !isHoveredPlot
+  const isBadgeShown = showReadout && showPositionBadge === true && isHoveredPlot
+  const valueReadout = showReadout ? renderReadout : undefined
   const { scalePosition, isPositionDefined } = useContext(RegionViewerContext)
   if (position === null || !isPositionDefined(position)) {
     return null
   }
   const drawCursor = renderCursor ?? renderStandardCursor
-  return <CursorOverlay aria-hidden="true">{drawCursor(scalePosition(position))}</CursorOverlay>
+  const x = scalePosition(position)
+  return (
+    <>
+      {showCursor && <CursorOverlay aria-hidden="true">{drawCursor(x)}</CursorOverlay>}
+      {(valueReadout || isBadgeShown) && (
+        <FloatingPositionReadout
+          position={position}
+          showPositionBadge={isBadgeShown}
+          x={x}
+          y={readoutY}
+          plotRef={plotRef}
+          backgroundColor={readoutBackgroundColor}
+          borderColor={readoutBorderColor}
+        >
+          {valueReadout?.({ position })}
+        </FloatingPositionReadout>
+      )}
+    </>
+  )
 }
 
 const isLocalPlotEvent = (event: React.SyntheticEvent<HTMLDivElement>) => {
   const { target } = event
   return (
     target instanceof Element &&
+    !target.closest('[data-region-readout]') &&
     target.closest('[data-region-cursor]') === event.currentTarget &&
     target.closest('[data-region-viewer]') === event.currentTarget.closest('[data-region-viewer]')
   )
@@ -64,9 +148,16 @@ export const Cursor = ({
   enabled = true,
   publishPosition = true,
   showCursor = true,
+  showPositionBadge = true,
+  showReadoutWhenHovered = true,
   onClick,
-  renderCursor
+  renderCursor,
+  renderReadout,
+  readoutY = 'top',
+  readoutBackgroundColor = DEFAULT_READOUT_BACKGROUND_COLOR,
+  readoutBorderColor = DEFAULT_READOUT_BORDER_COLOR
 }: CursorProps): React.JSX.Element => {
+  const plotRef = useRef<HTMLDivElement>(null)
   const layout = useContext(RegionViewerContext)
   const inspection = usePositionInspection()
   const source = useRef({})
@@ -135,6 +226,7 @@ export const Cursor = ({
     // Preserve child click behavior without making pointer inspection a focus target.
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <CursorWrapper
+      ref={plotRef}
       data-region-cursor=""
       onPointerEnter={inspectPointer}
       onPointerMove={inspectPointer}
@@ -143,7 +235,20 @@ export const Cursor = ({
       onClick={selectClickedPosition}
     >
       <InsideCursorContext.Provider value>{children}</InsideCursorContext.Provider>
-      {enabled && showCursor && <SharedCursorOverlay renderCursor={renderCursor} />}
+      {enabled && (showCursor || renderReadout || showPositionBadge) && (
+        <SharedCursorOverlay
+          renderCursor={renderCursor}
+          showCursor={showCursor}
+          showPositionBadge={showPositionBadge}
+          showReadoutWhenHovered={showReadoutWhenHovered}
+          source={source.current}
+          renderReadout={renderReadout}
+          readoutY={readoutY}
+          readoutBackgroundColor={readoutBackgroundColor}
+          readoutBorderColor={readoutBorderColor}
+          plotRef={plotRef}
+        />
+      )}
     </CursorWrapper>
   )
 }

@@ -3,6 +3,9 @@ import React, { useState } from 'react'
 
 import { Cursor, PositionAxisTrack, RegionViewer, Track } from '../lib/cjs'
 
+import AnnotationsExampleTrack from './AnnotationsExampleTrack'
+import ExonRowsExampleTrack from './ExonRowsExampleTrack'
+import HistogramExampleTrack from './HistogramExampleTrack'
 import InspectionTrack, { COVERAGE, SCORES } from './InspectionTrack'
 
 const REGIONS = [
@@ -21,7 +24,10 @@ const INDEPENDENT_REGIONS = [{ start: 1001, stop: 1200 }]
 const DEFAULT_SETTINGS = {
   enabled: true,
   publish: true,
-  cursor: true
+  cursor: true,
+  positionBadge: true,
+  readout: true,
+  readoutWhenHovered: true
 }
 
 const TrackControls = ({ label, settings, onChange }) => {
@@ -31,7 +37,10 @@ const TrackControls = ({ label, settings, onChange }) => {
       {[
         ['enabled', 'Enable inspection'],
         ['publish', 'Publish hover'],
-        ['cursor', 'Show hover line']
+        ['cursor', 'Show hover line'],
+        ['positionBadge', 'Show position badge on hover'],
+        ['readout', 'Show value readout'],
+        ['readoutWhenHovered', 'Show readout while this plot is hovered']
       ].map(([key, text]) => {
         return (
           <label
@@ -58,7 +67,10 @@ TrackControls.propTypes = {
   settings: PropTypes.shape({
     enabled: PropTypes.bool.isRequired,
     publish: PropTypes.bool.isRequired,
-    cursor: PropTypes.bool.isRequired
+    cursor: PropTypes.bool.isRequired,
+    positionBadge: PropTypes.bool.isRequired,
+    readout: PropTypes.bool.isRequired,
+    readoutWhenHovered: PropTypes.bool.isRequired
   }).isRequired,
   onChange: PropTypes.func.isRequired
 }
@@ -69,6 +81,9 @@ const RegionViewerExample = () => {
   const [coverageSettings, setCoverageSettings] = useState(DEFAULT_SETTINGS)
   const [scoreSettings, setScoreSettings] = useState(DEFAULT_SETTINGS)
   const [showScore, setShowScore] = useState(true)
+  const [customContent, setCustomContent] = useState(false)
+  const [readoutY, setReadoutY] = useState('top')
+  const [valueFontSize, setValueFontSize] = useState(11)
   const [lastClickedPosition, setLastClickedPosition] = useState(null)
   const [details, setDetails] = useState('None')
   const [customPosition, setCustomPosition] = useState(250)
@@ -79,6 +94,9 @@ const RegionViewerExample = () => {
       label="Score"
       intervals={SCORES}
       settings={scoreSettings}
+      readoutFontSize={valueFontSize}
+      readoutY={readoutY}
+      customContent={customContent}
       onSelect={setLastClickedPosition}
       onDetails={setDetails}
     />
@@ -100,13 +118,20 @@ const RegionViewerExample = () => {
     >
       <h1>Synchronized cursor reporting</h1>
       <p>
-        Hover either plot to inspect the nearest genomic base in both tracks. Click or tap a plot to
-        select the base under the pointer. Headings and gaps do not publish hover.
+        Hover any plot to inspect the nearest genomic base across all tracks. Click or tap a plot to
+        select the base under the pointer. Readouts float beside the cursor; headings and gaps do
+        not publish hover.
       </p>
       <p>
         Explore 200 bases across regions 1 to 100 and 201 to 300. Coverage at base 50 is zero; base
         230 has no coverage data. Score at base 270 has no data. The small outlined circles open
         details without selecting a base.
+      </p>
+      <p>
+        Coverage readouts follow the curve, and histogram readouts follow each 10-base bin's bar.
+        Histogram opts out of the position badge. Annotations shows only the position badge while
+        hovered, without a value readout. Exon rows are 10px tall and show compact exon-number
+        readouts.
       </p>
 
       <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
@@ -122,6 +147,31 @@ const RegionViewerExample = () => {
         />
         <fieldset>
           <legend>Layout and content</legend>
+          <label htmlFor="value-font-size" style={{ display: 'block' }}>
+            Value font size: {valueFontSize}px
+            <input
+              id="value-font-size"
+              aria-label="Value readout font size"
+              type="range"
+              min={9}
+              max={16}
+              step={0.5}
+              value={valueFontSize}
+              onChange={event => setValueFontSize(Number(event.target.value))}
+            />
+          </label>
+          <label htmlFor="readout-y" style={{ display: 'block' }}>
+            Score readout placement:
+            <select
+              id="readout-y"
+              value={readoutY}
+              onChange={event => setReadoutY(event.target.value)}
+            >
+              <option value="top">Top</option>
+              <option value="middle">Middle</option>
+              <option value="bottom">Bottom</option>
+            </select>
+          </label>
           <label htmlFor="viewer-width" style={{ display: 'block' }}>
             Viewer width: {width}px
             <input
@@ -153,6 +203,15 @@ const RegionViewerExample = () => {
             />
             Mount score track
           </label>
+          <label htmlFor="custom-content" style={{ display: 'block' }}>
+            <input
+              id="custom-content"
+              type="checkbox"
+              checked={customContent}
+              onChange={event => setCustomContent(event.target.checked)}
+            />
+            Custom score readout content
+          </label>
         </fieldset>
       </div>
 
@@ -162,10 +221,17 @@ const RegionViewerExample = () => {
             label="Coverage"
             intervals={COVERAGE}
             settings={coverageSettings}
+            readoutFontSize={valueFontSize}
             onSelect={setLastClickedPosition}
             onDetails={setDetails}
           />
           {optionalScore}
+          <HistogramExampleTrack
+            onSelect={setLastClickedPosition}
+            readoutFontSize={valueFontSize}
+          />
+          <AnnotationsExampleTrack onSelect={setLastClickedPosition} />
+          <ExonRowsExampleTrack onSelect={setLastClickedPosition} />
           <PositionAxisTrack />
         </RegionViewer>
       </section>

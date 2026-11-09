@@ -68,6 +68,7 @@ export const TranscriptsTrack = forwardRef(
   (
     {
       positionInspection,
+      renderTranscriptReadout,
       renderTranscriptLeftPanel,
       renderTranscriptRightPanel,
       transcripts,
@@ -91,7 +92,15 @@ export const TranscriptsTrack = forwardRef(
           transcript => (
             <TranscriptWrapper key={transcript.transcript_id}>
               <Track
-                positionInspection={positionInspection}
+                positionInspection={
+                  positionInspection && renderTranscriptReadout
+                    ? {
+                        ...positionInspection,
+                        renderReadout: ({ position }) =>
+                          renderTranscriptReadout({ position, transcript })
+                      }
+                    : positionInspection
+                }
                 renderLeftPanel={
                   renderTranscriptLeftPanel
                     ? ({ width }) => renderTranscriptLeftPanel({ transcript, width })
@@ -127,6 +136,8 @@ export const TranscriptsTrack = forwardRef(
 TranscriptsTrack.propTypes = {
   // Passed unchanged to every row's region-viewer Track; see its TrackPositionInspection type.
   positionInspection: PropTypes.object,
+  // Called per row with that row's transcript. Rows are 10px tall, so keep it compact (8px, lineHeight 1).
+  renderTranscriptReadout: PropTypes.func,
   renderTranscriptLeftPanel: PropTypes.func,
   renderTranscriptRightPanel: PropTypes.func,
   showNonCodingTranscripts: PropTypes.bool,
@@ -148,6 +159,7 @@ TranscriptsTrack.propTypes = {
 
 TranscriptsTrack.defaultProps = {
   positionInspection: undefined,
+  renderTranscriptReadout: undefined,
   /* eslint-disable react/prop-types */
   renderTranscriptLeftPanel: ({ transcript }) => (
     <TranscriptLabel>{transcript.transcript_id}</TranscriptLabel>

@@ -1,8 +1,10 @@
 # Changes
 
-## Unreleased
+## Version 5.0.0 - November 7, 2026
 
+- Require `@gnomad/region-viewer` 7.0.0 and `@gnomad/track-regions` 4.0.0. Apps must use region-viewer 7.0.0 so tracks share one cursor.
 - Forward `positionInspection` from `TranscriptsTrack` to every transcript row's region-viewer `Track`, so expanded transcripts can show the synchronized cursor line.
+- Add `renderTranscriptReadout({ position, transcript })` for a per-row readout. Rows are 10px tall: keep it compact (8px text, `lineHeight: 1`) and pass `showPositionBadge: false`.
 
 ## Version 2.0.1 - December 1, 2021
 
