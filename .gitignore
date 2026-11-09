@@ -17,3 +17,7 @@ resources
 # Jest test coverage output:
 packages/*/coverage
 */**/.DS_Store
+
+# Cypress run artifacts
+packages/*/cypress/screenshots
+packages/*/cypress/videos
