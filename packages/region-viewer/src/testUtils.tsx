@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, jest } from '@jest/globals'
-import { configure } from '@testing-library/dom'
+import { configure, fireEvent } from '@testing-library/dom'
 import React, { act } from 'react'
 import { createRoot, Root } from 'react-dom/client'
 
@@ -67,4 +67,19 @@ export const mockElementRects = (measure: (element: HTMLElement) => TestRect) =>
         toJSON: () => ({})
       }
     })
+}
+
+// jsdom has no PointerEvent, so dispatch a MouseEvent of the pointer type, with pointerType when given.
+export const dispatchPointer = (
+  target: Element,
+  type: string,
+  { pointerType, ...init }: MouseEventInit & { pointerType?: string } = {}
+) => {
+  const event = new MouseEvent(type, { bubbles: true, ...init })
+  if (pointerType) {
+    Object.defineProperty(event, 'pointerType', { value: pointerType })
+  }
+  act(() => {
+    fireEvent(target, event)
+  })
 }

@@ -5,8 +5,8 @@ import { Track } from '@gnomad/region-viewer'
 
 import { VariantPlot } from './VariantPlot'
 
-export const VariantTrack = ({ title, ...otherProps }) => (
-  <Track title={title}>
+export const VariantTrack = ({ title, positionInspection, ...otherProps }) => (
+  <Track title={title} positionInspection={positionInspection}>
     {({ scalePosition, width }) => (
       <VariantPlot {...otherProps} scalePosition={scalePosition} width={width} />
     )}
@@ -14,9 +14,12 @@ export const VariantTrack = ({ title, ...otherProps }) => (
 )
 
 VariantTrack.propTypes = {
-  title: PropTypes.string
+  title: PropTypes.string,
+  // Passed unchanged to region-viewer's Track; see its TrackPositionInspection type.
+  positionInspection: PropTypes.object
 }
 
 VariantTrack.defaultProps = {
-  title: ''
+  title: '',
+  positionInspection: undefined
 }

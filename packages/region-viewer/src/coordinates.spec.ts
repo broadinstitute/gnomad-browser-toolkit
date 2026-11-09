@@ -130,6 +130,57 @@ describe('regionViewerScale', () => {
       ).toEqual(10)
     })
 
+    it('keeps floor rounding as the default for existing callers', () => {
+      const scale = regionViewerScale(
+        [
+          { start: 1, stop: 5 },
+          { start: 10, stop: 14 }
+        ],
+        [0, 100]
+      )
+
+      expect(scale.invert(49)).toBe(5)
+      expect(scale.invert(79)).toBe(12)
+    })
+
+    it.each([
+      [0, 1],
+      [4.9, 1],
+      [5, 2],
+      [5.1, 2],
+      [44.9, 5],
+      [45, 10],
+      [49, 10],
+      [50, 10],
+      [79, 13],
+      [95, 14],
+      [100, 14]
+    ])('nearest rounding maps plot X=%s to displayed base %s', (x, position) => {
+      const scale = regionViewerScale(
+        [
+          { start: 1, stop: 5 },
+          { start: 10, stop: 14 }
+        ],
+        [0, 100]
+      )
+
+      expect(scale.invert(x, 'nearest')).toBe(position)
+    })
+
+    it('nearest rounding respects a nonzero range origin and clamps to real endpoint bases', () => {
+      const scale = regionViewerScale(
+        [
+          { start: 1, stop: 5 },
+          { start: 10, stop: 14 }
+        ],
+        [100, 200]
+      )
+
+      expect(scale.invert(145, 'nearest')).toBe(10)
+      expect(scale.invert(99, 'nearest')).toBe(1)
+      expect(scale.invert(201, 'nearest')).toBe(14)
+    })
+
     it('clamps values outside range to domain', () => {
       expect(
         regionViewerScale(

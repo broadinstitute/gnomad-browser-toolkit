@@ -6,6 +6,7 @@ import { Track } from '@gnomad/region-viewer'
 import { RegionsPlot } from './RegionsPlot'
 
 export const RegionsTrack = ({
+  positionInspection,
   renderLeftPanel,
   renderRightPanel,
   renderTopPanel,
@@ -13,6 +14,7 @@ export const RegionsTrack = ({
   ...rest
 }) => (
   <Track
+    positionInspection={positionInspection}
     renderLeftPanel={renderLeftPanel}
     renderRightPanel={renderRightPanel}
     renderTopPanel={renderTopPanel}
@@ -24,6 +26,8 @@ export const RegionsTrack = ({
 )
 
 RegionsTrack.propTypes = {
+  // Passed unchanged to region-viewer's Track; see its TrackPositionInspection type.
+  positionInspection: PropTypes.object,
   renderLeftPanel: PropTypes.func,
   renderRightPanel: PropTypes.func,
   renderTopPanel: PropTypes.func,
@@ -31,6 +35,7 @@ RegionsTrack.propTypes = {
 }
 
 RegionsTrack.defaultProps = {
+  positionInspection: undefined,
   renderLeftPanel: undefined,
   renderRightPanel: undefined,
   renderTopPanel: undefined,

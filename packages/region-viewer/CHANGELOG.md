@@ -3,6 +3,15 @@
 ## Unreleased
 
 - Keep RegionViewer's layout context stable across renders, so memoized tracks re-render only when the layout changes. Compare `regions` field by field: a new array with equal regions keeps the layout. Treat regions as immutable; changing a region in place no longer updates the layout.
+- Add opt-in Track `positionInspection`; tracks without it render as before.
+- **Breaking:** Mount Cursor inside each plot instead of around whole tracks. Cursors in one RegionViewer synchronize through viewer-scoped inspection.
+- **Breaking:** Snap Cursor hover and selection to the nearest displayed base. Keep default scale inversion flooring unchanged.
+- **Breaking:** Cursor `onClick` receives the base under the click or tap, typed `number`, instead of the last hovered base. Taps select again.
+- **Breaking:** Remove `defaultRenderCursor`. The default cursor is a 2px line in the current text colour.
+- Add independent display/publication/enable options and useInspectedPosition for small subscribers.
+- Clear inspection after layout changes until actual pointer movement resumes.
+- Warn outside production builds when a Track renders inside a Cursor, the pre-7 whole-track wrapping that now reports wrong positions.
+- Demonstrate synchronized coverage/score plots with browser regression checks.
 
 ## Version 3.0.0 - December 1, 2021
 

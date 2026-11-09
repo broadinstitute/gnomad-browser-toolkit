@@ -1,5 +1,9 @@
 # Changes
 
+## Unreleased
+
+- Forward `positionInspection` from `TranscriptsTrack` to every transcript row's region-viewer `Track`, so expanded transcripts can show the synchronized cursor line.
+
 ## Version 2.0.1 - December 1, 2021
 
 - Update required version of `@gnomad/region-viewer`

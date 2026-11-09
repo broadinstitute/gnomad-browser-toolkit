@@ -5,50 +5,23 @@ import React from 'react'
 import { Cursor } from './Cursor'
 import { RegionViewer } from './RegionViewer'
 import { Track } from './Track'
-import { mockElementRects, setupTestRoot } from './testUtils'
+import { dispatchPointer, mockElementRects, setupTestRoot } from './testUtils'
 
 describe('Cursor', () => {
-  const testRoot = setupTestRoot()
-
-  const renderCursor = (x: number) => (
-    <rect
-      x={x - 20}
-      y={0}
-      width={40}
-      height="90%"
-      fill="orange"
-      stroke="purple"
-      strokeDasharray="2, 3"
-      strokeWidth={7}
-    />
-  )
-
-  const regions = [
-    { start: 91, stop: 109 },
-    { start: 191, stop: 209 },
-    { start: 321, stop: 381 }
-  ]
-
-  test('has no unexpected changes', () => {
-    testRoot.mount(
-      <RegionViewer leftPanelWidth={130} rightPanelWidth={320} width={800} regions={regions}>
-        <Cursor onClick={() => {}} renderCursor={renderCursor}>
-          <div>some cursor child content goes here</div>
-        </Cursor>
-      </RegionViewer>
-    )
-    expect(testRoot.host()).toMatchSnapshot()
-  })
-
   describe('interaction', () => {
-    // The whole 360px viewer: left panel 0-100, plot 100-200 (bases 1-5 then 10-14), right panel 200-360.
-    const move = (target: Element, clientX: number) => fireEvent.mouseMove(target, { clientX })
-    const enter = (target: Element, clientX: number) => fireEvent.mouseOver(target, { clientX })
-    const leave = (target: Element) => fireEvent.mouseOut(target)
+    const testRoot = setupTestRoot()
+
+    // The plot spans clientX 100-200: bases 1-5, then 10-14.
+    const move = (target: Element, clientX: number) =>
+      dispatchPointer(target, 'pointermove', { clientX })
+    const enter = (target: Element, clientX: number) =>
+      dispatchPointer(target, 'pointerover', { clientX, relatedTarget: null })
+    const leave = (target: Element) =>
+      dispatchPointer(target, 'pointerout', { relatedTarget: null })
     const click = (target: Element, clientX: number) => fireEvent.click(target, { clientX })
 
     const renderInteractiveCursor = () => {
-      mockElementRects(() => ({ left: 0, width: 360, height: 50 }))
+      mockElementRects(() => ({ left: 100, width: 100, height: 50 }))
       const onClick = jest.fn()
       const onChildClick = jest.fn()
       const renderMarker = (x: number) => {
@@ -65,17 +38,17 @@ describe('Cursor', () => {
             { start: 10, stop: 14 }
           ]}
         >
-          <Cursor onClick={onClick} renderCursor={renderMarker}>
-            <Track
-              renderLeftPanel={() => {
-                return <span>Left panel</span>
-              }}
-              renderRightPanel={() => {
-                return <span>Right panel</span>
-              }}
-            >
-              {() => {
-                return (
+          <Track
+            renderLeftPanel={() => {
+              return <span>Left panel</span>
+            }}
+            renderRightPanel={() => {
+              return <span>Right panel</span>
+            }}
+          >
+            {() => {
+              return (
+                <Cursor onClick={onClick} renderCursor={renderMarker}>
                   <div data-testid="plot">
                     <button type="button" onClick={onChildClick}>
                       Details
@@ -90,10 +63,10 @@ describe('Cursor', () => {
                       Isolated details
                     </button>
                   </div>
-                )
-              }}
-            </Track>
-          </Cursor>
+                </Cursor>
+              )
+            }}
+          </Track>
         </RegionViewer>
       )
 
@@ -117,11 +90,11 @@ describe('Cursor', () => {
       expect(screen.getByTestId('cursor-marker').getAttribute('x')).toBe('70')
     })
 
-    test('does not draw the cursor at plot X=0, though a click there selects base 1', () => {
+    test('draws the cursor at plot X=0, and a click there selects base 1', () => {
       const { plot, onClick } = renderInteractiveCursor()
       move(plot, 100)
 
-      expect(screen.queryByTestId('cursor-marker')).toBeNull()
+      expect(screen.getByTestId('cursor-marker').getAttribute('x')).toBe('0')
       click(plot, 100)
       expect(onClick.mock.calls).toEqual([[1]])
     })
@@ -155,6 +128,7 @@ describe('Cursor', () => {
       expect(screen.queryByTestId('cursor-marker')).not.toBeNull()
       const sidePanel = screen.getByText(panel)
 
+      leave(plot)
       move(sidePanel, clientX)
       click(sidePanel, clientX)
 
@@ -162,16 +136,14 @@ describe('Cursor', () => {
       expect(onClick).not.toHaveBeenCalled()
     })
 
-    test('clears the cursor and prevents stale selection after leaving', () => {
-      const { plot, onClick } = renderInteractiveCursor()
+    test('clears the cursor after leaving', () => {
+      const { plot } = renderInteractiveCursor()
       move(plot, 170)
       expect(screen.queryByTestId('cursor-marker')).not.toBeNull()
 
       leave(plot)
-      click(plot, 170)
 
       expect(screen.queryByTestId('cursor-marker')).toBeNull()
-      expect(onClick).not.toHaveBeenCalled()
     })
 
     test('preserves child click handling and background selection', () => {
@@ -194,21 +166,31 @@ describe('Cursor', () => {
       expect(onClick).not.toHaveBeenCalled()
     })
 
-    test('selects the last local hover rather than the click event coordinate', () => {
+    test('selects the base under the click, not the last hover', () => {
       const { plot, onClick } = renderInteractiveCursor()
       move(plot, 170)
 
-      click(plot, 180)
+      click(plot, 120)
 
-      expect(onClick.mock.calls).toEqual([[12]])
+      expect(onClick.mock.calls).toEqual([[3]])
     })
 
-    test('does not select before a local hover', () => {
+    test('selects on a click with no prior hover', () => {
       const { plot, onClick } = renderInteractiveCursor()
 
       click(plot, 170)
 
-      expect(onClick).not.toHaveBeenCalled()
+      expect(onClick.mock.calls).toEqual([[12]])
+    })
+
+    test('a touch tap selects the tapped base without drawing a hover cursor', () => {
+      const { plot, onClick } = renderInteractiveCursor()
+
+      dispatchPointer(plot, 'pointermove', { clientX: 170, pointerType: 'touch' })
+      click(plot, 170)
+
+      expect(screen.queryByTestId('cursor-marker')).toBeNull()
+      expect(onClick.mock.calls).toEqual([[12]])
     })
   })
 })

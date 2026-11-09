@@ -1,5 +1,9 @@
 # Changes
 
+## Unreleased
+
+- Forward `positionInspection` from `GenesTrack` to its region-viewer `Track`, so gene tracks can join synchronized cursors.
+
 ## Version 2.0.2 - December 1, 2021
 
 - Update required version of `@gnomad/region-viewer`
