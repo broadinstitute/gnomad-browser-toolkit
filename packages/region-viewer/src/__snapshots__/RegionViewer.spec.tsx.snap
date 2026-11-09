@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Track makes centerPanelWidth available via context, calculating it by overall width minus panel widths 1`] = `
+exports[`RegionViewer makes centerPanelWidth available via context, calculating it by overall width minus panel widths 1`] = `
 .c0 {
   display: flex;
   flex-direction: column;
@@ -18,7 +18,7 @@ exports[`Track makes centerPanelWidth available via context, calculating it by o
 </div>
 `;
 
-exports[`Track makes isPositionDefined available via context, which indicates if a given position lies within any of the track's regions 1`] = `
+exports[`RegionViewer makes isPositionDefined available via context, which indicates if a given position lies within any of the track's regions 1`] = `
 .c0 {
   display: flex;
   flex-direction: column;
@@ -43,7 +43,7 @@ exports[`Track makes isPositionDefined available via context, which indicates if
 </div>
 `;
 
-exports[`Track makes leftPanelWidth available via context 1`] = `
+exports[`RegionViewer makes leftPanelWidth available via context 1`] = `
 .c0 {
   display: flex;
   flex-direction: column;
@@ -61,9 +61,25 @@ exports[`Track makes leftPanelWidth available via context 1`] = `
 </div>
 `;
 
-exports[`Track makes regions available via context 1`] = `<div />`;
+exports[`RegionViewer makes regions available via context 1`] = `
+.c0 {
+  display: flex;
+  flex-direction: column;
+}
 
-exports[`Track makes rightPanelWidth available via context 1`] = `
+<div>
+  <div
+    class="c0"
+    style="width: 800px;"
+  >
+    <div>
+      [{"start":123,"stop":456},{"start":789,"stop":1011}]
+    </div>
+  </div>
+</div>
+`;
+
+exports[`RegionViewer makes rightPanelWidth available via context 1`] = `
 .c0 {
   display: flex;
   flex-direction: column;
@@ -81,7 +97,7 @@ exports[`Track makes rightPanelWidth available via context 1`] = `
 </div>
 `;
 
-exports[`Track makes scalePosition available via context 1`] = `
+exports[`RegionViewer makes scalePosition available via context 1`] = `
 .c0 {
   display: flex;
   flex-direction: column;

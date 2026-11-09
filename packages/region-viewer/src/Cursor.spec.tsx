@@ -1,16 +1,15 @@
 import { describe, expect, jest, test } from '@jest/globals'
 import { fireEvent, screen } from '@testing-library/dom'
 import React from 'react'
-import { createRoot } from 'react-dom/client'
 
 import { Cursor } from './Cursor'
 import { RegionViewer } from './RegionViewer'
 import { Track } from './Track'
 import { mockElementRects, setupTestRoot } from './testUtils'
 
-const flushPromises = () => new Promise(resolve => setTimeout(resolve, 0))
-
 describe('Cursor', () => {
+  const testRoot = setupTestRoot()
+
   const renderCursor = (x: number) => (
     <rect
       x={x - 20}
@@ -30,23 +29,18 @@ describe('Cursor', () => {
     { start: 321, stop: 381 }
   ]
 
-  test('has no unexpected changes', async () => {
-    const container = document.createElement('div')
-    const root = createRoot(container)
-    root.render(
+  test('has no unexpected changes', () => {
+    testRoot.mount(
       <RegionViewer leftPanelWidth={130} rightPanelWidth={320} width={800} regions={regions}>
         <Cursor onClick={() => {}} renderCursor={renderCursor}>
           <div>some cursor child content goes here</div>
         </Cursor>
       </RegionViewer>
     )
-    await flushPromises()
-    expect(container).toMatchSnapshot()
+    expect(testRoot.host()).toMatchSnapshot()
   })
 
   describe('interaction', () => {
-    const testRoot = setupTestRoot()
-
     // The whole 360px viewer: left panel 0-100, plot 100-200 (bases 1-5 then 10-14), right panel 200-360.
     const move = (target: Element, clientX: number) => fireEvent.mouseMove(target, { clientX })
     const enter = (target: Element, clientX: number) => fireEvent.mouseOver(target, { clientX })
