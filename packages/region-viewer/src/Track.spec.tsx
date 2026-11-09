@@ -1,14 +1,16 @@
 import React from 'react'
 import { expect, test, describe } from '@jest/globals'
-import { createRoot } from 'react-dom/client'
 import 'jest-styled-components'
 
 import { RegionViewer } from './RegionViewer'
 import { CenterPanelProps, SidePanelProps, Track } from './Track'
-
-const flushPromises = () => new Promise(resolve => setTimeout(resolve, 0))
+import { setupTestRoot } from './testUtils'
 
 describe('Track', () => {
+  const testRoot = setupTestRoot()
+  const { mount } = testRoot
+  const host = () => testRoot.host()
+
   const TopPanelContent = ({ width, topLabel }: { width: number; topLabel: string }) => (
     <div style={{ width }}>Top panel says "{topLabel}"</div>
   )
@@ -40,10 +42,8 @@ describe('Track', () => {
     </div>
   )
 
-  test('has no unexpected changes', async () => {
-    const container = document.createElement('div')
-    const root = createRoot(container)
-    root.render(
+  test('has no unexpected changes', () => {
+    mount(
       <RegionViewer
         leftPanelWidth={200}
         rightPanelWidth={110}
@@ -63,14 +63,11 @@ describe('Track', () => {
         </Track>
       </RegionViewer>
     )
-    await flushPromises()
-    expect(container).toMatchSnapshot()
+    expect(host()).toMatchSnapshot()
   })
 
-  test('can omit any side panel', async () => {
-    const container = document.createElement('div')
-    const root = createRoot(container)
-    root.render(
+  test('can omit any side panel', () => {
+    mount(
       <RegionViewer
         leftPanelWidth={200}
         rightPanelWidth={110}
@@ -90,10 +87,9 @@ describe('Track', () => {
         </Track>
       </RegionViewer>
     )
-    await flushPromises()
-    expect(container).toMatchSnapshot()
+    expect(host()).toMatchSnapshot()
 
-    root.render(
+    mount(
       <RegionViewer
         leftPanelWidth={200}
         rightPanelWidth={110}
@@ -113,10 +109,9 @@ describe('Track', () => {
         </Track>
       </RegionViewer>
     )
-    await flushPromises()
-    expect(container).toMatchSnapshot()
+    expect(host()).toMatchSnapshot()
 
-    root.render(
+    mount(
       <RegionViewer
         leftPanelWidth={200}
         rightPanelWidth={110}
@@ -136,7 +131,6 @@ describe('Track', () => {
         </Track>
       </RegionViewer>
     )
-    await flushPromises()
-    expect(container).toMatchSnapshot()
+    expect(host()).toMatchSnapshot()
   })
 })

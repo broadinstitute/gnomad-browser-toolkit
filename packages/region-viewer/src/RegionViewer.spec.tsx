@@ -1,11 +1,9 @@
-import React, { useContext } from 'react'
-import { expect, test, describe } from '@jest/globals'
-import { createRoot } from 'react-dom/client'
+import React, { memo, useContext } from 'react'
+import { expect, test, describe, jest } from '@jest/globals'
 import 'jest-styled-components'
 
-import { RegionViewer, RegionViewerContext } from './RegionViewer'
-
-const flushPromises = () => new Promise(resolve => setTimeout(resolve, 0))
+import { RegionViewer, RegionViewerContext, RegionViewerContextValue } from './RegionViewer'
+import { setupTestRoot } from './testUtils'
 
 const makeFieldConsumer = (fieldName: string) => {
   return () => {
@@ -14,22 +12,87 @@ const makeFieldConsumer = (fieldName: string) => {
   }
 }
 
-describe('Track', () => {
-  test('makes centerPanelWidth available via context, calculating it by overall width minus panel widths', async () => {
-    const Consumer = makeFieldConsumer('centerPanelWidth')
-    const container = document.createElement('div')
-    const root = createRoot(container)
+describe('RegionViewer', () => {
+  const testRoot = setupTestRoot()
+  const { mount } = testRoot
+  const host = () => testRoot.host()
 
-    root.render(
+  test('keeps layout consumers stable while preserving data, width, and region updates', () => {
+    const observeLayout = jest.fn<(layout: RegionViewerContextValue) => void>()
+    const regions = [{ start: 1, stop: 10 }]
+    const Consumer = memo(({ position }: { position: number }) => {
+      const layout = useContext(RegionViewerContext)
+      observeLayout(layout)
+      return <output>{layout.scalePosition(position)}</output>
+    })
+    const render = (width = 360, currentRegions = regions, position = 5) => {
+      mount(
+        <RegionViewer
+          width={width}
+          leftPanelWidth={100}
+          rightPanelWidth={160}
+          regions={currentRegions}
+        >
+          <Consumer position={position} />
+        </RegionViewer>
+      )
+    }
+
+    render()
+    const initialLayout = observeLayout.mock.calls[0][0]
+    expect(host().textContent).toBe('40')
+    render()
+    expect(observeLayout).toHaveBeenCalledTimes(1)
+
+    render(360, regions, 6)
+    expect(host().textContent).toBe('50')
+    expect(observeLayout.mock.calls[1][0]).toBe(initialLayout)
+
+    render(460, regions, 6)
+    expect(host().textContent).toBe('100')
+    expect(observeLayout.mock.calls[2][0]).not.toBe(initialLayout)
+
+    render(460, [{ start: 20, stop: 29 }], 25)
+    expect(host().textContent).toBe('100')
+    expect(observeLayout.mock.calls[3][0].isPositionDefined(25)).toBe(true)
+    expect(observeLayout.mock.calls[3][0].isPositionDefined(6)).toBe(false)
+  })
+
+  test('a new regions array with equal fields keeps the layout context', () => {
+    const observeLayout = jest.fn<(layout: RegionViewerContextValue) => void>()
+    const Consumer = memo(() => {
+      observeLayout(useContext(RegionViewerContext))
+      return null
+    })
+    const render = (regions: { start: number; stop: number; label?: string }[]) => {
+      mount(
+        <RegionViewer width={360} leftPanelWidth={100} rightPanelWidth={160} regions={regions}>
+          <Consumer />
+        </RegionViewer>
+      )
+    }
+
+    render([{ start: 1, stop: 10, label: 'a' }])
+    render([{ start: 1, stop: 10, label: 'a' }])
+    expect(observeLayout).toHaveBeenCalledTimes(1)
+
+    render([{ start: 1, stop: 10, label: 'b' }])
+    expect(observeLayout).toHaveBeenCalledTimes(2)
+    expect(observeLayout.mock.calls[1][0].regions).toEqual([{ start: 1, stop: 10, label: 'b' }])
+  })
+
+  test('makes centerPanelWidth available via context, calculating it by overall width minus panel widths', () => {
+    const Consumer = makeFieldConsumer('centerPanelWidth')
+
+    mount(
       <RegionViewer leftPanelWidth={130} rightPanelWidth={320} width={800} regions={[]}>
         <Consumer />
       </RegionViewer>
     )
-    await flushPromises()
-    expect(container).toMatchSnapshot()
+    expect(host()).toMatchSnapshot()
   })
 
-  test("makes isPositionDefined available via context, which indicates if a given position lies within any of the track's regions", async () => {
+  test("makes isPositionDefined available via context, which indicates if a given position lies within any of the track's regions", () => {
     const regions = [
       { start: 91, stop: 109 },
       { start: 191, stop: 209 }
@@ -48,37 +111,27 @@ describe('Track', () => {
         </>
       )
     }
-
-    const container = document.createElement('div')
-    const root = createRoot(container)
-    root.render(
+    mount(
       <RegionViewer leftPanelWidth={130} rightPanelWidth={320} width={800} regions={regions}>
         <Consumer />
       </RegionViewer>
     )
-    await flushPromises()
-    expect(container).toMatchSnapshot()
+    expect(host()).toMatchSnapshot()
   })
 
-  test('makes leftPanelWidth available via context', async () => {
+  test('makes leftPanelWidth available via context', () => {
     const Consumer = makeFieldConsumer('leftPanelWidth')
-    const container = document.createElement('div')
-    const root = createRoot(container)
-    root.render(
+    mount(
       <RegionViewer leftPanelWidth={130} rightPanelWidth={320} width={800} regions={[]}>
         <Consumer />
       </RegionViewer>
     )
-    await flushPromises()
-    expect(container).toMatchSnapshot()
+    expect(host()).toMatchSnapshot()
   })
 
-  test('makes regions available via context', async () => {
+  test('makes regions available via context', () => {
     const Consumer = makeFieldConsumer('regions')
-
-    const container = document.createElement('div')
-    const root = createRoot(container)
-    root.render(
+    mount(
       <RegionViewer
         leftPanelWidth={130}
         rightPanelWidth={320}
@@ -91,24 +144,21 @@ describe('Track', () => {
         <Consumer />
       </RegionViewer>
     )
-    expect(container).toMatchSnapshot()
+    expect(host()).toMatchSnapshot()
   })
 
-  test('makes rightPanelWidth available via context', async () => {
+  test('makes rightPanelWidth available via context', () => {
     const Consumer = makeFieldConsumer('rightPanelWidth')
-    const container = document.createElement('div')
-    const root = createRoot(container)
 
-    root.render(
+    mount(
       <RegionViewer leftPanelWidth={130} rightPanelWidth={320} width={800} regions={[]}>
         <Consumer />
       </RegionViewer>
     )
-    await flushPromises()
-    expect(container).toMatchSnapshot()
+    expect(host()).toMatchSnapshot()
   })
 
-  test('makes scalePosition available via context', async () => {
+  test('makes scalePosition available via context', () => {
     const regions = [
       { start: 91, stop: 109 },
       { start: 191, stop: 209 },
@@ -130,15 +180,11 @@ describe('Track', () => {
         </>
       )
     }
-
-    const container = document.createElement('div')
-    const root = createRoot(container)
-    root.render(
+    mount(
       <RegionViewer leftPanelWidth={130} rightPanelWidth={320} width={800} regions={regions}>
         <Consumer />
       </RegionViewer>
     )
-    await flushPromises()
-    expect(container).toMatchSnapshot()
+    expect(host()).toMatchSnapshot()
   })
 })
