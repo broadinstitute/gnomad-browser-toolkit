@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useMemo, useRef } from 'react'
 import styled from 'styled-components'
 
 import { mergeOverlappingRegions, regionViewerScale, Region, ScalePosition } from './coordinates'
@@ -28,9 +28,35 @@ export const RegionViewerContext = React.createContext<RegionViewerContextValue>
 type Props = {
   children?: React.ReactNode
   leftPanelWidth: number
+  /**
+   * Compared field by field, so a new array with equal regions keeps tracks from re-rendering. Treat regions as
+   * immutable: changing a region in place does not update the layout.
+   */
   regions: Region[]
   rightPanelWidth: number
   width: number
+}
+
+const haveEqualFields = (a: Region, b: Region) => {
+  const keys = Object.keys(a) as (keyof Region)[]
+  return keys.length === Object.keys(b).length && keys.every(key => Object.is(a[key], b[key]))
+}
+
+// Writing the ref during render is safe here: the value derives only from props, so a discarded render can store
+// at most an array equal to the one it replaces.
+const useStableRegions = (regions: Region[]) => {
+  const stableRegions = useRef(regions)
+  const previous = stableRegions.current
+  if (
+    previous !== regions &&
+    !(
+      previous.length === regions.length &&
+      previous.every((region, i) => haveEqualFields(region, regions[i]))
+    )
+  ) {
+    stableRegions.current = regions
+  }
+  return stableRegions.current
 }
 
 const RegionViewerWrapper = styled.div`
@@ -41,26 +67,38 @@ const RegionViewerWrapper = styled.div`
 export const RegionViewer = ({
   children,
   leftPanelWidth = 100,
-  regions,
+  regions: regionsProp,
   rightPanelWidth = 160,
   width
 }: Props) => {
-  const mergedRegions = mergeOverlappingRegions([...regions].sort((r1, r2) => r1.start - r2.start))
+  const regions = useStableRegions(regionsProp)
+  const mergedRegions = useMemo(
+    () => mergeOverlappingRegions([...regions].sort((r1, r2) => r1.start - r2.start)),
+    [regions]
+  )
 
-  const isPositionDefined = (pos: number) =>
-    mergedRegions.some(region => region.start <= pos && pos <= region.stop)
+  const isPositionDefined = useCallback(
+    (pos: number) => mergedRegions.some(region => region.start <= pos && pos <= region.stop),
+    [mergedRegions]
+  )
 
   const centerPanelWidth = width - (leftPanelWidth + rightPanelWidth)
-  const scalePosition = regionViewerScale(mergedRegions, [0, centerPanelWidth])
+  const scalePosition = useMemo(() => regionViewerScale(mergedRegions, [0, centerPanelWidth]), [
+    mergedRegions,
+    centerPanelWidth
+  ])
 
-  const childProps = {
-    centerPanelWidth,
-    isPositionDefined,
-    leftPanelWidth,
-    regions,
-    rightPanelWidth,
-    scalePosition
-  }
+  const childProps = useMemo(
+    () => ({
+      centerPanelWidth,
+      isPositionDefined,
+      leftPanelWidth,
+      regions,
+      rightPanelWidth,
+      scalePosition
+    }),
+    [centerPanelWidth, isPositionDefined, leftPanelWidth, regions, rightPanelWidth, scalePosition]
+  )
 
   return (
     <RegionViewerWrapper style={{ width }}>
